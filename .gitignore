@@ -1,9 +1,6 @@
 ### Java template
 *.class
 
-## Directory-based project format:
-.idea/
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -13,7 +10,9 @@ build/
 
 # IntelliJ
 /out/
-*.iml
+workspace.xml
+tasks.xml
+
 
 # Package Files #
 *.jar
