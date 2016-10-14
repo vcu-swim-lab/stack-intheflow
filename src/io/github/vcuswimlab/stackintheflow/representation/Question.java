@@ -1,4 +1,4 @@
-package stackoverflow;
+package io.github.vcuswimlab.stackintheflow.representation;
 
 import org.jetbrains.annotations.NotNull;
 

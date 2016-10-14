@@ -1,4 +1,4 @@
-package io.github.vcuswimlab.stackintheflow;
+package io.github.vcuswimlab.stackintheflow.view;
 
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
