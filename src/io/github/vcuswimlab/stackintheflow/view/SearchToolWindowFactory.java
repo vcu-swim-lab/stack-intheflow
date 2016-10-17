@@ -1,5 +1,9 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+import com.intellij.ide.browsers.BrowserLauncher;
+import com.intellij.ide.browsers.WebBrowser;
+import com.intellij.ide.browsers.WebBrowserManager;
+import com.intellij.ide.browsers.WebBrowserService;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
@@ -44,5 +48,11 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     //Stub method to be fleshed out
     private void executeQuery(String query) {
         Messages.showMessageDialog("Query: " + query, "Query", null);
+        openBrowser(query);
+    }
+
+    //Stub method to be fleshed out
+    private void openBrowser(String url) {
+        BrowserLauncher.getInstance().browse(url, WebBrowserManager.getInstance().getFirstActiveBrowser());
     }
 }
