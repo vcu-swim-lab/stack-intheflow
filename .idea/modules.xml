@@ -3,9 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/StackInTheFlow.iml" filepath="$PROJECT_DIR$/StackInTheFlow.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/stack-intheflow.iml" filepath="$PROJECT_DIR$/.idea/modules/stack-intheflow.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/stack-intheflow_main.iml" filepath="$PROJECT_DIR$/.idea/modules/stack-intheflow_main.iml" group="stack-intheflow" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/stack-intheflow_test.iml" filepath="$PROJECT_DIR$/.idea/modules/stack-intheflow_test.iml" group="stack-intheflow" />
     </modules>
   </component>
 </project>
