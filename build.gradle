@@ -1,0 +1,19 @@
+plugins {
+    id 'java'
+}
+
+group 'io.github.vcuswimlab'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = 'jersey-client'
+        url = 'https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client'
+
+    }
+}
+
+dependencies {
+    compile group: 'org.glassfish.jersey.core'
+
+}
