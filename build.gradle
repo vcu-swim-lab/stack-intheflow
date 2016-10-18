@@ -9,11 +9,9 @@ repositories {
     maven {
         name = 'jersey-client'
         url = 'https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client'
-
     }
 }
 
 dependencies {
-    compile group: 'org.glassfish.jersey.core'
-
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.23.2'
 }
