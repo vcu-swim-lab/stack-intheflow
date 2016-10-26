@@ -1,5 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.representation;
 
+import io.github.vcuswimlab.stackintheflow.model.Query;
 import org.jetbrains.annotations.NotNull;
 
 import java.net.URL;
