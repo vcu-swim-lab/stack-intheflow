@@ -24,7 +24,15 @@
             <preferred-size width="150" height="50"/>
           </grid>
         </constraints>
-        <properties/>
+        <properties>
+          <model>
+            <item value="Item1"/>
+            <item value="Item2"/>
+            <item value="Item3"/>
+            <item value="Item4"/>
+            <item value="Item5"/>
+          </model>
+        </properties>
       </component>
       <component id="106fb" class="javax.swing.JButton" binding="searchButton">
         <constraints>
