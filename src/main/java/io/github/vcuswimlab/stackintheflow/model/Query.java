@@ -71,7 +71,7 @@ public class Query {
         return components.get(component.toString());
     }
 
-    public String get(String compoment) {
-        return components.get(compoment);
+    public String get(String component) {
+        return components.get(component);
     }
 }
