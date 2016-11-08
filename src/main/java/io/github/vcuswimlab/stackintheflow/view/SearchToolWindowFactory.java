@@ -10,12 +10,15 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 import io.github.vcuswimlab.stackintheflow.representation.Question;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.lang.reflect.Field;
@@ -32,12 +35,14 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private ToolWindow toolWindow;
 
     public SearchToolWindowFactory() {
+
+
         searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
         searchBox.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     searchButton.doClick();
                 }
             }
@@ -64,12 +69,27 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private void executeQuery(String query) {
         Messages.showMessageDialog("Query: " + query, "Query", null);
 
-        try {
-            setQuestion(0,new Question("Relevant Stack Overflow Question!", "I am asking a question that seems to be " +
-                    "related to what you're coding.", new URL("http://www.stackoverflow.com"), new ArrayList<>()));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        updateList(new String[]{"element1", "Something else", "The method works!!"});
+
+//        try {
+//            setQuestion(0, new Question("Relevant Stack Overflow Question!", "I am asking a question that seems to be " +
+//                    "related to what you're coding.", new URL("http://www.stackoverflow.com"), new ArrayList<>()));
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    //TODO: Still a prototype method!
+    private void updateList(String[] elements) {
+        content.remove(list1);
+        list1 = new JList();
+        final DefaultListModel defaultListModel1 = new DefaultListModel();
+        for (int i = 0; i < elements.length; i++) {
+            defaultListModel1.addElement(elements[i]);
         }
+        list1.setModel(defaultListModel1);
+        content.add(list1, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
+
     }
 
     //TODO: This method should be unit tested either directly or indirectly once testing is set up.
@@ -82,12 +102,13 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         // can maintain a second list containing the questions.
     }
 
+    // TODO: Prototype of updateList exists, this just needs to be fixed to use it.
     private void setElement(int index, String newValue) {
         //TODO: They certainly didn't intend for the JList to be edited with reflection. The correct solution is to
         // get IntelliJ to create the JList with a mutable ListModel. I haven't been able to find where to do that,
         // but if we figure it out, it would probably lead to much cleaner code for the entire question/list
         // interaction code.
-        String str = ((String)list1.getModel().getElementAt(index));
+        String str = ((String) list1.getModel().getElementAt(index));
         final Class<String> type = String.class;
         try {
             final Field valueField = type.getDeclaredField("value");
@@ -102,4 +123,5 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private void openBrowser(String url) {
         BrowserLauncher.getInstance().browse(url, WebBrowserManager.getInstance().getFirstActiveBrowser());
     }
+
 }
