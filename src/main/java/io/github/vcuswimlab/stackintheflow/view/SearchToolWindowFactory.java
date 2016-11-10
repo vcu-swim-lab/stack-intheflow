@@ -8,6 +8,8 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
+import io.github.vcuswimlab.stackintheflow.model.Query;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
@@ -28,6 +30,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private JPanel content;
     private JList list1;
     private ToolWindow toolWindow;
+    private JerseyGet jerseyGet;
 
     public SearchToolWindowFactory() {
         searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
@@ -48,6 +51,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 openBrowser("http://www.stackoverflow.com");
             }
         });
+        jerseyGet = new JerseyGet();
     }
 
     @Override
@@ -60,6 +64,8 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
     //Stub method to be fleshed out
     private void executeQuery(String query) {
+        Query q = new Query(query);
+        jerseyGet.executeQuery(q);
         Messages.showMessageDialog("Query: " + query, "Query", null);
 
         try {
