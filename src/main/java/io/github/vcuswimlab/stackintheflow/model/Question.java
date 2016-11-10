@@ -1,4 +1,4 @@
-package io.github.vcuswimlab.stackintheflow.representation;
+package io.github.vcuswimlab.stackintheflow.model;
 
 import io.github.vcuswimlab.stackintheflow.model.Query;
 import org.jetbrains.annotations.NotNull;
