@@ -65,7 +65,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     //Stub method to be fleshed out
     private void executeQuery(String query) {
         Query q = new Query(query);
-        jerseyGet.executeQuery(q);
+        jerseyGet.executeQuery(q, JerseyGet.SearchType.ADVANCED);
         Messages.showMessageDialog("Query: " + query, "Query", null);
 
         try {

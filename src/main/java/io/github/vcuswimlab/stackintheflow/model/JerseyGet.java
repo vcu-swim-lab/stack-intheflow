@@ -1,5 +1,9 @@
 package io.github.vcuswimlab.stackintheflow.model;
 
+import org.glassfish.jersey.client.ClientProperties;
+import org.glassfish.jersey.client.filter.EncodingFilter;
+import org.glassfish.jersey.message.GZipEncoder;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
@@ -18,7 +22,10 @@ public class JerseyGet {
     private WebTarget webTarget;
 
     public JerseyGet() {
-        client = ClientBuilder.newClient();
+        client = ClientBuilder.newClient()
+        .register(EncodingFilter.class)
+        .register(GZipEncoder.class)
+        .property(ClientProperties.USE_ENCODING, "gzip");
         webTarget = client.target("https://api.stackexchange.com/2.2/search");
     }
 
@@ -40,10 +47,15 @@ public class JerseyGet {
     }
 
     public List<Question> executeQuery(Query query, SearchType type) {
-        WebTarget target = webTarget.path(type.toString()).queryParam("q", query.get(Query.Component.Q));
-        Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE);
+        WebTarget target = webTarget.path(type.toString())
+                .queryParam("q", query.get(Query.Component.Q))
+                .queryParam("site", "stackoverflow");
+        Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE).acceptEncoding("gzip");
 
         Response response = builder.get();
+
+        System.out.println(response.getStatus());
+        System.out.println(response.getStatusInfo());
         System.out.println(response.readEntity(String.class));
         return null;
     }
