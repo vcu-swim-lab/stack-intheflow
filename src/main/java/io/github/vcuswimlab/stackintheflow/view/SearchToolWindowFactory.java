@@ -22,6 +22,7 @@ import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
 
@@ -64,9 +65,10 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
     //Stub method to be fleshed out
     private void executeQuery(String query) {
-        Query q = new Query(query);
-        jerseyGet.executeQuery(q, JerseyGet.SearchType.ADVANCED);
-        Messages.showMessageDialog("Query: " + query, "Query", null);
+        Query q = new Query(query)
+                .set(Query.Component.SITE, "stackoverflow");
+
+        List<Question> questionList = jerseyGet.executeQuery(q, JerseyGet.SearchType.ADVANCED);
 
         try {
             setQuestion(0,new Question("Relevant Stack Overflow Question!", "I am asking a question that seems to be " +

@@ -1,7 +1,9 @@
 package io.github.vcuswimlab.stackintheflow.model;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * Created by Jeet on 10/18/2016.
@@ -34,7 +36,9 @@ public class Query {
         CLOSED("closed"),
         MIGRATED("migrated"),
         NOTICE("notice"),
-        WIKI("wiki");
+        WIKI("wiki"),
+
+        SITE("site");
 
         private final String label;
 
@@ -46,6 +50,10 @@ public class Query {
         public String toString() {
             return label;
         }
+    }
+
+    public Query() {
+        components = new HashMap<>();
     }
 
     public Query(String q) {
@@ -71,7 +79,11 @@ public class Query {
         return components.get(component.toString());
     }
 
-    public String get(String component) {
-        return components.get(component);
+    public Set<String> getCompoents() {
+        return components.keySet();
+    }
+
+    public Map<String, String> getCompentMap() {
+        return Collections.unmodifiableMap(components);
     }
 }

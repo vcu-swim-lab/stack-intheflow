@@ -11,6 +11,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -18,6 +19,8 @@ import java.util.List;
  */
 public class JerseyGet {
 
+    private static final String SEARCH_URL = "https://api.stackexchange.com/2.2/search";
+    private static final String ENCODING_TYPE = "gzip";
     private Client client;
     private WebTarget webTarget;
 
@@ -25,31 +28,20 @@ public class JerseyGet {
         client = ClientBuilder.newClient()
         .register(EncodingFilter.class)
         .register(GZipEncoder.class)
-        .property(ClientProperties.USE_ENCODING, "gzip");
-        webTarget = client.target("https://api.stackexchange.com/2.2/search");
+        .property(ClientProperties.USE_ENCODING, ENCODING_TYPE);
+        webTarget = client.target(SEARCH_URL);
     }
-
-    /*public static void main(String[] args) {
-        try{
-            Client client = ClientBuilder.newClient();
-            Response response = client.target("http://cs.stackexchange.com/questions/65655/is-every-np-hard-problem-computable").request("application/json").get();
-            String message = response.readEntity(String.class);
-
-            System.out.println(String.format("message is %s", message));
-        }
-        catch (IndexOutOfBoundsException e) {
-            return;
-        }
-    }*/
 
     public List<Question> executeQuery(Query query) {
         return executeQuery(query, SearchType.NORMAL);
     }
 
     public List<Question> executeQuery(Query query, SearchType type) {
-        WebTarget target = webTarget.path(type.toString())
-                .queryParam("q", query.get(Query.Component.Q))
-                .queryParam("site", "stackoverflow");
+        WebTarget target = webTarget.path(type.toString());
+        for(Map.Entry<String, String> entry : query.getCompentMap().entrySet()) {
+            target = target.queryParam(entry.getKey(), entry.getValue());
+        }
+
         Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE).acceptEncoding("gzip");
 
         Response response = builder.get();
