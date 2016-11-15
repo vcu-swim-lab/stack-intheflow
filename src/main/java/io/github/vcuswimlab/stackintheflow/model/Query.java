@@ -79,11 +79,11 @@ public class Query {
         return components.get(component.toString());
     }
 
-    public Set<String> getCompoents() {
+    public Set<String> getComponents() {
         return components.keySet();
     }
 
-    public Map<String, String> getCompentMap() {
+    public Map<String, String> getComponentMap() {
         return Collections.unmodifiableMap(components);
     }
 }
