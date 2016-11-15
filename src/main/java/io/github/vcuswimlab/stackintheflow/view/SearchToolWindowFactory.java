@@ -12,13 +12,15 @@ import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Query;
 import io.github.vcuswimlab.stackintheflow.model.Question;
+import com.intellij.uiDesigner.core.GridConstraints;
+import com.intellij.uiDesigner.core.GridLayoutManager;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.*;
+import java.awt.event.*;
 import java.lang.reflect.Field;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -33,6 +35,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private JList list1;
     private ToolWindow toolWindow;
     private JerseyGet jerseyGet;
+    private Question[] currentQuestions;
 
     public SearchToolWindowFactory() {
         searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
@@ -40,17 +43,9 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-                if(e.getKeyCode() == KeyEvent.VK_ENTER) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
                     searchButton.doClick();
                 }
-            }
-        });
-        list1.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent listSelectionEvent) {
-                //TODO: Technically, this isn't the correct place to open the browser. It works for testing purposes,
-                // but it should be fixed before release.
-                openBrowser("http://www.stackoverflow.com");
             }
         });
         jerseyGet = new JerseyGet();
@@ -69,40 +64,61 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         Query q = new Query(query)
                 .set(Query.Component.SITE, "stackoverflow");
 
-        JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.EXCERPTS);
-
-        List<Question> questionList = jerseyResponse.getItems();
-
-        //Test code to populate fixed size list
-        for(int i = 0; i < 5; i++) {
-            setQuestion(i, questionList.get(i));
+//        JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.EXCERPTS);
+//
+//        List<Question> questionList = jerseyResponse.getItems();
+//
+//        //Test code to populate fixed size list
+//        for(int i = 0; i < 5; i++) {
+//            setQuestion(i, questionList.get(i));
+//        }
+        Question[] questions = null;
+        try {
+            questions = new Question[] {
+                new Question("Is every NP Hard problem computable?", "I am asking a question that seems to be " +
+                        "related to what you're coding.", new URL("http://cs.stackexchange" +
+                        ".com/questions/65655/is-every-np-hard-problem-computable"), new ArrayList<>()),
+                new Question("Relevant Stack Overflow Question!", "I am asking a question that seems to be " +
+                        "related to what you're coding.", new URL("http://www.stackoverflow.com"), new
+                        ArrayList<>())
+            };
+        } catch(MalformedURLException e) {
+            e.printStackTrace();
         }
+        updateList(questions);
     }
 
     //TODO: This method should be unit tested either directly or indirectly once testing is set up.
-    private void setQuestion(int index, Question question) {
-        setElement(index, question.getTitle());
-        //TODO: The final version probably won't just display the question name. How the question is displayed and
-        // what information is part of that display should be subject to careful design consideration.
-        //TODO: Need a way to store question URL so it activates when clicked. I think correctly implementing
-        // setElement first would make this significantly simpler. However, if that's not possible for some reason, we
-        // can maintain a second list containing the questions.
+    private void updateList(Question[] elements) {
+        if(elements == null) {
+            return;
+        }
+        currentQuestions = new Question[elements.length];
+        content.remove(list1);
+        list1 = new JList();
+        final DefaultListModel defaultListModel1 = new DefaultListModel();
+        for (int i = 0; i < elements.length; i++) {
+            defaultListModel1.addElement(questionDisplayName(elements[i]));
+            currentQuestions[i] = elements[i];
+        }
+        list1.setModel(defaultListModel1);
+        list1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                JList list = (JList)evt.getSource();
+                if (evt.getClickCount() == 2) {
+                    // Double-click detected
+                    int index = list.locationToIndex(evt.getPoint());
+                    openBrowser(currentQuestions[index].getLink().toString());
+                }
+            }
+        });
+        content.add(list1, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
     }
 
-    private void setElement(int index, String newValue) {
-        //TODO: They certainly didn't intend for the JList to be edited with reflection. The correct solution is to
-        // get IntelliJ to create the JList with a mutable ListModel. I haven't been able to find where to do that,
-        // but if we figure it out, it would probably lead to much cleaner code for the entire question/list
-        // interaction code.
-        String str = ((String)list1.getModel().getElementAt(index));
-        final Class<String> type = String.class;
-        try {
-            final Field valueField = type.getDeclaredField("value");
-            valueField.setAccessible(true);
-            valueField.set(str, newValue.toCharArray());
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    private String questionDisplayName(Question question) {
+        // TODO: Later, we can set this up to do a fancier question display.
+        return question.getName();
     }
 
     //Stub method to be fleshed out
