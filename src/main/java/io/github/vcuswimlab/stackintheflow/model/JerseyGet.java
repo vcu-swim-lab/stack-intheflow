@@ -9,8 +9,6 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import java.util.List;
 import java.util.Map;
 
 
@@ -38,7 +36,7 @@ public class JerseyGet {
 
     public JerseyResponse executeQuery(Query query, SearchType type) {
         WebTarget target = webTarget.path(type.toString());
-        for(Map.Entry<String, String> entry : query.getCompentMap().entrySet()) {
+        for(Map.Entry<String, String> entry : query.getComponentMap().entrySet()) {
             target = target.queryParam(entry.getKey(), entry.getValue());
         }
 
