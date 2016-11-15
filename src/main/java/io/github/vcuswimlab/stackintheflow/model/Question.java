@@ -1,41 +1,79 @@
 package io.github.vcuswimlab.stackintheflow.model;
 
-import io.github.vcuswimlab.stackintheflow.model.Query;
-import org.jetbrains.annotations.NotNull;
-
-import java.net.URL;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 /**
  * Created by batman on 10/11/16.
  */
+@XmlRootElement
 public class Question {
-    //TODO: Add more appropriate fields as necessary
-    private String name;
-    private String body;
-    private URL link;
-    private List<String> tags;
 
-    public Question(@NotNull String name, @NotNull String body, @NotNull URL link, @NotNull List<String> tags) {
-        this.name = name;
-        this.body = body;
-        this.link = link;
-        this.tags = tags;
+    private List<String> tags;
+    private String body;
+    private String excerpt;
+    private String title;
+    private String link;
+
+    public Question() {
     }
 
-    public String getName() {
-        return name;
+    public Question(List<String> tags, String body, String excerpt, String title, String link) {
+        this.tags = tags;
+        this.body = body;
+        this.excerpt = excerpt;
+        this.title = title;
+        this.link = link;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
     }
 
     public String getBody() {
         return body;
     }
 
-    public URL getLink() {
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getExcerpt() {
+        return excerpt;
+    }
+
+    public void setExcerpt(String excerpt) {
+        this.excerpt = excerpt;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getLink() {
         return link;
     }
 
-    public List<String> getTags() {
-        return tags;
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "tags=" + tags +
+                ", body='" + body + '\'' +
+                ", excerpt='" + excerpt + '\'' +
+                ", title='" + title + '\'' +
+                ", link=" + link +
+                '}';
     }
 }

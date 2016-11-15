@@ -32,24 +32,19 @@ public class JerseyGet {
         webTarget = client.target(SEARCH_URL);
     }
 
-    public List<Question> executeQuery(Query query) {
+    public JerseyResponse executeQuery(Query query) {
         return executeQuery(query, SearchType.NORMAL);
     }
 
-    public List<Question> executeQuery(Query query, SearchType type) {
+    public JerseyResponse executeQuery(Query query, SearchType type) {
         WebTarget target = webTarget.path(type.toString());
         for(Map.Entry<String, String> entry : query.getCompentMap().entrySet()) {
             target = target.queryParam(entry.getKey(), entry.getValue());
         }
 
-        Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE).acceptEncoding("gzip");
+        Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE).acceptEncoding(ENCODING_TYPE);
 
-        Response response = builder.get();
-
-        System.out.println(response.getStatus());
-        System.out.println(response.getStatusInfo());
-        System.out.println(response.readEntity(String.class));
-        return null;
+        return builder.get().readEntity(JerseyResponse.class);
     }
 
     public enum SearchType {

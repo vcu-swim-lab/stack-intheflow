@@ -10,8 +10,13 @@ repositories {
         name = 'jersey-client'
         url = 'https://mvnrepository.com/artifact/org.glassfish.jersey.core/jersey-client'
     }
+    maven {
+        name = 'jersey-media-moxy'
+        url = 'https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-moxy'
+    }
 }
 
 dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.23.2'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2'
 }

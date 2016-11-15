@@ -9,6 +9,7 @@ import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
+import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Query;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
@@ -68,19 +69,19 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         Query q = new Query(query)
                 .set(Query.Component.SITE, "stackoverflow");
 
-        List<Question> questionList = jerseyGet.executeQuery(q, JerseyGet.SearchType.ADVANCED);
+        JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.EXCERPTS);
 
-        try {
-            setQuestion(0,new Question("Relevant Stack Overflow Question!", "I am asking a question that seems to be " +
-                    "related to what you're coding.", new URL("http://www.stackoverflow.com"), new ArrayList<>()));
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
+        List<Question> questionList = jerseyResponse.getItems();
+
+        //Test code to populate fixed size list
+        for(int i = 0; i < 5; i++) {
+            setQuestion(i, questionList.get(i));
         }
     }
 
     //TODO: This method should be unit tested either directly or indirectly once testing is set up.
     private void setQuestion(int index, Question question) {
-        setElement(index, question.getName());
+        setElement(index, question.getTitle());
         //TODO: The final version probably won't just display the question name. How the question is displayed and
         // what information is part of that display should be subject to careful design consideration.
         //TODO: Need a way to store question URL so it activates when clicked. I think correctly implementing
