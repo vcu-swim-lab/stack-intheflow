@@ -5,6 +5,7 @@ import com.intellij.ide.browsers.WebBrowserManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
+import com.intellij.ui.components.JBList;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import com.intellij.uiDesigner.core.GridConstraints;
@@ -31,10 +32,10 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private JButton searchButton;
     private JTextField searchBox;
     private JPanel content;
-    private JList list1;
+    private JList<String> list1;
     private ToolWindow toolWindow;
     private JerseyGet jerseyGet;
-    private Question[] currentQuestions;
+    private final String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";
 
     public SearchToolWindowFactory() {
         searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
@@ -61,9 +62,10 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     //Stub method to be fleshed out
     private void executeQuery(String query) {
         Query q = new Query("stackoverflow")
-                .set(Query.Component.Q, query);
+                .set(Query.Component.Q, query)
+                .set(Query.Component.FILTER, filter);
 
-        JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.EXCERPTS);
+        JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.ADVANCED);
 
         List<Question> questionList = jerseyResponse.getItems();
         updateList(questionList);
@@ -85,28 +87,21 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         if(elements == null) {
             return;
         }
-        currentQuestions = new Question[elements.size()];
+
         content.remove(list1);
-        list1 = new JList();
-        final DefaultListModel defaultListModel1 = new DefaultListModel();
-        //TODO: This should be done with an iterator.
-        Iterator<Question> it = elements.iterator();
-        int index = 0;
-        while(it.hasNext()) {
-            Question current = it.next();
-            defaultListModel1.addElement(questionDisplayName(current));
-            currentQuestions[index] = current;
-            index++;
-        }
+        list1 = new JBList();
+
+        final DefaultListModel<String> defaultListModel1 = new DefaultListModel<>();
+        elements.forEach(q -> defaultListModel1.addElement(q.getTitle()));
         list1.setModel(defaultListModel1);
         list1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
-                JList list = (JList)evt.getSource();
+                JList<String> list = (JList<String>)evt.getSource();
                 if (evt.getClickCount() == 2) {
                     // Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
-                    openBrowser(currentQuestions[index].getLink());
+                    openBrowser(elements.get(index).getLink());
                 }
             }
         });

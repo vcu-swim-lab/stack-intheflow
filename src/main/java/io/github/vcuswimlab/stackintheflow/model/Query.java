@@ -38,7 +38,8 @@ public class Query {
         NOTICE("notice"),
         WIKI("wiki"),
 
-        SITE("site");
+        SITE("site"),
+        FILTER("filter");
 
         private final String label;
 
