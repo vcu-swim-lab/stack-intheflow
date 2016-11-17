@@ -56,13 +56,13 @@ public class Query {
         components = new HashMap<>();
     }
 
-    public Query(String q) {
-        this(new HashMap<>(), q);
+    public Query(String site) {
+        this(new HashMap<>(), site);
     }
 
-    public Query(Map<String, String> components, String q) {
+    public Query(Map<String, String> components, String site) {
         this.components = components;
-        set(Component.Q,q);
+        set(Component.SITE, site);
     }
 
     public Query set(Component component, String value) {

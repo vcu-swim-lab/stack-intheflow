@@ -60,8 +60,8 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
     //Stub method to be fleshed out
     private void executeQuery(String query) {
-        Query q = new Query(query)
-                .set(Query.Component.SITE, "stackoverflow");
+        Query q = new Query("stackoverflow")
+                .set(Query.Component.Q, query);
 
         JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.EXCERPTS);
 
