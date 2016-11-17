@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
 
@@ -88,12 +89,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             return;
         }
 
-        content.remove(list1);
-        list1 = new JBList();
-
-        final DefaultListModel<String> defaultListModel1 = new DefaultListModel<>();
-        elements.forEach(q -> defaultListModel1.addElement(q.getTitle()));
-        list1.setModel(defaultListModel1);
+        list1.setListData(elements.stream().map(Question::getTitle).collect(Collectors.toList()).toArray(new String[elements.size()]));
         list1.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
