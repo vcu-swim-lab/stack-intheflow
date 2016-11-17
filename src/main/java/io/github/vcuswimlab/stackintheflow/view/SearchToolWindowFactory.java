@@ -50,6 +50,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             }
         });
         jerseyGet = new JerseyGet();
+        list1.setListData(new String[0]);
     }
 
     @Override
@@ -64,7 +65,8 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private void executeQuery(String query) {
         Query q = new Query("stackoverflow")
                 .set(Query.Component.Q, query)
-                .set(Query.Component.FILTER, filter);
+                .set(Query.Component.FILTER, filter)
+                .set(Query.Component.SORT, "relevance");
 
         JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.ADVANCED);
 
@@ -94,8 +96,8 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 JList<String> list = (JList<String>)evt.getSource();
-                if (evt.getClickCount() == 2) {
-                    // Double-click detected
+                if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+                    // Primary Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
                     openBrowser(elements.get(index).getLink());
                 }
