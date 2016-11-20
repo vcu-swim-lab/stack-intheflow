@@ -33,9 +33,10 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private JButton searchButton;
     private JTextField searchBox;
     private JPanel content;
-    private JList<String> list1;
+    private JList<Question> list1;
     private ToolWindow toolWindow;
     private JerseyGet jerseyGet;
+    private DefaultListModel<Question> questionListModel;
     private final String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";
 
     public SearchToolWindowFactory() {
@@ -50,7 +51,22 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             }
         });
         jerseyGet = new JerseyGet();
-        list1.setListData(new String[0]);
+        // TODO: Add list1 to scrollpane instead. Allows potentially infinite scrolling.
+        list1.setListData(new Question[0]);
+        questionListModel = new DefaultListModel<>();
+        list1.setModel(questionListModel);
+        list1.setCellRenderer(new QuestionRenderer());
+        list1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent evt) {
+                JList<String> list = (JList<String>)evt.getSource();
+                if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
+                    // Primary Double-click detected
+                    int index = list.locationToIndex(evt.getPoint());
+                    openBrowser(questionListModel.get(index).getLink());
+                }
+            }
+        });
     }
 
     @Override
@@ -91,24 +107,15 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             return;
         }
 
-        list1.setListData(elements.stream().map(Question::getTitle).collect(Collectors.toList()).toArray(new String[elements.size()]));
-        list1.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent evt) {
-                JList<String> list = (JList<String>)evt.getSource();
-                if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-                    // Primary Double-click detected
-                    int index = list.locationToIndex(evt.getPoint());
-                    openBrowser(elements.get(index).getLink());
-                }
-            }
-        });
-        content.add(list1, new GridConstraints(2, 0, 1, 2, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_WANT_GROW, null, new Dimension(150, 50), null, 0, false));
-    }
+        questionListModel.clear();
+        for (Question element : elements) {
+            questionListModel.addElement(element);
+        }
 
-    private String questionDisplayName(Question question) {
-        // TODO: Later, we can set this up to do a fancier question display.
-        return question.getTitle();
+        // It's great this can be done in one line; I'm not sure how to modify this for the new question handling
+        // code however.
+        //list1.setListData(elements.stream().map(Question::getTitle).collect(Collectors.toList()).toArray
+        // (new String[elements.size()]));
     }
 
     //Stub method to be fleshed out
