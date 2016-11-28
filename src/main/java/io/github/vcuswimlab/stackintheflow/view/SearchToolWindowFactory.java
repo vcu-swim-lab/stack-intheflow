@@ -5,10 +5,8 @@ import com.intellij.ide.browsers.WebBrowserManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
-import com.intellij.ui.components.JBList;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
-import com.intellij.uiDesigner.core.GridConstraints;
 import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Query;
@@ -16,17 +14,11 @@ import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.MalformedURLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
 
@@ -89,14 +81,21 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         List<Question> questionList = jerseyResponse.getItems();
         updateList(questionList);
 
-        //Test code to populate list. Possibly use some variant of this in unit testing later?
+//        String bodyTest = "This is a really long question body. I'm making this mainly to test how the excerpt will " +
+//                "do with an exceptionally long body, like in real questions. As a consequence, I have a whole lot of " +
+//                "extra space to fill with not a lot to talk about. So... how's everyone doing? It's currently Monday," +
+//                " November 28, at 9:51 AM at the time of writing. Thanksgiving happened, but not much to talk about " +
+//                "for me. We just stayed home and ate a big meal with immediate family, no guests or anything else." +
+//                " I hope you all had a little bit more happen for your Thanksgiving stories. Also, it's actually " +
+//                "below freezing today this morning, at least where I am. How about that? Winter really is coming. " +
+//                "I think I've done enough needless rambling. This test body seems to be more than long enough. I " +
+//                "figure I may as well fill out the last sentence, just in case though.";
+//        //Test code to populate list. Possibly use some variant of this in unit testing later?
 //        Question[] questions = new Question[] {
-//            new Question(new ArrayList<>(), "QuestionBody", "I am asking a question that seems to be related to what " +
-//                    "you're coding.",  "Is every NP Hard problem computable?", "http://cs" +
+//            new Question(new ArrayList<>(), bodyTest, bodyTest,  "Is every NP Hard problem computable?", "http://cs" +
 //                    ".stackexchange" +
 //                    ".com/questions/65655/is-every-np-hard-problem-computable"),
-//            new Question(new ArrayList<>(), "QuestionBody", "I am asking a question that seems to be related to what " +
-//                    "you're coding.",  "Relevant Stack Overflow Question!", "http://www.stackoverflow.com")
+//            new Question(new ArrayList<>(), bodyTest, bodyTest,  "Relevant Stack Overflow Question!", "http://www.stackoverflow.com")
 //        };
 //        updateList(Arrays.asList(questions));
     }
