@@ -37,7 +37,7 @@ public class QuestionRenderer extends JLabel implements ListCellRenderer<Questio
     //TODO: Maybe move this into the question object itself?
     private String generateExcerpt(Question question, int maxLength) {
         //TODO: Probably want a more advanced excerpt generation system later. This works for now, however.
-        String body = question.getBody();
+        String body = question.getBody().replaceAll("<.*?>", "");
         if(body.length() <= maxLength) {
             return body;
         }
