@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * Created by batman on 11/16/16.
  */
-public class QuestionRenderer extends JLabel implements ListCellRenderer<Question> {
+public class QuestionRenderer extends JTextArea implements ListCellRenderer<Question> {
     private static final int EXCERPT_LENGTH = 80;
     public QuestionRenderer() {
         setOpaque(true);
@@ -31,6 +31,8 @@ public class QuestionRenderer extends JLabel implements ListCellRenderer<Questio
                 title);
         setText(generateExcerpt(question, EXCERPT_LENGTH));
         setBorder(focusBorder);
+        setLineWrap(true);
+        setSize(300,300);
         return this;
     }
 
