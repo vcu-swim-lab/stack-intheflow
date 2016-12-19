@@ -1,8 +1,8 @@
 package io.github.vcuswimlab.stackintheflow.view;
+
 import io.github.vcuswimlab.stackintheflow.model.Question;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
@@ -27,12 +27,14 @@ public class QuestionRenderer extends JTextArea implements ListCellRenderer<Ques
             setBackground(list.getBackground());
             setForeground(list.getForeground());
         }
-        TitledBorder focusBorder = new TitledBorder(LineBorder.createGrayLineBorder(),
-                title);
-        setText(generateExcerpt(question, EXCERPT_LENGTH));
-        setBorder(focusBorder);
+        //TODO: JEditorPane supports HTML formatting natively, and can fix the bottom line clipping issue. Investigate!
+        TitledBorder focusBorder = new TitledBorder(BorderFactory.createEmptyBorder(),
+                title,0,0,getFont().deriveFont(getFont().getStyle() | Font.BOLD));
+        setText(generateExcerpt(question, question.getBody().length()));
         setLineWrap(true);
-        setSize(300,300);
+        setWrapStyleWord(true);
+        setRows(3);
+        setBorder(focusBorder);
         return this;
     }
 
