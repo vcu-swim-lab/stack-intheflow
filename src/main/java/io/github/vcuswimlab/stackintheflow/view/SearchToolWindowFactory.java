@@ -98,6 +98,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 //            new Question(new ArrayList<>(), bodyTest, bodyTest,  "Relevant Stack Overflow Question!", "http://www.stackoverflow.com")
 //        };
 //        updateList(Arrays.asList(questions));
+//        updateList(new ArrayList<Question>());
     }
 
     //TODO: This method should be unit tested either directly or indirectly once testing is set up.
@@ -109,6 +110,10 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         questionListModel.clear();
         for (Question element : elements) {
             questionListModel.addElement(element);
+        }
+
+        if(elements.size() == 0) {
+            questionListModel.addElement(new Question(null, "Sorry, your search returned no results :(", "", "", "http://www.stackoverflow.com"));
         }
 
         // It's great this can be done in one line; I'm not sure how to modify this for the new question handling
