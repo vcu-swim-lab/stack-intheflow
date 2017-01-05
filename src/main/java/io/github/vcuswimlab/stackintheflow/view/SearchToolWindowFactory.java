@@ -7,7 +7,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
-import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
+import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Query;
 import io.github.vcuswimlab.stackintheflow.model.Question;
@@ -22,14 +22,13 @@ import java.util.List;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
 
+    private final String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";
     private JButton searchButton;
     private JTextField searchBox;
     private JPanel content;
     private JList<Question> list1;
     private ToolWindow toolWindow;
-    private JerseyGet jerseyGet;
     private DefaultListModel<Question> questionListModel;
-    private final String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";
 
     public SearchToolWindowFactory() {
         searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
@@ -42,7 +41,6 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 }
             }
         });
-        jerseyGet = new JerseyGet();
         // TODO: Add list1 to scrollpane instead. Allows potentially infinite scrolling.
         list1.setListData(new Question[0]);
         questionListModel = new DefaultListModel<>();
@@ -76,7 +74,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 .set(Query.Component.FILTER, filter)
                 .set(Query.Component.SORT, "relevance");
 
-        JerseyResponse jerseyResponse = jerseyGet.executeQuery(q, JerseyGet.SearchType.ADVANCED);
+        JerseyResponse jerseyResponse = QueryExecutor.executeQuery(q);
 
         List<Question> questionList = jerseyResponse.getItems();
         updateList(questionList);
@@ -112,7 +110,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             questionListModel.addElement(element);
         }
 
-        if(elements.size() == 0) {
+        if (elements.isEmpty()) {
             questionListModel.addElement(new Question(null, "Sorry, your search returned no results :(", "", "", "http://www.stackoverflow.com"));
         }
 

@@ -19,15 +19,23 @@ public class JerseyGet {
 
     private static final String SEARCH_URL = "https://api.stackexchange.com/2.2/search";
     private static final String ENCODING_TYPE = "gzip";
+    private static JerseyGet instance = null;
     private Client client;
     private WebTarget webTarget;
 
-    public JerseyGet() {
+    protected JerseyGet() {
         client = ClientBuilder.newClient()
         .register(EncodingFilter.class)
         .register(GZipEncoder.class)
         .property(ClientProperties.USE_ENCODING, ENCODING_TYPE);
         webTarget = client.target(SEARCH_URL);
+    }
+
+    public static JerseyGet getInstance() {
+        if (instance == null) {
+            instance = new JerseyGet();
+        }
+        return instance;
     }
 
     public JerseyResponse executeQuery(Query query) {
