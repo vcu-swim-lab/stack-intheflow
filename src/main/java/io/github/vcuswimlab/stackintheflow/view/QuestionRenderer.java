@@ -3,9 +3,9 @@ package io.github.vcuswimlab.stackintheflow.view;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 
 import javax.swing.*;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
+import javax.swing.text.html.HTML;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 
 /**
@@ -14,7 +14,7 @@ import java.awt.*;
 public class QuestionRenderer extends JTextPane implements ListCellRenderer<Question> {
     // This constant is the magic dimension size that gives exactly 3 lines of wrapping with no issues. In a more
     // general implementaiton, we'd need to somehow calculate this from font size and formatting.
-    private static final int DIMENSION_MAGIC = 75;
+    private static final int DIMENSION_MAGIC = 65;
     public QuestionRenderer() {
         setOpaque(true);
         setEditable(false);
@@ -39,25 +39,17 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         setPreferredSize(dim);
         setSize(dim);
 
-        StyledDocument doc = getStyledDocument();
-        SimpleAttributeSet titleAttributes = new SimpleAttributeSet();
-        StyleConstants.setBold(titleAttributes, true);
+        HTMLEditorKit kit = new HTMLEditorKit();
+        HTMLDocument doc = new HTMLDocument();
+        setEditorKit(kit);
+        setDocument(doc);
 
         try
         {
-            doc.insertString(0, title, titleAttributes);
-            doc.insertString(doc.getLength(), question.getBody(), null);
+            kit.insertHTML(doc, doc.getLength(), "<b>" + title, 0, 0, HTML.Tag.B);
+            kit.insertHTML(doc, doc.getLength(), question.getBody(), 0, 0, null);
         } catch (Exception e) { e.printStackTrace(); }
 
-
-        //TODO: JEditorPane supports HTML formatting natively, and can fix the bottom line clipping issue. Investigate!
-//        TitledBorder focusBorder = new TitledBorder(BorderFactory.createEmptyBorder(),
-//                title,0,0,getFont().deriveFont(getFont().getStyle() | Font.BOLD));
-//        setText(generateExcerpt(question, question.getBody().length()));
-//        setLineWrap(true);
-//        setWrapStyleWord(true);
-//        setRows(3);
-//        setBorder(focusBorder);
         return this;
     }
 
