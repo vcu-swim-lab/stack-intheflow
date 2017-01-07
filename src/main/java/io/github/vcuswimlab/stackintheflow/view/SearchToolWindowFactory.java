@@ -9,7 +9,6 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
-import io.github.vcuswimlab.stackintheflow.model.Query;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,7 +21,6 @@ import java.util.List;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
 
-    private final String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";
     private JButton searchButton;
     private JTextField searchBox;
     private JPanel content;
@@ -69,12 +67,8 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
     //Stub method to be fleshed out
     private void executeQuery(String query) {
-        Query q = new Query("stackoverflow")
-                .set(Query.Component.Q, query)
-                .set(Query.Component.FILTER, filter)
-                .set(Query.Component.SORT, "relevance");
 
-        JerseyResponse jerseyResponse = QueryExecutor.executeQuery(q);
+        JerseyResponse jerseyResponse = QueryExecutor.executeQuery(query);
 
         List<Question> questionList = jerseyResponse.getItems();
         updateList(questionList);

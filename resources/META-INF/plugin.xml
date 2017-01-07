@@ -32,6 +32,10 @@
 
   <actions>
     <!-- Add your actions here -->
+      <action id="StackInTheFlow.AutoQueryAction" class="io.github.vcuswimlab.stackintheflow.controller.AutoQueryAction"
+              text="Auto Query">
+          <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+      </action>
   </actions>
 
 </idea-plugin>

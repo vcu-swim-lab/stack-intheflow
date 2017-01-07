@@ -9,8 +9,17 @@ import io.github.vcuswimlab.stackintheflow.model.Query;
  */
 public class QueryExecutor {
 
+    private final static String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";
+
+    public static JerseyResponse executeQuery(String q) {
+        return executeQuery(new Query("stackoverflow")
+                .set(Query.Component.Q, q)
+                .set(Query.Component.FILTER, filter)
+                .set(Query.Component.SORT, "relevance"));
+    }
+
     public static JerseyResponse executeQuery(Query q) {
-        return JerseyGet.getInstance().executeQuery(q, JerseyGet.SearchType.ADVANCED);
+        return executeQuery(q, JerseyGet.SearchType.ADVANCED);
     }
 
     public static JerseyResponse executeQuery(Query q, JerseyGet.SearchType searchType) {
