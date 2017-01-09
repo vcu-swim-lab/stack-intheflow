@@ -14,6 +14,7 @@ public class Question {
     private String excerpt;
     private String title;
     private String link;
+    private boolean isExpanded;
 
     public Question() {
     }
@@ -24,6 +25,7 @@ public class Question {
         this.excerpt = excerpt;
         this.title = title;
         this.link = link;
+        this.isExpanded = false;
     }
 
     public List<String> getTags() {
@@ -64,6 +66,14 @@ public class Question {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public boolean isExpanded() {
+        return this.isExpanded;
+    }
+
+    public void toggleExpanded() {
+        this.isExpanded = !this.isExpanded;
     }
 
     @Override

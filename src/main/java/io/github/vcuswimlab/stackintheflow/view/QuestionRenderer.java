@@ -15,6 +15,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     // This constant is the magic dimension size that gives exactly 3 lines of wrapping with no issues. In a more
     // general implementaiton, we'd need to somehow calculate this from font size and formatting.
     private static final int DIMENSION_MAGIC = 65;
+    private static final int DIMENSION_MAGIC2 = 124;
     public QuestionRenderer() {
         setOpaque(true);
         setEditable(false);
@@ -33,7 +34,12 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             setForeground(list.getForeground());
         }
         setText("");
-        Dimension dim = new Dimension(DIMENSION_MAGIC,DIMENSION_MAGIC);
+        // TODO: Works for whatever original isExpanded value is, but does not work when updated. Update is
+        // definitely detected, as changing body or the like will immediately update, but for some reason it isn't
+        // performed.
+        Dimension dim = question.isExpanded()
+                ? new Dimension(DIMENSION_MAGIC2,DIMENSION_MAGIC2)
+                : new Dimension(DIMENSION_MAGIC,DIMENSION_MAGIC);
         setMaximumSize(dim);
         setMinimumSize(dim);
         setPreferredSize(dim);

@@ -39,7 +39,6 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 }
             }
         });
-        // TODO: Add list1 to scrollpane instead. Allows potentially infinite scrolling.
         list1.setListData(new Question[0]);
         questionListModel = new DefaultListModel<>();
         list1.setModel(questionListModel);
@@ -48,6 +47,12 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 JList<String> list = (JList<String>)evt.getSource();
+                if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
+                    // Primary Single-click detected.
+                    int index = list.locationToIndex(evt.getPoint());
+                    questionListModel.get(index).toggleExpanded();
+                }
+
                 if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
                     // Primary Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
