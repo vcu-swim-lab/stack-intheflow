@@ -17,6 +17,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
@@ -51,6 +52,11 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                     // Primary Single-click detected.
                     int index = list.locationToIndex(evt.getPoint());
                     questionListModel.get(index).toggleExpanded();
+                    List<Question> questions = new ArrayList<Question>();
+                    for(int i = 0; i < questionListModel.size(); i++) {
+                        questions.add(questionListModel.get(i));
+                    }
+                    updateList(questions);
                 }
 
                 if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
