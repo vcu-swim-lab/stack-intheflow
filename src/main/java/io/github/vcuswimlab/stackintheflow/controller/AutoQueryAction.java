@@ -7,8 +7,10 @@ import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.openapi.wm.ToolWindowManager;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
+import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
 
 /**
  * Created by Chase on 1/7/2017.
@@ -36,10 +38,11 @@ public class AutoQueryAction extends AnAction {
         String autoQuery = AutoQueryGenerator.generateQuery(text);
         JerseyResponse response = QueryExecutor.executeQuery(autoQuery);
 
+        //Populate tool window with autoQuery search results
         ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
+        SearchToolWindowFactory toolWindowFactory = SearchToolWindowFactory.getInstance();
+        toolWindowFactory.updateList(response.getItems());
         toolWindow.activate(() -> {
         });
-
-        //TODO: Populate tool window with search results
     }
 }

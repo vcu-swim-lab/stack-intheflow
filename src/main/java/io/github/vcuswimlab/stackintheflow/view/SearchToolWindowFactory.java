@@ -25,9 +25,13 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private JButton searchButton;
     private JTextField searchBox;
     private JPanel content;
-    private JList<Question> list1;
+    private JList<Question> resultsList;
+    private JScrollPane resultsScrollPane;
+    private JPanel searchJPanel;
     private ToolWindow toolWindow;
     private DefaultListModel<Question> questionListModel;
+
+    private static SearchToolWindowFactory instance;
 
     public SearchToolWindowFactory() {
         searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
@@ -40,11 +44,11 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 }
             }
         });
-        list1.setListData(new Question[0]);
+        resultsList.setListData(new Question[0]);
         questionListModel = new DefaultListModel<>();
-        list1.setModel(questionListModel);
-        list1.setCellRenderer(new QuestionRenderer());
-        list1.addMouseListener(new MouseAdapter() {
+        resultsList.setModel(questionListModel);
+        resultsList.setCellRenderer(new QuestionRenderer());
+        resultsList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
                 JList<String> list = (JList<String>)evt.getSource();
@@ -66,6 +70,11 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 }
             }
         });
+        instance = this;
+    }
+
+    public static SearchToolWindowFactory getInstance() {
+        return instance;
     }
 
     @Override
@@ -105,7 +114,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     }
 
     //TODO: This method should be unit tested either directly or indirectly once testing is set up.
-    private void updateList(List<Question> elements) {
+    public void updateList(List<Question> elements) {
         if(elements == null) {
             return;
         }
@@ -121,7 +130,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
         // It's great this can be done in one line; I'm not sure how to modify this for the new question handling
         // code however.
-        //list1.setListData(elements.stream().map(Question::getTitle).collect(Collectors.toList()).toArray
+        //resultsList.setListData(elements.stream().map(Question::getTitle).collect(Collectors.toList()).toArray
         // (new String[elements.size()]));
     }
 
