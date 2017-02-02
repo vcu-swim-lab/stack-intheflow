@@ -134,6 +134,10 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         // (new String[elements.size()]));
     }
 
+    public void setSearchBoxContent(String content) {
+        searchBox.setText(content);
+    }
+
     //Stub method to be fleshed out
     private void openBrowser(String url) {
         BrowserLauncher.getInstance().browse(url, WebBrowserManager.getInstance().getFirstActiveBrowser());
