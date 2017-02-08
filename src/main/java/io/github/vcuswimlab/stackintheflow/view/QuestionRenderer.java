@@ -45,11 +45,10 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     }
 
     private int getTextHeight(int normalLines, int boldLines) {
-        //TODO: For some reason, this gives the wrong answer. Investigate!
-//        Font font = getFont();
-//        Font boldFont = font.deriveFont(Font.BOLD);
-//        return getFontMetrics(font).getHeight() * normalLines + getFontMetrics(boldFont).getHeight() * boldLines;
-        return NORMAL_LINE_HEIGHT * normalLines + BOLD_LINE_HEIGHT * boldLines;
+        Font font = getFont();
+        Font boldFont = font.deriveFont(Font.BOLD);
+        return getFontMetrics(font).getHeight() * normalLines + getFontMetrics(boldFont).getHeight() * boldLines + 5;
+        //return NORMAL_LINE_HEIGHT * normalLines + BOLD_LINE_HEIGHT * boldLines;
     }
 
     @Override
@@ -64,7 +63,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         }
 
         int maxLines = question.isExpanded() ? 7 : 3;
-        int dimensionSize = getTextHeight(maxLines, 1);
+        int dimensionSize = getTextHeight(maxLines, 2);
         Dimension dim = new Dimension(dimensionSize,dimensionSize);
         setTextFromQuestion(question, dim);
 
@@ -94,7 +93,8 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<b>" + title, 0, 0, HTML.Tag.B);
+            //kit.insertHTML(doc, doc.getLength(), "<p>", 0, 0, HTML.Tag.P);
+            kit.insertHTML(doc, doc.getLength(), "<b><br>" + title, 0, 0, HTML.Tag.B);
             kit.insertHTML(doc, doc.getLength(), bodyProcessing(question.getBody()), 0, 0, null);
             kit.insertHTML(doc, doc.getLength(), formatTags(question.getTags()), 0, 0, null);
         } catch (Exception e) { e.printStackTrace(); }
