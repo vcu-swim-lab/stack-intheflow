@@ -45,11 +45,10 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     }
 
     private int getTextHeight(int normalLines, int boldLines) {
-        //TODO: For some reason, this gives the wrong answer. Investigate!
-//        Font font = getFont();
-//        Font boldFont = font.deriveFont(Font.BOLD);
-//        return getFontMetrics(font).getHeight() * normalLines + getFontMetrics(boldFont).getHeight() * boldLines;
-        return NORMAL_LINE_HEIGHT * normalLines + BOLD_LINE_HEIGHT * boldLines;
+        Font font = getFont();
+        Font boldFont = font.deriveFont(Font.BOLD);
+        return getFontMetrics(font).getHeight() * normalLines + getFontMetrics(boldFont).getHeight() * boldLines + 3;
+        //return NORMAL_LINE_HEIGHT * normalLines + BOLD_LINE_HEIGHT * boldLines;
     }
 
     @Override
@@ -64,7 +63,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         }
 
         int maxLines = question.isExpanded() ? 7 : 3;
-        int dimensionSize = getTextHeight(maxLines, 1);
+        int dimensionSize = getTextHeight(maxLines, 2);
         Dimension dim = new Dimension(dimensionSize,dimensionSize);
         setTextFromQuestion(question, dim);
 
@@ -94,14 +93,15 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<b>" + title, 0, 0, HTML.Tag.B);
+            kit.insertHTML(doc, doc.getLength(), "<b><br>" + title, 0, 0, HTML.Tag.B);
             kit.insertHTML(doc, doc.getLength(), bodyProcessing(question.getBody()), 0, 0, null);
-            kit.insertHTML(doc, doc.getLength(), formatTags(question.getTags()), 0, 0, null);
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\"><br>" + formatTags(question
+                    .getTags()), 0, 0, HTML.Tag.FONT);
         } catch (Exception e) { e.printStackTrace(); }
     }
 
     private String bodyProcessing(String body) {
-        return body.replaceAll("<code>","<i>").replaceAll("</code>","</i>");
+        return body.replaceAll("<code>","<font face=\"courier\" color=\"FF6A00\">").replaceAll("</code>","</font>");
     }
 
     private String formatTags(List<String> tags) {
