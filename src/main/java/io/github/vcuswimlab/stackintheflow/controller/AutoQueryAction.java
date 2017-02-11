@@ -3,20 +3,14 @@ package io.github.vcuswimlab.stackintheflow.controller;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.roots.ProjectRootManager;
-import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.ToolWindow;
-import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.openapi.wm.ToolWindowManager;
-import com.intellij.psi.PsiManager;
+import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
-
-import java.util.Arrays;
 
 /**
  * Created by Chase on 1/7/2017.
@@ -43,7 +37,7 @@ public class AutoQueryAction extends AnAction {
 
         String text = document.getText();
 
-        String autoQuery = AutoQueryGenerator.generateQuery(text);
+        String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(text);
         JerseyResponse response = QueryExecutor.executeQuery(autoQuery);
 
         //Populate tool window with autoQuery search results
