@@ -6,11 +6,11 @@ import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponen
 import java.util.Optional;
 
 /**
- * Created by Chase on 2/11/2017.
+ * Created by chase on 2/13/17.
  */
-public class CtfIdfScorer extends AbstractScorer {
+public class VarScorer extends AbstractScorer {
 
-    public CtfIdfScorer(TermStatComponent statComponent) {
+    public VarScorer(TermStatComponent statComponent) {
         super(statComponent);
     }
 
@@ -22,7 +22,7 @@ public class CtfIdfScorer extends AbstractScorer {
         if (termStatOptional.isPresent()) {
             TermStat termStat = termStatOptional.get();
 
-            return (1 + Math.log10(termStat.getCtf())) * termStat.getIdf();
+            return (1 + Math.log10(termStat.getCtf())) * termStat.getIdf() / statComponent.getDocCount();
         }
 
         return 0;

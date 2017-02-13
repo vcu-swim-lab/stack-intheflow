@@ -3,8 +3,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 import com.ctc.wstx.stax.WstxInputFactory;
 import com.intellij.openapi.components.ApplicationComponent;
 import io.github.vcuswimlab.stackintheflow.controller.AutoQueryGenerator;
-import io.github.vcuswimlab.stackintheflow.model.score.CtfIdfScorer;
-import io.github.vcuswimlab.stackintheflow.model.score.Scorer;
+import io.github.vcuswimlab.stackintheflow.model.score.*;
 import io.github.vcuswimlab.stackintheflow.model.score.combiner.SumCombiner;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,8 +18,6 @@ import java.util.*;
 
 public class TermStatComponent implements ApplicationComponent {
 
-    private static final int MAX_QUERY_TERMS = 5;
-
     private long termCount;
     private long docCount;
     private Map<String, TermStat> termStatMap;
@@ -34,7 +31,10 @@ public class TermStatComponent implements ApplicationComponent {
     public void initComponent() {
         termStatMap = new HashMap<>();
         loadTermStats();
-        scorers = Arrays.asList(new CtfIdfScorer(this));
+        scorers = Arrays.asList(new ScqScorer(this),
+                new VarScorer(this),
+                new IctfScorer(this),
+                new IdfScorer(this));
     }
 
     @Override
@@ -50,6 +50,14 @@ public class TermStatComponent implements ApplicationComponent {
 
     public Optional<TermStat> getTermStat(String term) {
         return Optional.ofNullable(termStatMap.get(term));
+    }
+
+    public long getTermCount() {
+        return termCount;
+    }
+
+    public long getDocCount() {
+        return docCount;
     }
 
     public String generateQuery(String editorText) {
