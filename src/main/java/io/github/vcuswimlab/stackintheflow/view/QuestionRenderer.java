@@ -1,5 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+
 import io.github.vcuswimlab.stackintheflow.model.Question;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.text.html.HTML;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.util.List;
 
 /**
@@ -22,10 +24,14 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //
     private static final int NORMAL_LINE_HEIGHT = 15;
     private static final int BOLD_LINE_HEIGHT = 20;
+    private JComponent parentContent;
+    private JComponent otherReferenceContent;
 
-    public QuestionRenderer() {
+    public QuestionRenderer(JComponent parentContent, JComponent otherReferenceContent) {
         setOpaque(true);
         setEditable(false);
+        this.parentContent = parentContent;
+        this.otherReferenceContent = otherReferenceContent;
     }
 
     private int getLineCount() {
@@ -47,7 +53,8 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     private int getTextHeight(int normalLines, int boldLines) {
         Font font = getFont();
         Font boldFont = font.deriveFont(Font.BOLD);
-        return getFontMetrics(font).getHeight() * normalLines + getFontMetrics(boldFont).getHeight() * boldLines + 3;
+        return (getFontMetrics(font).getHeight() - 3) * normalLines + (getFontMetrics(boldFont).getHeight
+                ()-2) * boldLines;
         //return NORMAL_LINE_HEIGHT * normalLines + BOLD_LINE_HEIGHT * boldLines;
     }
 
@@ -63,8 +70,8 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         }
 
         int maxLines = question.isExpanded() ? 7 : 3;
-        int dimensionSize = getTextHeight(maxLines, 2);
-        Dimension dim = new Dimension(dimensionSize,dimensionSize);
+        int dimensionSize = getTextHeight(maxLines, 1);
+        Dimension dim = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(),dimensionSize);
         setTextFromQuestion(question, dim);
 
         // Compact into space needed to fit.
@@ -73,8 +80,28 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //        dim = new Dimension(dimensionSize, dimensionSize);
 //
 //        setTextFromQuestion(question, dim);
+        JPanel output = new JPanel();
+        output.add(this);
 
-        return this;
+        output.setPreferredSize(output.getPreferredSize());
+        output.validate();
+        return output;
+    }
+
+    public String getClickedWord(MouseEvent evt) {
+        try {
+            String wrd = null;
+            int pt = viewToModel(evt.getPoint());
+            int spt = Utilities.getWordStart(this, pt);
+            int ept = Utilities.getWordEnd(this, pt);
+            this.setSelectionStart(spt);
+            this.setSelectionEnd(ept);
+            wrd = this.getSelectedText();
+            //System.out.println("TextPane word=" + wrd);
+            return wrd;
+        } catch(Exception e) {
+            return null;
+        }
     }
 
     private void setTextFromQuestion(Question question, Dimension dim) {
@@ -93,8 +120,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<b><br>" + title, 0, 0, HTML.Tag.B);
-            kit.insertHTML(doc, doc.getLength(), bodyProcessing(question.getBody()), 0, 0, null);
+            kit.insertHTML(doc, doc.getLength(), "<b>" + title, 0, 0, HTML.Tag.B);
+            kit.insertHTML(doc, doc.getLength(), bodyProcessing(question.getBody()), 0, 0,
+                    null);
             kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\"><br>" + formatTags(question
                     .getTags()), 0, 0, HTML.Tag.FONT);
         } catch (Exception e) { e.printStackTrace(); }
