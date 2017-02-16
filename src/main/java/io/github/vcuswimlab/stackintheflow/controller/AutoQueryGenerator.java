@@ -1,12 +1,9 @@
 package io.github.vcuswimlab.stackintheflow.controller;
 
-import io.github.vcuswimlab.stackintheflow.controller.info.TfIdf;
 import io.github.vcuswimlab.stackintheflow.controller.info.match.StringMatchUtils;
+import io.github.vcuswimlab.stackintheflow.model.score.combiner.Combiner;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Pattern;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -14,15 +11,19 @@ import java.util.stream.Collectors;
  */
 public class AutoQueryGenerator {
 
-    private static final int MAX_QUERY_TERMS = 5;
+    private static final int MAX_QUERY_TERMS = 3;
 
 
-    public static String generateQuery(String editorText) {
+    public static String generateQuery(String editorText, Combiner combiner) {
 
-        String cleanedText = StringMatchUtils.removeComments(editorText);
+        Set<String> imports = StringMatchUtils.extractImports(editorText);
+
+        Set<String> terms = new HashSet<>();
+        imports.forEach(i -> terms.addAll(Arrays.asList(i.toLowerCase().split("\\."))));
+        Map<String, Double> scores = terms.stream().collect(Collectors.toMap(s -> s, combiner::generateCumulativeScore));
 
         //Collects the MAX_QUERY_TERMS most frequent elements in the list
-        List<String> top = TfIdf.getTermFrequencies(cleanedText, StringMatchUtils.TERM_PATTERN)
+        List<String> top = scores
                 .entrySet().stream().sorted(Collections.reverseOrder(Map.Entry.comparingByValue())).limit(MAX_QUERY_TERMS)
                 .map(Map.Entry::getKey).collect(Collectors.toList());
 

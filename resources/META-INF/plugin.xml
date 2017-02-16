@@ -38,4 +38,10 @@
       </action>
   </actions>
 
+    <application-components>
+        <component>
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent
+            </implementation-class>
+        </component>
+    </application-components>
 </idea-plugin>

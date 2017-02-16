@@ -14,9 +14,14 @@ repositories {
         name = 'jersey-media-moxy'
         url = 'https://mvnrepository.com/artifact/org.glassfish.jersey.media/jersey-media-moxy'
     }
+    maven {
+        name = 'woodstox-core'
+        url = 'https://mvnrepository.com/artifact/com.fasterxml.woodstox/woodstox-core'
+    }
 }
 
 dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.23.2'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2'
+    compile group: 'com.fasterxml.woodstox', name: 'woodstox-core', version: '5.0.3'
 }

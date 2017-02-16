@@ -47,7 +47,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         resultsList.setListData(new Question[0]);
         questionListModel = new DefaultListModel<>();
         resultsList.setModel(questionListModel);
-        resultsList.setCellRenderer(new QuestionRenderer());
+        resultsList.setCellRenderer(new QuestionRenderer(searchBox, searchButton));
         resultsList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
