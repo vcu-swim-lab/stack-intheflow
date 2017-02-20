@@ -2,6 +2,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 
 import com.ctc.wstx.stax.WstxInputFactory;
 import com.intellij.openapi.components.ApplicationComponent;
+import com.intellij.openapi.editor.Editor;
 import io.github.vcuswimlab.stackintheflow.controller.AutoQueryGenerator;
 import io.github.vcuswimlab.stackintheflow.model.score.*;
 import io.github.vcuswimlab.stackintheflow.model.score.combiner.SumCombiner;
@@ -60,8 +61,8 @@ public class TermStatComponent implements ApplicationComponent {
         return docCount;
     }
 
-    public String generateQuery(String editorText) {
-        return AutoQueryGenerator.generateQuery(editorText, new SumCombiner(scorers));
+    public String generateQuery(Editor editor) {
+        return AutoQueryGenerator.generateQuery(editor, new SumCombiner(scorers));
     }
 
     private void loadTermStats() {

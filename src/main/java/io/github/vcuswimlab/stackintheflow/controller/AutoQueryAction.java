@@ -3,7 +3,6 @@ package io.github.vcuswimlab.stackintheflow.controller;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.CommonDataKeys;
-import com.intellij.openapi.editor.Document;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
@@ -30,14 +29,8 @@ public class AutoQueryAction extends AnAction {
     public void actionPerformed(AnActionEvent e) {
         //Get required data keys
         final Project project = e.getData(CommonDataKeys.PROJECT);
-
         final Editor editor = e.getData(CommonDataKeys.EDITOR);
-
-        final Document document = editor.getDocument();
-
-        String text = document.getText();
-
-        String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(text);
+        String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(editor);
         JerseyResponse response = QueryExecutor.executeQuery(autoQuery);
 
         //Populate tool window with autoQuery search results
