@@ -1,6 +1,8 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
 
+import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 
 import javax.swing.*;
@@ -105,6 +107,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     }
 
     private void setTextFromQuestion(Question question, Dimension dim) {
+        EditorColorsScheme colorsScheme = EditorColorsManager.getInstance().getGlobalScheme();
+        String textColor = convertColorToHex(colorsScheme.getDefaultForeground());
+
         String title = question.getTitle() + "\n";
         setText("");
 
@@ -120,16 +125,21 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<b>" + title, 0, 0, HTML.Tag.B);
-            kit.insertHTML(doc, doc.getLength(), bodyProcessing(question.getBody()), 0, 0,
-                    null);
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\"><b>" + title + HTML.Tag.B, 0, 0, HTML.Tag.FONT);
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\">" + bodyProcessing(question.getBody())
+                            + "</font>",
+                    0, 0, null);
             kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\"><br>" + formatTags(question
                     .getTags()), 0, 0, HTML.Tag.FONT);
         } catch (Exception e) { e.printStackTrace(); }
     }
 
     private String bodyProcessing(String body) {
-        return body.replaceAll("<code>","<font face=\"courier\" color=\"FF6A00\">").replaceAll("</code>","</font>");
+
+        EditorColorsScheme colorsScheme = EditorColorsManager.getInstance().getGlobalScheme();
+        String codeFont = colorsScheme.getEditorFontName();
+
+        return body.replaceAll("<code>", "<font face=\"" + codeFont + "\" color=\"FF6A00\">").replaceAll("</code>", "</font>");
     }
 
     private String formatTags(List<String> tags) {
@@ -148,5 +158,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             return body;
         }
         return body.substring(0, maxLength-3) + "...";
+    }
+
+    private String convertColorToHex(Color c) {
+        return String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
     }
 }
