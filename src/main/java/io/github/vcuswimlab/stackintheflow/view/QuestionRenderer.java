@@ -25,7 +25,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //    private final int DIMENSION_MAGIC2 = getTextHeight(7, 1);
 //
     private static final int NORMAL_LINE_HEIGHT = 15;
-    private static final int BOLD_LINE_HEIGHT = 20;
+    private static final int BOLD_LINE_HEIGHT = 18;
     private JComponent parentContent;
     private JComponent otherReferenceContent;
 
@@ -56,7 +56,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         Font font = getFont();
         Font boldFont = font.deriveFont(Font.BOLD);
         return (getFontMetrics(font).getHeight() - 3) * normalLines + (getFontMetrics(boldFont).getHeight
-                ()-2) * boldLines;
+                ()-1) * boldLines;
         //return NORMAL_LINE_HEIGHT * normalLines + BOLD_LINE_HEIGHT * boldLines;
     }
 
@@ -71,7 +71,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             setForeground(list.getForeground());
         }
 
-        int maxLines = question.isExpanded() ? 7 : 3;
+        int maxLines = question.isExpanded() ? 10 : 3;
         int dimensionSize = getTextHeight(maxLines, 1);
         Dimension dim = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(),dimensionSize);
         setTextFromQuestion(question, dim);
@@ -82,11 +82,31 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //        dim = new Dimension(dimensionSize, dimensionSize);
 //
 //        setTextFromQuestion(question, dim);
+
+//        JTextPane test = new JTextPane();
+//        test.setOpaque(true);
+//        test.setEditable(false);
+//        if(isSelected) {
+//            test.setBackground(list.getSelectionBackground());
+//            test.setForeground(list.getSelectionForeground());
+//        } else {
+//            test.setBackground(list.getBackground());
+//            test.setForeground(list.getForeground());
+//        }
+//        test.setText("Hello, world! I'm testing a bottom line of text!");
+//        Dimension d = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(), getTextHeight(0,1));
+//        test.setMaximumSize(d);
+//        test.setMinimumSize(d);
+//        test.setPreferredSize(d);
+//        test.setSize(d);
+//        test.setLocation(0,dimensionSize);
+
         JPanel output = new JPanel();
         output.add(this);
-
+//        output.add(test);
         output.setPreferredSize(output.getPreferredSize());
         output.validate();
+
         return output;
     }
 
