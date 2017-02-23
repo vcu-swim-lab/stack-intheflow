@@ -11,10 +11,14 @@ import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponen
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
 
+import java.util.List;
+
 /**
  * Created by Chase on 1/7/2017.
  */
 public class AutoQueryAction extends AnAction {
+
+    private List<String> compilerMessages;
 
     @Override
     public void update(final AnActionEvent e) {
@@ -30,6 +34,7 @@ public class AutoQueryAction extends AnAction {
         //Get required data keys
         final Project project = e.getData(CommonDataKeys.PROJECT);
         final Editor editor = e.getData(CommonDataKeys.EDITOR);
+
         String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(editor);
         JerseyResponse response = QueryExecutor.executeQuery(autoQuery);
 
