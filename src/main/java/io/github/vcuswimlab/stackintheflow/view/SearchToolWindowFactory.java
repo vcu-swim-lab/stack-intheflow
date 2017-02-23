@@ -13,7 +13,6 @@ import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
@@ -72,10 +71,10 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             }
         });
         instance = this;
-        searchBox.setMinimumSize(new Dimension(1,1));
-        searchBox.setMaximumSize(new Dimension(10000,10000));
-        searchJPanel.setMinimumSize(new Dimension(1,1));
-        searchJPanel.setMaximumSize(new Dimension(10000,10000));
+//        searchBox.setMinimumSize(new Dimension(1,1));
+//        searchBox.setMaximumSize(new Dimension(10000,10000));
+//        searchJPanel.setMinimumSize(new Dimension(1,1));
+//        searchJPanel.setMaximumSize(new Dimension(10000,10000));
     }
 
     public static SearchToolWindowFactory getInstance() {

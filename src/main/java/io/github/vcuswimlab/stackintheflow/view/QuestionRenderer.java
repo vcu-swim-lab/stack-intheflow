@@ -83,27 +83,44 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //
 //        setTextFromQuestion(question, dim);
 
-//        JTextPane test = new JTextPane();
-//        test.setOpaque(true);
-//        test.setEditable(false);
-//        if(isSelected) {
-//            test.setBackground(list.getSelectionBackground());
-//            test.setForeground(list.getSelectionForeground());
-//        } else {
-//            test.setBackground(list.getBackground());
-//            test.setForeground(list.getForeground());
-//        }
-//        test.setText("Hello, world! I'm testing a bottom line of text!");
-//        Dimension d = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(), getTextHeight(0,1));
-//        test.setMaximumSize(d);
-//        test.setMinimumSize(d);
-//        test.setPreferredSize(d);
-//        test.setSize(d);
-//        test.setLocation(0,dimensionSize);
+        JTextPane test = new JTextPane();
+        test.setOpaque(true);
+        test.setEditable(false);
+        if(isSelected) {
+            test.setBackground(list.getSelectionBackground());
+            test.setForeground(list.getSelectionForeground());
+        } else {
+            test.setBackground(list.getBackground());
+            test.setForeground(list.getForeground());
+        }
+        test.setText("");
+        Dimension d = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(), getTextHeight(0,2));
+        test.setMaximumSize(d);
+        test.setMinimumSize(d);
+        test.setPreferredSize(d);
+        test.setSize(d);
+        //test.setLocation(0,dimensionSize);
 
-        JPanel output = new JPanel();
-        output.add(this);
-//        output.add(test);
+        HTMLEditorKit kit = new HTMLEditorKit();
+        HTMLDocument doc = new HTMLDocument();
+        test.setEditorKit(kit);
+        test.setDocument(doc);
+
+        try
+        {
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\">" + formatTags(question
+                    .getTags()), 0, 0, HTML.Tag.FONT);
+        } catch (Exception e) { e.printStackTrace(); }
+
+        JPanel output = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        output.add(this,c);
+        c.gridx = 0;
+        c.gridy = 1;
+        output.add(test, c);
         output.setPreferredSize(output.getPreferredSize());
         output.validate();
 
@@ -149,8 +166,6 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\">" + bodyProcessing(question.getBody())
                             + "</font>",
                     0, 0, null);
-            kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\"><br>" + formatTags(question
-                    .getTags()), 0, 0, HTML.Tag.FONT);
         } catch (Exception e) { e.printStackTrace(); }
     }
 
