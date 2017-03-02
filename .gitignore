@@ -19,7 +19,6 @@ tasks.xml
 !gradle-wrapper.jar
 *.war
 *.ear
-*META-INF/
 
 # Plugin Data
 !plugin.xml

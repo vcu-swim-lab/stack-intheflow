@@ -40,7 +40,7 @@ public class AutoQueryGenerator {
 
         Map<String, Double> scores =
                 termsFreqMap.entrySet().stream()
-                        .collect(Collectors.toMap(Map.Entry::getKey, e -> combiner.generateCumulativeScore(e.getKey()) * Math.log10(e.getValue())));
+                        .collect(Collectors.toMap(Map.Entry::getKey, e -> combiner.generateCumulativeScore(e.getKey())));
 
         //Collects the MAX_QUERY_TERMS most frequent elements in the list
         List<String> top = scores
