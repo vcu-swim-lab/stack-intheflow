@@ -1,6 +1,8 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
 
+import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 
 import javax.swing.*;
@@ -11,7 +13,6 @@ import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.util.List;
 
 /**
  * Created by batman on 11/16/16.
@@ -23,11 +24,11 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //    private final int DIMENSION_MAGIC2 = getTextHeight(7, 1);
 //
     private static final int NORMAL_LINE_HEIGHT = 15;
-    private static final int BOLD_LINE_HEIGHT = 20;
-    private JComponent parentContent;
+    private static final int BOLD_LINE_HEIGHT = 18;
+    private JTextField parentContent;
     private JComponent otherReferenceContent;
 
-    public QuestionRenderer(JComponent parentContent, JComponent otherReferenceContent) {
+    public QuestionRenderer(JTextField parentContent, JComponent otherReferenceContent) {
         setOpaque(true);
         setEditable(false);
         this.parentContent = parentContent;
@@ -50,12 +51,23 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         return lineCount;
     }
 
-    private int getTextHeight(int normalLines, int boldLines) {
+    public int getTextHeight(int normalLines, int boldLines) {
         Font font = getFont();
         Font boldFont = font.deriveFont(Font.BOLD);
         return (getFontMetrics(font).getHeight() - 3) * normalLines + (getFontMetrics(boldFont).getHeight
-                ()-2) * boldLines;
+                ()-1) * boldLines;
         //return NORMAL_LINE_HEIGHT * normalLines + BOLD_LINE_HEIGHT * boldLines;
+    }
+
+    public int getTextWidth(String s) {
+        return getFontMetrics(getFont()).stringWidth(s) - (int)Math.round(1.4*(double)s.length());
+    }
+
+    public int getBodyHeight(boolean isExpanded) {
+        return getTextHeight(isExpanded ? 10 : 3, 1);
+    }
+    public int getCellHeight(boolean isExpanded) {
+        return getBodyHeight(isExpanded) + getTextHeight(2,0);
     }
 
     @Override
@@ -69,8 +81,8 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             setForeground(list.getForeground());
         }
 
-        int maxLines = question.isExpanded() ? 7 : 3;
-        int dimensionSize = getTextHeight(maxLines, 1);
+        //int maxLines = question.isExpanded() ? 10 : 3;
+        int dimensionSize = getBodyHeight(question.isExpanded());
         Dimension dim = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(),dimensionSize);
         setTextFromQuestion(question, dim);
 
@@ -80,11 +92,62 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //        dim = new Dimension(dimensionSize, dimensionSize);
 //
 //        setTextFromQuestion(question, dim);
-        JPanel output = new JPanel();
-        output.add(this);
+        JTextPane test = new JTextPane();
+        test.setOpaque(true);
+        test.setEditable(false);
+        if(isSelected) {
+            test.setBackground(list.getSelectionBackground());
+            test.setForeground(list.getSelectionForeground());
+        } else {
+            test.setBackground(list.getBackground());
+            test.setForeground(list.getForeground());
+        }
+        test.setText("");
+        Dimension d = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(), getTextHeight(0,2));
+        test.setMaximumSize(d);
+        test.setMinimumSize(d);
+        test.setPreferredSize(d);
+        test.setSize(d);
+        //test.setLocation(0,dimensionSize);
 
+        HTMLEditorKit kit = new HTMLEditorKit();
+        HTMLDocument doc = new HTMLDocument();
+        test.setEditorKit(kit);
+        test.setDocument(doc);
+
+        String tagsString = question.getTagsAsFormattedString();
+        try
+        {
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\">" + tagsString, 0, 0, HTML.Tag.FONT);
+        } catch (Exception e) { e.printStackTrace(); }
+
+
+
+        JPanel output = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        output.add(this,c);
+        c.gridx = 0;
+        c.gridy = 1;
+        output.add(test, c);
         output.setPreferredSize(output.getPreferredSize());
         output.validate();
+
+//        output.addMouseListener(new MouseAdapter() {
+//            @Override
+//            public void mouseClicked(MouseEvent mouseEvent) {
+//                super.mouseClicked(mouseEvent);
+//                 //if(mouseEvent.getClickCount() == 1 && mouseEvent.getButton() == MouseEvent.BUTTON1) {
+//                    test.setCaretPosition(test.viewToModel(mouseEvent.getPoint()));
+//                    parentContent.setText(parentContent.getText() + test.getCaretPosition());
+//
+//
+//                //}
+//            }
+//        });
+
         return output;
     }
 
@@ -105,6 +168,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     }
 
     private void setTextFromQuestion(Question question, Dimension dim) {
+        EditorColorsScheme colorsScheme = EditorColorsManager.getInstance().getGlobalScheme();
+        String textColor = convertColorToHex(colorsScheme.getDefaultForeground());
+
         String title = question.getTitle() + "\n";
         setText("");
 
@@ -120,24 +186,19 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<b>" + title, 0, 0, HTML.Tag.B);
-            kit.insertHTML(doc, doc.getLength(), bodyProcessing(question.getBody()), 0, 0,
-                    null);
-            kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\"><br>" + formatTags(question
-                    .getTags()), 0, 0, HTML.Tag.FONT);
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\"><b>" + title + HTML.Tag.B, 0, 0, HTML.Tag.FONT);
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\">" + bodyProcessing(question.getBody())
+                            + "</font>",
+                    0, 0, null);
         } catch (Exception e) { e.printStackTrace(); }
     }
 
     private String bodyProcessing(String body) {
-        return body.replaceAll("<code>","<font face=\"courier\" color=\"FF6A00\">").replaceAll("</code>","</font>");
-    }
 
-    private String formatTags(List<String> tags) {
-        StringBuilder out = new StringBuilder();
-        for(String str : tags) {
-            out.append("[" + str + "] ");
-        }
-        return out.toString();
+        EditorColorsScheme colorsScheme = EditorColorsManager.getInstance().getGlobalScheme();
+        String codeFont = colorsScheme.getEditorFontName();
+
+        return body.replaceAll("<code>", "<font face=\"" + codeFont + "\" color=\"FF6A00\">").replaceAll("</code>", "</font>");
     }
 
     //TODO: Maybe move this into the question object itself?
@@ -148,5 +209,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             return body;
         }
         return body.substring(0, maxLength-3) + "...";
+    }
+
+    private String convertColorToHex(Color c) {
+        return String.format("#%02x%02x%02x", c.getRed(), c.getGreen(), c.getBlue());
     }
 }
