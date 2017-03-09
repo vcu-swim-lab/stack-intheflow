@@ -86,16 +86,4 @@ public class Question {
                 ", link=" + link +
                 '}';
     }
-
-    public String getTagsAsFormattedString() {
-        if(tags == null) {
-            return "";
-        }
-
-        StringBuilder out = new StringBuilder();
-        for(String str : tags) {
-            out.append("[" + str + "] ");
-        }
-        return out.toString();
-    }
 }

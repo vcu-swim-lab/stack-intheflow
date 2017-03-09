@@ -47,8 +47,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         resultsList.setListData(new Question[0]);
         questionListModel = new DefaultListModel<>();
         resultsList.setModel(questionListModel);
-        QuestionRenderer renderer = new QuestionRenderer(searchBox, searchButton);
-        resultsList.setCellRenderer(renderer);
+        resultsList.setCellRenderer(new QuestionRenderer(searchBox, searchButton));
         resultsList.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent evt) {
@@ -56,61 +55,12 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
                     // Primary Single-click detected.
                     int index = list.locationToIndex(evt.getPoint());
-                    Question question = questionListModel.get(index);
-
-//                    int baseY = 0;
-//                    for(int i = 0; i < index; i++) {
-//                        baseY += renderer.getCellHeight(questionListModel.get(i).isExpanded());
-//                    }
-//                    baseY += renderer.getBodyHeight(question.isExpanded());
-                    //TODO: Calculate Y bounds from question height!!
-
-//                    int mouseY = (int)Math.round(evt.getPoint().getY());
-//                    int bodyHeight = baseY;
-//                    if(mouseY > bodyHeight && mouseY < bodyHeight + renderer.getTextHeight(1,0)) {
-                        double mouseX = Math.round(evt.getPoint().getX());
-                        String tags = question.getTagsAsFormattedString();
-                        int endX = 0;
-                        int tagIndex = 0;
-                        boolean inTags = false;
-                        for (String s : question.getTags()) {
-                            endX += renderer.getTextWidth("[" + s + "] ");
-                            if (mouseX < endX) {
-                                inTags = true;
-                                break;
-                            }
-                            tagIndex++;
-                        }
-
-                        if (inTags) {
-                            searchBox.setText(searchBox.getText() + " " + question.getTags().get(tagIndex));
-                        }
-//                    } else {
-                        question.toggleExpanded();
-                        List<Question> questions = new ArrayList<Question>();
-                        for(int i = 0; i < questionListModel.size(); i++) {
-                            questions.add(questionListModel.get(i));
-                        }
-                        updateList(questions);
-//                    }
-
-//                    BufferedWriter writer = null;
-//                    try {
-//                        writer = new BufferedWriter(new FileWriter(new File("/home/batman/Desktop/MyOutputFileHere.txt")));
-//                        writer.write(evt.getPoint().toString());
-//                        writer.write("\nHello, World!!!");
-//                        writer.write("\n" + mouseY + ", " + bodyHeight + ", " + (int)(bodyHeight + renderer
-//                                .getTextHeight
-//                                (1,0)));
-//                    } catch (Exception e) {
-//                        e.printStackTrace();
-//                    } finally {
-//                        try {
-//                            writer.close();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    questionListModel.get(index).toggleExpanded();
+                    List<Question> questions = new ArrayList<Question>();
+                    for(int i = 0; i < questionListModel.size(); i++) {
+                        questions.add(questionListModel.get(i));
+                    }
+                    updateList(questions);
                 }
 
                 if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
