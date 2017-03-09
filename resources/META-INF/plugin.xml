@@ -31,7 +31,13 @@
   </extensions>
 
   <actions>
-    <!-- Add your actions here -->
+      <!-- Add your actions here -->
+
+      <action id="StackInTheFlow.Icons"
+              class="io.github.vcuswimlab.stackintheflow.icons.Icons"
+              text="Stack In the Flow"
+              icon="Icons.MAIN"/>
+
       <action id="StackInTheFlow.AutoQueryAction" class="io.github.vcuswimlab.stackintheflow.controller.AutoQueryAction"
               text="Auto Query">
           <add-to-group group-id="EditorPopupMenu" anchor="last"/>

@@ -30,7 +30,7 @@ public class Query {
         URL("url"),
         VIEWS("views"),
 
-        ORDER("oder"),
+        ORDER("order"),
         SORT("sort"),
         ACCEPTED("accepted"),
         CLOSED("closed"),
