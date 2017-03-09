@@ -86,12 +86,12 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 //                            searchBox.setText(searchBox.getText() + " " + question.getTags().get(tagIndex));
 //                        }
 //                    } else {
-                        question.toggleExpanded();
-                        List<Question> questions = new ArrayList<Question>();
-                        for(int i = 0; i < questionListModel.size(); i++) {
-                            questions.add(questionListModel.get(i));
-                        }
-                        updateList(questions);
+                    question.toggleExpanded();
+                    List<Question> questions = new ArrayList<Question>();
+                    for(int i = 0; i < questionListModel.size(); i++) {
+                        questions.add(questionListModel.get(i));
+                    }
+                    updateList(questions);
 //                    }
 
 //                    BufferedWriter writer = null;
