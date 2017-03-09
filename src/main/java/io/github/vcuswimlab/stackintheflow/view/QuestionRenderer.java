@@ -4,6 +4,7 @@ package io.github.vcuswimlab.stackintheflow.view;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import io.github.vcuswimlab.stackintheflow.model.Question;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -73,6 +74,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     @Override
     public Component getListCellRendererComponent(JList<? extends Question> list, Question question, int index, boolean
             isSelected, boolean cellHasFocus) {
+        question.fixNulls();
+        setFontSizeToEditorFontSize();
+
         if(isSelected) {
             setBackground(list.getSelectionBackground());
             setForeground(list.getSelectionForeground());
@@ -81,17 +85,34 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             setForeground(list.getForeground());
         }
 
-        //int maxLines = question.isExpanded() ? 10 : 3;
         int dimensionSize = getBodyHeight(question.isExpanded());
         Dimension dim = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(),dimensionSize);
         setTextFromQuestion(question, dim);
 
-        // Compact into space needed to fit.
-//        int maxLines = question.isExpanded() ? 7 : 3;
-//        int dimensionSize = getTextHeight(maxLines-1,1);//getTextHeight(Math.min(getLineCount(), maxLines), 1);
-//        dim = new Dimension(dimensionSize, dimensionSize);
-//
-//        setTextFromQuestion(question, dim);
+        JTextPane tagsPane = getTagsPane(list, question, isSelected);
+        JPanel output = buildOutputPane(this, tagsPane);
+
+        return output;
+    }
+
+    @NotNull
+    private JPanel buildOutputPane(Component mainPanel, JTextPane tagsPane) {
+        JPanel output = new JPanel(new GridBagLayout());
+        GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        c.gridy = 0;
+        output.add(mainPanel,c);
+        c.gridx = 0;
+        c.gridy = 1;
+        output.add(tagsPane, c);
+        output.setPreferredSize(output.getPreferredSize());
+        output.validate();
+        return output;
+    }
+
+    @NotNull
+    private JTextPane getTagsPane(JList<? extends Question> list, Question question, boolean isSelected) {
         JTextPane test = new JTextPane();
         test.setOpaque(true);
         test.setEditable(false);
@@ -108,7 +129,6 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         test.setMinimumSize(d);
         test.setPreferredSize(d);
         test.setSize(d);
-        //test.setLocation(0,dimensionSize);
 
         HTMLEditorKit kit = new HTMLEditorKit();
         HTMLDocument doc = new HTMLDocument();
@@ -120,35 +140,11 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         {
             kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\">" + tagsString, 0, 0, HTML.Tag.FONT);
         } catch (Exception e) { e.printStackTrace(); }
+        return test;
+    }
 
-
-
-        JPanel output = new JPanel(new GridBagLayout());
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.HORIZONTAL;
-        c.gridx = 0;
-        c.gridy = 0;
-        output.add(this,c);
-        c.gridx = 0;
-        c.gridy = 1;
-        output.add(test, c);
-        output.setPreferredSize(output.getPreferredSize());
-        output.validate();
-
-//        output.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent mouseEvent) {
-//                super.mouseClicked(mouseEvent);
-//                 //if(mouseEvent.getClickCount() == 1 && mouseEvent.getButton() == MouseEvent.BUTTON1) {
-//                    test.setCaretPosition(test.viewToModel(mouseEvent.getPoint()));
-//                    parentContent.setText(parentContent.getText() + test.getCaretPosition());
-//
-//
-//                //}
-//            }
-//        });
-
-        return output;
+    private void setFontSizeToEditorFontSize() {
+        setFont(getFont().deriveFont(EditorColorsManager.getInstance().getGlobalScheme().getEditorFontSize()));
     }
 
     public String getClickedWord(MouseEvent evt) {
@@ -186,7 +182,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\"><b>" + title + HTML.Tag.B, 0, 0, HTML.Tag.FONT);
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\"><b>" + title, 0, 0, HTML.Tag.FONT);
             kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\">" + bodyProcessing(question.getBody())
                             + "</font>",
                     0, 0, null);

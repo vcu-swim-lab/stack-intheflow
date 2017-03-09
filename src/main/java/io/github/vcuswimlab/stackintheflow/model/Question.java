@@ -1,6 +1,7 @@
 package io.github.vcuswimlab.stackintheflow.model;
 
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,24 @@ public class Question {
         this.title = title;
         this.link = link;
         this.isExpanded = false;
+    }
+
+    public void fixNulls() {
+        if(tags == null) {
+            tags = new ArrayList<String>();
+        }
+        if(body == null) {
+            body = "";
+        }
+        if(excerpt == null) {
+            excerpt = "";
+        }
+        if(title == null) {
+            title = "";
+        }
+        if(link == null) {
+            link = "http://www.stackoverflow.com/";
+        }
     }
 
     public List<String> getTags() {

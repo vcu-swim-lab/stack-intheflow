@@ -68,23 +68,23 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 //                    int mouseY = (int)Math.round(evt.getPoint().getY());
 //                    int bodyHeight = baseY;
 //                    if(mouseY > bodyHeight && mouseY < bodyHeight + renderer.getTextHeight(1,0)) {
-                        double mouseX = Math.round(evt.getPoint().getX());
-                        String tags = question.getTagsAsFormattedString();
-                        int endX = 0;
-                        int tagIndex = 0;
-                        boolean inTags = false;
-                        for (String s : question.getTags()) {
-                            endX += renderer.getTextWidth("[" + s + "] ");
-                            if (mouseX < endX) {
-                                inTags = true;
-                                break;
-                            }
-                            tagIndex++;
-                        }
-
-                        if (inTags) {
-                            searchBox.setText(searchBox.getText() + " " + question.getTags().get(tagIndex));
-                        }
+//                        double mouseX = Math.round(evt.getPoint().getX());
+//                        String tags = question.getTagsAsFormattedString();
+//                        int endX = 0;
+//                        int tagIndex = 0;
+//                        boolean inTags = false;
+//                        for (String s : question.getTags()) {
+//                            endX += renderer.getTextWidth("[" + s + "] ");
+//                            if (mouseX < endX) {
+//                                inTags = true;
+//                                break;
+//                            }
+//                            tagIndex++;
+//                        }
+//
+//                        if (inTags) {
+//                            searchBox.setText(searchBox.getText() + " " + question.getTags().get(tagIndex));
+//                        }
 //                    } else {
                         question.toggleExpanded();
                         List<Question> questions = new ArrayList<Question>();
