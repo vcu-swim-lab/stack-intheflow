@@ -13,10 +13,7 @@ import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +44,13 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         resultsList.setListData(new Question[0]);
         questionListModel = new DefaultListModel<>();
         resultsList.setModel(questionListModel);
-        QuestionRenderer renderer = new QuestionRenderer(searchBox, searchButton);
+        QuestionRenderer renderer = new QuestionRenderer(resultsList);
+        resultsList.addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent componentEvent) {
+                renderer.setWidth(resultsList.getWidth());
+            }
+        });
         resultsList.setCellRenderer(renderer);
         resultsList.addMouseListener(new MouseAdapter() {
             @Override

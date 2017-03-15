@@ -26,14 +26,22 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
 //
     private static final int NORMAL_LINE_HEIGHT = 15;
     private static final int BOLD_LINE_HEIGHT = 18;
-    private JTextField parentContent;
-    private JComponent otherReferenceContent;
+    private JComponent parentContent;
+    private int width;
 
-    public QuestionRenderer(JTextField parentContent, JComponent otherReferenceContent) {
+    public QuestionRenderer(JComponent parentContent) {
         setOpaque(true);
         setEditable(false);
         this.parentContent = parentContent;
-        this.otherReferenceContent = otherReferenceContent;
+        this.width = parentContent.getWidth();
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    private int getCellWidth() {
+        return width;//parentContent.getWidth();
     }
 
     private int getLineCount() {
@@ -86,7 +94,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         }
 
         int dimensionSize = getBodyHeight(question.isExpanded());
-        Dimension dim = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(),dimensionSize);
+        Dimension dim = new Dimension(getCellWidth(),dimensionSize);
         setTextFromQuestion(question, dim);
 
         JTextPane tagsPane = getTagsPane(list, question, isSelected);
@@ -124,7 +132,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
             test.setForeground(list.getForeground());
         }
         test.setText("");
-        Dimension d = new Dimension(parentContent.getWidth() + otherReferenceContent.getWidth(), getTextHeight(0,2));
+        Dimension d = new Dimension(getCellWidth(), getTextHeight(0,2));
         test.setMaximumSize(d);
         test.setMinimumSize(d);
         test.setPreferredSize(d);
