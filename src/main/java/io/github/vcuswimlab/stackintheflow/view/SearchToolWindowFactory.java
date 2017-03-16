@@ -13,6 +13,8 @@ import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +31,8 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private JEditorPane consoleErrorPane;
     private ToolWindow toolWindow;
     private DefaultListModel<Question> questionListModel;
+
+    private List<String> compilerMessages;
 
     public SearchToolWindowFactory() {
         //Hide the console error area until it is needed
@@ -134,7 +138,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         consoleErrorPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                executeQuery(consoleErrorPane.getText());
+                executeQuery(compilerMessages.get(0));
                 consoleErrorPane.setVisible(false);
             }
         });
@@ -205,8 +209,20 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         searchBox.setText(content);
     }
 
-    public void setConsoleError(String error) {
-        consoleErrorPane.setText(error);
+    public void setConsoleError(List<String> compilerMessages) {
+
+        this.compilerMessages = compilerMessages;
+
+        HTMLEditorKit kit = new HTMLEditorKit();
+        HTMLDocument doc = new HTMLDocument();
+        consoleErrorPane.setEditorKit(kit);
+        consoleErrorPane.setDocument(doc);
+
+        try {
+            kit.insertHTML(doc, 0, "Search For: " + "<a href=\"\"><u>" + compilerMessages.get(0) + "</u></a>", 0, 0, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         consoleErrorPane.setVisible(true);
     }
 

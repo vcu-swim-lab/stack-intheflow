@@ -33,7 +33,7 @@ public class CompilerListenerComponent implements ProjectComponent {
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
                     CompilerMessage[] messages = compileContext.getMessages(CompilerMessageCategory.ERROR);
                     compilerMessages = Arrays.stream(messages).map(CompilerMessage::getMessage).collect(Collectors.toList());
-                    SearchToolWindowFactory.getInstance().setConsoleError(compilerMessages.get(0));
+                    SearchToolWindowFactory.getInstance().setConsoleError(compilerMessages);
                 }
             });
         }
