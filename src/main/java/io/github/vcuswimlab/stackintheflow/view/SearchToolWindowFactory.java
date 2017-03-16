@@ -148,6 +148,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         consoleErrorPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
+                setSearchBoxContent(compilerMessages.get(0));
                 executeQuery(compilerMessages.get(0));
                 consoleErrorPane.setVisible(false);
             }
@@ -223,17 +224,21 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
         this.compilerMessages = compilerMessages;
 
-        HTMLEditorKit kit = new HTMLEditorKit();
-        HTMLDocument doc = new HTMLDocument();
-        consoleErrorPane.setEditorKit(kit);
-        consoleErrorPane.setDocument(doc);
+        if (!compilerMessages.isEmpty()) {
+            HTMLEditorKit kit = new HTMLEditorKit();
+            HTMLDocument doc = new HTMLDocument();
+            consoleErrorPane.setEditorKit(kit);
+            consoleErrorPane.setDocument(doc);
 
-        try {
-            kit.insertHTML(doc, 0, "Search For: " + "<a href=\"\"><u>" + compilerMessages.get(0) + "</u></a>", 0, 0, null);
-        } catch (Exception e) {
-            e.printStackTrace();
+            try {
+                kit.insertHTML(doc, 0, "search for: " + "<a href=\"\"><u>" + compilerMessages.get(0) + "</u></a>", 0, 0, null);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            consoleErrorPane.setVisible(true);
+        } else {
+            consoleErrorPane.setVisible(false);
         }
-        consoleErrorPane.setVisible(true);
     }
 
     //Stub method to be fleshed out
