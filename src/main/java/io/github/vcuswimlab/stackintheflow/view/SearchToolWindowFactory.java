@@ -19,18 +19,21 @@ import java.util.List;
 
 public class SearchToolWindowFactory implements ToolWindowFactory {
 
+    private static SearchToolWindowFactory instance;
     private JButton searchButton;
     private JTextField searchBox;
     private JPanel content;
     private JList<Question> resultsList;
     private JScrollPane resultsScrollPane;
     private JPanel searchJPanel;
+    private JEditorPane consoleErrorPane;
     private ToolWindow toolWindow;
     private DefaultListModel<Question> questionListModel;
 
-    private static SearchToolWindowFactory instance;
-
     public SearchToolWindowFactory() {
+        //Hide the console error area until it is needed
+        consoleErrorPane.setVisible(false);
+
         searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
         searchBox.addKeyListener(new KeyAdapter() {
             @Override
@@ -128,6 +131,13 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 //        searchBox.setMaximumSize(new Dimension(10000,10000));
 //        searchJPanel.setMinimumSize(new Dimension(1,1));
 //        searchJPanel.setMaximumSize(new Dimension(10000,10000));
+        consoleErrorPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                executeQuery(consoleErrorPane.getText());
+                consoleErrorPane.setVisible(false);
+            }
+        });
     }
 
     public static SearchToolWindowFactory getInstance() {
@@ -193,6 +203,11 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
     public void setSearchBoxContent(String content) {
         searchBox.setText(content);
+    }
+
+    public void setConsoleError(String error) {
+        consoleErrorPane.setText(error);
+        consoleErrorPane.setVisible(true);
     }
 
     //Stub method to be fleshed out

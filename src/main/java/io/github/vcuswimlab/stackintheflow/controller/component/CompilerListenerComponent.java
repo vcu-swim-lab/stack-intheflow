@@ -3,6 +3,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
+import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -32,6 +33,7 @@ public class CompilerListenerComponent implements ProjectComponent {
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
                     CompilerMessage[] messages = compileContext.getMessages(CompilerMessageCategory.ERROR);
                     compilerMessages = Arrays.stream(messages).map(CompilerMessage::getMessage).collect(Collectors.toList());
+                    SearchToolWindowFactory.getInstance().setConsoleError(compilerMessages.get(0));
                 }
             });
         }
