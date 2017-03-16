@@ -66,6 +66,11 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
                     // Primary Single-click detected.
                     int index = list.locationToIndex(evt.getPoint());
+
+                    if (index < 0 || index >= questionListModel.size()) {
+                        return;
+                    }
+
                     Question question = questionListModel.get(index);
 
 //                    int baseY = 0;
@@ -126,6 +131,11 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
                 if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
                     // Primary Double-click detected
                     int index = list.locationToIndex(evt.getPoint());
+
+                    if (index < 0 || index >= questionListModel.size()) {
+                        return;
+                    }
+
                     openBrowser(questionListModel.get(index).getLink());
                 }
             }
