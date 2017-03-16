@@ -37,6 +37,7 @@
               class="io.github.vcuswimlab.stackintheflow.controller.AutoQueryAction"
               text="Auto Query"
               icon="StackInTheFlowIcons.ACTION_ICON">
+          <keyboard-shortcut first-keystroke="control shift Q" keymap="$default"/>
           <add-to-group group-id="EditorPopupMenu" anchor="last"/>
       </action>
   </actions>
