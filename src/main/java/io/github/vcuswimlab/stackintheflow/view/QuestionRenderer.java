@@ -41,24 +41,43 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         this.width = width;
     }
 
+    private String getFontStartBlock(String fontName, int size, String fontColorHex) {
+        return "<font face=\"" + fontName + "\" size=\""+ 3 +"\" color=\""+ fontColorHex +"\">";
+    }
+
     private void setTextFromQuestion(Question question, HTMLEditorKit kit, HTMLDocument doc) {
         String textColor = EditorFonts.getPrimaryFontColorHex();
         String title = question.getTitle() + "\n";
+        String fontName = getFont().getName();
+        int size = getFont().getSize();
         setText("");
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\"><b>" + title, 0, 0, HTML.Tag.FONT);
-            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + textColor + "\">" + bodyProcessing(question.getBody())
+            kit.insertHTML(doc, doc.getLength(), getFontStartBlock(fontName, size, textColor) + "<b>" + title, 0,
+                    0,
+                    HTML.Tag.FONT);
+            kit.insertHTML(doc, doc.getLength(), getFontStartBlock(fontName, size, textColor) + bodyProcessing
+                            (question.getBody())
                             + "</font>",
                     0, 0, null);
         } catch (Exception e) { e.printStackTrace(); }
     }
 
+    private String replaceHtmlTag(String html, String tagName, String startTagReplacement, String endTagReplacement) {
+        String startTag = "<" + tagName + ">";
+        String endTag = "</" + tagName+ ">";
+        return html.replaceAll(startTag, startTagReplacement).replaceAll(endTag, endTagReplacement);
+    }
+
     private String bodyProcessing(String body) {
-        return body.replaceAll("<code>", "<font face=\"" + EditorFonts.getPrimaryFontName() + "\" color=\"FF6A00\">")
-                .replaceAll
-                ("</code>", "</font>");
+        String codeFont = EditorFonts.getPrimaryFontName();
+        String fontStartBlock = getFontStartBlock(codeFont, getFont().getSize(), "FF6A00");
+        String html = replaceHtmlTag(body, "code", fontStartBlock, "</font>");
+        html = replaceHtmlTag(html, "blockquote", fontStartBlock, "</font>");
+        html = replaceHtmlTag(html, "pre", "", "");
+
+        return html;
     }
 
     private void initHTMLJTextPane(JTextPane pane, Dimension d, HTMLEditorKit kit, HTMLDocument doc, JList<? extends
