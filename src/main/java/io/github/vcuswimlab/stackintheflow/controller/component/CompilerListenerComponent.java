@@ -3,6 +3,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
+import io.github.vcuswimlab.stackintheflow.controller.ErrorMessageParser;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,7 +33,7 @@ public class CompilerListenerComponent implements ProjectComponent {
                 @Override
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
                     CompilerMessage[] messages = compileContext.getMessages(CompilerMessageCategory.ERROR);
-                    compilerMessages = Arrays.stream(messages).map(CompilerMessage::getMessage).collect(Collectors.toList());
+                    compilerMessages = Arrays.stream(messages).map(e -> ErrorMessageParser.parseError(e.getMessage(), project)).collect(Collectors.toList());
                     SearchToolWindowFactory.getInstance().setConsoleError(compilerMessages);
                 }
             });
