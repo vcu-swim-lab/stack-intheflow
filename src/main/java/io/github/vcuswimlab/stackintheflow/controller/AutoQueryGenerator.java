@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public class AutoQueryGenerator {
 
-    private static final int MAX_QUERY_TERMS = 5;
+    private static final int MAX_QUERY_TERMS = 4;
 
 
     public static String generateQuery(Editor editor, Combiner combiner) {
