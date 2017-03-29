@@ -16,6 +16,8 @@ import java.awt.*;
  */
 public class QuestionRenderer extends JTextPane implements ListCellRenderer<Question> {
     private int width;
+    private static final int NORMAL_LINE_HEIGHT = 15;
+    private static final int BOLD_LINE_HEIGHT = 18;
 
     public QuestionRenderer(JComponent parentContent) {
         this.width = parentContent.getWidth();
@@ -41,24 +43,27 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         this.width = width;
     }
 
-    private String getFontStartBlock(String fontName, int size, String fontColorHex) {
-        return "<font face=\"" + fontName + "\" size=\""+ 3 +"\" color=\""+ fontColorHex +"\">";
+    private String getFontStartBlock(String fontName, String fontColorHex) {
+        return "<font face=\"" + fontName + "\" color=\""+ fontColorHex +"\">";
+    }
+
+    private String getFontStartBlockNoName(String fontColorHex) {
+        return "<font color=\""+ fontColorHex +"\">";
     }
 
     private void setTextFromQuestion(Question question, HTMLEditorKit kit, HTMLDocument doc) {
         String textColor = EditorFonts.getPrimaryFontColorHex();
         String title = question.getTitle() + "\n";
         String fontName = getFont().getName();
-        int size = getFont().getSize();
         setText("");
 
         try
         {
-            kit.insertHTML(doc, doc.getLength(), getFontStartBlock(fontName, size, textColor) + "<b>" + title, 0,
+            kit.insertHTML(doc, doc.getLength(), getFontStartBlockNoName(textColor) + "<b>" + title, 0,
                     0,
                     HTML.Tag.FONT);
-            kit.insertHTML(doc, doc.getLength(), getFontStartBlock(fontName, size, textColor) + bodyProcessing
-                            (question.getBody())
+            kit.insertHTML(doc, doc.getLength(), getFontStartBlockNoName(textColor) + bodyProcessing
+                            (question.getBody(), EditorFonts.getCodeFontColorHex())
                             + "</font>",
                     0, 0, null);
         } catch (Exception e) { e.printStackTrace(); }
@@ -70,9 +75,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         return html.replaceAll(startTag, startTagReplacement).replaceAll(endTag, endTagReplacement);
     }
 
-    private String bodyProcessing(String body) {
+    private String bodyProcessing(String body, String textColor) {
         String codeFont = EditorFonts.getPrimaryFontName();
-        String fontStartBlock = getFontStartBlock(codeFont, getFont().getSize(), "FF6A00");
+        String fontStartBlock = getFontStartBlock(codeFont, textColor); //FF6A00
         String html = replaceHtmlTag(body, "code", fontStartBlock, "</font>");
         html = replaceHtmlTag(html, "blockquote", fontStartBlock, "</font>");
         html = replaceHtmlTag(html, "pre", "", "");
@@ -110,9 +115,12 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         initHTMLJTextPane(test, new Dimension(getCellWidth(), getTextHeight(0,2)), kit, doc, list, isSelected);
 
         String tagsString = question.getTagsAsFormattedString();
+        //006BFF
         try
         {
-            kit.insertHTML(doc, doc.getLength(), "<font color=\"006BFF\">" + tagsString, 0, 0, HTML.Tag.FONT);
+            kit.insertHTML(doc, doc.getLength(), "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">" +
+                    tagsString, 0, 0, HTML.Tag
+                    .FONT);
         } catch (Exception e) { e.printStackTrace(); }
         return test;
     }
@@ -134,7 +142,7 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     }
 
     private void setFontSizeToEditorFontSize() {
-        setFont(getFont().deriveFont(EditorFonts.getPrimaryFontSize()));
+        //setFont(getFont().deriveFont(EditorFonts.getPrimaryFontSize()));
     }
 
     private int getCellWidth() {
@@ -144,8 +152,9 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
     private int getTextHeight(int normalLines, int boldLines) {
         Font font = getFont();
         Font boldFont = font.deriveFont(Font.BOLD);
-        return (getFontMetrics(font).getHeight() - 2) * normalLines + (getFontMetrics(boldFont).getHeight
-                ()) * boldLines;
+        return NORMAL_LINE_HEIGHT*normalLines + BOLD_LINE_HEIGHT*boldLines;
+        //return (getFontMetrics(font).getHeight() - 3) * normalLines + (getFontMetrics(boldFont).getHeight
+        //        ()-1) * boldLines;
     }
 
     private int getBodyHeight(boolean isExpanded) {
