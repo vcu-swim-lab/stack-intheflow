@@ -18,6 +18,7 @@ import java.util.Map;
 public class JerseyGet {
 
     private static final String SEARCH_URL = "https://api.stackexchange.com/2.2/search";
+    private static final String dev_key = "4ZsC*xim)NbV1IbL5Z2xEg((";
     private static final String ENCODING_TYPE = "gzip";
     private static JerseyGet instance = null;
     private Client client;
@@ -47,7 +48,8 @@ public class JerseyGet {
         for(Map.Entry<String, String> entry : query.getComponentMap().entrySet()) {
             target = target.queryParam(entry.getKey(), entry.getValue());
         }
-
+        //This is the dev key
+        target.queryParam(dev_key);
         Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE).acceptEncoding(ENCODING_TYPE);
 
         return builder.get().readEntity(JerseyResponse.class);
