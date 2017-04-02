@@ -162,9 +162,14 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             HTMLDocument doc = new HTMLDocument();
             consoleErrorPane.setEditorKit(kit);
             consoleErrorPane.setDocument(doc);
+            String fontStartBlockLink = "<font color=\""+ EditorFonts.getHyperlinkColorHex() +"\">";
+            String fontStartBlockDefault = "<font color=\""+ EditorFonts.getPrimaryFontColorHex() +"\">";
 
             try {
-                kit.insertHTML(doc, 0, "search for: " + "<a href=\"\"><u>" + compilerMessages.get(0) + "</u></a>", 0, 0, null);
+                kit.insertHTML(doc, 0, fontStartBlockDefault + "search for: " + "</font><a href=\"\"><u>" +
+                                fontStartBlockLink + compilerMessages.get(0) +
+                                "</font></u></a>",
+                        0, 0, null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
