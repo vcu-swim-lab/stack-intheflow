@@ -64,7 +64,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
             public void mouseClicked(MouseEvent evt) {
                 JList<String> list = (JList<String>)evt.getSource();
                 if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
-                    if (!handleSingleClick(evt, list)) return;
+                    if (handleSingleClick(evt, list)) return;
                 }
 
                 if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
