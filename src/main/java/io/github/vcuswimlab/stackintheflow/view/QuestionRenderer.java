@@ -15,9 +15,9 @@ import java.awt.*;
  * Created by batman on 11/16/16.
  */
 public class QuestionRenderer extends JTextPane implements ListCellRenderer<Question> {
-    private int width;
     private static final int NORMAL_LINE_HEIGHT = 15;
     private static final int BOLD_LINE_HEIGHT = 18;
+    private int width;
 
     public QuestionRenderer(JComponent parentContent) {
         this.width = parentContent.getWidth();
@@ -91,8 +91,8 @@ public class QuestionRenderer extends JTextPane implements ListCellRenderer<Ques
         pane.setOpaque(true);
         pane.setEditable(false);
         if(isSelected) {
-            pane.setBackground(list.getSelectionBackground());
-            pane.setForeground(list.getSelectionForeground());
+            //pane.setBackground(list.getSelectionBackground());
+            //pane.setForeground(list.getSelectionForeground());
         } else {
             pane.setBackground(list.getBackground());
             pane.setForeground(list.getForeground());
