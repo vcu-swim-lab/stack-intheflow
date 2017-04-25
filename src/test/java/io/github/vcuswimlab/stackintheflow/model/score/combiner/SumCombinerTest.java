@@ -41,7 +41,7 @@ public class SumCombinerTest {
     }
 
     @Test
-    public void generateCumulativeScore() throws Exception {
+    public void testGenerateCumulativeScore() throws Exception {
         assertEquals(15.0, sumCombiner.generateCumulativeScore("term1"), 0.001);
     }
 
