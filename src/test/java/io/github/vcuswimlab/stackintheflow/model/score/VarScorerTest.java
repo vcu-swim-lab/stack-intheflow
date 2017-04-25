@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 
 import java.util.Optional;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 /**
@@ -24,9 +25,11 @@ public class VarScorerTest {
     public static void setUpBeforeClass() throws Exception {
         termStatComponent = mock(TermStatComponent.class);
         Mockito.when(termStatComponent.getTermStat("term1"))
-                .thenReturn(Optional.of(new TermStat(5, 5, 5, 5)));
+                .thenReturn(Optional.of(new TermStat(25, 20, 5, 5)));
         Mockito.when(termStatComponent.getTermStat("term2"))
                 .thenReturn(Optional.empty());
+        Mockito.when(termStatComponent.getTermCount()).thenReturn(200L);
+        Mockito.when(termStatComponent.getDocCount()).thenReturn(300L);
     }
 
     @Before
@@ -35,8 +38,12 @@ public class VarScorerTest {
     }
 
     @Test
-    public void score() throws Exception {
-        System.out.println(varScorer.score("term1"));
+    public void testScore() throws Exception {
+        assertEquals(0.0399, varScorer.score("term1"), 0.001);
     }
 
+    @Test
+    public void testScoreEmpty() throws Exception {
+        assertEquals(0.0, varScorer.score("term2"), 0.001);
+    }
 }
