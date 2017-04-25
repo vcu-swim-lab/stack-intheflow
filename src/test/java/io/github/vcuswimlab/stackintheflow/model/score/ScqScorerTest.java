@@ -1,0 +1,49 @@
+package io.github.vcuswimlab.stackintheflow.model.score;
+
+import io.github.vcuswimlab.stackintheflow.controller.component.TermStat;
+import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import java.util.Optional;
+
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
+/**
+ * Created by chase on 4/25/17.
+ */
+public class ScqScorerTest {
+    private static TermStatComponent termStatComponent;
+
+    private ScqScorer scqScorer;
+
+    @BeforeClass
+    public static void setUpBeforeClass() throws Exception {
+        termStatComponent = mock(TermStatComponent.class);
+        Mockito.when(termStatComponent.getTermStat("term1"))
+                .thenReturn(Optional.of(new TermStat(25, 20, 5, 5)));
+        Mockito.when(termStatComponent.getTermStat("term2"))
+                .thenReturn(Optional.empty());
+        Mockito.when(termStatComponent.getTermCount()).thenReturn(200L);
+        Mockito.when(termStatComponent.getDocCount()).thenReturn(300L);
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        scqScorer = new ScqScorer(termStatComponent);
+    }
+
+    @Test
+    public void testScore() throws Exception {
+        assertEquals(11.989, scqScorer.score("term1"), 0.001);
+    }
+
+    @Test
+    public void testScoreEmpty() throws Exception {
+        assertEquals(0.0, scqScorer.score("term2"), 0.001);
+    }
+
+}
