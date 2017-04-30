@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by chase on 4/25/17.
@@ -20,14 +21,20 @@ public class QueryTest {
     }
 
     @Test
+    public void testEmptyConstructor() {
+        query = new Query();
+        assertTrue(query.getComponentMap().isEmpty());
+    }
+
+    @Test
     public void testSetComponent() throws Exception {
-        query.set(Query.Component.Q, "myQ");
+        assertTrue(query.set(Query.Component.Q, "myQ") != null);
         assertEquals("myQ", query.get(Query.Component.Q));
     }
 
     @Test
     public void testSetString() throws Exception {
-        query.set("q", "myQ");
+        assertTrue(query.set("q", "myQ") != null);
         assertEquals("myQ", query.get(Query.Component.Q));
     }
 

@@ -23,8 +23,16 @@ public class QuestionTest {
     }
 
     @Test
-    public void fixNulls() throws Exception {
+    public void testFixNulls() throws Exception {
 
+        Question nullQuestion = new Question();
+        nullQuestion.fixNulls();
+
+        assertTrue(nullQuestion.getTags().isEmpty());
+        assertEquals("", nullQuestion.getBody());
+        assertEquals("", nullQuestion.getExcerpt());
+        assertEquals("", nullQuestion.getTitle());
+        assertEquals("http://www.stackoverflow.com/", nullQuestion.getLink());
     }
 
     @Test
@@ -108,4 +116,9 @@ public class QuestionTest {
         assertEquals("[Tag1] [Tag2] ", question.getTagsAsFormattedString());
     }
 
+    @Test
+    public void testGetTagsAsFormattedStringNull() throws Exception {
+        question.setTags(null);
+        assertEquals("", question.getTagsAsFormattedString());
+    }
 }

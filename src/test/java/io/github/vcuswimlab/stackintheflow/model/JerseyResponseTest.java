@@ -32,6 +32,16 @@ public class JerseyResponseTest {
     }
 
     @Test
+    public void testEmptyConstructor() {
+        jerseyResponse = new JerseyResponse();
+
+        assertNull(jerseyResponse.getItems());
+        assertFalse(jerseyResponse.isHas_more());
+        assertEquals(0, jerseyResponse.getQuota_max());
+        assertEquals(0, jerseyResponse.getQuota_remaining());
+    }
+
+    @Test
     public void testGetItems() throws Exception {
         assertEquals(items, jerseyResponse.getItems());
     }
