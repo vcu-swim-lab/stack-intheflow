@@ -47,5 +47,9 @@
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.CompilerListenerComponent
             </implementation-class>
         </component>
+        <component>
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.DocumentListenerComponent
+            </implementation-class>
+        </component>
     </project-components>
 </idea-plugin>
