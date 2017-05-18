@@ -5,7 +5,6 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowFactory;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
-import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
@@ -21,6 +20,13 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
     private JPanel searchJPanel;
     private JEditorPane consoleErrorPane;
 
+    private SearchToolWindowGUI searchToolWindowGUI;
+
+    public SearchToolWindowGUI createToolWindow(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+        createToolWindowContent(project, toolWindow);
+        return searchToolWindowGUI;
+    }
+
     @Override
     public void createToolWindowContent(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         SearchToolWindowGUI windowGUI = new SearchToolWindowGUI.SearchToolWindowGUIBuilder()
@@ -34,6 +40,6 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content windowContent = contentFactory.createContent(windowGUI.getContentPanel(), "", false);
         toolWindow.getContentManager().addContent(windowContent);
-        project.getComponent(ToolWindowComponent.class).setSearchToolWindowGUI(windowGUI);
+        this.searchToolWindowGUI = windowGUI;
     }
 }

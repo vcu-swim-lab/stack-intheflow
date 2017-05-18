@@ -1,6 +1,12 @@
 package io.github.vcuswimlab.stackintheflow.controller.component;
 
 import com.intellij.openapi.components.ProjectComponent;
+import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowAnchor;
+import com.intellij.openapi.wm.ToolWindowManager;
+import icons.StackInTheFlowIcons;
+import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 import org.jetbrains.annotations.NotNull;
 
@@ -10,16 +16,26 @@ import org.jetbrains.annotations.NotNull;
 public class ToolWindowComponent implements ProjectComponent {
 
     public static final String COMPONENT_ID = "StackInTheFlow.ToolWindowComponent";
+    private final Project project;
     private SearchToolWindowGUI searchToolWindowGUI;
+
+    public ToolWindowComponent(Project project) {
+        this.project = project;
+    }
 
     @Override
     public void projectOpened() {
-
+        ToolWindow toolWindow = ToolWindowManager.getInstance(project).registerToolWindow("StackInTheFlow", false, ToolWindowAnchor.RIGHT);
+        toolWindow.setIcon(StackInTheFlowIcons.TOOL_WINDOW_ICON);
+        toolWindow.activate(() -> {
+            SearchToolWindowFactory windowFactory = new SearchToolWindowFactory();
+            setSearchToolWindowGUI(windowFactory.createToolWindow(project, toolWindow));
+        });
     }
 
     @Override
     public void projectClosed() {
-
+        ToolWindowManager.getInstance(project).unregisterToolWindow("StackInTheFlow");
     }
 
     @Override
