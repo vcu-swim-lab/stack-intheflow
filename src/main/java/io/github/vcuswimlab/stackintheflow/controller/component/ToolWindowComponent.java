@@ -29,7 +29,7 @@ public class ToolWindowComponent implements ProjectComponent {
         toolWindow.setIcon(StackInTheFlowIcons.TOOL_WINDOW_ICON);
         toolWindow.activate(() -> {
             SearchToolWindowFactory windowFactory = new SearchToolWindowFactory();
-            setSearchToolWindowGUI(windowFactory.buildGUI(project, toolWindow));
+            setSearchToolWindowGUI(windowFactory.buildGUI(toolWindow));
         });
     }
 
