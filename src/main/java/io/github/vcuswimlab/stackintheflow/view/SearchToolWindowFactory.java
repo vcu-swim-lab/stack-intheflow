@@ -22,7 +22,7 @@ public class SearchToolWindowFactory implements ToolWindowFactory {
 
     private SearchToolWindowGUI searchToolWindowGUI;
 
-    public SearchToolWindowGUI createToolWindow(@NotNull Project project, @NotNull ToolWindow toolWindow) {
+    public SearchToolWindowGUI buildGUI(@NotNull Project project, @NotNull ToolWindow toolWindow) {
         createToolWindowContent(project, toolWindow);
         return searchToolWindowGUI;
     }
