@@ -19,6 +19,7 @@ import java.util.*;
 
 public class TermStatComponent implements ApplicationComponent {
 
+    public static final String COMPONENT_ID = "StackInTheFlow.TermStatComponent";
     private long termCount;
     private long docCount;
     private Map<String, TermStat> termStatMap;
@@ -46,7 +47,7 @@ public class TermStatComponent implements ApplicationComponent {
     @Override
     @NotNull
     public String getComponentName() {
-        return "TermStatComponent";
+        return COMPONENT_ID;
     }
 
     public Optional<TermStat> getTermStat(String term) {
