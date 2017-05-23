@@ -8,8 +8,9 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
-import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
+import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 
 import java.util.ArrayDeque;
 import java.util.Arrays;
@@ -52,9 +53,9 @@ public class AutoQueryAction extends AnAction {
 
         //Populate tool window with autoQuery search results
         ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
-        SearchToolWindowFactory toolWindowFactory = SearchToolWindowFactory.getInstance();
-        toolWindowFactory.setSearchBoxContent(autoQuery);
-        toolWindowFactory.updateList(response.getItems());
+        SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
+        toolWindowGUI.setSearchBoxContent(autoQuery);
+        toolWindowGUI.updateList(response.getItems());
         toolWindow.activate(() -> {
         });
     }

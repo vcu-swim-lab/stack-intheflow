@@ -19,9 +19,6 @@
 
   <extensions defaultExtensionNs="com.intellij">
     <!-- Add your extensions here -->
-      <toolWindow id="StackInTheFlow" secondary="true" anchor="right"
-                  factoryClass="io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory"
-                  icon="StackInTheFlowIcons.TOOL_WINDOW_ICON"/>
   </extensions>
 
   <actions>
@@ -49,6 +46,13 @@
         </component>
         <component>
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.DocumentListenerComponent
+            </implementation-class>
+        </component>
+    </project-components>
+
+    <project-components>
+        <component>
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent
             </implementation-class>
         </component>
     </project-components>

@@ -4,7 +4,6 @@ import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
 import io.github.vcuswimlab.stackintheflow.controller.ErrorMessageParser;
-import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowFactory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -16,6 +15,7 @@ import java.util.stream.Collectors;
  */
 public class CompilerListenerComponent implements ProjectComponent {
 
+    public static final String COMPONENT_ID = "StackInTheFlow.CompilerListenerComponent";
     private final Project project;
 
     private List<String> compilerMessages;
@@ -34,7 +34,7 @@ public class CompilerListenerComponent implements ProjectComponent {
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
                     CompilerMessage[] messages = compileContext.getMessages(CompilerMessageCategory.ERROR);
                     compilerMessages = Arrays.stream(messages).map(e -> ErrorMessageParser.parseError(e.getMessage(), project)).collect(Collectors.toList());
-                    SearchToolWindowFactory.getInstance().setConsoleError(compilerMessages);
+                    project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(compilerMessages);
                 }
             });
         }
@@ -48,7 +48,7 @@ public class CompilerListenerComponent implements ProjectComponent {
     @NotNull
     @Override
     public String getComponentName() {
-        return "CompilerListenerComponent";
+        return COMPONENT_ID;
     }
 
     @Override
