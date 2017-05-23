@@ -10,6 +10,9 @@ import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.messages.MessageBusConnection;
+import io.github.vcuswimlab.stackintheflow.model.difficulty.DifficultyModel;
+import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
+import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -17,8 +20,12 @@ import org.jetbrains.annotations.NotNull;
  */
 public class DocumentListenerComponent implements ProjectComponent {
 
+    public static final String COMPONENT_ID = "StackInTheFlow.DocumentListenerComponent";
+
     private final Project project;
     private MessageBusConnection connection;
+
+    private DifficultyModel difficultyModel;
 
     public DocumentListenerComponent(Project project) {
         this.project = project;
@@ -26,9 +33,12 @@ public class DocumentListenerComponent implements ProjectComponent {
 
     @Override
     public void projectOpened() {
-        // Subscribe to compiler output
+        // Subscribe to editor events
         if (project != null) {
             connection = project.getMessageBus().connect();
+
+            difficultyModel = new DifficultyModel(project.getMessageBus());
+
             connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerListener() {
 
                 @Override
@@ -41,12 +51,22 @@ public class DocumentListenerComponent implements ProjectComponent {
 
                         @Override
                         public void documentChanged(DocumentEvent documentEvent) {
-                            if (documentEvent.getOldLength() > documentEvent.getNewLength()) {
-                                System.out.println("DELETE -\n Old: " + documentEvent.getOldFragment() + "\n New: " + documentEvent.getNewFragment());
-                            } else {
-                                System.out.println("INSERT -\n Old: " + documentEvent.getOldFragment() + "\n New: " + documentEvent.getNewFragment());
+
+                            DifficultyTrigger publisher = project.getMessageBus()
+                                    .syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
+
+                            CharSequence oldFragment = documentEvent.getOldFragment();
+                            CharSequence newFragment = documentEvent.getNewFragment();
+
+                            long timeStamp = documentEvent.getOldTimeStamp();
+
+                            if (oldFragment.length() == 0 && newFragment.length() > 0) {
+                                publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), timeStamp));
+                            } else if (oldFragment.length() > 0 && newFragment.length() == 0) {
+                                publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), timeStamp));
+                            } else if (oldFragment.length() > 0 && newFragment.length() > 0) {
+                                publisher.doEdit(new EditorEvent.Update(oldFragment.toString(), newFragment.toString(), timeStamp));
                             }
-                            
                         }
                     });
                 }
@@ -71,7 +91,6 @@ public class DocumentListenerComponent implements ProjectComponent {
 
     @Override
     public void initComponent() {
-
     }
 
     @Override
@@ -82,6 +101,6 @@ public class DocumentListenerComponent implements ProjectComponent {
     @NotNull
     @Override
     public String getComponentName() {
-        return "DocumentListenerComponent";
+        return COMPONENT_ID;
     }
 }
