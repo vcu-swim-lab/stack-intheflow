@@ -1,5 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.controller.component;
 
+import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.messages.MessageBusConnection;
