@@ -37,8 +37,6 @@ public class DocumentListenerComponent implements ProjectComponent {
         if (project != null) {
             connection = project.getMessageBus().connect();
 
-            difficultyModel = new DifficultyModel(project.getMessageBus());
-
             connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerListener() {
 
                 @Override
@@ -64,9 +62,7 @@ public class DocumentListenerComponent implements ProjectComponent {
                                 publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), timeStamp));
                             } else if (oldFragment.length() > 0 && newFragment.length() == 0) {
                                 publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), timeStamp));
-                            } else if (oldFragment.length() > 0 && newFragment.length() > 0) {
-                                publisher.doEdit(new EditorEvent.Update(oldFragment.toString(), newFragment.toString(), timeStamp));
-                            }
+                            } 
                         }
                     });
                 }

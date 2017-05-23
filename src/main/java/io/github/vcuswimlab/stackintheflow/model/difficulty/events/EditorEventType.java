@@ -5,7 +5,7 @@ package io.github.vcuswimlab.stackintheflow.model.difficulty.events;
  */
 public enum EditorEventType {
 
-    INSERT("Insert"), DELETE("Delete"), UPDATE("Update");
+    INSERT("Insert"), DELETE("Delete");
 
     private String string;
 

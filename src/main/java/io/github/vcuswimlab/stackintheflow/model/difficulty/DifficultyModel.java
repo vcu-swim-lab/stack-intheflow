@@ -1,5 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.model.difficulty;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
@@ -18,6 +19,7 @@ public class DifficultyModel {
 
     private final int MAX_QUEUE_SIZE = 25;
 
+    private Project project;
     private MessageBus messageBus;
     private MessageBusConnection connection;
 
@@ -25,8 +27,9 @@ public class DifficultyModel {
 
     private Queue<EditorEvent> eventQueue;
 
-    public DifficultyModel(MessageBus messageBus) {
-        this.messageBus = messageBus;
+    public DifficultyModel(Project project) {
+        this.project = project;
+        messageBus = project.getMessageBus();
         connection = messageBus.connect();
         eventCounts = new EnumMap<>(EditorEventType.class);
         eventQueue = new ArrayDeque<>(MAX_QUEUE_SIZE);
@@ -55,5 +58,9 @@ public class DifficultyModel {
         }
 
         return eventCounts.getOrDefault(eventType, 0) / (double) eventCounts.size();
+    }
+
+    public void clear() {
+        eventQueue.clear();
     }
 }

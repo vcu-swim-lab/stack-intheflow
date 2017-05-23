@@ -77,38 +77,4 @@ public abstract class EditorEvent {
                     '}';
         }
     }
-
-    public static class Update extends EditorEvent {
-
-        private String oldText;
-        private String newText;
-
-        public Update(String oldText, String newText, long timeStamp) {
-            super(timeStamp);
-            this.oldText = oldText;
-            this.newText = newText;
-        }
-
-        @Override
-        public EditorEventType getType() {
-            return EditorEventType.UPDATE;
-        }
-
-        public String getOldText() {
-            return oldText;
-        }
-
-        public String getNewText() {
-            return newText;
-        }
-
-        @Override
-        public String toString() {
-            return "Update{" +
-                    "timeStamp=" + getTimeStamp() +
-                    ", oldText='" + oldText + '\'' +
-                    ", newText='" + newText + '\'' +
-                    '}';
-        }
-    }
 }
