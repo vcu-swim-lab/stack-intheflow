@@ -6,7 +6,6 @@ import com.intellij.util.messages.MessageBusConnection;
 import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
-import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEventType;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 
@@ -34,7 +33,7 @@ public class DifficultyModel {
 
     private Map<EditorEventType, Integer> eventCounts;
 
-    private Queue<EditorEvent> eventQueue;
+    private Queue<EditorEventType> eventQueue;
     private State currentState;
     private ScheduledThreadPoolExecutor timer;
     private ScheduledFuture<?> inactiveTaskFuture;
@@ -72,8 +71,8 @@ public class DifficultyModel {
                     }, INACTIVE_DELAY, TimeUnit.MINUTES);
 
                     if (isFull()) {
-                        EditorEvent oldEvent = eventQueue.poll();
-                        eventCounts.put(oldEvent.getType(), eventCounts.getOrDefault(oldEvent.getType(), 1) - 1);
+                        EditorEventType oldEventType = eventQueue.poll();
+                        eventCounts.put(oldEventType, eventCounts.getOrDefault(oldEventType, 1) - 1);
 
                         // If we have crossed the threshold, initiate a query and transition to query state
                         if (getRatio(EditorEventType.DELETE) >= DELETE_RATIO) {
@@ -94,7 +93,7 @@ public class DifficultyModel {
                         }
                     }
 
-                    eventQueue.offer(event);
+                    eventQueue.offer(event.getType());
                     break;
                 case QUERY:
                     //Do nothing
