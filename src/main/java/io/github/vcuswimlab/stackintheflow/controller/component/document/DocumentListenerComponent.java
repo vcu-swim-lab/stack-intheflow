@@ -1,4 +1,4 @@
-package io.github.vcuswimlab.stackintheflow.controller.component;
+package io.github.vcuswimlab.stackintheflow.controller.component.document;
 
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.editor.event.DocumentEvent;
@@ -10,7 +10,6 @@ import com.intellij.openapi.fileEditor.FileEditorManagerListener;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.util.messages.MessageBusConnection;
-import io.github.vcuswimlab.stackintheflow.model.difficulty.DifficultyModel;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import org.jetbrains.annotations.NotNull;
@@ -24,8 +23,6 @@ public class DocumentListenerComponent implements ProjectComponent {
 
     private final Project project;
     private MessageBusConnection connection;
-
-    private DifficultyModel difficultyModel;
 
     public DocumentListenerComponent(Project project) {
         this.project = project;
@@ -42,6 +39,7 @@ public class DocumentListenerComponent implements ProjectComponent {
                 @Override
                 public void fileOpened(@NotNull FileEditorManager fileEditorManager, @NotNull VirtualFile virtualFile) {
                     FileDocumentManager.getInstance().getDocument(virtualFile).addDocumentListener(new DocumentListener() {
+
                         @Override
                         public void beforeDocumentChange(DocumentEvent documentEvent) {
 
@@ -50,19 +48,18 @@ public class DocumentListenerComponent implements ProjectComponent {
                         @Override
                         public void documentChanged(DocumentEvent documentEvent) {
 
-                            DifficultyTrigger publisher = project.getMessageBus()
-                                    .syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
+                            long timeStamp = System.currentTimeMillis();
 
                             CharSequence oldFragment = documentEvent.getOldFragment();
                             CharSequence newFragment = documentEvent.getNewFragment();
 
-                            long timeStamp = documentEvent.getOldTimeStamp();
+                            DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
 
-                            if (oldFragment.length() == 0 && newFragment.length() > 0) {
+                            if (oldFragment.length() == 0 && newFragment.length() > 0) { //Event was an insert
                                 publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), timeStamp));
-                            } else if (oldFragment.length() > 0 && newFragment.length() == 0) {
+                            } else if (oldFragment.length() > 0 && newFragment.length() == 0) { //Event was a delete
                                 publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), timeStamp));
-                            } 
+                            }
                         }
                     });
                 }

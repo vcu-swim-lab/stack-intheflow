@@ -124,7 +124,7 @@ public class SearchToolWindowGUI {
         return questions;
     }
 
-    private void executeQuery(String query) {
+    public void executeQuery(String query) {
         JerseyResponse jerseyResponse = QueryExecutor.executeQuery(query);
         List<Question> questionList = jerseyResponse.getItems();
         updateList(questionList);
