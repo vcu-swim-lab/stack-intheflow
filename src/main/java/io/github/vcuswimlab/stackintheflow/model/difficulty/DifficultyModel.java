@@ -3,6 +3,7 @@ package io.github.vcuswimlab.stackintheflow.model.difficulty;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
+import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
@@ -78,7 +79,8 @@ public class DifficultyModel {
                         if (getRatio(EditorEventType.DELETE) >= DELETE_RATIO) {
 
                             //Fire query
-                            //project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery("Java Hello World!");
+                            String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
+                            project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery(autoQuery);
 
                             System.out.println("QUERY!");
                             eventQueue.clear();

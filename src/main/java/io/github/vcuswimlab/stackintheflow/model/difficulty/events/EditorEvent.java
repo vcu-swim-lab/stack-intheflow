@@ -1,18 +1,26 @@
 package io.github.vcuswimlab.stackintheflow.model.difficulty.events;
 
+import com.intellij.openapi.editor.Editor;
+
 /**
  * Created by Chase on 5/23/2017.
  */
 public abstract class EditorEvent {
 
+    private Editor editor;
     private long timeStamp;
 
-    private EditorEvent(long timeStamp) {
+    private EditorEvent(Editor editor, long timeStamp) {
+        this.editor = editor;
         this.timeStamp = timeStamp;
     }
 
     public long getTimeStamp() {
         return timeStamp;
+    }
+
+    public Editor getEditor() {
+        return editor;
     }
 
     public abstract EditorEventType getType();
@@ -28,8 +36,8 @@ public abstract class EditorEvent {
 
         private String insertedText;
 
-        public Insert(String insertedText, long timeStamp) {
-            super(timeStamp);
+        public Insert(String insertedText, Editor editor, long timeStamp) {
+            super(editor, timeStamp);
             this.insertedText = insertedText;
         }
 
@@ -55,8 +63,8 @@ public abstract class EditorEvent {
 
         private String deletedText;
 
-        public Delete(String deletedText, long timeStamp) {
-            super(timeStamp);
+        public Delete(String deletedText, Editor editor, long timeStamp) {
+            super(editor, timeStamp);
             this.deletedText = deletedText;
         }
 

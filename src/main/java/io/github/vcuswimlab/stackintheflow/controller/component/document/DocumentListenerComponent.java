@@ -38,6 +38,7 @@ public class DocumentListenerComponent implements ProjectComponent {
 
                 @Override
                 public void fileOpened(@NotNull FileEditorManager fileEditorManager, @NotNull VirtualFile virtualFile) {
+
                     FileDocumentManager.getInstance().getDocument(virtualFile).addDocumentListener(new DocumentListener() {
 
                         @Override
@@ -56,9 +57,9 @@ public class DocumentListenerComponent implements ProjectComponent {
                             DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
 
                             if (oldFragment.length() == 0 && newFragment.length() > 0) { //Event was an insert
-                                publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), timeStamp));
+                                publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
                             } else if (oldFragment.length() > 0 && newFragment.length() == 0) { //Event was a delete
-                                publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), timeStamp));
+                                publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
                             }
                         }
                     });
