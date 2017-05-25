@@ -8,11 +8,14 @@ import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by chase on 5/18/17.
@@ -28,8 +31,6 @@ public class SearchToolWindowGUI {
     private JEditorPane consoleErrorPane;
     private DefaultListModel<Question> questionListModel;
 
-    private List<String> compilerMessages;
-
     public SearchToolWindowGUI(JButton searchButton, JTextField searchBox, JPanel content, JList<Question> resultsList, JScrollPane resultsScrollPane, JPanel searchJPanel, JEditorPane consoleErrorPane) {
         this.searchButton = searchButton;
         this.searchBox = searchBox;
@@ -39,7 +40,6 @@ public class SearchToolWindowGUI {
         this.searchJPanel = searchJPanel;
         this.consoleErrorPane = consoleErrorPane;
 
-        compilerMessages = new ArrayList<>();
         addListeners();
     }
 
@@ -101,12 +101,14 @@ public class SearchToolWindowGUI {
             }
         });
 
-        consoleErrorPane.addMouseListener(new MouseAdapter() {
+        consoleErrorPane.addHyperlinkListener(new HyperlinkListener() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                setSearchBoxContent(compilerMessages.get(0));
-                executeQuery(compilerMessages.get(0));
-                consoleErrorPane.setVisible(false);
+            public void hyperlinkUpdate(HyperlinkEvent e) {
+                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                    setSearchBoxContent(e.getDescription());
+                    consoleErrorPane.setVisible(false);
+                    executeQuery(e.getDescription());
+                }
             }
         });
     }
@@ -150,25 +152,34 @@ public class SearchToolWindowGUI {
     }
 
     public void setConsoleError(List<String> compilerMessages) {
-        this.compilerMessages = compilerMessages;
-
         if (!compilerMessages.isEmpty()) {
             HTMLEditorKit kit = new HTMLEditorKit();
             HTMLDocument doc = new HTMLDocument();
             consoleErrorPane.setEditorKit(kit);
             consoleErrorPane.setDocument(doc);
-            String fontStartBlockLink = "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">";
-            String fontStartBlockDefault = "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">";
+
+            // for each message in compilerMessages, build html link
+            List<String> compilerMessageLinks = compilerMessages.stream().map(message ->
+                    "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">" +
+                        "search for:&nbsp;&nbsp;" +
+                    "</font>" +
+                    "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">" +
+                        // href allows hyperlink listener to grab message
+                        "<a href=\"" + message + "\">" +
+                            "<u>" +
+                                message +
+                            "</u>" +
+                        "</a>" +
+                    "</font>").collect(Collectors.toList());
+
+            String consoleErrorHTML = String.join("<br><br>", compilerMessageLinks);
 
             try {
-                kit.insertHTML(doc, 0, fontStartBlockDefault + "search for: " + "</font><a href=\"\"><u>" +
-                                fontStartBlockLink + compilerMessages.get(0) +
-                                "</font></u></a>",
-                        0, 0, null);
+                kit.insertHTML(doc, 0, consoleErrorHTML, 0, 0, null);
+                consoleErrorPane.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            consoleErrorPane.setVisible(true);
         } else {
             consoleErrorPane.setVisible(false);
         }
