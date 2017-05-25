@@ -77,9 +77,12 @@ public class DifficultyModel {
                         // If we have crossed the threshold, initiate a query and transition to query state
                         if (getRatio(EditorEventType.DELETE) >= DELETE_RATIO) {
 
-                            //Fire query
+                            //Generate the autoQuery
                             String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
-                            project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery(autoQuery);
+
+                            //Execute Search
+                            SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
+                            toolWindowGUI.executeQuery(autoQuery, true);
 
                             System.out.println("QUERY!");
                             eventQueue.clear();
