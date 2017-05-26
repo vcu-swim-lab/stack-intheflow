@@ -159,7 +159,7 @@ public class SearchToolWindowGUI {
             consoleErrorPane.setDocument(doc);
 
             // for each message in compilerMessages, build html link
-            List<String> compilerMessageLinks = compilerMessages.stream().map(message ->
+            String consoleErrorHTML = compilerMessages.stream().map(message ->
                     "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">" +
                         "search for:&nbsp;&nbsp;" +
                     "</font>" +
@@ -170,9 +170,9 @@ public class SearchToolWindowGUI {
                                 message +
                             "</u>" +
                         "</a>" +
-                    "</font>").collect(Collectors.toList());
+                    "</font>").collect(Collectors.joining("<br><br>"));
 
-            String consoleErrorHTML = String.join("<br><br>", compilerMessageLinks);
+            //String consoleErrorHTML = String.join("", compilerMessageLinks);
 
             try {
                 kit.insertHTML(doc, 0, consoleErrorHTML, 0, 0, null);
