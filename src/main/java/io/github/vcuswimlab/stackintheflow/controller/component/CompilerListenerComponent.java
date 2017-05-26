@@ -27,7 +27,6 @@ public class CompilerListenerComponent implements ProjectComponent {
         this.project = project;
     }
 
-
     @Override
     public void initComponent() {
         // Subscribe to compiler output
@@ -38,8 +37,8 @@ public class CompilerListenerComponent implements ProjectComponent {
                     // Mapping from compiler category name, "ERROR", to list of messages, ["Caused by: ...", "..."]
                     Map<String, List<String>> compilerMessages = messageCategories.parallelStream().collect(
                             Collectors.toMap(CompilerMessageCategory::name, c ->
-                                    Arrays.stream(compileContext.getMessages(c)).map(m ->
-                                            m.getMessage()).collect(Collectors.toList())));
+                                    Arrays.stream(compileContext.getMessages(c)).map(
+                                            CompilerMessage::getMessage).collect(Collectors.toList())));
 
                     // Let the parser class handle all data mining
                     List<String> consoleDisplayItems = ErrorMessageParser.parseCompilerMessages(compilerMessages, project);
