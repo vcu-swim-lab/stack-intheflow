@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.event.*;
@@ -101,14 +100,11 @@ public class SearchToolWindowGUI {
             }
         });
 
-        consoleErrorPane.addHyperlinkListener(new HyperlinkListener() {
-            @Override
-            public void hyperlinkUpdate(HyperlinkEvent e) {
-                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                    setSearchBoxContent(e.getDescription());
-                    consoleErrorPane.setVisible(false);
-                    executeQuery(e.getDescription());
-                }
+        consoleErrorPane.addHyperlinkListener(e -> {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                setSearchBoxContent(e.getDescription());
+                consoleErrorPane.setVisible(false);
+                executeQuery(e.getDescription());
             }
         });
     }
@@ -167,12 +163,10 @@ public class SearchToolWindowGUI {
                         // href allows hyperlink listener to grab message
                         "<a href=\"" + message + "\">" +
                             "<u>" +
-                                message +
+                                message.replace("\n", "<br>") +
                             "</u>" +
                         "</a>" +
                     "</font>").collect(Collectors.joining("<br><br>"));
-
-            //String consoleErrorHTML = String.join("", compilerMessageLinks);
 
             try {
                 kit.insertHTML(doc, 0, consoleErrorHTML, 0, 0, null);
