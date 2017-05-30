@@ -1,6 +1,8 @@
 package io.github.vcuswimlab.stackintheflow.model.difficulty;
 
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
 import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
@@ -23,8 +25,8 @@ import java.util.concurrent.TimeUnit;
 public class DifficultyModel {
 
     private static final double DELETE_RATIO = .6;
-    private static final int QUERY_DELAY = 30; //Delay in seconds
-    private static final int INACTIVE_DELAY = 15; //Delay in minutes
+    private static final int QUERY_DELAY = 30; // Delay in seconds
+    private static final int INACTIVE_DELAY = 15; // Delay in minutes
     private final int MAX_QUEUE_SIZE = 25;
 
     private Project project;
@@ -55,20 +57,16 @@ public class DifficultyModel {
 
             switch (currentState) {
                 case PAUSE:
-                    //Transition to collect state, queue event
+                    // Transition to collect state, queue event
                     currentState = State.COLLECT;
-                    System.out.println("COLLECT!");
                 case COLLECT:
                     eventCounts.put(event.getType(), eventCounts.getOrDefault(event.getType(), 0) + 1);
 
-                    //Reset Inactive Task
+                    // Reset Inactive Task
                     if (inactiveTaskFuture != null) {
                         inactiveTaskFuture.cancel(true);
                     }
-                    inactiveTaskFuture = timer.schedule(() -> {
-                        currentState = State.PAUSE;
-                        System.out.println("PAUSE!");
-                    }, INACTIVE_DELAY, TimeUnit.MINUTES);
+                    inactiveTaskFuture = timer.schedule(() -> currentState = State.PAUSE, INACTIVE_DELAY, TimeUnit.MINUTES);
 
                     if (isFull()) {
                         EditorEventType oldEventType = eventQueue.poll();
@@ -77,21 +75,25 @@ public class DifficultyModel {
                         // If we have crossed the threshold, initiate a query and transition to query state
                         if (getRatio(EditorEventType.DELETE) >= DELETE_RATIO) {
 
-                            //Generate the autoQuery
-                            String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
+                            ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
 
-                            //Execute Search
-                            SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
-                            toolWindowGUI.executeQuery(autoQuery, true);
+                            // Check to see if the tool window is active before generating the query.
+                            if (toolWindow.isActive()) {
+                                // Generate the autoQuery
+                                String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
 
-                            System.out.println("QUERY!");
+                                // Execute Search
+                                SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
+                                toolWindowGUI.executeQuery(autoQuery, true);
+                            }
+
                             eventQueue.clear();
                             currentState = State.QUERY;
 
-                            //After QUERY_DELAY seconds, transition to collect state
+                            // After QUERY_DELAY seconds, transition to collect state
                             timer.schedule(() -> currentState = State.COLLECT, QUERY_DELAY, TimeUnit.SECONDS);
 
-                            //Remove the inactive task as we no longer need it in this state
+                            // Remove the inactive task as we no longer need it in this state
                             inactiveTaskFuture.cancel(true);
                         }
                     }
@@ -99,7 +101,7 @@ public class DifficultyModel {
                     eventQueue.offer(event.getType());
                     break;
                 case QUERY:
-                    //Do nothing
+                    // Do nothing
                     break;
             }
         });
