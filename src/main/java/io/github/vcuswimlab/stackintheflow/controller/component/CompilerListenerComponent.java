@@ -3,7 +3,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
-import io.github.vcuswimlab.stackintheflow.controller.ErrorMessageParser;
+import io.github.vcuswimlab.stackintheflow.controller.error.ErrorMessageParser;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -41,7 +41,7 @@ public class CompilerListenerComponent implements ProjectComponent {
                                             CompilerMessage::getMessage).collect(Collectors.toList())));
 
                     // Let the parser class handle all data mining
-                    List<String> consoleDisplayItems = ErrorMessageParser.parseCompilerMessages(compilerMessages, project);
+                    List<String> consoleDisplayItems = ErrorMessageParser.parseCompilerError(compilerMessages, project);
 
                     // Send the results to be displayed on the console
                     project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(consoleDisplayItems);
