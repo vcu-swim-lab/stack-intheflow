@@ -18,7 +18,8 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+      <consoleInputFilterProvider implementation="io.github.vcuswimlab.stackintheflow.controller.error.RuntimeErrorFilterProvider"/>
+      <consoleActionsPostProcessor implementation="io.github.vcuswimlab.stackintheflow.controller.error.RuntimeErrorPostProcessor" />
   </extensions>
 
   <actions>
@@ -42,6 +43,10 @@
     <project-components>
         <component>
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.CompilerListenerComponent
+            </implementation-class>
+        </component>
+        <component>
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.ConsoleErrorComponent
             </implementation-class>
         </component>
     </project-components>

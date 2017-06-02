@@ -9,7 +9,6 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.event.HyperlinkEvent;
-import javax.swing.event.HyperlinkListener;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.event.*;
@@ -101,14 +100,11 @@ public class SearchToolWindowGUI {
             }
         });
 
-        consoleErrorPane.addHyperlinkListener(new HyperlinkListener() {
-            @Override
-            public void hyperlinkUpdate(HyperlinkEvent e) {
-                if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                    setSearchBoxContent(e.getDescription());
-                    consoleErrorPane.setVisible(false);
-                    executeQuery(e.getDescription());
-                }
+        consoleErrorPane.addHyperlinkListener(e -> {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                setSearchBoxContent(e.getDescription());
+                consoleErrorPane.setVisible(false);
+                executeQuery(e.getDescription());
             }
         });
     }
@@ -159,7 +155,7 @@ public class SearchToolWindowGUI {
             consoleErrorPane.setDocument(doc);
 
             // for each message in compilerMessages, build html link
-            List<String> compilerMessageLinks = compilerMessages.stream().map(message ->
+            String consoleErrorHTML = compilerMessages.stream().map(message ->
                     "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">" +
                         "search for:&nbsp;&nbsp;" +
                     "</font>" +
@@ -167,12 +163,10 @@ public class SearchToolWindowGUI {
                         // href allows hyperlink listener to grab message
                         "<a href=\"" + message + "\">" +
                             "<u>" +
-                                message +
+                                message.replace("\n", "<br>") +
                             "</u>" +
                         "</a>" +
-                    "</font>").collect(Collectors.toList());
-
-            String consoleErrorHTML = String.join("<br><br>", compilerMessageLinks);
+                    "</font>").collect(Collectors.joining("<br><br>"));
 
             try {
                 kit.insertHTML(doc, 0, consoleErrorHTML, 0, 0, null);
