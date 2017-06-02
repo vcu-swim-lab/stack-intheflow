@@ -11,8 +11,11 @@ import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.stream.Collectors;
 
 /**
  * Created by chase on 5/18/17.
@@ -30,6 +33,8 @@ public class SearchToolWindowGUI {
 
     private List<String> compilerMessages;
 
+    private ScheduledThreadPoolExecutor timer;
+
     public SearchToolWindowGUI(JButton searchButton, JTextField searchBox, JPanel content, JList<Question> resultsList, JScrollPane resultsScrollPane, JPanel searchJPanel, JEditorPane consoleErrorPane) {
         this.searchButton = searchButton;
         this.searchBox = searchBox;
@@ -40,13 +45,16 @@ public class SearchToolWindowGUI {
         this.consoleErrorPane = consoleErrorPane;
 
         compilerMessages = new ArrayList<>();
+
+        timer = new ScheduledThreadPoolExecutor(1);
+
         addListeners();
     }
 
     private void addListeners() {
         consoleErrorPane.setVisible(false);
 
-        searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
+        searchButton.addActionListener(e -> executeQuery(searchBox.getText(), false));
         searchBox.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -104,8 +112,7 @@ public class SearchToolWindowGUI {
         consoleErrorPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setSearchBoxContent(compilerMessages.get(0));
-                executeQuery(compilerMessages.get(0));
+                executeQuery(compilerMessages.get(0), true);
                 consoleErrorPane.setVisible(false);
             }
         });
@@ -124,13 +131,63 @@ public class SearchToolWindowGUI {
         return questions;
     }
 
-    private void executeQuery(String query) {
-        JerseyResponse jerseyResponse = QueryExecutor.executeQuery(query);
-        List<Question> questionList = jerseyResponse.getItems();
-        updateList(questionList);
+    public void executeQuery(String query, boolean backoff) {
+
+        /*timer.execute(() -> {
+
+            String searchQuery = query;
+
+            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+            List<Question> questionList = jerseyResponse.getItems();
+
+            if (backoff && questionList.isEmpty()) {
+
+                Deque<String> queryStack = new ArrayDeque<>();
+                queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
+
+                while (questionList.isEmpty()) {
+                    queryStack.pop();
+                    searchQuery = queryStack.stream().collect(Collectors.joining(" "));
+                    jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+                    questionList = jerseyResponse.getItems();
+                }
+            }
+
+            setSearchBoxContent(searchQuery);
+            updateList(questionList);
+        });*/
+
+        Future<List<Question>> questionListFuture = timer.submit(() -> {
+            String searchQuery = query;
+
+            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+            List<Question> questionList = jerseyResponse.getItems();
+
+            if (backoff && questionList.isEmpty()) {
+
+                Deque<String> queryStack = new ArrayDeque<>();
+                queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
+
+                while (questionList.isEmpty()) {
+                    queryStack.pop();
+                    searchQuery = queryStack.stream().collect(Collectors.joining(" "));
+                    jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+                    questionList = jerseyResponse.getItems();
+                }
+            }
+
+            setSearchBoxContent(searchQuery);
+            return questionList;
+        });
+
+        try {
+            updateList(questionListFuture.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void updateList(List<Question> elements) {
+    private void updateList(List<Question> elements) {
         if (elements == null) {
             return;
         }
@@ -145,7 +202,7 @@ public class SearchToolWindowGUI {
         }
     }
 
-    public void setSearchBoxContent(String content) {
+    private void setSearchBoxContent(String content) {
         searchBox.setText(content);
     }
 

@@ -44,11 +44,17 @@
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.CompilerListenerComponent
             </implementation-class>
         </component>
-    </project-components>
-
-    <project-components>
+        <component>
+            <implementation-class>
+                io.github.vcuswimlab.stackintheflow.controller.component.document.DocumentListenerComponent
+            </implementation-class>
+        </component>
         <component>
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent
+            </implementation-class>
+        </component>
+        <component>
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.DifficultyModelComponent
             </implementation-class>
         </component>
     </project-components>
