@@ -83,8 +83,7 @@ public class DifficultyModel {
                                 String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
 
                                 // Execute Search
-                                SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
-                                toolWindowGUI.executeQuery(autoQuery, true);
+                                gui.executeQuery(autoQuery, true);
                             }
 
                             eventQueue.clear();
