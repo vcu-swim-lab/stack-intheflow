@@ -3,6 +3,8 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
+import com.intellij.util.messages.MessageBusConnection;
+import io.github.vcuswimlab.stackintheflow.controller.ErrorMessageParser;
 import io.github.vcuswimlab.stackintheflow.controller.error.ErrorMessageParser;
 import org.jetbrains.annotations.NotNull;
 
@@ -17,7 +19,9 @@ import java.util.stream.Collectors;
 public class CompilerListenerComponent implements ProjectComponent {
 
     public static final String COMPONENT_ID = "StackInTheFlow.CompilerListenerComponent";
+
     private final Project project;
+    private MessageBusConnection connection;
 
     // Categories of compiler messages that can be extracted
     // ERROR, WARNING, INFORMATION, STATISTICS
@@ -31,7 +35,8 @@ public class CompilerListenerComponent implements ProjectComponent {
     public void initComponent() {
         // Subscribe to compiler output
         if (project != null) {
-            project.getMessageBus().connect().subscribe(CompilerTopics.COMPILATION_STATUS, new CompilationStatusListener() {
+            connection = project.getMessageBus().connect();
+            connection.subscribe(CompilerTopics.COMPILATION_STATUS, new CompilationStatusListener() {
                 @Override
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
                     // Mapping from compiler category name, "ERROR", to list of messages, ["Caused by: ...", "..."]
@@ -52,7 +57,7 @@ public class CompilerListenerComponent implements ProjectComponent {
 
     @Override
     public void disposeComponent() {
-
+        connection.disconnect();
     }
 
     @NotNull
