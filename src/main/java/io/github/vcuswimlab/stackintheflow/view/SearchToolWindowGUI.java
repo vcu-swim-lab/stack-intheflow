@@ -117,7 +117,7 @@ public class SearchToolWindowGUI {
             if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                 setSearchBoxContent(e.getDescription());
                 consoleErrorPane.setVisible(false);
-                executeQuery(e.getDescription());
+                executeQuery(e.getDescription(), false);
             }
         });
     }

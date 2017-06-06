@@ -4,7 +4,6 @@ import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.messages.MessageBusConnection;
-import io.github.vcuswimlab.stackintheflow.controller.ErrorMessageParser;
 import io.github.vcuswimlab.stackintheflow.controller.error.ErrorMessageParser;
 import org.jetbrains.annotations.NotNull;
 
