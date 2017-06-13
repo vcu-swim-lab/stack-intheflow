@@ -5,11 +5,10 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEventType;
-import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 
 import java.util.ArrayDeque;
 import java.util.EnumMap;
@@ -39,7 +38,6 @@ public class DifficultyModel {
     private State currentState;
     private ScheduledThreadPoolExecutor timer;
     private ScheduledFuture<?> inactiveTaskFuture;
-    private SearchToolWindowGUI gui;
 
     public DifficultyModel(Project project) {
         this.project = project;
@@ -50,8 +48,6 @@ public class DifficultyModel {
 
         currentState = State.COLLECT;
         timer = new ScheduledThreadPoolExecutor(1);
-
-        gui = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
 
         connection.subscribe(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC, event -> {
 
@@ -74,16 +70,15 @@ public class DifficultyModel {
 
                         // If we have crossed the threshold, initiate a query and transition to query state
                         if (getRatio(EditorEventType.DELETE) >= DELETE_RATIO) {
-
                             ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
 
-                            // Check to see if the tool window is active before generating the query.
-                            if (toolWindow.isActive()) {
+                            // Check to see if the tool window is visible before generating the query.
+                            if (toolWindow.isVisible()) {
                                 // Generate the autoQuery
                                 String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
 
                                 // Execute Search
-                                gui.executeQuery(autoQuery, true);
+                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery(autoQuery, true);
                             }
 
                             eventQueue.clear();

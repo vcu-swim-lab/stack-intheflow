@@ -1,7 +1,7 @@
 package io.github.vcuswimlab.stackintheflow.model.score;
 
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStat;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.Stat;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 
 import java.util.Optional;
 
@@ -17,10 +17,10 @@ public class IdfScorer extends AbstractScorer {
     @Override
     public double score(String term) {
 
-        Optional<TermStat> termStatOptional = statComponent.getTermStat(term);
+        Optional<Stat> termStatOptional = statComponent.getTermStat(term);
 
         if (termStatOptional.isPresent()) {
-            TermStat termStat = termStatOptional.get();
+            Stat termStat = termStatOptional.get();
 
             return termStat.getIdf();
         }

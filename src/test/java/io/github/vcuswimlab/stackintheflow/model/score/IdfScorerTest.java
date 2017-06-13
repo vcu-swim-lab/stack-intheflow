@@ -1,7 +1,7 @@
 package io.github.vcuswimlab.stackintheflow.model.score;
 
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStat;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.Stat;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class IdfScorerTest {
     public static void setUpBeforeClass() throws Exception {
         termStatComponent = mock(TermStatComponent.class);
         Mockito.when(termStatComponent.getTermStat("term1"))
-                .thenReturn(Optional.of(new TermStat(25, 20, 5, 5)));
+                .thenReturn(Optional.of(new Stat(25, 20, 5, 5)));
         Mockito.when(termStatComponent.getTermStat("term2"))
                 .thenReturn(Optional.empty());
         Mockito.when(termStatComponent.getTermCount()).thenReturn(200L);
