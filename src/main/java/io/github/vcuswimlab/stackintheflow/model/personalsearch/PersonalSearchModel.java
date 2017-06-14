@@ -65,7 +65,9 @@ public class PersonalSearchModel {
 
                     // This tag is in the dump
                     if (statOptional.isPresent()) {
-                        score += statOptional.get().getIdf() * userStatMap.getOrDefault(tag, 0);
+
+                        double clickFrequency = userStatMap.containsKey(tag) ? 1 + Math.log10(userStatMap.get(tag)) : 0;
+                        score += statOptional.get().getIdf() * clickFrequency;
                     }
                 }
             }
