@@ -5,6 +5,7 @@ import com.intellij.ide.browsers.WebBrowserManager;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
+import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -31,11 +32,20 @@ public class SearchToolWindowGUI {
     private JEditorPane consoleErrorPane;
     private DefaultListModel<Question> questionListModel;
 
+    private PersonalSearchModel searchModel;
+
     private List<String> compilerMessages;
 
     private ScheduledThreadPoolExecutor timer;
 
-    public SearchToolWindowGUI(JButton searchButton, JTextField searchBox, JPanel content, JList<Question> resultsList, JScrollPane resultsScrollPane, JPanel searchJPanel, JEditorPane consoleErrorPane) {
+    private SearchToolWindowGUI(JButton searchButton,
+                                JTextField searchBox,
+                                JPanel content,
+                                JList<Question> resultsList,
+                                JScrollPane resultsScrollPane,
+                                JPanel searchJPanel,
+                                JEditorPane consoleErrorPane,
+                                PersonalSearchModel searchModel) {
         this.searchButton = searchButton;
         this.searchBox = searchBox;
         this.content = content;
@@ -43,6 +53,8 @@ public class SearchToolWindowGUI {
         this.resultsScrollPane = resultsScrollPane;
         this.searchJPanel = searchJPanel;
         this.consoleErrorPane = consoleErrorPane;
+
+        this.searchModel = searchModel;
 
         compilerMessages = new ArrayList<>();
 
@@ -103,7 +115,14 @@ public class SearchToolWindowGUI {
                     return false;
                 }
 
-                questionListModel.get(index).toggleExpanded();
+                Question question = questionListModel.get(index);
+
+                // If they are expanding the question, increase the tags in the search model
+                if (!question.isExpanded()) {
+                    searchModel.increaseTags(question.getTags());
+                }
+
+                question.toggleExpanded();
                 refreshListView();
                 return true;
             }
@@ -133,30 +152,6 @@ public class SearchToolWindowGUI {
 
     public void executeQuery(String query, boolean backoff) {
 
-        /*timer.execute(() -> {
-
-            String searchQuery = query;
-
-            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery);
-            List<Question> questionList = jerseyResponse.getItems();
-
-            if (backoff && questionList.isEmpty()) {
-
-                Deque<String> queryStack = new ArrayDeque<>();
-                queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
-
-                while (questionList.isEmpty()) {
-                    queryStack.pop();
-                    searchQuery = queryStack.stream().collect(Collectors.joining(" "));
-                    jerseyResponse = QueryExecutor.executeQuery(searchQuery);
-                    questionList = jerseyResponse.getItems();
-                }
-            }
-
-            setSearchBoxContent(searchQuery);
-            updateList(questionList);
-        });*/
-
         Future<List<Question>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
 
@@ -177,7 +172,7 @@ public class SearchToolWindowGUI {
             }
 
             setSearchBoxContent(searchQuery);
-            return questionList;
+            return searchModel.rankQuesitonList(questionList);
         });
 
         try {
@@ -248,6 +243,7 @@ public class SearchToolWindowGUI {
         private JScrollPane resultsScrollPane;
         private JPanel searchJPanel;
         private JEditorPane consoleErrorPane;
+        private PersonalSearchModel searchModel;
 
         public SearchToolWindowGUIBuilder setSearchButton(JButton searchButton) {
             this.searchButton = searchButton;
@@ -284,6 +280,11 @@ public class SearchToolWindowGUI {
             return this;
         }
 
+        public SearchToolWindowGUIBuilder setSearchModel(PersonalSearchModel searchModel) {
+            this.searchModel = searchModel;
+            return this;
+        }
+
         public SearchToolWindowGUI build() {
             return new SearchToolWindowGUI(
                     searchButton,
@@ -292,7 +293,8 @@ public class SearchToolWindowGUI {
                     resultsList,
                     resultsScrollPane,
                     searchJPanel,
-                    consoleErrorPane
+                    consoleErrorPane,
+                    searchModel
             );
         }
     }

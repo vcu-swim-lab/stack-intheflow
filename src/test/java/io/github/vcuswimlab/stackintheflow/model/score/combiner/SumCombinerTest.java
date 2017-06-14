@@ -1,7 +1,7 @@
 package io.github.vcuswimlab.stackintheflow.model.score.combiner;
 
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStat;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.Stat;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.score.IctfScorer;
 import jersey.repackaged.com.google.common.collect.ImmutableList;
 import org.junit.Before;
@@ -26,7 +26,7 @@ public class SumCombinerTest {
     public static void setUpBeforeClass() throws Exception {
         termStatComponent = mock(TermStatComponent.class);
         Mockito.when(termStatComponent.getTermStat("term1"))
-                .thenReturn(Optional.of(new TermStat(25, 20, 5, 5)));
+                .thenReturn(Optional.of(new Stat(25, 20, 5, 5)));
         Mockito.when(termStatComponent.getTermStat("term2"))
                 .thenReturn(Optional.empty());
         Mockito.when(termStatComponent.getTermCount()).thenReturn(200L);

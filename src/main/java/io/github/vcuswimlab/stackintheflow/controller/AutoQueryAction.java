@@ -7,8 +7,8 @@ import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 
 import java.util.List;

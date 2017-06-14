@@ -1,7 +1,7 @@
 package io.github.vcuswimlab.stackintheflow.controller;
 
 import com.intellij.openapi.project.Project;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

@@ -34,7 +34,11 @@
 
     <application-components>
         <component>
-            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent
+            </implementation-class>
+        </component>
+        <component>
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.stat.tags.TagStatComponent
             </implementation-class>
         </component>
     </application-components>
@@ -55,6 +59,11 @@
         </component>
         <component>
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.DifficultyModelComponent
+            </implementation-class>
+        </component>
+        <component>
+            <implementation-class>
+                io.github.vcuswimlab.stackintheflow.controller.component.stat.tags.UserTagStatComponent
             </implementation-class>
         </component>
     </project-components>

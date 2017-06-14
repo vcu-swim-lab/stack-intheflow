@@ -1,8 +1,10 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.tags.UserTagStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import org.jetbrains.annotations.NotNull;
 
@@ -18,7 +20,7 @@ public class SearchToolWindowFactory {
     private JPanel searchJPanel;
     private JEditorPane consoleErrorPane;
 
-    public SearchToolWindowGUI buildGUI(@NotNull ToolWindow toolWindow) {
+    public SearchToolWindowGUI buildGUI(@NotNull ToolWindow toolWindow, Project project) {
         SearchToolWindowGUI windowGUI = new SearchToolWindowGUI.SearchToolWindowGUIBuilder()
                 .setContent(content)
                 .setConsoleErrorPane(consoleErrorPane)
@@ -26,7 +28,8 @@ public class SearchToolWindowFactory {
                 .setResultsScrollPane(resultsScrollPane)
                 .setSearchBox(searchBox)
                 .setSearchButton(searchButton)
-                .setSearchJPanel(searchJPanel).build();
+                .setSearchJPanel(searchJPanel)
+                .setSearchModel(project.getComponent(UserTagStatComponent.class).getSearchModel()).build();
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content windowContent = contentFactory.createContent(windowGUI.getContentPanel(), "", false);
         toolWindow.getContentManager().addContent(windowContent);
