@@ -224,9 +224,9 @@ public class SearchToolWindowGUI {
                     "</font>" +
                     "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">" +
                         // href allows hyperlink listener to grab message
-                        "<a href=\"" + message + "\">" +
+                        "<a href=\"" + message.replace("<", "&lt;").replace(">", "&gt;") + "\">" +
                             "<u>" +
-                                message.replace("\n", "<br>") +
+                                message.replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>") +
                             "</u>" +
                         "</a>" +
                     "</font>").collect(Collectors.joining("<br><br>"));

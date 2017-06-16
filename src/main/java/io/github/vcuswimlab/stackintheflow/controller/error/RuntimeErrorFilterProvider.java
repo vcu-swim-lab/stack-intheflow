@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 /**
@@ -44,20 +45,26 @@ public class RuntimeErrorFilterProvider implements ConsoleInputFilterProvider {
         public List<Pair<String, ConsoleViewContentType>> applyFilter(String s, ConsoleViewContentType consoleViewContentType) {
             if (consoleViewContentType.equals(ConsoleViewContentType.ERROR_OUTPUT)) {
                 // all ERROR_OUTPUT is a result of runtime error
-                runtimeErrorComponent.appendError(this, s);
+                runtimeErrorComponent.appendMessage(this, "ERROR", s);
+
+            } else if (consoleViewContentType.equals(ConsoleViewContentType.LOG_WARNING_OUTPUT)) {
+                runtimeErrorComponent.appendMessage(this, "WARNING", s);
 
             } else if (consoleViewContentType.equals(ConsoleViewContentType.SYSTEM_OUTPUT) &&
                     endOfExecutionPattern.matcher(s).matches()) {
                 // if SYSTEM_OUTPUT sends '\nProcess finished with exit code \d+\n', execution has completed
 
                 // get error messages from component, remove 'this' instance from hash map
-                String runtimeErrorMessage = runtimeErrorComponent.getError(this);
+                Map<String, List<String>> runtimeErrorMessage = runtimeErrorComponent.getMessages(this);
 
                 // if 'consoleErrorComponent.appendError()' was never called, null is returned
                 if (runtimeErrorMessage != null) {
                     List<String> parsedMessages = ErrorMessageParser.parseRuntimeError(runtimeErrorMessage, project);
                     project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
                 }
+            } else if (consoleViewContentType.equals(ConsoleViewContentType.SYSTEM_OUTPUT)){
+                runtimeErrorComponent.appendMessage(this, "INFORMATION", s);
+
             }
             return null;
         }

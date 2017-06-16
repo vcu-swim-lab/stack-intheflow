@@ -4,8 +4,11 @@ import com.intellij.execution.filters.InputFilter;
 import com.intellij.openapi.components.ProjectComponent;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <h1>ConsoleErrorComponent</h1>
@@ -17,25 +20,28 @@ public class RuntimeErrorComponent implements ProjectComponent {
 
     public static final String COMPONENT_ID = "StackInTheFlow.ConsoleErrorComponent";
 
-    private Map<InputFilter, StringBuilder> messageBuilder;
+    private Map<InputFilter, Map<String, StringBuilder>> messageBuilder;
 
     @Override
     public void initComponent() {
         messageBuilder = new HashMap<>();
     }
 
-    public void appendError(InputFilter console, String line) {
+    public void appendMessage(InputFilter console, String type, String line) {
         if (!messageBuilder.containsKey(console)) {
-            messageBuilder.put(console, new StringBuilder());
+            messageBuilder.put(console, new HashMap<>());
+            messageBuilder.get(console).put(type, new StringBuilder());
         }
-        messageBuilder.get(console).append(line);
+        messageBuilder.get(console).get(type).append(line);
     }
 
-    public String getError(InputFilter console) {
+    public Map<String, List<String>> getMessages(InputFilter console) {
         if (messageBuilder.containsKey(console)) {
-            String errorMessage = messageBuilder.get(console).toString();
+            Map<String, List<String>> builtMessage = messageBuilder.get(console).keySet().stream()
+                    .collect(Collectors.toMap(m -> m, m -> Collections.singletonList(messageBuilder.get(console).get(m).toString())));
+
             messageBuilder.remove(console);
-            return errorMessage;
+            return builtMessage;
         } else {
             return null;
         }

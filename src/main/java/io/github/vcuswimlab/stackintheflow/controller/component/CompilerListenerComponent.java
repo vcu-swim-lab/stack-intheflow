@@ -38,6 +38,7 @@ public class CompilerListenerComponent implements ProjectComponent {
             connection.subscribe(CompilerTopics.COMPILATION_STATUS, new CompilationStatusListener() {
                 @Override
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
+
                     // Mapping from compiler category name, "ERROR", to list of messages, ["Caused by: ...", "..."]
                     Map<String, List<String>> compilerMessages = messageCategories.parallelStream().collect(
                             Collectors.toMap(CompilerMessageCategory::name, c ->
@@ -45,10 +46,10 @@ public class CompilerListenerComponent implements ProjectComponent {
                                             CompilerMessage::getMessage).collect(Collectors.toList())));
 
                     // Let the parser class handle all data mining
-                    List<String> consoleDisplayItems = ErrorMessageParser.parseCompilerError(compilerMessages, project);
+                    List<String> parsedMessages = ErrorMessageParser.parseCompilerError(compilerMessages, project);
 
                     // Send the results to be displayed on the console
-                    project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(consoleDisplayItems);
+                    project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
                 }
             });
         }
