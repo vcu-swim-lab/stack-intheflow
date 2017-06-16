@@ -28,7 +28,7 @@ public class AutoQueryGenerator {
         Map<String, Integer> termsFreqMap = new HashMap<>();
 
         // If the user has not selected anything then extract query from entire document
-        if (selectedText.isEmpty()) {
+        if (selectedText == null || selectedText.trim().isEmpty()) {
             String editorText = document.getText();
 
             Set<String> imports = StringMatchUtils.extractImports(editorText);
