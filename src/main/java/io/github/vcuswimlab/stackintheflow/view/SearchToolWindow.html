@@ -11,15 +11,36 @@
 <body>
     <div class="well well-sm">
         <div class="row">
-            <div class="col-xs-7">
-                <div class="input-group">
+            <div class="col-xs-9">
+                <div class="input-group" style="width: 100%">
                     <input id="searchBar" type="text" class="form-control" aria-label="Search...">
                 </div>
             </div>
-            <div class="col-xs-5">
-                <button type="button" class="btn btn-default">Search</button>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-default" id="searchButton" id="searchButton">Search</button>
             </div>
         </div>
+        <div class="row">
+            <div class="col-xs-9">
+
+            </div>
+            <div class="col-xs-3">
+                <div class="btn-group" style="width: 100%">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="searchMethods">
+                        Relevance <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" id="searchMethodsOptions">
+                        <li><a href="#">Relevance</a></li>
+                        <li><a href="#">Top</a></li>
+                        <li><a href="#">Hot</a></li>
+                        <li><a href="#">New</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content">
     </div>
 
     <script src="SearchToolWindow.js"></script>

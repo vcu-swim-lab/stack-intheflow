@@ -12,6 +12,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
@@ -58,6 +59,7 @@ public class SearchToolWindowGUI {
         timer = new ScheduledThreadPoolExecutor(1);
 
         initComponents();
+
         //addListeners();
     }
 
@@ -71,16 +73,8 @@ public class SearchToolWindowGUI {
 
     private void createScene(){
         PlatformImpl.startup(() -> {
-            stage = new Stage();
-
-            stage.setTitle("Stack in the Flow");
-            stage.setResizable(true);
-
-            Group root = new Group();
-            Scene scene = new Scene(root,80,20);
-            stage.setScene(scene);
-
-            // Set up the embedded browser:
+            StackPane root = new StackPane();
+            Scene scene = new Scene(root);
             webView = new WebView();
             engine = webView.getEngine();
 
@@ -90,8 +84,7 @@ public class SearchToolWindowGUI {
             JSObject jsobj = (JSObject) engine.executeScript("window");
             jsobj.setMember("JavaBridge", new JavaBridge());
 
-            ObservableList<Node> children = root.getChildren();
-            children.add(webView);
+            root.getChildren().add(webView);
 
             jfxPanel.setScene(scene);
         });
