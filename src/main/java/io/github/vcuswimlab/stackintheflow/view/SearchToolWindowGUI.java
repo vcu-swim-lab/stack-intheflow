@@ -2,17 +2,29 @@ package io.github.vcuswimlab.stackintheflow.view;
 
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.browsers.WebBrowserManager;
+import com.sun.javafx.application.PlatformImpl;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
+import javafx.collections.ObservableList;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
+import javafx.stage.Stage;
+import netscape.javascript.JSObject;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
+import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
@@ -22,14 +34,7 @@ import java.util.stream.Collectors;
  * Created by chase on 5/18/17.
  */
 public class SearchToolWindowGUI {
-
-    private JButton searchButton;
-    private JTextField searchBox;
     private JPanel content;
-    private JList<Question> resultsList;
-    private JScrollPane resultsScrollPane;
-    private JPanel searchJPanel;
-    private JEditorPane consoleErrorPane;
     private DefaultListModel<Question> questionListModel;
 
     private PersonalSearchModel searchModel;
@@ -38,32 +43,63 @@ public class SearchToolWindowGUI {
 
     private ScheduledThreadPoolExecutor timer;
 
-    private SearchToolWindowGUI(JButton searchButton,
-                                JTextField searchBox,
-                                JPanel content,
-                                JList<Question> resultsList,
-                                JScrollPane resultsScrollPane,
-                                JPanel searchJPanel,
-                                JEditorPane consoleErrorPane,
-                                PersonalSearchModel searchModel) {
-        this.searchButton = searchButton;
-        this.searchBox = searchBox;
-        this.content = content;
-        this.resultsList = resultsList;
-        this.resultsScrollPane = resultsScrollPane;
-        this.searchJPanel = searchJPanel;
-        this.consoleErrorPane = consoleErrorPane;
+    private Stage stage;
+    private WebView webView;
+    private JFXPanel jfxPanel;
+    private WebEngine engine;
 
+    private SearchToolWindowGUI(JPanel content,
+                                PersonalSearchModel searchModel) {
+        this.content = content;
         this.searchModel = searchModel;
 
         compilerMessages = new ArrayList<>();
 
         timer = new ScheduledThreadPoolExecutor(1);
 
-        addListeners();
+        initComponents();
+        //addListeners();
     }
 
+    private void initComponents(){
+        jfxPanel = new JFXPanel();
+        createScene();
+
+        content.setLayout(new BorderLayout());
+        content.add(jfxPanel, BorderLayout.CENTER);
+    }
+
+    private void createScene(){
+        PlatformImpl.startup(() -> {
+            stage = new Stage();
+
+            stage.setTitle("Stack in the Flow");
+            stage.setResizable(true);
+
+            Group root = new Group();
+            Scene scene = new Scene(root,80,20);
+            stage.setScene(scene);
+
+            // Set up the embedded browser:
+            webView = new WebView();
+            engine = webView.getEngine();
+
+            String htmlFileURL = SearchToolWindowGUI.class.getResource("SearchToolWindow.html").toExternalForm();
+            engine.load(htmlFileURL);
+
+            JSObject jsobj = (JSObject) engine.executeScript("window");
+            jsobj.setMember("JavaBridge", new JavaBridge());
+
+            ObservableList<Node> children = root.getChildren();
+            children.add(webView);
+
+            jfxPanel.setScene(scene);
+        });
+    }
+
+    /*
     private void addListeners() {
+
         consoleErrorPane.setVisible(false);
 
         searchButton.addActionListener(e -> executeQuery(searchBox.getText(), false));
@@ -148,10 +184,10 @@ public class SearchToolWindowGUI {
             questions.add(questionListModel.get(i));
         }
         return questions;
-    }
+    } */
 
     public void executeQuery(String query, boolean backoff) {
-
+    /*
         Future<List<Question>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
 
@@ -180,8 +216,9 @@ public class SearchToolWindowGUI {
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
+        */
     }
-
+    /*
     private void updateList(List<Question> elements) {
         if (elements == null) {
             return;
@@ -200,8 +237,9 @@ public class SearchToolWindowGUI {
     private void setSearchBoxContent(String content) {
         searchBox.setText(content);
     }
-
+    */
     public void setConsoleError(List<String> compilerMessages) {
+        /*
         this.compilerMessages = compilerMessages;
 
         if (!compilerMessages.isEmpty()) {
@@ -223,7 +261,7 @@ public class SearchToolWindowGUI {
             consoleErrorPane.setVisible(true);
         } else {
             consoleErrorPane.setVisible(false);
-        }
+        } */
     }
 
     private void openBrowser(String url) {
@@ -235,50 +273,14 @@ public class SearchToolWindowGUI {
     }
 
     public static class SearchToolWindowGUIBuilder {
-
-        private JButton searchButton;
-        private JTextField searchBox;
         private JPanel content;
-        private JList<Question> resultsList;
-        private JScrollPane resultsScrollPane;
-        private JPanel searchJPanel;
-        private JEditorPane consoleErrorPane;
         private PersonalSearchModel searchModel;
-
-        public SearchToolWindowGUIBuilder setSearchButton(JButton searchButton) {
-            this.searchButton = searchButton;
-            return this;
-        }
-
-        public SearchToolWindowGUIBuilder setSearchBox(JTextField searchBox) {
-            this.searchBox = searchBox;
-            return this;
-        }
 
         public SearchToolWindowGUIBuilder setContent(JPanel content) {
             this.content = content;
             return this;
         }
 
-        public SearchToolWindowGUIBuilder setResultsList(JList<Question> resultsList) {
-            this.resultsList = resultsList;
-            return this;
-        }
-
-        public SearchToolWindowGUIBuilder setResultsScrollPane(JScrollPane resultsScrollPane) {
-            this.resultsScrollPane = resultsScrollPane;
-            return this;
-        }
-
-        public SearchToolWindowGUIBuilder setSearchJPanel(JPanel searchJPanel) {
-            this.searchJPanel = searchJPanel;
-            return this;
-        }
-
-        public SearchToolWindowGUIBuilder setConsoleErrorPane(JEditorPane consoleErrorPane) {
-            this.consoleErrorPane = consoleErrorPane;
-            return this;
-        }
 
         public SearchToolWindowGUIBuilder setSearchModel(PersonalSearchModel searchModel) {
             this.searchModel = searchModel;
@@ -287,13 +289,7 @@ public class SearchToolWindowGUI {
 
         public SearchToolWindowGUI build() {
             return new SearchToolWindowGUI(
-                    searchButton,
-                    searchBox,
                     content,
-                    resultsList,
-                    resultsScrollPane,
-                    searchJPanel,
-                    consoleErrorPane,
                     searchModel
             );
         }
