@@ -1,8 +1,10 @@
-function printJava(msg){
-    JavaBridge.print(msg);
-}
+
+$(document).ready(function(){
+    JavaBridge.print("Hello");
+});
 
 $("#searchButton").click(function(){
-    console.log($('#searchBar').val());
     $('#content').text($('#searchBar').val());
+
+    JavaBridge.print("Click!");
 });

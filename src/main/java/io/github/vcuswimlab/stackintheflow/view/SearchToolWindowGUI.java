@@ -7,7 +7,10 @@ import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -48,6 +51,7 @@ public class SearchToolWindowGUI {
     private WebView webView;
     private JFXPanel jfxPanel;
     private WebEngine engine;
+    private JSObject window;
 
     private SearchToolWindowGUI(JPanel content,
                                 PersonalSearchModel searchModel) {
@@ -81,8 +85,12 @@ public class SearchToolWindowGUI {
             String htmlFileURL = SearchToolWindowGUI.class.getResource("SearchToolWindow.html").toExternalForm();
             engine.load(htmlFileURL);
 
-            JSObject jsobj = (JSObject) engine.executeScript("window");
-            jsobj.setMember("JavaBridge", new JavaBridge());
+            engine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
+                if (newState == Worker.State.SUCCEEDED) {
+                    window = (JSObject) engine.executeScript("window");
+                    window.setMember("JavaBridge", new JavaBridge());
+                }
+            });
 
             root.getChildren().add(webView);
 
