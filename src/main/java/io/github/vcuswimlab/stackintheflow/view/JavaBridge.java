@@ -11,4 +11,5 @@ public class JavaBridge {
     public void searchButtonClicked(String query){
         System.out.println("Search Box is clicked with query: " + query);
     }
+
 }

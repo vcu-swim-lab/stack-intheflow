@@ -4,7 +4,5 @@ $(document).ready(function(){
 });
 
 $("#searchButton").click(function(){
-    $('#content').text($('#searchBar').val());
-
-    JavaBridge.print("Click!");
+    JavaBridge.searchButtonClicked($('#searchBar').val());
 });

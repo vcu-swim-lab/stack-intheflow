@@ -52,6 +52,7 @@ public class SearchToolWindowGUI {
     private JFXPanel jfxPanel;
     private WebEngine engine;
     private JSObject window;
+    private JavaBridge bridge;
 
     private SearchToolWindowGUI(JPanel content,
                                 PersonalSearchModel searchModel) {
@@ -61,7 +62,7 @@ public class SearchToolWindowGUI {
         compilerMessages = new ArrayList<>();
 
         timer = new ScheduledThreadPoolExecutor(1);
-
+        bridge = new JavaBridge();
         initComponents();
 
         //addListeners();
@@ -86,9 +87,9 @@ public class SearchToolWindowGUI {
             engine.load(htmlFileURL);
 
             engine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
-                if (newState == Worker.State.SUCCEEDED) {
+                if(newState == Worker.State.SUCCEEDED) {
                     window = (JSObject) engine.executeScript("window");
-                    window.setMember("JavaBridge", new JavaBridge());
+                    window.setMember("JavaBridge", bridge);
                 }
             });
 
