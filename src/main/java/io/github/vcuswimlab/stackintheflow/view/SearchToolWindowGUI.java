@@ -62,7 +62,7 @@ public class SearchToolWindowGUI {
         compilerMessages = new ArrayList<>();
 
         timer = new ScheduledThreadPoolExecutor(1);
-        bridge = new JavaBridge();
+        bridge = new JavaBridge(this);
         initComponents();
 
         //addListeners();
@@ -98,6 +98,7 @@ public class SearchToolWindowGUI {
             jfxPanel.setScene(scene);
         });
     }
+
 
     /*
     private void addListeners() {
@@ -189,7 +190,7 @@ public class SearchToolWindowGUI {
     } */
 
     public void executeQuery(String query, boolean backoff) {
-    /*
+
         Future<List<Question>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
 
@@ -209,10 +210,25 @@ public class SearchToolWindowGUI {
                 }
             }
 
-            setSearchBoxContent(searchQuery);
+            //setSearchBoxContent(searchQuery);
             return searchModel.rankQuesitonList(questionList);
         });
 
+
+        try {
+            List<Question> questionList = questionListFuture.get();
+            for(Question question : questionList){
+                window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray());
+            }
+            engine.executeScript("displayQuestions()");
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        /*
         try {
             updateList(questionListFuture.get());
         } catch (InterruptedException | ExecutionException e) {
