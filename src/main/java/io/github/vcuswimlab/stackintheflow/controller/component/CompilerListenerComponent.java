@@ -5,6 +5,7 @@ import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.messages.MessageBusConnection;
 import io.github.vcuswimlab.stackintheflow.controller.error.ErrorMessageParser;
+import io.github.vcuswimlab.stackintheflow.controller.error.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -39,17 +40,19 @@ public class CompilerListenerComponent implements ProjectComponent {
                 @Override
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
 
-                    // Mapping from compiler category name, "ERROR", to list of messages, ["Caused by: ...", "..."]
-                    Map<String, List<String>> compilerMessages = messageCategories.parallelStream().collect(
-                            Collectors.toMap(CompilerMessageCategory::name, c ->
-                                    Arrays.stream(compileContext.getMessages(c)).map(
-                                            CompilerMessage::getMessage).collect(Collectors.toList())));
+                    if(compileContext.getMessages(CompilerMessageCategory.ERROR).length != 0){
+                        Message messages = new Message();
 
-                    // Let the parser class handle all data mining
-                    List<String> parsedMessages = ErrorMessageParser.parseCompilerError(compilerMessages, project);
+                        messages.put(Message.MessageType.ERROR, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.ERROR)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
+                        messages.put(Message.MessageType.WARNING, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.WARNING)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
+                        messages.put(Message.MessageType.INFORMATION, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.INFORMATION)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
 
-                    // Send the results to be displayed on the console
-                    project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
+                        // Let the parser class handle all data mining
+                        List<String> parsedMessages = ErrorMessageParser.parseCompilerError(messages, project);
+
+                        // Send the results to be displayed on the console
+                        project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
+                    }
                 }
             });
         }

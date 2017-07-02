@@ -2,6 +2,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 
 import com.intellij.execution.filters.InputFilter;
 import com.intellij.openapi.components.ProjectComponent;
+import io.github.vcuswimlab.stackintheflow.controller.error.Message;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Collections;
@@ -31,17 +32,29 @@ public class RuntimeErrorComponent implements ProjectComponent {
         if (!messageBuilder.containsKey(console)) {
             messageBuilder.put(console, new HashMap<>());
             messageBuilder.get(console).put(type, new StringBuilder());
+        } else if (!messageBuilder.get(console).containsKey(type)) {
+            messageBuilder.get(console).put(type, new StringBuilder());
         }
         messageBuilder.get(console).get(type).append(line);
     }
 
-    public Map<String, List<String>> getMessages(InputFilter console) {
+    public Message getMessages(InputFilter console) {
         if (messageBuilder.containsKey(console)) {
-            Map<String, List<String>> builtMessage = messageBuilder.get(console).keySet().stream()
-                    .collect(Collectors.toMap(m -> m, m -> Collections.singletonList(messageBuilder.get(console).get(m).toString())));
+            Map<String, StringBuilder> consoleMessages = messageBuilder.get(console);
+
+            Message message = new Message();
+            if(consoleMessages.containsKey("ERROR")) {
+                message.put(Message.MessageType.ERROR, consoleMessages.get("ERROR").toString());
+            }
+            if(consoleMessages.containsKey("WARNING")) {
+                message.put(Message.MessageType.WARNING, consoleMessages.get("WARNING").toString());
+            }
+            if(consoleMessages.containsKey("INFORMATION")) {
+                message.put(Message.MessageType.INFORMATION, consoleMessages.get("INFORMATION").toString());
+            }
 
             messageBuilder.remove(console);
-            return builtMessage;
+            return message;
         } else {
             return null;
         }

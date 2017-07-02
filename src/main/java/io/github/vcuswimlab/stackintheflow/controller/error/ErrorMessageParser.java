@@ -14,57 +14,100 @@ import java.util.stream.Collectors;
  */
 public class ErrorMessageParser {
 
-    private static Pattern javaVersionPattern = Pattern.compile("((javac?)|(jdk)) ?(v(ersion)?)? ?1.[1-9](.[\\d_]+)?", Pattern.CASE_INSENSITIVE);
-    private static Pattern firstLinePattern = Pattern.compile("\\A.*");
-    private static Pattern firstLineExceptionPatternGroup1 = Pattern.compile("\\A.*java\\.lang\\.(.*)[:\n]");
+    private static Pattern javaVersionPattern_6 = Pattern.compile("((javac?)|(jdk)) ?(v(ersion)?)? ?1.([1-9])(.[\\d_]+)?", Pattern.CASE_INSENSITIVE);
+    private static Pattern javaLangExceptionPattern_1 = Pattern.compile("java\\.lang\\.([a-zA-Z]+(Exception|Bounds|Error))");
+    private static Pattern javaIOExceptionPattern_1 = Pattern.compile("java\\.io\\.([a-zA-Z]+(Exception|Error))");
 
-    public static String parseError(String error, Project project) {
+    private static int tokenLimit = 10;
+
+    public static List<String> filterTerms(List<String> words, Project project) {
         TermStatComponent termStatComponent = project.getComponent(TermStatComponent.class);
-
-        String cleanedError = error.replaceAll("[:;\"\']", "");
-
-        //return cleanedError;
-        return Arrays.stream(cleanedError.split("\\s")).filter(s -> termStatComponent.getTermStat(s).isPresent())
-                .collect(Collectors.joining(" "));
+        return words.stream().filter(s -> termStatComponent.getTermStat(s).isPresent()).collect(Collectors.toList());
     }
 
-    public static List<String> parseCompilerError(Map<String, List<String>> messages, Project project) {
-        List<String> debugMessages = new ArrayList<>();
+    public static List<String> parseCompilerError(Message messages, Project project) {
 
-        debugMessages.addAll(findPattern(firstLinePattern, messages, "ERROR", "WARNING"));
-        debugMessages.addAll(findPattern(javaVersionPattern, messages, "ERROR", "WARNING", "INFORMATION"));
-        return debugMessages;
+        String[] error = messages.get(Message.MessageType.ERROR);
+        String[] warning = messages.get(Message.MessageType.WARNING);
+        String[] information = messages.get(Message.MessageType.INFORMATION);
 
-//        return compilerMessages.get("ERROR").stream()
-//                .map(e -> ErrorMessageParser.parseError(e, project))
-//                .collect(Collectors.toList());
+        Set<String> matchedKeywords = new LinkedHashSet<>();
+
+        matchedKeywords.add("compile error");
+        matchedKeywords.addAll(findPattern(javaLangExceptionPattern_1, 1, error));
+        matchedKeywords.addAll(findPattern(javaIOExceptionPattern_1, 1, error));
+        matchedKeywords.addAll(findPattern(javaVersionPattern_6, 6, error, warning, information)
+                .stream().map(v -> "java " + v).collect(Collectors.toList()));
+
+        for(String m : error) {
+            for(String line : m.split("\n")) {
+                String[] tokens = line.replaceAll("[:;\"\']", "").split("\n");
+                List<String> filteredTokens = filterTerms(Arrays.asList(tokens), project);
+                if(filteredTokens.size() >= tokenLimit - matchedKeywords.size()) {
+                    matchedKeywords.addAll(filteredTokens.subList(0, tokenLimit - matchedKeywords.size()));
+                    break;
+                } else {
+                    matchedKeywords.addAll(filteredTokens);
+                }
+            }
+            if(matchedKeywords.size() >= tokenLimit){
+                break;
+            }
+        }
+
+        return Arrays.asList(matchedKeywords.stream().collect(Collectors.joining(" ")), parseFirstLine(error));
     }
 
-    public static List<String> parseRuntimeError(Map<String, List<String>> messages, Project project) {
-        List<String> debugMessages = new ArrayList<>();
+    public static List<String> parseRuntimeError(Message messages, Project project) {
 
-        debugMessages.addAll(findPattern(firstLineExceptionPatternGroup1, 1, messages, "ERROR"));
-        debugMessages.addAll(findPattern(javaVersionPattern, messages, "ERROR", "WARNING", "INFORMATION"));
-        return debugMessages;
-//        return Collections.singletonList(parseError(errorMessage, project));
+        String[] error = messages.get(Message.MessageType.ERROR);
+        String[] warning = messages.get(Message.MessageType.WARNING);
+        String[] information = messages.get(Message.MessageType.INFORMATION);
+
+        Set<String> matchedKeywords = new LinkedHashSet<>();
+
+        matchedKeywords.add("runtime error");
+        matchedKeywords.addAll(findPattern(javaLangExceptionPattern_1, 1, error));
+        matchedKeywords.addAll(findPattern(javaIOExceptionPattern_1, 1, error));
+        matchedKeywords.addAll(findPattern(javaVersionPattern_6, 6, error, warning, information)
+                .stream().map(v -> "java " + v).collect(Collectors.toList()));
+
+        for(String m : error) {
+            for(String line : m.split("\n")) {
+                String[] tokens = line.replaceAll("[:;\"\']", "").split("\n");
+                List<String> filteredTokens = filterTerms(Arrays.asList(tokens), project);
+                if(filteredTokens.size() >= tokenLimit - matchedKeywords.size()) {
+                    matchedKeywords.addAll(filteredTokens.subList(0, tokenLimit - matchedKeywords.size()));
+                    break;
+                } else {
+                    matchedKeywords.addAll(filteredTokens);
+                }
+            }
+            if(matchedKeywords.size() >= tokenLimit){
+                break;
+            }
+        }
+
+        return Arrays.asList(matchedKeywords.stream().collect(Collectors.joining(" ")), parseFirstLine(error));
     }
 
-    private static List<String> findPattern(Pattern pattern, Map<String, List<String>> messages, String... keys) {
-        return findPattern(pattern, 0, messages, keys);
-    }
-
-    private static List<String> findPattern(Pattern pattern, int group, Map<String, List<String>> messages, String... keys) {
+    private static List<String> findPattern(Pattern pattern, int group, String[]... textBlocks) {
         List<String> matchedGroups = new ArrayList<>();
-        for(String key : keys) {
-            if(messages.containsKey(key)) {
-                for(String message : messages.get(key)) {
-                    Matcher messageMatcher = pattern.matcher(message);
-                    while(messageMatcher.find()) {
-                        matchedGroups.add(messageMatcher.group(group));
-                    }
+        for(String[] textBlock : textBlocks) {
+            for(String text : textBlock) {
+                Matcher textMatcher = pattern.matcher(text);
+                while(textMatcher.find()) {
+                    matchedGroups.add(textMatcher.group(group));
                 }
             }
         }
         return matchedGroups;
+    }
+
+    private static String parseFirstLine(String[] message) {
+        if(message.length == 0) {
+            return null;
+        }
+        return message[0].split("\n")[0];
     }
 }

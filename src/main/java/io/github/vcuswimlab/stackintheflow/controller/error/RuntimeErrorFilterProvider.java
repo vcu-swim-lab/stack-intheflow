@@ -55,10 +55,10 @@ public class RuntimeErrorFilterProvider implements ConsoleInputFilterProvider {
                 // if SYSTEM_OUTPUT sends '\nProcess finished with exit code \d+\n', execution has completed
 
                 // get error messages from component, remove 'this' instance from hash map
-                Map<String, List<String>> runtimeErrorMessage = runtimeErrorComponent.getMessages(this);
+                Message runtimeErrorMessage = runtimeErrorComponent.getMessages(this);
 
                 // if 'consoleErrorComponent.appendError()' was never called, null is returned
-                if (runtimeErrorMessage != null) {
+                if (runtimeErrorMessage != null && runtimeErrorMessage.get(Message.MessageType.ERROR).length != 0) {
                     List<String> parsedMessages = ErrorMessageParser.parseRuntimeError(runtimeErrorMessage, project);
                     project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
                 }
