@@ -7,26 +7,24 @@ import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.events.*;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventListener;
+import org.w3c.dom.html.HTMLAnchorElement;
 
 import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
-import java.awt.event.*;
+import java.beans.EventHandler;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -236,6 +234,28 @@ public class SearchToolWindowGUI {
         }
         */
     }
+
+    public void addLinkListeners(){
+        System.out.println("hello World");
+        NodeList nodeList = engine.getDocument().getElementsByTagName("a");
+        for(int i = 0; i < nodeList.getLength(); i++){
+            Node node = nodeList.item(i);
+            EventTarget eventTarget = (EventTarget) node;
+            eventTarget.addEventListener("click", new EventListener() {
+                @Override
+                public void handleEvent(Event evt){
+                    evt.preventDefault();
+                    EventTarget target = evt.getCurrentTarget();
+                    HTMLAnchorElement anchorElement = (HTMLAnchorElement) target;
+                    String href = anchorElement.getHref();
+                    openBrowser(href);
+                    System.out.println(href);
+                }
+            }, false);
+        }
+    }
+
+
     /*
     private void updateList(List<Question> elements) {
         if (elements == null) {

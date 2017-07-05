@@ -8,10 +8,21 @@ $(document).ready(function(){
     charCutoff = 300;
 });
 
-$("#searchButton").click(function(){
+function search(){
     reset();
     JavaBridge.searchButtonClicked($('#searchBox').val());
     generateListeners();
+    JavaBridge.addLinkListeners();
+}
+
+$("#searchButton").click(function(){
+    search();
+});
+
+$(document).on('keypress', '#searchBox', function(e){
+    if(e.which == 13){
+        search();
+    }
 });
 
 function reset(){

@@ -18,4 +18,8 @@ public class JavaBridge {
         System.out.println("Search Box is clicked with query: " + query);
         guiInstance.executeQuery(query, false);
     }
+
+    public void addLinkListeners(){
+        guiInstance.addLinkListeners();
+    }
 }
