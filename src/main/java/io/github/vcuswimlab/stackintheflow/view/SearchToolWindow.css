@@ -1,15 +1,23 @@
-#searchBar {
-    width: 100%;
+.stylish-input-group .input-group-addon{
+    background: white !important;
+}
+.stylish-input-group .form-control{
+	border-right: 0;
+	box-shadow: 0 0 0;
+	border-color: #ccc;
+}
+.stylish-input-group button{
+    border: 0;
+    background: transparent;
 }
 
-#searchButton {
-    width: 100%;
-}
+.questionBody {
+    /*
+      display: block; 
+      text-overflow: ellipsis;
+      word-wrap: break-word;
+      overflow: hidden;
+      max-height: 7.2em;
+      line-height: 1.2em;*/
 
-#searchMethods {
-    width: 100%;
-}
-
-#searchMethodsOptions {
-    width: 100%;
 }
