@@ -12,12 +12,12 @@
 }
 
 .questionBody {
-
-      display: block; /* or inline-block */
+    /*
+      display: block; 
       text-overflow: ellipsis;
       word-wrap: break-word;
       overflow: hidden;
       max-height: 7.2em;
-      line-height: 1.2em;
+      line-height: 1.2em;*/
 
 }
