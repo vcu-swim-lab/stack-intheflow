@@ -5,16 +5,21 @@ var charCutoff;
 var questionDivs;
 
 $(document).ready(function(){
-    questionsList = new Array();
-    questionDivs = new Array();
-    numQuestions = 0;
     charCutoff = 300;
 });
 
 $("#searchButton").click(function(){
+    reset();
     JavaBridge.searchButtonClicked($('#searchBox').val());
     generateListeners();
 });
+
+function reset(){
+    $('#questions').empty();
+    questionsList = new Array();
+    questionDivs = new Array();
+    numQuestions = 0;
+}
 
 function Question(title, body, tags){
     this.title = title;
@@ -46,9 +51,9 @@ function Question(title, body, tags){
         var lastEndIndex = -1;
         while(true){
             var startMatch = this.body.regexIndexOf("<\\w[^>]*>", lastStartIndex + 1);
-            var startIndex = startMatch.index;
+            var startIndex = parseInt(startMatch.index);
             var endMatch = this.body.regexIndexOf("<\\/[^>]+>", lastEndIndex + 1);
-            var endIndex = endMatch.index;
+            var endIndex = parseInt(endMatch.index);
 
             if(startIndex != endIndex && startIndex != -1){
                 this.htmlTags.push(new HTMLTag(startIndex, endIndex, endMatch.length));
@@ -101,12 +106,10 @@ function Question(title, body, tags){
         for(var i = 0; i < this.htmlTags.length; i++){
             if(charCutoff - this.htmlTags[i].open < this.htmlTags[i].length - 1 &&
                 charCutoff - this.htmlTags[i].open > 0){
-                JavaBridge.print("Special case - returning: " + this.htmlTags[i].open - 1);
                 return this.htmlTags[i].open - 1;
             }
             else if(charCutoff - this.htmlTags[i].close < this.htmlTags[i].length - 1 &&
                 charCutoff - this.htmlTags[i].close > 0){
-                JavaBridge.print("Special case - returning: " + this.htmlTags[i].close + this.htmlTags[i].length);
                 return this.htmlTags[i].close + this.htmlTags[i].length;
             }
         }
