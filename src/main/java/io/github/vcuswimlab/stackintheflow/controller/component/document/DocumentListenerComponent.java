@@ -49,17 +49,20 @@ public class DocumentListenerComponent implements ProjectComponent {
                         @Override
                         public void documentChanged(DocumentEvent documentEvent) {
 
-                            long timeStamp = System.currentTimeMillis();
+                            if (!project.isDisposed()) {
+                                long timeStamp = System.currentTimeMillis();
 
-                            CharSequence oldFragment = documentEvent.getOldFragment();
-                            CharSequence newFragment = documentEvent.getNewFragment();
+                                CharSequence oldFragment = documentEvent.getOldFragment();
+                                CharSequence newFragment = documentEvent.getNewFragment();
 
-                            DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
+                            
+                                DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
 
-                            if (oldFragment.length() == 0 && newFragment.length() > 0) { //Event was an insert
-                                publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
-                            } else if (oldFragment.length() > 0 && newFragment.length() == 0) { //Event was a delete
-                                publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
+                                if (oldFragment.length() == 0 && newFragment.length() > 0) { //Event was an insert
+                                    publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
+                                } else if (oldFragment.length() > 0 && newFragment.length() == 0) { //Event was a delete
+                                    publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
+                                }
                             }
                         }
                     });
