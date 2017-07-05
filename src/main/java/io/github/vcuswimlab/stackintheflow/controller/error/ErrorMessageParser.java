@@ -14,13 +14,13 @@ import java.util.stream.Collectors;
  */
 public class ErrorMessageParser {
 
-    private static Pattern javaVersionPattern_6 = Pattern.compile("((javac?)|(jdk)) ?(v(ersion)?)? ?1.([1-9])(.[\\d_]+)?", Pattern.CASE_INSENSITIVE);
-    private static Pattern javaLangExceptionPattern_1 = Pattern.compile("java\\.lang\\.([a-zA-Z]+(Exception|Bounds|Error))");
-    private static Pattern javaIOExceptionPattern_1 = Pattern.compile("java\\.io\\.([a-zA-Z]+(Exception|Error))");
+    static Pattern javaVersionPattern_6 = Pattern.compile("((javac?)|(jdk)) ?(v(ersion)?)? ?1.([1-9])(.[\\d_]+)?", Pattern.CASE_INSENSITIVE);
+    static Pattern javaLangExceptionPattern_1 = Pattern.compile("java\\.lang\\.([a-zA-Z]+(Exception|Bounds|Error))");
+    static Pattern javaIOExceptionPattern_1 = Pattern.compile("java\\.io\\.([a-zA-Z]+(Exception|Error))");
 
     private static int tokenLimit = 10;
 
-    public static List<String> filterTerms(List<String> words, Project project) {
+    private static List<String> filterTerms(List<String> words, Project project) {
         TermStatComponent termStatComponent = project.getComponent(TermStatComponent.class);
         return words.stream().filter(s -> termStatComponent.getTermStat(s).isPresent()).collect(Collectors.toList());
     }
@@ -91,7 +91,7 @@ public class ErrorMessageParser {
         return Arrays.asList(matchedKeywords.stream().collect(Collectors.joining(" ")), parseFirstLine(error));
     }
 
-    private static List<String> findPattern(Pattern pattern, int group, String[]... textBlocks) {
+    static List<String> findPattern(Pattern pattern, int group, String[]... textBlocks) {
         List<String> matchedGroups = new ArrayList<>();
         for(String[] textBlock : textBlocks) {
             for(String text : textBlock) {
@@ -104,7 +104,7 @@ public class ErrorMessageParser {
         return matchedGroups;
     }
 
-    private static String parseFirstLine(String[] message) {
+    static String parseFirstLine(String[] message) {
         if(message.length == 0) {
             return null;
         }
