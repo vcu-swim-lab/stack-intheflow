@@ -1,6 +1,9 @@
 ### Java template
 *.class
 
+## Directory-based project format:
+.idea/
+
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
@@ -10,21 +13,20 @@ build/
 
 # IntelliJ
 /out/
-workspace.xml
-tasks.xml
-
+*.iml
 
 # Package Files #
 *.jar
 !gradle-wrapper.jar
 *.war
 *.ear
-
-# Plugin Data
-!plugin.xml
+*META-INF/
 
 ##Run Directory
 /run/
+
+# SpongeStart Class files
+classes/
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*

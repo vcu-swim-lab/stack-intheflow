@@ -97,6 +97,8 @@ public class DifficultyModel {
                             }
 
                             eventQueue.clear();
+                            eventCounts.clear();
+
                             currentState = State.QUERY;
 
                             // After QUERY_DELAY seconds, transition to collect state
@@ -130,11 +132,15 @@ public class DifficultyModel {
     }
 
     private double getRatio(EditorEventType num, EditorEventType denom) {
-        if (eventCounts.getOrDefault(denom, 0) == 0) {
+
+        int numCount = eventCounts.getOrDefault(num, 0);
+        int denomCount = eventCounts.getOrDefault(denom, 0);
+
+        if (denomCount == 0) {
             return 0;
         }
 
-        return eventCounts.getOrDefault(num, 0) / eventCounts.get(denom);
+        return numCount / (double) (numCount + denomCount);
     }
     private enum State {
         COLLECT, QUERY, PAUSE

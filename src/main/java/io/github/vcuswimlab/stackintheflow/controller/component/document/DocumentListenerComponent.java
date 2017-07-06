@@ -17,6 +17,8 @@ import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTri
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
+
 /**
  * Created by chase on 5/15/17.
  */
@@ -79,7 +81,12 @@ public class DocumentListenerComponent implements ProjectComponent {
                         if (!project.isDisposed()) {
                             DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
 
-                            publisher.doEdit(new EditorEvent.Scroll(fileEditorManager.getSelectedTextEditor(), System.currentTimeMillis()));
+                            Rectangle oldRectangle = visibleAreaEvent.getOldRectangle();
+                            Rectangle newRectangle = visibleAreaEvent.getNewRectangle();
+
+                            if (oldRectangle != null && oldRectangle.getCenterY() != newRectangle.getCenterY()) {
+                                publisher.doEdit(new EditorEvent.Scroll(fileEditorManager.getSelectedTextEditor(), System.currentTimeMillis()));
+                            }
                         }
 
                     });
