@@ -21,6 +21,7 @@ build/
 *.war
 *.ear
 *META-INF/
+!plugin.xml
 
 ##Run Directory
 /run/
