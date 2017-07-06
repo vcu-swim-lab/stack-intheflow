@@ -9,14 +9,9 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
-import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Created by Chase on 1/7/2017.
@@ -40,22 +35,14 @@ public class AutoQueryAction extends AnAction {
         final Project project = e.getData(CommonDataKeys.PROJECT);
         final Editor editor = e.getData(CommonDataKeys.EDITOR);
 
-        Deque<String> autoQueryStack = new ArrayDeque<>();
-        autoQueryStack.addAll(Arrays.asList(project.getComponent(TermStatComponent.class).generateQuery(editor).split(" ")));
-        String autoQuery = autoQueryStack.stream().collect(Collectors.joining(" "));
-        JerseyResponse response = QueryExecutor.executeQuery(autoQuery);
+        //Generate the autoQuery
+        String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(editor);
 
-        while (response.getItems().isEmpty()) {
-            autoQueryStack.pop();
-            autoQuery = autoQueryStack.stream().collect(Collectors.joining(" "));
-            response = QueryExecutor.executeQuery(autoQuery);
-        }
 
-        //Populate tool window with autoQuery search results
+        //Execute Search and Open Tool Window
         ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
         SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
-        toolWindowGUI.setSearchBoxContent(autoQuery);
-        toolWindowGUI.updateList(response.getItems());
+        toolWindowGUI.executeQuery(autoQuery, true);
         toolWindow.activate(() -> {
         });
     }

@@ -12,6 +12,11 @@ import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.event.*;
+import java.util.*;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -30,6 +35,10 @@ public class SearchToolWindowGUI {
     private JEditorPane consoleErrorPane;
     private DefaultListModel<Question> questionListModel;
 
+    private List<String> compilerMessages;
+
+    private ScheduledThreadPoolExecutor timer;
+
     public SearchToolWindowGUI(JButton searchButton, JTextField searchBox, JPanel content, JList<Question> resultsList, JScrollPane resultsScrollPane, JPanel searchJPanel, JEditorPane consoleErrorPane) {
         this.searchButton = searchButton;
         this.searchBox = searchBox;
@@ -39,13 +48,17 @@ public class SearchToolWindowGUI {
         this.searchJPanel = searchJPanel;
         this.consoleErrorPane = consoleErrorPane;
 
+        compilerMessages = new ArrayList<>();
+
+        timer = new ScheduledThreadPoolExecutor(1);
+
         addListeners();
     }
 
     private void addListeners() {
         consoleErrorPane.setVisible(false);
 
-        searchButton.addActionListener(e -> executeQuery(searchBox.getText()));
+        searchButton.addActionListener(e -> executeQuery(searchBox.getText(), false));
         searchBox.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -104,7 +117,7 @@ public class SearchToolWindowGUI {
             if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                 setSearchBoxContent(e.getDescription());
                 consoleErrorPane.setVisible(false);
-                executeQuery(e.getDescription());
+                executeQuery(e.getDescription(), false);
             }
         });
     }
@@ -122,13 +135,63 @@ public class SearchToolWindowGUI {
         return questions;
     }
 
-    private void executeQuery(String query) {
-        JerseyResponse jerseyResponse = QueryExecutor.executeQuery(query);
-        List<Question> questionList = jerseyResponse.getItems();
-        updateList(questionList);
+    public void executeQuery(String query, boolean backoff) {
+
+        /*timer.execute(() -> {
+
+            String searchQuery = query;
+
+            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+            List<Question> questionList = jerseyResponse.getItems();
+
+            if (backoff && questionList.isEmpty()) {
+
+                Deque<String> queryStack = new ArrayDeque<>();
+                queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
+
+                while (questionList.isEmpty()) {
+                    queryStack.pop();
+                    searchQuery = queryStack.stream().collect(Collectors.joining(" "));
+                    jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+                    questionList = jerseyResponse.getItems();
+                }
+            }
+
+            setSearchBoxContent(searchQuery);
+            updateList(questionList);
+        });*/
+
+        Future<List<Question>> questionListFuture = timer.submit(() -> {
+            String searchQuery = query;
+
+            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+            List<Question> questionList = jerseyResponse.getItems();
+
+            if (backoff && questionList.isEmpty()) {
+
+                Deque<String> queryStack = new ArrayDeque<>();
+                queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
+
+                while (questionList.isEmpty()) {
+                    queryStack.pop();
+                    searchQuery = queryStack.stream().collect(Collectors.joining(" "));
+                    jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+                    questionList = jerseyResponse.getItems();
+                }
+            }
+
+            setSearchBoxContent(searchQuery);
+            return questionList;
+        });
+
+        try {
+            updateList(questionListFuture.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void updateList(List<Question> elements) {
+    private void updateList(List<Question> elements) {
         if (elements == null) {
             return;
         }
@@ -143,7 +206,7 @@ public class SearchToolWindowGUI {
         }
     }
 
-    public void setSearchBoxContent(String content) {
+    private void setSearchBoxContent(String content) {
         searchBox.setText(content);
     }
 
@@ -161,9 +224,9 @@ public class SearchToolWindowGUI {
                     "</font>" +
                     "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">" +
                         // href allows hyperlink listener to grab message
-                        "<a href=\"" + message + "\">" +
+                        "<a href=\"" + message.replace("<", "&lt;").replace(">", "&gt;") + "\">" +
                             "<u>" +
-                                message.replace("\n", "<br>") +
+                                message.replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>") +
                             "</u>" +
                         "</a>" +
                     "</font>").collect(Collectors.joining("<br><br>"));
