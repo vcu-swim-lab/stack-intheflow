@@ -20,7 +20,6 @@ public class JavaBridge {
     }
 
     public void openInBrowser(String url){
-        System.out.println("Click: " + url);
         guiInstance.openBrowser(url);
     }
 }

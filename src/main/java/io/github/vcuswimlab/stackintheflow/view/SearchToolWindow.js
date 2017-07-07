@@ -32,10 +32,11 @@ function reset(){
     numQuestions = 0;
 }
 
-function Question(title, body, tags){
+function Question(title, body, tags, link){
     this.title = title;
     this.body = body;
     this.tags = tags;
+    this.link = link;
     this.codeTags = new Array();
     this.htmlTags = new Array();
 
@@ -144,8 +145,8 @@ function HTMLTag(open, close, length){
     this.length = length;
 }
 
-function getQuestion(title, body, tags){
-    questionsList.push(new Question(title, body, tags));;
+function getQuestion(title, body, tags, link){
+    questionsList.push(new Question(title, body, tags, link));;
     questionsList[numQuestions].findCodeTags();
     questionsList[numQuestions].findHTMLTags();
     numQuestions++;
@@ -192,8 +193,19 @@ function generateListeners(){
                 var index = $(this).find('#questionIndex').html();
                 $(this).find('.questionBody').html(questionsList[index].getShortenedContent());
             }
-        })
+        });
+
+        JavaBridge.print("Adding dblClick listeners");
+        $(questionDivs[i]).dblclick(function(){
+            var index = $(this).find('#questionIndex').html();
+            JavaBridge.openInBrowser(questionsList[index].link);
+        });
     }
+
+    $(document).delegate("a", "click", function(e){
+        e.preventDefault();
+        JavaBridge.openInBrowser($(this).attr('href'));
+    });
 }
 
 function RegexMatch(result, index, length){

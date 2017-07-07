@@ -62,8 +62,6 @@ public class SearchToolWindowGUI {
         timer = new ScheduledThreadPoolExecutor(1);
         bridge = new JavaBridge(this);
         initComponents();
-
-        //addListeners();
     }
 
     private void initComponents(){
@@ -177,15 +175,7 @@ public class SearchToolWindowGUI {
     private void refreshListView() {
         updateList(listModelToList());
     }
-
-    @NotNull
-    private List<Question> listModelToList() {
-        List<Question> questions = new ArrayList<>();
-        for (int i = 0; i < questionListModel.size(); i++) {
-            questions.add(questionListModel.get(i));
-        }
-        return questions;
-    } */
+ */
 
     public void executeQuery(String query, boolean backoff) {
 
@@ -216,7 +206,7 @@ public class SearchToolWindowGUI {
         try {
             List<Question> questionList = questionListFuture.get();
             for(Question question : questionList){
-                window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray());
+                window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray(), question.getLink());
             }
             engine.executeScript("displayQuestions()");
 
@@ -225,36 +215,7 @@ public class SearchToolWindowGUI {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        /*
-        try {
-            updateList(questionListFuture.get());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        */
     }
-
-    public void addLinkListeners(){
-        System.out.println("hello World");
-        NodeList nodeList = engine.getDocument().getElementsByTagName("a");
-        for(int i = 0; i < nodeList.getLength(); i++){
-            Node node = nodeList.item(i);
-            EventTarget eventTarget = (EventTarget) node;
-            eventTarget.addEventListener("click", new EventListener() {
-                @Override
-                public void handleEvent(Event evt){
-                    evt.preventDefault();
-                    EventTarget target = evt.getCurrentTarget();
-                    HTMLAnchorElement anchorElement = (HTMLAnchorElement) target;
-                    String href = anchorElement.getHref();
-                    openBrowser(href);
-                    System.out.println(href);
-                }
-            }, false);
-        }
-    }
-
 
     /*
     private void updateList(List<Question> elements) {
@@ -302,7 +263,7 @@ public class SearchToolWindowGUI {
         } */
     }
 
-    private void openBrowser(String url) {
+    public void openBrowser(String url) {
         BrowserLauncher.getInstance().browse(url, WebBrowserManager.getInstance().getFirstActiveBrowser());
     }
 
