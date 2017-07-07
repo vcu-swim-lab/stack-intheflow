@@ -20,7 +20,6 @@ build/
 !gradle-wrapper.jar
 *.war
 *.ear
-*META-INF/
 !plugin.xml
 
 ##Run Directory
