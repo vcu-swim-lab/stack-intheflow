@@ -19,7 +19,8 @@ public class JavaBridge {
         guiInstance.executeQuery(query, false);
     }
 
-    public void addLinkListeners(){
-        guiInstance.addLinkListeners();
+    public void openInBrowser(String url){
+        System.out.println("Click: " + url);
+        guiInstance.openBrowser(url);
     }
 }
