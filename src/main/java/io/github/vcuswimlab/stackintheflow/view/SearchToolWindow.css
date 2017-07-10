@@ -1,5 +1,12 @@
 .myWell {
-    margin-bottom: 0
+    margin-bottom: 0;
+    position: fixed;
+    z-index: 1;
+    top: -5px;
+}
+
+#content {
+    margin-top: 49px;
 }
 
 .stylish-input-group .input-group-addon{
