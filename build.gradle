@@ -22,6 +22,11 @@ repositories {
     }
 }
 
+intellij {
+    version 'IC-2017.1'
+    pluginName 'StackInTheFlow'
+}
+
 dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.23.2'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2'
