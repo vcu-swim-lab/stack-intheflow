@@ -38,6 +38,10 @@
     border-color: transparent;
 }
 
+.questionTags li:hover{
+    cursor: pointer;
+}
+
 #content {
     background-color: #efeff5;
     padding-top: 0.1%;
@@ -50,4 +54,26 @@
     margin-top: 2%;
     border-radius: 5px;
     padding: 1%;
+}
+
+.excerptController {
+    position: relative;
+    display: inline-block;
+    margin: 0px 3px 2px 0;
+    font-size: 14px;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: underline;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0;
+
+    color: #39739d;
+    border-color: transparent;
+}
+
+.excerptController:hover {
+    font-weight: bold;
+    cursor: pointer;
 }

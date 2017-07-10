@@ -132,6 +132,10 @@ function Question(title, body, tags, link){
     this.getShortenedContent = function(){
         return this.body.substring(0, this.getCutoff());
     }
+
+    this.hasMoreContent = function(){
+        return this.body.length > this.getShortenedContent().length;
+    }
 }
 
 function CodeTag(open, close){
@@ -183,7 +187,22 @@ function displayQuestions(){
         appendNewResultSkeleton(i);
         var questionSection = questionSections[i];
         $(questionSection).find(".searchResultTitle").html(questionsList[i].title);
-        $(questionSection).find(".questionBody").html(questionsList[i].getShortenedContent());
+
+        var questionBody = $(questionSection).find(".questionBody");
+        $(questionBody).html(questionsList[i].getShortenedContent());
+
+        if(questionsList[i].hasMoreContent()){
+            var excerptController = $("<div>").addClass("excerptController").html("More");
+            var lastChild = $(questionBody).children().last();
+            if($(lastChild).is("PRE")){
+                $(questionBody).append(excerptController);
+            }
+            else {
+                $(lastChild).append(excerptController);
+            }
+
+            //$(questionBody).children().last().append(excerptController);
+        }
 
         var questionTagsContainer = $(questionSection).find(".questionTags");
         var unorderedList = $("<ul>");
@@ -228,20 +247,47 @@ function appendNewResultSkeleton(i){
 
 function generateListeners(){
     for(var i = 0; i < questionSections.length; i++){
-        $(questionSections[i]).click(function(){
-            if($(this).hasClass('contentShortened')){
-                $(this).removeClass('contentShortened');
-                var index = $(this).find('#questionIndex').html();
-                $(this).find('.questionBody').html(questionsList[index].body);
+        $(questionSections[i]).delegate(".excerptController", "click", function(e){
+            JavaBridge.print("Click");
+            var clickedSection = $(this).closest('.searchResultItem');
+            var index = $(clickedSection).find('#questionIndex').html();
+            var questionBody = $(clickedSection).find('.questionBody');
+            if($(this).html() == 'More'){
+                $(questionBody).html(questionsList[index].body);
+                $(this).html("Less");
             }
             else {
-                $(this).addClass('contentShortened');
-                var index = $(this).find('#questionIndex').html();
-                $(this).find('.questionBody').html(questionsList[index].getShortenedContent());
+                $(questionBody).html(questionsList[index].getShortenedContent());
+                $(this).html("More");
+            }
+
+            var lastChild = $(questionBody).children().last();
+
+            if($(lastChild).is("PRE")){
+                $(questionBody).append($(this));
+            }
+            else {
+                $(lastChild).append($(this));
             }
         });
 
-        JavaBridge.print("Adding dblClick listeners");
+/*
+        var excerptController = $(questionSections[i]).find(".excerptController");
+        $(excerptController).click(function(){
+            JavaBridge.print("Click");
+            var clickedSection = $(this).closest('.searchResultItem');
+            var index = $(clickedSection).find('#questionIndex').html();
+            var questionBody = $(clickedSection).find('.questionBody');
+            if($(this).html() == 'More'){
+                $(questionBody).html(questionsList[index].body);
+                $(this).html("Less");
+            }
+            else {
+                $(questionBody).html(questionsList[index].getShortenedContent());
+                $(this).html("More");
+            }
+            $(questionBody).append($(this));
+        }); */
         $(questionSections[i]).dblclick(function(){
             var index = $(this).find('#questionIndex').html();
             JavaBridge.openInBrowser(questionsList[index].link);
