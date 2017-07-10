@@ -1,23 +1,53 @@
+.myWell {
+    margin-bottom: 0
+}
+
 .stylish-input-group .input-group-addon{
     background: white !important;
 }
 .stylish-input-group .form-control{
-	border-right: 0;
-	box-shadow: 0 0 0;
-	border-color: #ccc;
+    border-right: 0;
+    box-shadow: 0 0 0;
+    border-color: #ccc;
 }
-.stylish-input-group button{
+.stylish-input-group button {
     border: 0;
     background: transparent;
 }
 
-.questionBody {
-    /*
-      display: block; 
-      text-overflow: ellipsis;
-      word-wrap: break-word;
-      overflow: hidden;
-      max-height: 7.2em;
-      line-height: 1.2em;*/
+.questionTags ul {
+    list-style-type: none;
+}
 
+.questionTags li {
+    position: relative;
+    display: inline-block;
+    padding: 0.2%;
+    margin: 2px 3px 2px 0;
+    font-size: 12px;
+    line-height: 1;
+    white-space: nowrap;
+    text-decoration: none;
+    text-align: center;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0;
+
+    color: #39739d;
+    background-color: #e1ecf4;
+    border-color: transparent;
+}
+
+#content {
+    background-color: #efeff5;
+    padding-top: 0.1%;
+}
+
+.searchResultItem {
+    background-color: #fff;
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 2%;
+    border-radius: 5px;
+    padding: 1%;
 }

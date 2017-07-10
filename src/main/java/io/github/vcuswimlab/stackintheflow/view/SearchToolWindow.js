@@ -2,7 +2,7 @@
 var questionsList;
 var numQuestions;
 var charCutoff;
-var questionDivs;
+var questionSections;
 
 $(document).ready(function(){
     charCutoff = 300;
@@ -28,7 +28,7 @@ $(document).on('keypress', '#searchBox', function(e){
 function reset(){
     $('#questions').empty();
     questionsList = new Array();
-    questionDivs = new Array();
+    questionSections = new Array();
     numQuestions = 0;
 }
 
@@ -152,20 +152,17 @@ function getQuestion(title, body, tags, link){
     numQuestions++;
 }
 
+/*
 function displayQuestions(){
     JavaBridge.print("Displaying questions!");
     for(var i = 0; i < numQuestions; i++){
         //JavaBridge.print("Question: " + i);
         //JavaBridge.print(questionsList[i].body);
+
         var questionDiv = $("<div>").addClass('contentShortened');
 
         var qTitle = $("<h3>").addClass('questionTitle').html(questionsList[i].title);
         $(questionDiv).append(qTitle);
-
-        var lastTag = charCutoff;
-        if(questionsList[i].hasCodeTags()){
-            lastTag = questionsList[i].lastCodeCloseTag();
-        }
 
         var questionIndex = $('<span>').addClass('hidden').attr('id', 'questionIndex').html(i);
 
@@ -178,11 +175,60 @@ function displayQuestions(){
         questionDivs.push(questionDiv);
         $('#questions').append('<hr />');
     }
+} */
+
+
+function displayQuestions(){
+    for(var i = 0; i < numQuestions; i++){
+        appendNewResultSkeleton(i);
+        var questionSection = questionSections[i];
+        $(questionSection).find(".searchResultTitle").html(questionsList[i].title);
+        $(questionSection).find(".questionBody").html(questionsList[i].getShortenedContent());
+
+        var questionTagsContainer = $(questionSection).find(".questionTags");
+        var unorderedList = $("<ul>");
+
+        for(var j = 0; j < questionsList[i].tags.length; j++){
+            var tagItem = $("<li>").html(questionsList[i].tags[j].toString());
+            $(unorderedList).append(tagItem);
+        }
+        $(questionTagsContainer).append(unorderedList);
+    }
+}
+
+function appendNewResultSkeleton(i){
+    var questionSection = $("<section>").addClass("searchResultItem");
+    var questionBodyDiv = $("<div>").addClass("searchResultItemBody");
+    var rowDiv = $("<div>").addClass("row");
+    var questionBodyContentContainer = $("<div>").addClass("col-xs-12");
+    var questionTitle = $("<h3>").addClass("searchResultTitle");
+    var questionBodyContent = $("<div>").addClass("questionBody contentShortened");
+
+    $(questionBodyContentContainer).append(questionTitle);
+    $(questionBodyContentContainer).append(questionBodyContent);
+
+    $(rowDiv).append(questionBodyContentContainer);
+
+    $(questionBodyDiv).append(rowDiv);
+
+    var questionIndex = $('<span>').addClass('hidden').attr('id', 'questionIndex').html(i);
+    $(questionSection).append(questionIndex);
+    $(questionSection).append(questionBodyDiv);
+
+    var rowDiv2 = $("<div>").addClass("row");
+    var tagsDiv = $('<div>').addClass("questionTags col-xs-12");
+
+    $(rowDiv2).append(tagsDiv);
+
+    $(questionSection).append(rowDiv2);
+
+    $(questions).append(questionSection);
+    questionSections.push(questionSection);
 }
 
 function generateListeners(){
-    for(var i = 0; i < questionDivs.length; i++){
-        $(questionDivs[i]).click(function(){
+    for(var i = 0; i < questionSections.length; i++){
+        $(questionSections[i]).click(function(){
             if($(this).hasClass('contentShortened')){
                 $(this).removeClass('contentShortened');
                 var index = $(this).find('#questionIndex').html();
@@ -196,7 +242,7 @@ function generateListeners(){
         });
 
         JavaBridge.print("Adding dblClick listeners");
-        $(questionDivs[i]).dblclick(function(){
+        $(questionSections[i]).dblclick(function(){
             var index = $(this).find('#questionIndex').html();
             JavaBridge.openInBrowser(questionsList[index].link);
         });
