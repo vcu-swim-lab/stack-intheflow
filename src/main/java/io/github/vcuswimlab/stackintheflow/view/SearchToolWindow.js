@@ -195,9 +195,13 @@ function displayQuestions(){
             var excerptController = $("<div>").addClass("excerptController").html("More");
             var lastChild = $(questionBody).children().last();
             if($(lastChild).is("PRE")){
+                excerptController.removeClass('inlineExcerptController');
+                excerptController.addClass('blockExcerptController');
                 $(questionBody).append(excerptController);
             }
             else {
+                excerptController.addClass('inlineExcerptController');
+                excerptController.removeClass('blockExcerptController');
                 $(lastChild).append(excerptController);
             }
 
@@ -262,11 +266,14 @@ function generateListeners(){
             }
 
             var lastChild = $(questionBody).children().last();
-
             if($(lastChild).is("PRE")){
+                $(this).removeClass('inlineExcerptController');
+                $(this).addClass('blockExcerptController');
                 $(questionBody).append($(this));
             }
             else {
+                $(this).addClass('inlineExcerptController');
+                $(this).removeClass('blockExcerptController');
                 $(lastChild).append($(this));
             }
         });
