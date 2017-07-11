@@ -1,4 +1,4 @@
-package io.github.vcuswimlab.stackintheflow.model.error;
+package io.github.vcuswimlab.stackintheflow.model.erroranalysis;
 
 import com.intellij.execution.filters.ConsoleInputFilterProvider;
 import com.intellij.execution.filters.InputFilter;
@@ -46,18 +46,18 @@ public class RuntimeErrorFilterProvider implements ConsoleInputFilterProvider {
                 // all ERROR_OUTPUT is a result of runtime error
                 runtimeErrorComponent.appendMessage(this, "ERROR", s);
 
-            } else if (consoleViewContentType.equals(ConsoleViewContentType.LOG_WARNING_OUTPUT)) {
-                runtimeErrorComponent.appendMessage(this, "WARNING", s);
+//            } else if (consoleViewContentType.equals(ConsoleViewContentType.LOG_WARNING_OUTPUT)) {
+//                runtimeErrorComponent.appendMessage(this, "WARNING", s);
 
             } else if (consoleViewContentType.equals(ConsoleViewContentType.SYSTEM_OUTPUT) &&
                     endOfExecutionPattern.matcher(s).matches()) {
                 // if SYSTEM_OUTPUT sends '\nProcess finished with exit code \d+\n', execution has completed
 
                 // get error messages from component, remove 'this' instance from hash map
-                Message runtimeErrorMessage = runtimeErrorComponent.getMessages(this);
+                ErrorMessage runtimeErrorMessage = runtimeErrorComponent.getMessages(this);
 
                 // if 'consoleErrorComponent.appendError()' was never called, null is returned
-                if (runtimeErrorMessage != null && runtimeErrorMessage.get(Message.MessageType.ERROR).length != 0) {
+                if (runtimeErrorMessage != null && runtimeErrorMessage.get(ErrorMessage.MessageType.ERROR).length != 0) {
                     List<String> parsedMessages = ErrorMessageParser.parseRuntimeError(runtimeErrorMessage, project);
                     project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
                 }

@@ -1,12 +1,4 @@
-package io.github.vcuswimlab.stackintheflow.controller.error;
-
-import com.intellij.execution.filters.InputFilter;
-import com.intellij.execution.ui.ConsoleViewContentType;
-import io.github.vcuswimlab.stackintheflow.controller.error.mocks.ConsoleViewContentTypeMock;
-import io.github.vcuswimlab.stackintheflow.controller.error.mocks.ProjectMock;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
+package io.github.vcuswimlab.stackintheflow.model.erroranalysis;
 
 /**
  * <h1>RuntimeErrorFilterProviderTest</h1>

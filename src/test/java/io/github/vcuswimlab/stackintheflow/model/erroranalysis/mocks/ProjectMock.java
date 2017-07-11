@@ -1,4 +1,4 @@
-package io.github.vcuswimlab.stackintheflow.controller.error.mocks;
+package io.github.vcuswimlab.stackintheflow.model.erroranalysis.mocks;
 
 import com.intellij.openapi.components.BaseComponent;
 import com.intellij.openapi.extensions.ExtensionPointName;

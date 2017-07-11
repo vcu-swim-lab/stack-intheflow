@@ -1,7 +1,8 @@
-package io.github.vcuswimlab.stackintheflow.model.error;
+package io.github.vcuswimlab.stackintheflow.model.erroranalysis;
 
 import com.intellij.openapi.project.Project;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -13,9 +14,9 @@ import java.util.stream.Collectors;
  */
 public class ErrorMessageParser {
 
-    static Pattern javaVersionPattern_6 = Pattern.compile("((javac?)|(jdk)) ?(v(ersion)?)? ?1.([1-9])(.[\\d_]+)?", Pattern.CASE_INSENSITIVE);
-    static Pattern javaLangExceptionPattern_1 = Pattern.compile("java\\.lang\\.([a-zA-Z]+(Exception|Bounds|Error))");
-    static Pattern javaIOExceptionPattern_1 = Pattern.compile("java\\.io\\.([a-zA-Z]+(Exception|Error))");
+    public static Pattern javaVersionPattern_6 = Pattern.compile("((javac?)|(jdk)) ?(v(ersion)?)? ?1.([1-9])(.[\\d_]+)?", Pattern.CASE_INSENSITIVE);
+    public static Pattern javaLangExceptionPattern_1 = Pattern.compile("java\\.lang\\.([a-zA-Z]+(Exception|Bounds|Error))");
+    public static Pattern javaIOExceptionPattern_1 = Pattern.compile("java\\.io\\.([a-zA-Z]+(Exception|Error))");
 
     private static int tokenLimit = 10;
 
@@ -24,11 +25,11 @@ public class ErrorMessageParser {
         return words.stream().filter(s -> termStatComponent.getTermStat(s).isPresent()).collect(Collectors.toList());
     }
 
-    public static List<String> parseCompilerError(Message messages, Project project) {
+    public static List<String> parseCompilerError(ErrorMessage messages, Project project) {
 
-        String[] error = messages.get(Message.MessageType.ERROR);
-        String[] warning = messages.get(Message.MessageType.WARNING);
-        String[] information = messages.get(Message.MessageType.INFORMATION);
+        String[] error = messages.get(ErrorMessage.MessageType.ERROR);
+        String[] warning = messages.get(ErrorMessage.MessageType.WARNING);
+        String[] information = messages.get(ErrorMessage.MessageType.INFORMATION);
 
         Set<String> matchedKeywords = new LinkedHashSet<>();
 
@@ -57,11 +58,11 @@ public class ErrorMessageParser {
         return Arrays.asList(matchedKeywords.stream().collect(Collectors.joining(" ")), parseFirstLine(error));
     }
 
-    public static List<String> parseRuntimeError(Message messages, Project project) {
+    public static List<String> parseRuntimeError(ErrorMessage messages, Project project) {
 
-        String[] error = messages.get(Message.MessageType.ERROR);
-        String[] warning = messages.get(Message.MessageType.WARNING);
-        String[] information = messages.get(Message.MessageType.INFORMATION);
+        String[] error = messages.get(ErrorMessage.MessageType.ERROR);
+        String[] warning = messages.get(ErrorMessage.MessageType.WARNING);
+        String[] information = messages.get(ErrorMessage.MessageType.INFORMATION);
 
         Set<String> matchedKeywords = new LinkedHashSet<>();
 
@@ -90,7 +91,7 @@ public class ErrorMessageParser {
         return Arrays.asList(matchedKeywords.stream().collect(Collectors.joining(" ")), parseFirstLine(error));
     }
 
-    static List<String> findPattern(Pattern pattern, int group, String[]... textBlocks) {
+    public static List<String> findPattern(@NotNull Pattern pattern, int group, @NotNull String[]... textBlocks) {
         List<String> matchedGroups = new ArrayList<>();
         for(String[] textBlock : textBlocks) {
             for(String text : textBlock) {
@@ -103,9 +104,12 @@ public class ErrorMessageParser {
         return matchedGroups;
     }
 
-    static String parseFirstLine(String[] message) {
+    public static String parseFirstLine(@NotNull String[] message) {
         if(message.length == 0) {
             return null;
+        }
+        if(message[0].equals("\n")) {
+            return "";
         }
         return message[0].split("\n")[0];
     }

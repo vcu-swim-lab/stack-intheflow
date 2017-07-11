@@ -1,4 +1,4 @@
-package io.github.vcuswimlab.stackintheflow.controller.error.mocks;
+package io.github.vcuswimlab.stackintheflow.model.erroranalysis.mocks;
 
 import com.intellij.execution.filters.InputFilter;
 import io.github.vcuswimlab.stackintheflow.controller.component.RuntimeErrorComponent;

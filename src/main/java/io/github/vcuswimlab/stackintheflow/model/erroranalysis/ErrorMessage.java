@@ -1,20 +1,20 @@
-package io.github.vcuswimlab.stackintheflow.model.error;
+package io.github.vcuswimlab.stackintheflow.model.erroranalysis;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <h1>Message</h1>
+ * <h1>ErrorMessage</h1>
  * Created on: 6/30/2017
  *
  * @author Tyler John Haden
  */
-public class Message {
+public class ErrorMessage {
     private List<String> error;
     private List<String> warning;
     private List<String> information;
 
-    public Message() {
+    public ErrorMessage() {
         error = new ArrayList<>();
         warning = new ArrayList<>();
         information = new ArrayList<>();

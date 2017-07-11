@@ -1,4 +1,4 @@
-package io.github.vcuswimlab.stackintheflow.controller.error;
+package io.github.vcuswimlab.stackintheflow.model.erroranalysis;
 
 import org.junit.Test;
 import org.junit.experimental.theories.DataPoints;
@@ -11,7 +11,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assume.assumeFalse;
 
 /**
  * <h1>ErrorMessageParserTest</h1>

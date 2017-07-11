@@ -2,14 +2,11 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 
 import com.intellij.execution.filters.InputFilter;
 import com.intellij.openapi.components.ProjectComponent;
-import io.github.vcuswimlab.stackintheflow.controller.error.Message;
+import io.github.vcuswimlab.stackintheflow.model.erroranalysis.ErrorMessage;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * <h1>ConsoleErrorComponent</h1>
@@ -38,19 +35,19 @@ public class RuntimeErrorComponent implements ProjectComponent {
         messageBuilder.get(console).get(type).append(line);
     }
 
-    public Message getMessages(InputFilter console) {
+    public ErrorMessage getMessages(InputFilter console) {
         if (messageBuilder.containsKey(console)) {
             Map<String, StringBuilder> consoleMessages = messageBuilder.get(console);
 
-            Message message = new Message();
+            ErrorMessage message = new ErrorMessage();
             if(consoleMessages.containsKey("ERROR")) {
-                message.put(Message.MessageType.ERROR, consoleMessages.get("ERROR").toString());
+                message.put(ErrorMessage.MessageType.ERROR, consoleMessages.get("ERROR").toString());
             }
             if(consoleMessages.containsKey("WARNING")) {
-                message.put(Message.MessageType.WARNING, consoleMessages.get("WARNING").toString());
+                message.put(ErrorMessage.MessageType.WARNING, consoleMessages.get("WARNING").toString());
             }
             if(consoleMessages.containsKey("INFORMATION")) {
-                message.put(Message.MessageType.INFORMATION, consoleMessages.get("INFORMATION").toString());
+                message.put(ErrorMessage.MessageType.INFORMATION, consoleMessages.get("INFORMATION").toString());
             }
 
             messageBuilder.remove(console);
