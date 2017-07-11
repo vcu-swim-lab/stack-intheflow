@@ -1,6 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.model.score;
 
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 
 /**
  * Created by Chase on 2/11/2017.

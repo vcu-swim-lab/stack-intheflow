@@ -85,4 +85,42 @@ public abstract class EditorEvent {
                     '}';
         }
     }
+
+    public static class Scroll extends EditorEvent {
+
+        public Scroll(Editor editor, long timeStamp) {
+            super(editor, timeStamp);
+        }
+
+        @Override
+        public EditorEventType getType() {
+            return EditorEventType.SCROLL;
+        }
+
+        @Override
+        public String toString() {
+            return "Scroll{" +
+                    "timeStamp=" + getTimeStamp() +
+                    '}';
+        }
+    }
+
+    public static class Click extends EditorEvent {
+
+        public Click(Editor editor, long timeStamp) {
+            super(editor, timeStamp);
+        }
+
+        @Override
+        public EditorEventType getType() {
+            return EditorEventType.CLICK;
+        }
+
+        @Override
+        public String toString() {
+            return "Click{" +
+                    "timeStamp=" + getTimeStamp() +
+                    '}';
+        }
+    }
 }

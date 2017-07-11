@@ -1,8 +1,11 @@
 package io.github.vcuswimlab.stackintheflow.controller.component.document;
 
 import com.intellij.openapi.components.ProjectComponent;
+import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.editor.event.DocumentEvent;
 import com.intellij.openapi.editor.event.DocumentListener;
+import com.intellij.openapi.editor.event.EditorMouseEvent;
+import com.intellij.openapi.editor.event.EditorMouseListener;
 import com.intellij.openapi.fileEditor.FileDocumentManager;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.FileEditorManagerEvent;
@@ -13,6 +16,8 @@ import com.intellij.util.messages.MessageBusConnection;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.awt.*;
 
 /**
  * Created by chase on 5/15/17.
@@ -36,8 +41,11 @@ public class DocumentListenerComponent implements ProjectComponent {
 
             connection.subscribe(FileEditorManagerListener.FILE_EDITOR_MANAGER, new FileEditorManagerListener() {
 
+                // Subscribe to edit events
                 @Override
                 public void fileOpened(@NotNull FileEditorManager fileEditorManager, @NotNull VirtualFile virtualFile) {
+
+                    Editor editor = fileEditorManager.getSelectedTextEditor();
 
                     FileDocumentManager.getInstance().getDocument(virtualFile).addDocumentListener(new DocumentListener() {
 
@@ -49,18 +57,71 @@ public class DocumentListenerComponent implements ProjectComponent {
                         @Override
                         public void documentChanged(DocumentEvent documentEvent) {
 
-                            long timeStamp = System.currentTimeMillis();
+                            if (!project.isDisposed()) {
+                                long timeStamp = System.currentTimeMillis();
 
-                            CharSequence oldFragment = documentEvent.getOldFragment();
-                            CharSequence newFragment = documentEvent.getNewFragment();
+                                CharSequence oldFragment = documentEvent.getOldFragment();
+                                CharSequence newFragment = documentEvent.getNewFragment();
 
+
+                                DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
+
+                                if (oldFragment.length() == 0 && newFragment.length() > 0) { //Event was an insert
+                                    publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), editor, timeStamp));
+                                } else if (oldFragment.length() > 0 && newFragment.length() == 0) { //Event was a delete
+                                    publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), editor, timeStamp));
+                                }
+                            }
+                        }
+                    });
+
+                    // Subscribe to scrolling events
+                    editor.getScrollingModel().addVisibleAreaListener(visibleAreaEvent -> {
+
+                        if (!project.isDisposed()) {
                             DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
 
-                            if (oldFragment.length() == 0 && newFragment.length() > 0) { //Event was an insert
-                                publisher.doEdit(new EditorEvent.Insert(newFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
-                            } else if (oldFragment.length() > 0 && newFragment.length() == 0) { //Event was a delete
-                                publisher.doEdit(new EditorEvent.Delete(oldFragment.toString(), fileEditorManager.getSelectedTextEditor(), timeStamp));
+                            Rectangle oldRectangle = visibleAreaEvent.getOldRectangle();
+                            Rectangle newRectangle = visibleAreaEvent.getNewRectangle();
+
+                            if (oldRectangle != null && oldRectangle.getCenterY() != newRectangle.getCenterY()) {
+                                publisher.doEdit(new EditorEvent.Scroll(fileEditorManager.getSelectedTextEditor(), System.currentTimeMillis()));
                             }
+                        }
+
+                    });
+
+                    // Subscribe to mouse events
+                    editor.addEditorMouseListener(new EditorMouseListener() {
+
+                        @Override
+                        public void mousePressed(EditorMouseEvent editorMouseEvent) {
+
+                        }
+
+                        @Override
+                        public void mouseClicked(EditorMouseEvent editorMouseEvent) {
+
+                            if (!project.isDisposed()) {
+                                DifficultyTrigger publisher = project.getMessageBus().syncPublisher(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC);
+
+                                publisher.doEdit(new EditorEvent.Click(fileEditorManager.getSelectedTextEditor(), System.currentTimeMillis()));
+                            }
+                        }
+
+                        @Override
+                        public void mouseReleased(EditorMouseEvent editorMouseEvent) {
+
+                        }
+
+                        @Override
+                        public void mouseEntered(EditorMouseEvent editorMouseEvent) {
+
+                        }
+
+                        @Override
+                        public void mouseExited(EditorMouseEvent editorMouseEvent) {
+
                         }
                     });
                 }

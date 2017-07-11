@@ -5,16 +5,16 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
-import io.github.vcuswimlab.stackintheflow.controller.component.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
+import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEventType;
-import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Queue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -24,7 +24,9 @@ import java.util.concurrent.TimeUnit;
  */
 public class DifficultyModel {
 
+    private static final int EVENT_DELAY = 1000; // Delay in milliseconds
     private static final double DELETE_RATIO = .6;
+    private static final double NON_EDIT_RATIO = .6;
     private static final int QUERY_DELAY = 30; // Delay in seconds
     private static final int INACTIVE_DELAY = 15; // Delay in minutes
     private final int MAX_QUEUE_SIZE = 25;
@@ -35,11 +37,10 @@ public class DifficultyModel {
 
     private Map<EditorEventType, Integer> eventCounts;
 
-    private Queue<EditorEventType> eventQueue;
+    private Deque<EditorEvent> eventQueue;
     private State currentState;
     private ScheduledThreadPoolExecutor timer;
     private ScheduledFuture<?> inactiveTaskFuture;
-    private SearchToolWindowGUI gui;
 
     public DifficultyModel(Project project) {
         this.project = project;
@@ -51,9 +52,18 @@ public class DifficultyModel {
         currentState = State.COLLECT;
         timer = new ScheduledThreadPoolExecutor(1);
 
-        gui = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
-
         connection.subscribe(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC, event -> {
+
+            // Check to limit the number of consecutive events in a short period of time.
+            EditorEvent lastEvent = eventQueue.peekLast();
+            if (lastEvent != null && lastEvent.getType() == event.getType()) {
+
+                if (event.getTimeStamp() - lastEvent.getTimeStamp() < EVENT_DELAY) {
+                    return;
+                }
+            }
+
+            System.out.println(event);
 
             switch (currentState) {
                 case PAUSE:
@@ -69,24 +79,26 @@ public class DifficultyModel {
                     inactiveTaskFuture = timer.schedule(() -> currentState = State.PAUSE, INACTIVE_DELAY, TimeUnit.MINUTES);
 
                     if (isFull()) {
-                        EditorEventType oldEventType = eventQueue.poll();
+                        EditorEventType oldEventType = eventQueue.poll().getType();
                         eventCounts.put(oldEventType, eventCounts.getOrDefault(oldEventType, 1) - 1);
 
                         // If we have crossed the threshold, initiate a query and transition to query state
-                        if (getRatio(EditorEventType.DELETE) >= DELETE_RATIO) {
-
+                        if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO ||
+                                getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO) {
                             ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
 
-                            // Check to see if the tool window is active before generating the query.
-                            if (toolWindow.isActive()) {
+                            // Check to see if the tool window is visible before generating the query.
+                            if (toolWindow.isVisible()) {
                                 // Generate the autoQuery
                                 String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
 
                                 // Execute Search
-                                gui.executeQuery(autoQuery, true);
+                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery(autoQuery, true);
                             }
 
                             eventQueue.clear();
+                            eventCounts.clear();
+
                             currentState = State.QUERY;
 
                             // After QUERY_DELAY seconds, transition to collect state
@@ -97,7 +109,7 @@ public class DifficultyModel {
                         }
                     }
 
-                    eventQueue.offer(event.getType());
+                    eventQueue.offer(event);
                     break;
                 case QUERY:
                     // Do nothing
@@ -119,6 +131,17 @@ public class DifficultyModel {
         return eventCounts.getOrDefault(eventType, 0) / (double) eventQueue.size();
     }
 
+    private double getRatio(EditorEventType num, EditorEventType denom) {
+
+        int numCount = eventCounts.getOrDefault(num, 0);
+        int denomCount = eventCounts.getOrDefault(denom, 0);
+
+        if (denomCount == 0) {
+            return 0;
+        }
+
+        return numCount / (double) (numCount + denomCount);
+    }
     private enum State {
         COLLECT, QUERY, PAUSE
     }
