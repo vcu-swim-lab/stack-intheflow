@@ -135,7 +135,6 @@ public class SearchToolWindowGUI {
         consoleErrorPane.addHyperlinkListener(e -> {
             if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                 setSearchBoxContent(e.getDescription());
-                consoleErrorPane.setVisible(false);
                 executeQuery(e.getDescription(), false);
             }
         });
@@ -175,6 +174,7 @@ public class SearchToolWindowGUI {
                 }
             }
 
+            consoleErrorPane.setVisible(false);
             setSearchBoxContent(searchQuery);
             return searchModel.rankQuesitonList(questionList);
         });
