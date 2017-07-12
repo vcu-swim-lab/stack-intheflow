@@ -8,6 +8,21 @@ var searchTags;
 $(document).ready(function(){
     charCutoff = 300;
     searchTags = new SearchTags();
+
+    $('#searchBox').keydown( function(e) {
+        if (e.keyCode == 9 && !e.shiftKey) {
+            e.preventDefault();
+
+            var words = $('#searchBox').val().split(" ");
+            searchTags.add(words[words.length - 1]);
+            words.splice(words.length - 1, 1);
+            $('#searchBox').val(words);
+        }
+    });
+
+    $("#searchTags").on("click", "li", function(e){
+        searchTags.remove($(this).html());
+    });
 });
 
 function SearchTags(){
@@ -288,9 +303,6 @@ function appendNewResultSkeleton(i){
 }
 
 function generateListeners(){
-    $("#searchTags").on("click", "li", function(e){
-        searchTags.remove($(this).html());
-    });
 
     for(var i = 0; i < questionSections.length; i++){
         $(questionSections[i]).on("click", ".excerptController", function(e){
