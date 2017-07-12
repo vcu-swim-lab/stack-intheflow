@@ -7,26 +7,24 @@ import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-import org.jetbrains.annotations.NotNull;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.events.*;
+import org.w3c.dom.events.Event;
+import org.w3c.dom.events.EventListener;
+import org.w3c.dom.html.HTMLAnchorElement;
 
 import javax.swing.*;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
-import java.awt.event.*;
+import java.beans.EventHandler;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -64,8 +62,6 @@ public class SearchToolWindowGUI {
         timer = new ScheduledThreadPoolExecutor(1);
         bridge = new JavaBridge(this);
         initComponents();
-
-        //addListeners();
     }
 
     private void initComponents(){
@@ -179,15 +175,7 @@ public class SearchToolWindowGUI {
     private void refreshListView() {
         updateList(listModelToList());
     }
-
-    @NotNull
-    private List<Question> listModelToList() {
-        List<Question> questions = new ArrayList<>();
-        for (int i = 0; i < questionListModel.size(); i++) {
-            questions.add(questionListModel.get(i));
-        }
-        return questions;
-    } */
+ */
 
     public void executeQuery(String query, boolean backoff) {
 
@@ -218,7 +206,7 @@ public class SearchToolWindowGUI {
         try {
             List<Question> questionList = questionListFuture.get();
             for(Question question : questionList){
-                window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray());
+                window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray(), question.getLink());
             }
             engine.executeScript("displayQuestions()");
 
@@ -227,15 +215,8 @@ public class SearchToolWindowGUI {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        /*
-        try {
-            updateList(questionListFuture.get());
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        */
     }
+
     /*
     private void updateList(List<Question> elements) {
         if (elements == null) {
@@ -282,7 +263,7 @@ public class SearchToolWindowGUI {
         } */
     }
 
-    private void openBrowser(String url) {
+    public void openBrowser(String url) {
         BrowserLauncher.getInstance().browse(url, WebBrowserManager.getInstance().getFirstActiveBrowser());
     }
 

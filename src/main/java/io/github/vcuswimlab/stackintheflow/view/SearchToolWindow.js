@@ -2,24 +2,120 @@
 var questionsList;
 var numQuestions;
 var charCutoff;
-var questionDivs;
+var questionSections;
+var searchTags;
 
 $(document).ready(function(){
-    questionsList = new Array();
-    questionDivs = new Array();
-    numQuestions = 0;
     charCutoff = 300;
+    searchTags = new SearchTags();
+
+    $('#searchBox').keydown( function(e) {
+        if (e.keyCode == 9 && !e.shiftKey) {
+            e.preventDefault();
+
+            var words = $('#searchBox').val().split(" ");
+            searchTags.add(words[words.length - 1]);
+            words.splice(words.length - 1, 1);
+            $('#searchBox').val(words);
+        }
+    });
+
+    $("#searchTags").on("click", "li", function(e){
+        searchTags.remove($(this).html());
+    });
 });
+
+function SearchTags(){
+    this.tags = new Array();
+
+    this.add = function(newTag){
+        if(!this.contains(newTag)){
+            this.tags.push(newTag);
+            this.updateUI();
+        }
+    }
+
+    this.remove = function(tagToRemove){
+        for(var i = 0; i < this.tags.length; i++){
+            if(this.tags[i] === tagToRemove){
+                this.tags.splice(i, 1);
+            }
+        }
+        this.updateUI();
+    }
+
+    this.contains = function(tagToCheck){
+        for(var i = 0; i < this.tags.length; i++){
+            if(this.tags[i] == tagToCheck){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    this.updateUI = function(){
+        $('#searchTags').empty();
+        for(var i = 0; i < this.tags.length; i++){
+            var tag = $('<li>').html(this.tags[i]);
+            $('#searchTags').append(tag);
+        }
+
+        if(this.tags.length > 0){
+            $('#content').removeClass("contentStart").addClass("contentWithSearchTags");
+        }
+        else {
+            $('#content').removeClass("contentWithSearchTags").addClass("contentStart");
+        }
+
+        JavaBridge.debugBreakpoint();
+     }
+
+    this.clear = function(){
+        this.tags = new Array();
+        this.updateUI();
+    }
+
+    this.getQuerySyntax = function(){
+        var query = "";
+
+        for(var i = 0; i < this.tags.length; i++){
+            query += "[" + this.tags[i] + "]" + (i == this.tags.length - 1 ? "" : " ");
+        }
+
+        return query;
+    }
+}
+
+function search(){
+    reset();
+    var query = $('#searchBox').val() + " " + searchTags.getQuerySyntax();
+    JavaBridge.searchButtonClicked(query);
+    generateListeners();
+    JavaBridge.addLinkListeners();
+}
 
 $("#searchButton").click(function(){
-    JavaBridge.searchButtonClicked($('#searchBox').val());
-    generateListeners();
+    search();
 });
 
-function Question(title, body, tags){
+$(document).on('keypress', '#searchBox', function(e){
+    if(e.which == 13){
+        search();
+    }
+});
+
+function reset(){
+    $('#questions').empty();
+    questionsList = new Array();
+    questionSections = new Array();
+    numQuestions = 0;
+}
+
+function Question(title, body, tags, link){
     this.title = title;
     this.body = body;
     this.tags = tags;
+    this.link = link;
     this.codeTags = new Array();
     this.htmlTags = new Array();
 
@@ -46,9 +142,9 @@ function Question(title, body, tags){
         var lastEndIndex = -1;
         while(true){
             var startMatch = this.body.regexIndexOf("<\\w[^>]*>", lastStartIndex + 1);
-            var startIndex = startMatch.index;
+            var startIndex = parseInt(startMatch.index);
             var endMatch = this.body.regexIndexOf("<\\/[^>]+>", lastEndIndex + 1);
-            var endIndex = endMatch.index;
+            var endIndex = parseInt(endMatch.index);
 
             if(startIndex != endIndex && startIndex != -1){
                 this.htmlTags.push(new HTMLTag(startIndex, endIndex, endMatch.length));
@@ -101,12 +197,10 @@ function Question(title, body, tags){
         for(var i = 0; i < this.htmlTags.length; i++){
             if(charCutoff - this.htmlTags[i].open < this.htmlTags[i].length - 1 &&
                 charCutoff - this.htmlTags[i].open > 0){
-                JavaBridge.print("Special case - returning: " + this.htmlTags[i].open - 1);
                 return this.htmlTags[i].open - 1;
             }
             else if(charCutoff - this.htmlTags[i].close < this.htmlTags[i].length - 1 &&
                 charCutoff - this.htmlTags[i].close > 0){
-                JavaBridge.print("Special case - returning: " + this.htmlTags[i].close + this.htmlTags[i].length);
                 return this.htmlTags[i].close + this.htmlTags[i].length;
             }
         }
@@ -116,6 +210,10 @@ function Question(title, body, tags){
 
     this.getShortenedContent = function(){
         return this.body.substring(0, this.getCutoff());
+    }
+
+    this.hasMoreContent = function(){
+        return this.body.length > this.getShortenedContent().length;
     }
 }
 
@@ -130,56 +228,123 @@ function HTMLTag(open, close, length){
     this.length = length;
 }
 
-function getQuestion(title, body, tags){
-    questionsList.push(new Question(title, body, tags));;
+function getQuestion(title, body, tags, link){
+    questionsList.push(new Question(title, body, tags, link));;
     questionsList[numQuestions].findCodeTags();
     questionsList[numQuestions].findHTMLTags();
     numQuestions++;
 }
 
 function displayQuestions(){
-    JavaBridge.print("Displaying questions!");
     for(var i = 0; i < numQuestions; i++){
-        //JavaBridge.print("Question: " + i);
-        //JavaBridge.print(questionsList[i].body);
-        var questionDiv = $("<div>").addClass('contentShortened');
+        appendNewResultSkeleton(i);
+        var questionSection = questionSections[i];
+        $(questionSection).find(".searchResultTitle").html(questionsList[i].title);
 
-        var qTitle = $("<h3>").addClass('questionTitle').html(questionsList[i].title);
-        $(questionDiv).append(qTitle);
+        var questionBody = $(questionSection).find(".questionBody");
+        $(questionBody).html(questionsList[i].getShortenedContent());
 
-        var lastTag = charCutoff;
-        if(questionsList[i].hasCodeTags()){
-            lastTag = questionsList[i].lastCodeCloseTag();
+        if(questionsList[i].hasMoreContent()){
+            var excerptController = $("<div>").addClass("excerptController").html("More");
+            var lastChild = $(questionBody).children().last();
+            if($(lastChild).is("PRE")){
+                excerptController.removeClass('inlineExcerptController');
+                excerptController.addClass('blockExcerptController');
+                $(questionBody).append(excerptController);
+            }
+            else {
+                excerptController.addClass('inlineExcerptController');
+                excerptController.removeClass('blockExcerptController');
+                $(lastChild).append(excerptController);
+            }
+
+            //$(questionBody).children().last().append(excerptController);
         }
 
-        var questionIndex = $('<span>').addClass('hidden').attr('id', 'questionIndex').html(i);
+        var questionTagsContainer = $(questionSection).find(".questionTags");
+        var unorderedList = $("<ul>");
 
-        var qBody = $('<div>').addClass('questionBody').html(questionsList[i].getShortenedContent());
-        $(questionDiv).append(qBody);
-
-        $(questionDiv).append(questionIndex);
-
-        $('#questions').append(questionDiv);
-        questionDivs.push(questionDiv);
-        $('#questions').append('<hr />');
+        for(var j = 0; j < questionsList[i].tags.length; j++){
+            var tagItem = $("<li>").html(questionsList[i].tags[j].toString());
+            $(unorderedList).append(tagItem);
+        }
+        $(questionTagsContainer).append(unorderedList);
     }
 }
 
+function appendNewResultSkeleton(i){
+    var questionSection = $("<section>").addClass("searchResultItem");
+    var questionBodyDiv = $("<div>").addClass("searchResultItemBody");
+    var rowDiv = $("<div>").addClass("row");
+    var questionBodyContentContainer = $("<div>").addClass("col-xs-12");
+    var questionTitle = $("<h3>").addClass("searchResultTitle");
+    var questionBodyContent = $("<div>").addClass("questionBody contentShortened");
+
+    $(questionBodyContentContainer).append(questionTitle);
+    $(questionBodyContentContainer).append(questionBodyContent);
+
+    $(rowDiv).append(questionBodyContentContainer);
+
+    $(questionBodyDiv).append(rowDiv);
+
+    var questionIndex = $('<span>').addClass('hidden').attr('id', 'questionIndex').html(i);
+    $(questionSection).append(questionIndex);
+    $(questionSection).append(questionBodyDiv);
+
+    var rowDiv2 = $("<div>").addClass("row");
+    var tagsDiv = $('<div>').addClass("questionTags col-xs-12");
+
+    $(rowDiv2).append(tagsDiv);
+
+    $(questionSection).append(rowDiv2);
+
+    $(questions).append(questionSection);
+    questionSections.push(questionSection);
+}
+
 function generateListeners(){
-    for(var i = 0; i < questionDivs.length; i++){
-        $(questionDivs[i]).click(function(){
-            if($(this).hasClass('contentShortened')){
-                $(this).removeClass('contentShortened');
-                var index = $(this).find('#questionIndex').html();
-                $(this).find('.questionBody').html(questionsList[index].body);
+
+    for(var i = 0; i < questionSections.length; i++){
+        $(questionSections[i]).on("click", ".excerptController", function(e){
+            var clickedSection = $(this).closest('.searchResultItem');
+            var index = $(clickedSection).find('#questionIndex').html();
+            var questionBody = $(clickedSection).find('.questionBody');
+            if($(this).html() == 'More'){
+                $(questionBody).html(questionsList[index].body);
+                $(this).html("Less");
             }
             else {
-                $(this).addClass('contentShortened');
-                var index = $(this).find('#questionIndex').html();
-                $(this).find('.questionBody').html(questionsList[index].getShortenedContent());
+                $(questionBody).html(questionsList[index].getShortenedContent());
+                $(this).html("More");
             }
-        })
+
+            var lastChild = $(questionBody).children().last();
+            if($(lastChild).is("PRE")){
+                $(this).removeClass('inlineExcerptController');
+                $(this).addClass('blockExcerptController');
+                $(questionBody).append($(this));
+            }
+            else {
+                $(this).addClass('inlineExcerptController');
+                $(this).removeClass('blockExcerptController');
+                $(lastChild).append($(this));
+            }
+        });
+
+        $(questionSections[i]).on("click", ".questionTags li", function(e){
+            searchTags.add($(this).html());
+        });
+
+        $(questionSections[i]).dblclick(function(){
+            var index = $(this).find('#questionIndex').html();
+            JavaBridge.openInBrowser(questionsList[index].link);
+        });
     }
+
+    $(document).on("click", "a", function(e){
+        e.preventDefault();
+        JavaBridge.openInBrowser($(this).attr('href'));
+    });
 }
 
 function RegexMatch(result, index, length){
