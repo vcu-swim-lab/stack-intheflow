@@ -9,7 +9,7 @@
     ]]></description>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-  <idea-version since-build="141.0"/>
+    <idea-version since-build="171"/>
 
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
@@ -18,7 +18,7 @@
   -->
 
   <extensions defaultExtensionNs="com.intellij">
-    <!-- Add your extensions here -->
+      <consoleInputFilterProvider implementation="io.github.vcuswimlab.stackintheflow.model.erroranalysis.RuntimeErrorFilterProvider"/>
   </extensions>
 
   <actions>
@@ -46,6 +46,11 @@
     <project-components>
         <component>
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.CompilerListenerComponent
+            </implementation-class>
+        </component>
+        <component>
+            <implementation-class>
+                io.github.vcuswimlab.stackintheflow.controller.component.RuntimeErrorComponent
             </implementation-class>
         </component>
         <component>

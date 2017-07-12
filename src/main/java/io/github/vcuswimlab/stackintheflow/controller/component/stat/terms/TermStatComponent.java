@@ -72,7 +72,7 @@ public class TermStatComponent implements ApplicationComponent {
 
         try {
             XMLEventReader eventReader = inputFactory.createXMLEventReader(
-                    this.getClass().getResourceAsStream("Terms.xml"));
+                    this.getClass().getClassLoader().getResourceAsStream("Terms.xml"));
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
                 if (event.getEventType() == XMLStreamConstants.START_ELEMENT) {

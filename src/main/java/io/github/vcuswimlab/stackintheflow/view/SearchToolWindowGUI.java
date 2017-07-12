@@ -9,6 +9,7 @@ import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchMo
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
 import javax.swing.text.html.HTMLDocument;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.event.*;
@@ -16,6 +17,9 @@ import java.util.*;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -128,11 +132,11 @@ public class SearchToolWindowGUI {
             }
         });
 
-        consoleErrorPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                executeQuery(compilerMessages.get(0), true);
+        consoleErrorPane.addHyperlinkListener(e -> {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                setSearchBoxContent(e.getDescription());
                 consoleErrorPane.setVisible(false);
+                executeQuery(e.getDescription(), false);
             }
         });
     }
@@ -202,25 +206,32 @@ public class SearchToolWindowGUI {
     }
 
     public void setConsoleError(List<String> compilerMessages) {
-        this.compilerMessages = compilerMessages;
-
         if (!compilerMessages.isEmpty()) {
             HTMLEditorKit kit = new HTMLEditorKit();
             HTMLDocument doc = new HTMLDocument();
             consoleErrorPane.setEditorKit(kit);
             consoleErrorPane.setDocument(doc);
-            String fontStartBlockLink = "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">";
-            String fontStartBlockDefault = "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">";
+
+            // for each message in compilerMessages, build html link
+            String consoleErrorHTML = compilerMessages.stream().map(message ->
+                    "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">" +
+                        "search for:&nbsp;&nbsp;" +
+                    "</font>" +
+                    "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">" +
+                        // href allows hyperlink listener to grab message
+                        "<a href=\"" + message.replace("<", "&lt;").replace(">", "&gt;") + "\">" +
+                            "<u>" +
+                                message.replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>") +
+                            "</u>" +
+                        "</a>" +
+                    "</font>").collect(Collectors.joining("<br><br>"));
 
             try {
-                kit.insertHTML(doc, 0, fontStartBlockDefault + "search for: " + "</font><a href=\"\"><u>" +
-                                fontStartBlockLink + compilerMessages.get(0) +
-                                "</font></u></a>",
-                        0, 0, null);
+                kit.insertHTML(doc, 0, consoleErrorHTML, 0, 0, null);
+                consoleErrorPane.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            consoleErrorPane.setVisible(true);
         } else {
             consoleErrorPane.setVisible(false);
         }
