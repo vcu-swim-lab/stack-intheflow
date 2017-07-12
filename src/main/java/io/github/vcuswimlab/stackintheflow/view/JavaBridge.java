@@ -22,4 +22,10 @@ public class JavaBridge {
     public void openInBrowser(String url){
         guiInstance.openBrowser(url);
     }
+
+    public void debugBreakpoint(){
+        // (String) guiInstance.engine.executeScript("document.documentElement.outerHTML");
+        System.out.println();
+
+    }
 }

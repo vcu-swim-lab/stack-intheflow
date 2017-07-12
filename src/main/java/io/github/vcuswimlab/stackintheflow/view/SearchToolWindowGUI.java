@@ -215,8 +215,6 @@ public class SearchToolWindowGUI {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
-        System.out.println();
     }
 
     /*
