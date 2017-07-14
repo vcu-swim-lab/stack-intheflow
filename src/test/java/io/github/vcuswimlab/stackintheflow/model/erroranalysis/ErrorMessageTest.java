@@ -7,7 +7,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertArrayEquals;
 
 /**
- * <h1>MessageTest</h1>
+ * <h1>ErrorMessageTest</h1>
  * Created on: 7/4/2017
  *
  * @author Tyler John Haden
