@@ -22,20 +22,17 @@ public class LogTest {
     @Test
     public void logTest(){
 
-        //Checks if file exists
+        //Checks if file exists and has content
 
         System.out.println(PathManager.getLogPath());
         logger.info("HELLOWORLD");
         File file = new File(PathManager.getLogPath() + "/logfile.log");
-        assertTrue(file != null);
 
-        //Check if file has content
-
-        Scanner scanner = new Scanner(PathManager.getLogPath() + "/logfile.log");
+        try{
+        Scanner scanner = new Scanner(file);
         List<String> list=new ArrayList<>();
         while(scanner.hasNextLine()){
             list.add(scanner.nextLine());
-
         }
 
         if(list.isEmpty()){
@@ -46,6 +43,9 @@ public class LogTest {
         }
 
 
-    }
+    }catch (Exception e){
+            e.printStackTrace();
+        }
 
+    }
 }
