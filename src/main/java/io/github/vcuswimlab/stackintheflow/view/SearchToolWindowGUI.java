@@ -6,6 +6,8 @@ import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -35,6 +37,8 @@ public class SearchToolWindowGUI {
     private JPanel searchJPanel;
     private JEditorPane consoleErrorPane;
     private DefaultListModel<Question> questionListModel;
+    private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
+
 
     private PersonalSearchModel searchModel;
 
@@ -71,6 +75,10 @@ public class SearchToolWindowGUI {
         consoleErrorPane.setVisible(false);
 
         searchButton.addActionListener(e -> executeQuery(searchBox.getText(), false));
+
+        //Logging search query's
+
+        searchButton.addActionListener(e -> logger.info("{SearchQuery: " + searchBox.getText() + "}"));
         searchBox.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -111,6 +119,10 @@ public class SearchToolWindowGUI {
                 }
 
                 openBrowser(questionListModel.get(index).getLink());
+
+                //Logging question browser
+
+                logger.info("{QuestionBrowserListRank: " + index + ", Title: " + questionListModel.get(index).getTitle() + ", Tags: " + questionListModel.get(index).getTags() + "}");
             }
 
             private boolean handleSingleClick(MouseEvent evt, JList<String> list) {
@@ -127,6 +139,11 @@ public class SearchToolWindowGUI {
                 }
 
                 question.toggleExpanded();
+
+                //Logging question expansion
+
+                logger.info("{QuestionExpansionListRank: " + index + ", Title: " + questionListModel.get(index).getTitle() + ", Tags: " + questionListModel.get(index).getTags() + "}");
+
                 refreshListView();
                 return true;
             }
@@ -135,6 +152,11 @@ public class SearchToolWindowGUI {
         consoleErrorPane.addHyperlinkListener(e -> {
             if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
                 setSearchBoxContent(e.getDescription());
+
+                //Logging the error pane
+
+                logger.info("{consoleErrorQuery: " + e.getDescription() + ", Rank: " + consoleErrorPane.getText().indexOf(e.getDescription()) + "}");
+
                 executeQuery(e.getDescription(), false);
             }
         });
@@ -211,6 +233,10 @@ public class SearchToolWindowGUI {
             HTMLDocument doc = new HTMLDocument();
             consoleErrorPane.setEditorKit(kit);
             consoleErrorPane.setDocument(doc);
+
+            //Logging that an error has occured
+
+            logger.info("{ConsoleError: An error has occured");
 
             // for each message in compilerMessages, build html link
             String consoleErrorHTML = compilerMessages.stream().map(message ->

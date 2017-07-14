@@ -10,6 +10,8 @@ import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermS
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEventType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -30,6 +32,8 @@ public class DifficultyModel {
     private static final int QUERY_DELAY = 30; // Delay in seconds
     private static final int INACTIVE_DELAY = 15; // Delay in minutes
     private final int MAX_QUEUE_SIZE = 25;
+    private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
+
 
     private Project project;
     private MessageBus messageBus;
@@ -91,6 +95,15 @@ public class DifficultyModel {
                             if (toolWindow.isVisible()) {
                                 // Generate the autoQuery
                                 String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
+
+                                //Logging the threshold and event counts
+
+                                if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO) {
+                                    logger.info("{DeleteRatioAutoQuery: " + autoQuery + ", Scroll: "+ Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + ", Click: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + ", Insert: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + ", Delete: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "}");
+                                }
+                                if (getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO){
+                                    logger.info("{NonEditRatioAutoQuery: " + autoQuery + ", Scroll: "+ Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + ", Click: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + ", Insert: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + ", Delete: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "}");
+                                }
 
                                 // Execute Search
                                 project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery(autoQuery, true);
