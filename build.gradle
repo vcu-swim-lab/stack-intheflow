@@ -31,5 +31,10 @@ dependencies {
     compile group: 'org.glassfish.jersey.core', name: 'jersey-client', version: '2.23.2'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-moxy', version: '2.23.2'
     compile group: 'com.fasterxml.woodstox', name: 'woodstox-core', version: '5.0.3'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: '2.8.9'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.8.9'
+    compile group: 'com.fasterxml.jackson.core', name: 'jackson-annotations', version: '2.8.9'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.8.2'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.8.8'
 }
