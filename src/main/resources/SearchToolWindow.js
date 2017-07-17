@@ -4,13 +4,15 @@ var numQuestions;
 var charCutoff;
 var questionSections;
 var searchTags;
+var uiSettings;
 
 $(document).ready(function(){
     charCutoff = 300;
     searchTags = new SearchTags();
+    uiSettings = new UISettings();
 
     $('#searchBox').keydown( function(e) {
-        if (e.keyCode == 9 && !e.shiftKey) {
+        if(e.keyCode == 9 && !e.shiftKey) {
             e.preventDefault();
 
             var words = $('#searchBox').val().split(" ");
@@ -24,6 +26,47 @@ $(document).ready(function(){
         searchTags.remove($(this).html());
     });
 });
+
+function UISettings(){
+    this.bgColor = "#DDD";
+    this.darkerBG = "#CCC";
+    this.lighterBG = "EEE";
+    this.textColor = "FFF";
+    this.isDark = false;
+
+    this.updateUI = function(){
+        if(this.isDark){
+            $('.themeBG').css('background-color', this.bgColor);
+            $('.searchResultItem').css('background-color', this.lighterBG);
+            $('body').css('color', this.textColor);
+        }
+        else {
+            $('.themeBG').css('background-color', this.bgColor);
+            $('.searchResultItem').css('background-color', this.darkerBG);
+            $('body').css('color', this.textColor);
+        }
+    }
+
+    this.calcIsDark = function(){
+        this.isDark = false;
+        var dark = [0, 1, 2, 3, 4, 5, 6, 7];
+        for(var i = 0; i < dark.length; i++){
+            if(dark[i] == this.bgColor.charAt(1)){
+                this.isDark = true;
+            }
+        }
+        JavaBridge.print(this.isDark);
+    }
+}
+
+function updateUISettings(bgColor, darkerBG, lighterBG, textColor){
+    uiSettings.bgColor = bgColor;
+    uiSettings.darkerBG = darkerBG;
+    uiSettings.lighterBG = lighterBG;
+    uiSettings.textColor = textColor;
+    uiSettings.calcIsDark();
+    uiSettings.updateUI();
+}
 
 function SearchTags(){
     this.tags = new Array();
@@ -276,6 +319,8 @@ function displayQuestions(){
         }
         $(questionTagsContainer).append(unorderedList);
     }
+
+    uiSettings.updateUI();
 }
 
 function appendNewResultSkeleton(i){
@@ -365,3 +410,48 @@ String.prototype.regexIndexOf = function(regex, fromIndex){
 
   return new RegexMatch(match ? match[0] : "", match ? str.indexOf(match[0]) + fromIndex : -1, match ? match[0].length : -1);
 }
+
+$.fn.copyCSS = function (source) {
+    var dom = $(source).get(0);
+    var dest = {};
+    var style, prop;
+    if (window.getComputedStyle) {
+        var camelize = function (a, b) {
+                return b.toUpperCase();
+        };
+        if (style = window.getComputedStyle(dom, null)) {
+            var camel, val;
+            if (style.length) {
+                for (var i = 0, l = style.length; i < l; i++) {
+                    prop = style[i];
+                    camel = prop.replace(/\-([a-z])/, camelize);
+                    val = style.getPropertyValue(prop);
+                    dest[camel] = val;
+                }
+            } else {
+                for (prop in style) {
+                    camel = prop.replace(/\-([a-z])/, camelize);
+                    val = style.getPropertyValue(prop) || style[prop];
+                    dest[camel] = val;
+                }
+            }
+            return this.css(dest);
+        }
+    }
+    if (style = dom.currentStyle) {
+        for (prop in style) {
+            dest[prop] = style[prop];
+        }
+        return this.css(dest);
+    }
+    if (style = dom.style) {
+        for (prop in style) {
+            if (typeof style[prop] != 'function') {
+                dest[prop] = style[prop];
+            }
+        }
+    }
+
+
+    JavaBridge.print(JSON.stringify(dest));
+};

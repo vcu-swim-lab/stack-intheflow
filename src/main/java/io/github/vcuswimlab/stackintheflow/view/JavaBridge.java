@@ -31,7 +31,7 @@ public class JavaBridge {
     }
 
     public void debugBreakpoint(){
-        // (String) guiInstance.engine.executeScript("document.documentElement.outerHTML");
+        //(String) guiInstance.engine.executeScript("document.documentElement.outerHTML")
         System.out.println();
     }
 }

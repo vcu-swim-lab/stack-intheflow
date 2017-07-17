@@ -1,9 +1,14 @@
+.themeBG {
+    background-color: #FFF;
+}
+
 .myWell {
     margin-bottom: 0;
     position: fixed;
     z-index: 1;
     top: -5px;
     padding-bottom: 0;
+    background-color: #FFF;
 }
 
 .contentStart {
@@ -55,7 +60,7 @@
 }
 
 #content {
-    background-color: #efeff5;
+    /*background-color: #efeff5; */
     padding-top: 0.1%;
 }
 

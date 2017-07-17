@@ -2,6 +2,13 @@ package io.github.vcuswimlab.stackintheflow.view;
 
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.browsers.WebBrowserManager;
+import com.intellij.ide.ui.LafManagerListener;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.editor.colors.EditorColors;
+import com.intellij.openapi.editor.colors.EditorColorsListener;
+import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.openapi.editor.colors.EditorColorsScheme;
+import com.intellij.util.ui.UIUtil;
 import com.sun.javafx.application.PlatformImpl;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
@@ -25,6 +32,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
+import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.events.*;
@@ -66,9 +74,11 @@ public class SearchToolWindowGUI {
     private WebEngine engine;
     private JSObject window;
     private JavaBridge bridge;
+    private EditorColorsManager editorColorsManager;
 
     private SearchToolWindowGUI(JPanel content,
                                 PersonalSearchModel searchModel) {
+        this.editorColorsManager = EditorColorsManager.getInstance();
         this.content = content;
         this.searchModel = searchModel;
 
@@ -80,6 +90,10 @@ public class SearchToolWindowGUI {
     }
 
     private void initComponents(){
+        ApplicationManager.getApplication().getMessageBus().connect().subscribe(EditorColorsManager.TOPIC, scheme -> {
+            updateUISettings();
+        });
+
         jfxPanel = new JFXPanel();
         createScene();
         content.setLayout(new BorderLayout());
@@ -100,7 +114,7 @@ public class SearchToolWindowGUI {
                 if(newState == Worker.State.SUCCEEDED) {
                     window = (JSObject) engine.executeScript("window");
                     window.setMember("JavaBridge", bridge);
-                    System.out.println("Adding Window!");
+                    updateUISettings();
                 }
             });
             root.getChildren().add(webView);
@@ -109,6 +123,16 @@ public class SearchToolWindowGUI {
         });
     }
 
+    public void updateUISettings(){
+        Platform.runLater(() -> {
+            String bgColor = colorToHex(editorColorsManager.getGlobalScheme().getDefaultBackground());
+            String bgColorDarker = colorToHex(getSlightlyDarkerColor(editorColorsManager.getGlobalScheme().getDefaultBackground()));
+            String bgLighterColor = colorToHex(getSlightlyLighterColor(editorColorsManager.getGlobalScheme().getDefaultBackground()));
+            String textColor = colorToHex(editorColorsManager.getGlobalScheme().getColor(EditorColors.CARET_COLOR));
+            System.out.println("Update: " + bgColor + " " + bgColorDarker + " " + bgLighterColor);
+            window.call("updateUISettings", bgColor, bgColorDarker, bgLighterColor, textColor);
+        });
+    }
 
     /*
     private void addListeners() {
@@ -340,4 +364,20 @@ public class SearchToolWindowGUI {
     }
 
     public JavaBridge getBridge(){ return this.bridge;}
+
+    public String rgbToHex(int r, int g, int b){ return String.format("#%02x%02x%02x", r, g, b); }
+
+    public String colorToHex(Color color){
+        return rgbToHex(color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    public static Color getSlightlyDarkerColor(Color c) {
+        float[] hsl = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), new float[3]);
+        return new Color(Color.HSBtoRGB(hsl[0], hsl[1], hsl[2] - .04f > 0 ? hsl[2] - .04f : hsl[2]));
+    }
+
+    public static Color getSlightlyLighterColor(Color c) {
+        float[] hsl = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), new float[3]);
+        return new Color(Color.HSBtoRGB(hsl[0], hsl[1], hsl[2] + .04f < 1 ? hsl[2] + .04f : hsl[2]));
+    }
 }
