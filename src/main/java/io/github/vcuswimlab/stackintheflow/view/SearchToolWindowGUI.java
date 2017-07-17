@@ -93,7 +93,7 @@ public class SearchToolWindowGUI {
             webView = new WebView();
             engine = webView.getEngine();
 
-            String htmlFileURL = SearchToolWindowGUI.class.getResource("SearchToolWindow.html").toExternalForm();
+            String htmlFileURL = this.getClass().getClassLoader().getResource("SearchToolWindow.html").toExternalForm();
             engine.load(htmlFileURL);
 
             engine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
@@ -321,7 +321,6 @@ public class SearchToolWindowGUI {
             this.content = content;
             return this;
         }
-
 
         public SearchToolWindowGUIBuilder setSearchModel(PersonalSearchModel searchModel) {
             this.searchModel = searchModel;
