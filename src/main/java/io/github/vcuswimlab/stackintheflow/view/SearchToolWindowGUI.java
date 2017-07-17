@@ -7,6 +7,7 @@ import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
+import javafx.application.Platform;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -81,7 +82,6 @@ public class SearchToolWindowGUI {
     private void initComponents(){
         jfxPanel = new JFXPanel();
         createScene();
-
         content.setLayout(new BorderLayout());
         content.add(jfxPanel, BorderLayout.CENTER);
     }
@@ -100,9 +100,9 @@ public class SearchToolWindowGUI {
                 if(newState == Worker.State.SUCCEEDED) {
                     window = (JSObject) engine.executeScript("window");
                     window.setMember("JavaBridge", bridge);
+                    System.out.println("Adding Window!");
                 }
             });
-
             root.getChildren().add(webView);
 
             jfxPanel.setScene(scene);
@@ -208,8 +208,13 @@ public class SearchToolWindowGUI {
     }
  */
 
-    public void executeQuery(String query, boolean backoff) {
+    public void autoQuery(String query, boolean backoff){
+        Platform.runLater(() -> {
+            window.call("autoSearch", query, backoff);
+        });
+    }
 
+    public void executeQuery(String query, boolean backoff) {
         Future<List<Question>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
 
@@ -231,7 +236,6 @@ public class SearchToolWindowGUI {
             //setSearchBoxContent(searchQuery);
             return searchModel.rankQuesitonList(questionList);
         });
-
 
         try {
             List<Question> questionList = questionListFuture.get();
@@ -334,4 +338,6 @@ public class SearchToolWindowGUI {
             );
         }
     }
+
+    public JavaBridge getBridge(){ return this.bridge;}
 }

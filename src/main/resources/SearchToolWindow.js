@@ -86,12 +86,18 @@ function SearchTags(){
     }
 }
 
+function autoSearch(query, backoff){
+    reset();
+    $('#searchBox').val(query);
+    JavaBridge.autoQuery(query, backoff);
+    generateListeners();
+}
+
 function search(){
     reset();
     var query = $('#searchBox').val() + " " + searchTags.getQuerySyntax();
     JavaBridge.searchButtonClicked(query);
     generateListeners();
-    JavaBridge.addLinkListeners();
 }
 
 $("#searchButton").click(function(){
