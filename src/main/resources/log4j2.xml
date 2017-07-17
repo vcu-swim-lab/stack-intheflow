@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN" packages="log4j2.plugins">
+    <Appenders>
+        <RollingFile name="RollingFile"
+                     fileName="${LOG_PATH:call}/logfile.log"
+                     filePattern="${LOG_PATH:call}/logfile-%d{yyyy-MM-dd}-%i.log.gz">
+            <Jsonlayout compact="false" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100 kB"/>
+            </Policies>
+            <DefaultRolloverStrategy max="1" />
+        </RollingFile>
+    </Appenders>
+    <Loggers>
+        <Logger name="ROLLING_FILE_APPENDER"
+                level="INFO" additivity="false">
+            <AppenderRef ref="RollingFile" />
+        </Logger>
+        <Root level="TRACE">
+            <AppenderRef ref="RollingFile"/>
+        </Root>
+    </Loggers>
+</Configuration>
