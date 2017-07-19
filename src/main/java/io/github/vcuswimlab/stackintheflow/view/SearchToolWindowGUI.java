@@ -125,12 +125,8 @@ public class SearchToolWindowGUI {
 
     public void updateUISettings(){
         Platform.runLater(() -> {
-            String bgColor = colorToHex(editorColorsManager.getGlobalScheme().getDefaultBackground());
-            String bgColorDarker = colorToHex(getSlightlyDarkerColor(editorColorsManager.getGlobalScheme().getDefaultBackground()));
-            String bgLighterColor = colorToHex(getSlightlyLighterColor(editorColorsManager.getGlobalScheme().getDefaultBackground()));
-            String textColor = colorToHex(editorColorsManager.getGlobalScheme().getColor(EditorColors.CARET_COLOR));
-            System.out.println("Update: " + bgColor + " " + bgColorDarker + " " + bgLighterColor);
-            window.call("updateUISettings", bgColor, bgColorDarker, bgLighterColor, textColor);
+            boolean isDark = UIUtil.isUnderDarcula();
+            window.call("updateUISettings", isDark);
         });
     }
 

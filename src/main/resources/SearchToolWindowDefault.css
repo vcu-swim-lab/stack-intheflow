@@ -1,0 +1,139 @@
+
+
+body {
+    background-color: #e8e8e8;
+    color: #333;
+}
+
+pre {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    border-radius: 3px;
+    word-wrap: normal;
+    border: 0;
+}
+
+
+code {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 12px;
+    padding: 0;
+    padding-top: 0.2em;
+    padding-bottom: 0.2em;
+    margin: 0;
+    font-size: 85%;
+    background-color: rgba(0, 0, 0, 0.04);
+    border-radius: 3px;
+}
+
+code:before,
+code:after {
+    letter-spacing: -0.2em;
+    content: "\00a0";
+}
+
+pre > code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+}
+
+pre code {
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+}
+
+pre code:before,
+pre code:after {
+    content: normal;
+}
+
+blockquote {
+    padding: 0 15px;
+    color: #777;
+    border-left: 4px solid #ddd;
+}
+
+blockquote > :first-child {
+    margin-top: 0;
+}
+
+blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+.searchResultItem {
+    background-color: white;
+}
+
+.scroll-pane {
+    -fx-background-color: black;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: black;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background-color: inherit;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border: 2px solid #f6f6f6;
+
+    background-color: #959595;
+}
+::-webkit-scrollbar-track {
+    background-color: #f6f6f6;
+}
+
+::-webkit-scrollbar-track:vertical {
+    -webkit-box-shadow: -1px 0 0px #ededed;
+}
+
+::-webkit-scrollbar-track:horizontal {
+    -webkit-box-shadow: 0 -1px 0px #ededed;
+
+}

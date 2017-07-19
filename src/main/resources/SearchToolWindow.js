@@ -28,43 +28,22 @@ $(document).ready(function(){
 });
 
 function UISettings(){
-    this.bgColor = "#DDD";
-    this.darkerBG = "#CCC";
-    this.lighterBG = "EEE";
-    this.textColor = "FFF";
     this.isDark = false;
 
     this.updateUI = function(){
         if(this.isDark){
-            $('.themeBG').css('background-color', this.bgColor);
-            $('.searchResultItem').css('background-color', this.lighterBG);
-            $('body').css('color', this.textColor);
+            document.getElementById("defaultSheet").disabled = true;
+            document.getElementById("darkSheet").disabled = false;
         }
         else {
-            $('.themeBG').css('background-color', this.bgColor);
-            $('.searchResultItem').css('background-color', this.darkerBG);
-            $('body').css('color', this.textColor);
+            document.getElementById("defaultSheet").disabled = false;
+            document.getElementById("darkSheet").disabled = true;
         }
-    }
-
-    this.calcIsDark = function(){
-        this.isDark = false;
-        var dark = [0, 1, 2, 3, 4, 5, 6, 7];
-        for(var i = 0; i < dark.length; i++){
-            if(dark[i] == this.bgColor.charAt(1)){
-                this.isDark = true;
-            }
-        }
-        JavaBridge.print(this.isDark);
     }
 }
 
-function updateUISettings(bgColor, darkerBG, lighterBG, textColor){
-    uiSettings.bgColor = bgColor;
-    uiSettings.darkerBG = darkerBG;
-    uiSettings.lighterBG = lighterBG;
-    uiSettings.textColor = textColor;
-    uiSettings.calcIsDark();
+function updateUISettings(isDark){
+    uiSettings.isDark = isDark;
     uiSettings.updateUI();
 }
 
