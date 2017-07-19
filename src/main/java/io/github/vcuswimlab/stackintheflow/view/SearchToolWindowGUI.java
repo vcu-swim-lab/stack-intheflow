@@ -2,12 +2,8 @@ package io.github.vcuswimlab.stackintheflow.view;
 
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.browsers.WebBrowserManager;
-import com.intellij.ide.ui.LafManagerListener;
 import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.editor.colors.EditorColors;
-import com.intellij.openapi.editor.colors.EditorColorsListener;
 import com.intellij.openapi.editor.colors.EditorColorsManager;
-import com.intellij.openapi.editor.colors.EditorColorsScheme;
 import com.intellij.util.ui.UIUtil;
 import com.sun.javafx.application.PlatformImpl;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
@@ -15,15 +11,6 @@ import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
 import javafx.application.Platform;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.jetbrains.annotations.NotNull;
-
-import javax.swing.*;
-import javax.swing.event.HyperlinkEvent;
-import javax.swing.text.html.HTMLDocument;
-import javax.swing.text.html.HTMLEditorKit;
-import java.awt.event.*;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -32,25 +19,16 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
-import org.jetbrains.annotations.Nullable;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.events.*;
-import org.w3c.dom.events.Event;
-import org.w3c.dom.events.EventListener;
-import org.w3c.dom.html.HTMLAnchorElement;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.beans.EventHandler;
 import java.util.*;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.stream.Collectors;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -98,6 +76,7 @@ public class SearchToolWindowGUI {
         createScene();
         content.setLayout(new BorderLayout());
         content.add(jfxPanel, BorderLayout.CENTER);
+        Platform.setImplicitExit(false);
     }
 
     private void createScene(){
