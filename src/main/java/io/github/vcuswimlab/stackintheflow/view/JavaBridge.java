@@ -19,13 +19,19 @@ public class JavaBridge {
         guiInstance.executeQuery(query, false);
     }
 
+    public void autoQuery(String query, boolean backoff){
+        System.out.println("Auto query: " + query);
+        System.out.println("Backoff: " + backoff);
+        guiInstance.executeQuery(query, backoff);
+    }
+
+
     public void openInBrowser(String url){
         guiInstance.openBrowser(url);
     }
 
     public void debugBreakpoint(){
-        // (String) guiInstance.engine.executeScript("document.documentElement.outerHTML");
+        //(String) guiInstance.engine.executeScript("document.documentElement.outerHTML")
         System.out.println();
-
     }
 }

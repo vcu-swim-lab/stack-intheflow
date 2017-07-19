@@ -8,12 +8,15 @@ import com.intellij.util.messages.MessageBusConnection;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
+import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEventType;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.EnumMap;
 import java.util.Map;
-import java.util.Queue;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
@@ -23,10 +26,14 @@ import java.util.concurrent.TimeUnit;
  */
 public class DifficultyModel {
 
+    private static final int EVENT_DELAY = 1000; // Delay in milliseconds
     private static final double DELETE_RATIO = .6;
+    private static final double NON_EDIT_RATIO = .6;
     private static final int QUERY_DELAY = 30; // Delay in seconds
     private static final int INACTIVE_DELAY = 15; // Delay in minutes
     private final int MAX_QUEUE_SIZE = 25;
+    private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
+
 
     private Project project;
     private MessageBus messageBus;
@@ -34,7 +41,7 @@ public class DifficultyModel {
 
     private Map<EditorEventType, Integer> eventCounts;
 
-    private Queue<EditorEventType> eventQueue;
+    private Deque<EditorEvent> eventQueue;
     private State currentState;
     private ScheduledThreadPoolExecutor timer;
     private ScheduledFuture<?> inactiveTaskFuture;
@@ -51,6 +58,17 @@ public class DifficultyModel {
 
         connection.subscribe(DifficultyTrigger.DIFFICULTY_TRIGGER_TOPIC, event -> {
 
+            // Check to limit the number of consecutive events in a short period of time.
+            EditorEvent lastEvent = eventQueue.peekLast();
+            if (lastEvent != null && lastEvent.getType() == event.getType()) {
+
+                if (event.getTimeStamp() - lastEvent.getTimeStamp() < EVENT_DELAY) {
+                    return;
+                }
+            }
+
+            System.out.println(event);
+
             switch (currentState) {
                 case PAUSE:
                     // Transition to collect state, queue event
@@ -65,11 +83,12 @@ public class DifficultyModel {
                     inactiveTaskFuture = timer.schedule(() -> currentState = State.PAUSE, INACTIVE_DELAY, TimeUnit.MINUTES);
 
                     if (isFull()) {
-                        EditorEventType oldEventType = eventQueue.poll();
+                        EditorEventType oldEventType = eventQueue.poll().getType();
                         eventCounts.put(oldEventType, eventCounts.getOrDefault(oldEventType, 1) - 1);
 
                         // If we have crossed the threshold, initiate a query and transition to query state
-                        if (getRatio(EditorEventType.DELETE) >= DELETE_RATIO) {
+                        if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO ||
+                                getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO) {
                             ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
 
                             // Check to see if the tool window is visible before generating the query.
@@ -77,11 +96,22 @@ public class DifficultyModel {
                                 // Generate the autoQuery
                                 String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
 
+                                //Logging the threshold and event counts
+
+                                if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO) {
+                                    logger.info("{DeleteRatioAutoQuery: " + autoQuery + ", Scroll: "+ Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + ", Click: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + ", Insert: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + ", Delete: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "}");
+                                }
+                                if (getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO){
+                                    logger.info("{NonEditRatioAutoQuery: " + autoQuery + ", Scroll: "+ Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + ", Click: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + ", Insert: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + ", Delete: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "}");
+                                }
+
                                 // Execute Search
-                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery(autoQuery, true);
+                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().autoQuery(autoQuery, true);
                             }
 
                             eventQueue.clear();
+                            eventCounts.clear();
+
                             currentState = State.QUERY;
 
                             // After QUERY_DELAY seconds, transition to collect state
@@ -92,7 +122,7 @@ public class DifficultyModel {
                         }
                     }
 
-                    eventQueue.offer(event.getType());
+                    eventQueue.offer(event);
                     break;
                 case QUERY:
                     // Do nothing
@@ -114,6 +144,17 @@ public class DifficultyModel {
         return eventCounts.getOrDefault(eventType, 0) / (double) eventQueue.size();
     }
 
+    private double getRatio(EditorEventType num, EditorEventType denom) {
+
+        int numCount = eventCounts.getOrDefault(num, 0);
+        int denomCount = eventCounts.getOrDefault(denom, 0);
+
+        if (denomCount == 0) {
+            return 0;
+        }
+
+        return numCount / (double) (numCount + denomCount);
+    }
     private enum State {
         COLLECT, QUERY, PAUSE
     }

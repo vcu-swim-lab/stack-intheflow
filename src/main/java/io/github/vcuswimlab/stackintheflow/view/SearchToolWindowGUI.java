@@ -2,11 +2,28 @@ package io.github.vcuswimlab.stackintheflow.view;
 
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.browsers.WebBrowserManager;
+import com.intellij.ide.ui.LafManagerListener;
+import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.editor.colors.EditorColors;
+import com.intellij.openapi.editor.colors.EditorColorsListener;
+import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.openapi.editor.colors.EditorColorsScheme;
+import com.intellij.util.ui.UIUtil;
 import com.sun.javafx.application.PlatformImpl;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
+import javafx.application.Platform;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
+
+import javax.swing.*;
+import javax.swing.event.HyperlinkEvent;
+import javax.swing.text.html.HTMLDocument;
+import javax.swing.text.html.HTMLEditorKit;
+import java.awt.event.*;
 import javafx.concurrent.Worker;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -15,6 +32,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import netscape.javascript.JSObject;
+import org.jetbrains.annotations.Nullable;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.events.*;
@@ -31,6 +49,9 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by chase on 5/18/17.
@@ -38,6 +59,8 @@ import java.util.stream.Collectors;
 public class SearchToolWindowGUI {
     private JPanel content;
     private DefaultListModel<Question> questionListModel;
+    private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
+
 
     private PersonalSearchModel searchModel;
 
@@ -51,9 +74,11 @@ public class SearchToolWindowGUI {
     private WebEngine engine;
     private JSObject window;
     private JavaBridge bridge;
+    private EditorColorsManager editorColorsManager;
 
     private SearchToolWindowGUI(JPanel content,
                                 PersonalSearchModel searchModel) {
+        this.editorColorsManager = EditorColorsManager.getInstance();
         this.content = content;
         this.searchModel = searchModel;
 
@@ -65,9 +90,12 @@ public class SearchToolWindowGUI {
     }
 
     private void initComponents(){
+        ApplicationManager.getApplication().getMessageBus().connect().subscribe(EditorColorsManager.TOPIC, scheme -> {
+            updateUISettings();
+        });
+
         jfxPanel = new JFXPanel();
         createScene();
-
         content.setLayout(new BorderLayout());
         content.add(jfxPanel, BorderLayout.CENTER);
     }
@@ -79,22 +107,28 @@ public class SearchToolWindowGUI {
             webView = new WebView();
             engine = webView.getEngine();
 
-            String htmlFileURL = SearchToolWindowGUI.class.getResource("SearchToolWindow.html").toExternalForm();
+            String htmlFileURL = this.getClass().getClassLoader().getResource("SearchToolWindow.html").toExternalForm();
             engine.load(htmlFileURL);
 
             engine.getLoadWorker().stateProperty().addListener((ov, oldState, newState) -> {
                 if(newState == Worker.State.SUCCEEDED) {
                     window = (JSObject) engine.executeScript("window");
                     window.setMember("JavaBridge", bridge);
+                    updateUISettings();
                 }
             });
-
             root.getChildren().add(webView);
 
             jfxPanel.setScene(scene);
         });
     }
 
+    public void updateUISettings(){
+        Platform.runLater(() -> {
+            boolean isDark = UIUtil.isUnderDarcula();
+            window.call("updateUISettings", isDark);
+        });
+    }
 
     /*
     private void addListeners() {
@@ -102,6 +136,10 @@ public class SearchToolWindowGUI {
         consoleErrorPane.setVisible(false);
 
         searchButton.addActionListener(e -> executeQuery(searchBox.getText(), false));
+
+        //Logging search query's
+
+        searchButton.addActionListener(e -> logger.info("{SearchQuery: " + searchBox.getText() + "}"));
         searchBox.addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -142,6 +180,10 @@ public class SearchToolWindowGUI {
                 }
 
                 openBrowser(questionListModel.get(index).getLink());
+
+                //Logging question browser
+
+                logger.info("{QuestionBrowserListRank: " + index + ", Title: " + questionListModel.get(index).getTitle() + ", Tags: " + questionListModel.get(index).getTags() + "}");
             }
 
             private boolean handleSingleClick(MouseEvent evt, JList<String> list) {
@@ -158,16 +200,25 @@ public class SearchToolWindowGUI {
                 }
 
                 question.toggleExpanded();
+
+                //Logging question expansion
+
+                logger.info("{QuestionExpansionListRank: " + index + ", Title: " + questionListModel.get(index).getTitle() + ", Tags: " + questionListModel.get(index).getTags() + "}");
+
                 refreshListView();
                 return true;
             }
         });
 
-        consoleErrorPane.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                executeQuery(compilerMessages.get(0), true);
-                consoleErrorPane.setVisible(false);
+        consoleErrorPane.addHyperlinkListener(e -> {
+            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
+                setSearchBoxContent(e.getDescription());
+
+                //Logging the error pane
+
+                logger.info("{consoleErrorQuery: " + e.getDescription() + ", Rank: " + consoleErrorPane.getText().indexOf(e.getDescription()) + "}");
+
+                executeQuery(e.getDescription(), false);
             }
         });
     }
@@ -177,8 +228,13 @@ public class SearchToolWindowGUI {
     }
  */
 
-    public void executeQuery(String query, boolean backoff) {
+    public void autoQuery(String query, boolean backoff){
+        Platform.runLater(() -> {
+            window.call("autoSearch", query, backoff);
+        });
+    }
 
+    public void executeQuery(String query, boolean backoff) {
         Future<List<Question>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
 
@@ -197,11 +253,9 @@ public class SearchToolWindowGUI {
                     questionList = jerseyResponse.getItems();
                 }
             }
-
             //setSearchBoxContent(searchQuery);
             return searchModel.rankQuesitonList(questionList);
         });
-
 
         try {
             List<Question> questionList = questionListFuture.get();
@@ -240,24 +294,36 @@ public class SearchToolWindowGUI {
     public void setConsoleError(List<String> compilerMessages) {
         /*
         this.compilerMessages = compilerMessages;
-
         if (!compilerMessages.isEmpty()) {
             HTMLEditorKit kit = new HTMLEditorKit();
             HTMLDocument doc = new HTMLDocument();
             consoleErrorPane.setEditorKit(kit);
             consoleErrorPane.setDocument(doc);
-            String fontStartBlockLink = "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">";
-            String fontStartBlockDefault = "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">";
+
+            //Logging that an error has occured
+
+            logger.info("{ConsoleError: An error has occured");
+
+            // for each message in compilerMessages, build html link
+            String consoleErrorHTML = compilerMessages.stream().map(message ->
+                    "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">" +
+                        "search for:&nbsp;&nbsp;" +
+                    "</font>" +
+                    "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">" +
+                        // href allows hyperlink listener to grab message
+                        "<a href=\"" + message.replace("<", "&lt;").replace(">", "&gt;") + "\">" +
+                            "<u>" +
+                                message.replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>") +
+                            "</u>" +
+                        "</a>" +
+                    "</font>").collect(Collectors.joining("<br><br>"));
 
             try {
-                kit.insertHTML(doc, 0, fontStartBlockDefault + "search for: " + "</font><a href=\"\"><u>" +
-                                fontStartBlockLink + compilerMessages.get(0) +
-                                "</font></u></a>",
-                        0, 0, null);
+                kit.insertHTML(doc, 0, consoleErrorHTML, 0, 0, null);
+                consoleErrorPane.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            consoleErrorPane.setVisible(true);
         } else {
             consoleErrorPane.setVisible(false);
         } */
@@ -280,7 +346,6 @@ public class SearchToolWindowGUI {
             return this;
         }
 
-
         public SearchToolWindowGUIBuilder setSearchModel(PersonalSearchModel searchModel) {
             this.searchModel = searchModel;
             return this;
@@ -292,5 +357,23 @@ public class SearchToolWindowGUI {
                     searchModel
             );
         }
+    }
+
+    public JavaBridge getBridge(){ return this.bridge;}
+
+    public String rgbToHex(int r, int g, int b){ return String.format("#%02x%02x%02x", r, g, b); }
+
+    public String colorToHex(Color color){
+        return rgbToHex(color.getRed(), color.getGreen(), color.getBlue());
+    }
+
+    public static Color getSlightlyDarkerColor(Color c) {
+        float[] hsl = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), new float[3]);
+        return new Color(Color.HSBtoRGB(hsl[0], hsl[1], hsl[2] - .04f > 0 ? hsl[2] - .04f : hsl[2]));
+    }
+
+    public static Color getSlightlyLighterColor(Color c) {
+        float[] hsl = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), new float[3]);
+        return new Color(Color.HSBtoRGB(hsl[0], hsl[1], hsl[2] + .04f < 1 ? hsl[2] + .04f : hsl[2]));
     }
 }

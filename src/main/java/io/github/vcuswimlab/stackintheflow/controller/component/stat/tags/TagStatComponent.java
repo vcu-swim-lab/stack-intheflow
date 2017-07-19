@@ -63,7 +63,7 @@ public class TagStatComponent implements ApplicationComponent {
 
         try {
             XMLEventReader eventReader = inputFactory.createXMLEventReader(
-                    this.getClass().getResourceAsStream("Tags.xml"));
+                    this.getClass().getClassLoader().getResourceAsStream("Tags.xml"));
             while (eventReader.hasNext()) {
                 XMLEvent event = eventReader.nextEvent();
                 if (event.getEventType() == XMLStreamConstants.START_ELEMENT) {

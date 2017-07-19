@@ -14,7 +14,6 @@ public class AutoQueryGenerator {
 
     private static final int MAX_QUERY_TERMS = 4;
 
-
     public static String generateQuery(Editor editor, Combiner combiner) {
 
         CaretModel caretModel = editor.getCaretModel();
@@ -37,10 +36,14 @@ public class AutoQueryGenerator {
                     .forEach(t -> termsFreqMap.put(t, 1 + termsFreqMap.getOrDefault(t, 0))));
 
             String[] lines = editorText.split("\\n");
-            String currentLine = lines[logicalPosition.line];
 
-            Arrays.stream(currentLine.toLowerCase().split("\\b"))
-                    .forEach(t -> termsFreqMap.put(t, 2 + termsFreqMap.getOrDefault(t, 0)));
+            int linePos = logicalPosition.line;
+            if (linePos < lines.length) {
+                String currentLine = lines[logicalPosition.line];
+
+                Arrays.stream(currentLine.toLowerCase().split("\\b"))
+                        .forEach(t -> termsFreqMap.put(t, 2 + termsFreqMap.getOrDefault(t, 0)));
+            }
         } else { // The user has highlighted as selection, pull our terms from that
             Arrays.stream(selectedText.toLowerCase().split("\\b"))
                     .forEach(t -> termsFreqMap.put(t, 2 + termsFreqMap.getOrDefault(t, 0)));
