@@ -137,6 +137,7 @@ function reset(){
     questionsList = new Array();
     questionSections = new Array();
     numQuestions = 0;
+    $('html, body').animate({ scrollTop: 0 }, 'fast');
 }
 
 function Question(title, body, tags, link){
