@@ -19,11 +19,13 @@ $(document).ready(function(){
             searchTags.add(words[words.length - 1]);
             words.splice(words.length - 1, 1);
             $('#searchBox').val(words);
+            search();
         }
     });
 
     $("#searchTags").on("click", "li", function(e){
         searchTags.remove($(this).html());
+        search();
     });
 });
 
@@ -364,10 +366,12 @@ function generateListeners(){
 
         $(questionSections[i]).on("click", ".questionTags li", function(e){
             searchTags.add($(this).html());
+            search();
         });
 
-        $(questionSections[i]).dblclick(function(){
-            var index = $(this).find('#questionIndex').html();
+        $(questionSections[i]).on("click", ".searchResultTitle", function(e){
+            var clickedSection = $(this).closest('.searchResultItem');
+            var index = $(clickedSection).find('#questionIndex').html();
             JavaBridge.openInBrowser(questionsList[index].link);
         });
     }

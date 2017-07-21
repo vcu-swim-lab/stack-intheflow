@@ -119,3 +119,19 @@ body {
     outline: 0;
 }
 
+.searchResultTitle {
+    display: inline;
+    margin-bottom: 0.3%;
+    color: #589df6;
+    text-decoration: none;
+}
+
+.searchResultTitle:hover,
+.searchResultTitle:active {
+    display: inline;
+    margin-bottom: 0.3%;
+    color: #589df6;
+    text-decoration: underline;
+    outline: 0;
+    cursor: pointer;
+}
