@@ -151,3 +151,8 @@ blockquote > :last-child {
 #searchMethodsMenu li .selectedItem {
     background-color: #f5f5f5;
 }
+
+#searchMethodsButton, #searchMethodsButton:hover, #searchMethodsButton:focus, #searchMethodsButton:active, #searchMethodsButton:visited
+#historyButton, #historyButton:hover, #historyButton:focus, #historyButton:active, #historyButton:visited {
+    background-color: white;
+}

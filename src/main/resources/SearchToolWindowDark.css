@@ -27,11 +27,12 @@ body {
     border: 0;
 }
 
-#buttonDropdown:hover, #buttonDropdown:focus, #buttonDropdown:active {
+#searchMethodsButton, #searchMethodsButton:hover, #searchMethodsButton:focus, #searchMethodsButton:active, #searchMethodsButton:visited
+#historyButton, #historyButton:hover, #historyButton:focus, #historyButton:active, #historyButton:visited {
     background-color: #45494a;
 }
 
-.dropdown-menu {
+.dropdown-menu {``
     margin: 0;
     padding: 0;
 }
