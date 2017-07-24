@@ -53,7 +53,7 @@ public class CompilerListenerComponent implements ProjectComponent {
                         // Send the results to be displayed on the console
                         //project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
 
-                        project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().errorQuery(parsedMessages, true);
+                        project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().errorQuery(parsedMessages, false);
                     }
                 }
             });
