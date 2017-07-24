@@ -15,7 +15,14 @@ public class QueryExecutor {
         return executeQuery(new Query("stackoverflow")
                 .set(Query.Component.Q, q)
                 .set(Query.Component.FILTER, filter)
-                .set(Query.Component.SORT, "relevance"));
+                .set(Query.Component.SORT, JerseyGet.SortType.RELEVANCE.toString()));
+    }
+
+    public static JerseyResponse executeQuery(String q, JerseyGet.SortType sortType) {
+        return executeQuery(new Query("stackoverflow")
+                .set(Query.Component.Q, q)
+                .set(Query.Component.FILTER, filter)
+                .set(Query.Component.SORT, sortType.toString()));
     }
 
     public static JerseyResponse executeQuery(Query q) {
