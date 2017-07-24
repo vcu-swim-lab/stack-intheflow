@@ -22,7 +22,7 @@ public class JavaBridge {
     public void autoQuery(String query, boolean backoff){
         System.out.println("Auto query: " + query);
         System.out.println("Backoff: " + backoff);
-        guiInstance.executeQuery(query, backoff, "Relevance");
+        guiInstance.executeQuery(query, backoff, "RELEVANCE");
     }
 
 

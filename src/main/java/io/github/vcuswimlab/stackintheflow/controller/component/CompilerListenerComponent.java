@@ -8,6 +8,7 @@ import io.github.vcuswimlab.stackintheflow.model.erroranalysis.ErrorMessageParse
 import io.github.vcuswimlab.stackintheflow.model.erroranalysis.ErrorMessage;
 import org.jetbrains.annotations.NotNull;
 
+import javax.tools.Tool;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,7 +51,9 @@ public class CompilerListenerComponent implements ProjectComponent {
                         List<String> parsedMessages = ErrorMessageParser.parseCompilerError(messages, project);
 
                         // Send the results to be displayed on the console
-                        project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
+                        //project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
+
+                        project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().errorQuery(parsedMessages, true);
                     }
                 }
             });

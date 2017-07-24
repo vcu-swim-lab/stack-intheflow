@@ -1,6 +1,10 @@
 body {
 }
 
+.hidden {
+    visibility: gone;
+}
+
 .myWell {
     margin-bottom: 0;
     position: fixed;
@@ -17,12 +21,18 @@ body {
     margin-top: 65px;
 }
 
+#autoQueryIcon {
+    border-right: 0;
+    background: transparent;
+}
+
 .stylish-input-group .input-group-addon{
     background: white !important;
 }
 
 .stylish-input-group .form-control{
     border-right: 0;
+    border-left: 0;
     box-shadow: 0 0 0;
     border-color: #ccc;
 }

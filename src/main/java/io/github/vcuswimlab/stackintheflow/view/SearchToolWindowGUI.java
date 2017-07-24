@@ -214,6 +214,12 @@ public class SearchToolWindowGUI {
         });
     }
 
+    public void errorQuery(List<String> parsedMessages, boolean backOff){
+        Platform.runLater(() -> {
+            window.call("errorSearch", parsedMessages.get(0), parsedMessages.get(1), backOff);
+        });
+    }
+
     public void executeQuery(String query, boolean backoff, String searchMethod) {
         Future<List<Question>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
