@@ -19,6 +19,7 @@
 
   <extensions defaultExtensionNs="com.intellij">
       <consoleInputFilterProvider implementation="io.github.vcuswimlab.stackintheflow.model.erroranalysis.RuntimeErrorFilterProvider"/>
+      <applicationConfigurable  instance="io.github.vcuswimlab.stackintheflow.view.SettingsConfigurable"/>
   </extensions>
 
   <actions>
