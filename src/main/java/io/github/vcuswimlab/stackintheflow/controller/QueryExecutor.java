@@ -12,10 +12,7 @@ public class QueryExecutor {
     private final static String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";
 
     public static JerseyResponse executeQuery(String q) {
-        return executeQuery(new Query("stackoverflow")
-                .set(Query.Component.Q, q)
-                .set(Query.Component.FILTER, filter)
-                .set(Query.Component.SORT, JerseyGet.SortType.RELEVANCE.toString()));
+        return executeQuery(q, JerseyGet.SortType.RELEVANCE);
     }
 
     public static JerseyResponse executeQuery(String q, JerseyGet.SortType sortType) {
