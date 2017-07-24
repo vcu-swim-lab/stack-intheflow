@@ -239,7 +239,10 @@ public class SearchToolWindowGUI {
                 }
             }
             //setSearchBoxContent(searchQuery);
-            return searchModel.rankQuesitonList(questionList);
+            if(searchMethod.equals("RELEVANCE"))
+                return searchModel.rankQuesitonList(questionList);
+            else
+                return questionList;
         });
 
         try {
