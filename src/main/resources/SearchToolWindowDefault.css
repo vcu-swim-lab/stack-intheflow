@@ -147,3 +147,7 @@ blockquote > :last-child {
     color: #262626;
     background-color: #f5f5f5;
 }
+
+#searchMethodsMenu li .selectedItem {
+    background-color: #f5f5f5;
+}

@@ -31,8 +31,9 @@ $(document).ready(function(){
     });
 
     $("#searchMethodsMenu").on("click", "li", function(e){
+        $('#searchMethodsMenu').find(".selectedItem").removeClass("selectedItem");
+        $(this).children().first().addClass("selectedItem");
         var dropdownVal = $(this).children().first().html().toLowerCase();
-
         if(dropdownVal == "relevance")
             dropdownVal = "RELEVANCE";
         else if(dropdownVal == "votes")

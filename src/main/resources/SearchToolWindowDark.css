@@ -165,4 +165,10 @@ blockquote > :last-child {
 .dropdown-menu li span:hover {
     cursor:pointer;
     text-decoration: none;
+    color: #CCC;
+    background-color: #45494a;
+}
+
+#searchMethodsMenu li .selectedItem {
+    background-color: #45494a;
 }
