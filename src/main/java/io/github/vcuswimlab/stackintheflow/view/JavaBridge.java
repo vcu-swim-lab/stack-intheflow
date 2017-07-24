@@ -14,15 +14,15 @@ public class JavaBridge {
         System.out.println("From Java: " + msg);
     }
 
-    public void searchButtonClicked(String query){
-        System.out.println("Search Box is clicked with query: " + query);
-        guiInstance.executeQuery(query, false);
+    public void searchButtonClicked(String query, String searchMethod){
+        System.out.println("Search Box is clicked with query: " + query + "with method: " + searchMethod);
+        guiInstance.executeQuery(query, false, searchMethod);
     }
 
     public void autoQuery(String query, boolean backoff){
         System.out.println("Auto query: " + query);
         System.out.println("Backoff: " + backoff);
-        guiInstance.executeQuery(query, backoff);
+        guiInstance.executeQuery(query, backoff, "RELEVANCE");
     }
 
 

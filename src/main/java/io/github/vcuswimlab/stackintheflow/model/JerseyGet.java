@@ -75,6 +75,25 @@ public class JerseyGet {
         }
     }
 
+    public enum SortType {
+
+        RELEVANCE("relevance"),
+        ACTIVITY("activity"),
+        CREATION("creation"),
+        VOTES("votes");
+
+        private final String label;
+
+        SortType(String label) {
+            this.label = label;
+        }
+
+        @Override
+        public String toString() {
+            return label;
+        }
+    }
+
 }
 
 

@@ -1,6 +1,10 @@
 body {
 }
 
+.hidden {
+    visibility: gone;
+}
+
 .myWell {
     margin-bottom: 0;
     position: fixed;
@@ -17,12 +21,18 @@ body {
     margin-top: 65px;
 }
 
+#autoQueryIcon {
+    border-right: 0;
+    background: transparent;
+}
+
 .stylish-input-group .input-group-addon{
     background: white !important;
 }
 
 .stylish-input-group .form-control{
     border-right: 0;
+    border-left: 0;
     box-shadow: 0 0 0;
     border-color: #ccc;
 }
@@ -30,6 +40,33 @@ body {
 .stylish-input-group button {
     border: 0;
     background: transparent;
+}
+
+#searchMethodsButton:hover, #historyButton:hover {
+    background-color: transparent;
+}
+
+#searchAddons {
+    border-left: 0;
+}
+
+#searchAddons, #historyAddon {
+    margin: 0;
+    padding: 0;
+}
+
+#searchMethodsGroup, #historyGroup {
+    display: inline;
+}
+
+.dropdown-menu li span {
+    display: block;
+    padding: 5px 15px 5px 25px;
+    line-height: 20px;
+    clear: both;
+    font-weight: normal;
+    line-height: 1.42857143;
+    white-space: nowrap;
 }
 
 .questionTags ul, .searchTags ul {
@@ -119,3 +156,19 @@ body {
     outline: 0;
 }
 
+.searchResultTitle {
+    display: inline;
+    margin-bottom: 0.3%;
+    color: #589df6;
+    text-decoration: none;
+}
+
+.searchResultTitle:hover,
+.searchResultTitle:active {
+    display: inline;
+    margin-bottom: 0.3%;
+    color: #589df6;
+    text-decoration: underline;
+    outline: 0;
+    cursor: pointer;
+}

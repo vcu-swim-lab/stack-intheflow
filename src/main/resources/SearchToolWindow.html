@@ -15,25 +15,59 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="input-group stylish-input-group">
-                    <div class="input-group-btn search-panel">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="buttonDropdown">
-                            <span id="searchMethod">Search by</span> <span class="caret"></span>
+                    <span class="input-group-addon hidden" id="autoQueryIcon" data-toggle="tooltip" data-placement="bottom" title="This query was automatically generated">
+                        <img src="icons/toolWindowIcon.png">
+                    </span>
+                    <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
+                    <span class="input-group-addon" id="searchAddons">
+                        <button type="submit" id="searchButton">
+                            <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Relevance</a></li>
-                            <li><a href="#">Top</a></li>
-                            <li><a href="#">New</a></li>
-                        </ul>
-                    </div>
-                    <input type="hidden" name="search-param" value="all" id="searchParam">
+                        <div class="input-group-btn search-panel" id="searchMethodsGroup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchMethodsButton">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" id="searchMethodsMenu">
+                                <li><span class="selectedItem">Relevance</span></li>
+                                <li><span>Votes</span></li>
+                                <li><span>Newest</span></li>
+                                <li><span>Active</span></li>
+                            </ul>
+                        </div>
+                    </span>
+
+                    <span class="input-group-addon" id="historyAddon">
+                        <div class="input-group-btn search-panel" id="historyGroup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="historyButton">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li></li>
+                            </ul>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
+            <!--
+            <div class="col-xs-12">
+                <div class="input-group stylish-input-group">
                     <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
                     <span class="input-group-addon">
                         <button type="submit" id="searchButton">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
+                        <button type="submit" id="searchMethods" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu" id="searchMethodsMenu" role="menu">
+                            <li><a href="">Relevance</a></li>
+                            <li><a href="">Relevance</a></li>
+                            <li><a href="">Top</a></li>
+                        </ul>
                     </span>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1 col-xs-12">

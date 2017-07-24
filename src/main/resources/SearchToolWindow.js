@@ -5,13 +5,15 @@ var charCutoff;
 var questionSections;
 var searchTags;
 var uiSettings;
+var searchMethod;
 
 $(document).ready(function(){
     charCutoff = 300;
     searchTags = new SearchTags();
     uiSettings = new UISettings();
+    searchMethod = "RELEVANCE";
 
-    $('#searchBox').keydown( function(e) {
+    $('#searchBox').keydown(function(e) {
         if(e.keyCode == 9 && !e.shiftKey) {
             e.preventDefault();
 
@@ -19,12 +21,35 @@ $(document).ready(function(){
             searchTags.add(words[words.length - 1]);
             words.splice(words.length - 1, 1);
             $('#searchBox').val(words);
+            search();
         }
+        $("#autoQueryIcon").addClass("hidden");
     });
 
     $("#searchTags").on("click", "li", function(e){
         searchTags.remove($(this).html());
+        search();
     });
+
+    $("#searchMethodsMenu").on("click", "li", function(e){
+        $('#searchMethodsMenu').find(".selectedItem").removeClass("selectedItem");
+        $(this).children().first().addClass("selectedItem");
+        var dropdownVal = $(this).children().first().html().toLowerCase();
+        if(dropdownVal == "relevance")
+            dropdownVal = "RELEVANCE";
+        else if(dropdownVal == "votes")
+            dropdownVal = "VOTES";
+        else if(dropdownVal == "newest")
+            dropdownVal = "CREATION";
+        else if(dropdownVal == "active")
+            dropdownVal = "ACTIVITY";
+
+        searchMethod = dropdownVal;
+        search();
+    });
+
+    //Activate Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 function UISettings(){
@@ -113,13 +138,28 @@ function autoSearch(query, backoff){
     $('#searchBox').val(query);
     JavaBridge.autoQuery(query, backoff);
     generateListeners();
+    $("#autoQueryIcon").removeClass("hidden");
+}
+
+function errorSearch(firstMessage, secondMessage, backoff){
+    reset();
+    $('#searchBox').val(secondMessage);
+    JavaBridge.autoQuery(secondMessage, backoff);
+    if(numQuestions == 0){
+        reset();
+        $('#searchBox').val(firstMessage);
+        JavaBridge.autoQuery(firstMessage, backoff);
+    }
+    generateListeners();
+    $("#autoQueryIcon").removeClass("hidden");
 }
 
 function search(){
     reset();
     var query = $('#searchBox').val() + " " + searchTags.getQuerySyntax();
-    JavaBridge.searchButtonClicked(query);
+    JavaBridge.searchButtonClicked(query, searchMethod);
     generateListeners();
+    $("#autoQueryIcon").addClass("hidden");
 }
 
 $("#searchButton").click(function(){
@@ -364,10 +404,12 @@ function generateListeners(){
 
         $(questionSections[i]).on("click", ".questionTags li", function(e){
             searchTags.add($(this).html());
+            search();
         });
 
-        $(questionSections[i]).dblclick(function(){
-            var index = $(this).find('#questionIndex').html();
+        $(questionSections[i]).on("click", ".searchResultTitle", function(e){
+            var clickedSection = $(this).closest('.searchResultItem');
+            var index = $(clickedSection).find('#questionIndex').html();
             JavaBridge.openInBrowser(questionsList[index].link);
         });
     }

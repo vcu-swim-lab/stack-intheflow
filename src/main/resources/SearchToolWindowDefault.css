@@ -135,5 +135,28 @@ blockquote > :last-child {
 
 ::-webkit-scrollbar-track:horizontal {
     -webkit-box-shadow: 0 -1px 0px #ededed;
+}
 
+#autoQueryIcon {
+    background-color: white;
+}
+
+.dropdown-menu li span {
+    color: #333;
+}
+
+.dropdown-menu li span:hover{
+    cursor: pointer;
+    text-decoration: none;
+    color: #262626;
+    background-color: #f5f5f5;
+}
+
+#searchMethodsMenu li .selectedItem {
+    background-color: #f5f5f5;
+}
+
+#searchMethodsButton, #searchMethodsButton:hover, #searchMethodsButton:focus, #searchMethodsButton:active, #searchMethodsButton:visited
+#historyButton, #historyButton:hover, #historyButton:focus, #historyButton:active, #historyButton:visited {
+    background-color: white;
 }

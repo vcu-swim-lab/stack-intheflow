@@ -27,11 +27,12 @@ body {
     border: 0;
 }
 
-#buttonDropdown:hover, #buttonDropdown:focus, #buttonDropdown:active {
+#searchMethodsButton, #searchMethodsButton:hover, #searchMethodsButton:focus, #searchMethodsButton:active, #searchMethodsButton:visited
+#historyButton, #historyButton:hover, #historyButton:focus, #historyButton:active, #historyButton:visited {
     background-color: #45494a;
 }
 
-.dropdown-menu {
+.dropdown-menu {``
     margin: 0;
     padding: 0;
 }
@@ -150,6 +151,25 @@ blockquote > :last-child {
     background-color: #818c94;
 }
 
-.glyphicon-search {
+.glyphicon-search, .glyphicon-chevron-down, .glyphicon-time {
     color: #DDD;
+}
+
+#historyAddon {
+    border-left: 1px solid #888;
+}
+
+.dropdown-menu li span {
+    color: #CCC;
+}
+
+.dropdown-menu li span:hover {
+    cursor:pointer;
+    text-decoration: none;
+    color: #CCC;
+    background-color: #45494a;
+}
+
+#searchMethodsMenu li .selectedItem {
+    background-color: #45494a;
 }
