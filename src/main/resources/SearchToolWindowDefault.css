@@ -135,5 +135,15 @@ blockquote > :last-child {
 
 ::-webkit-scrollbar-track:horizontal {
     -webkit-box-shadow: 0 -1px 0px #ededed;
+}
 
+.dropdown-menu li span {
+    color: #333;
+}
+
+.dropdown-menu li span:hover{
+    cursor: pointer;
+    text-decoration: none;
+    color: #262626;
+    background-color: #f5f5f5;
 }

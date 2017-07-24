@@ -5,11 +5,13 @@ var charCutoff;
 var questionSections;
 var searchTags;
 var uiSettings;
+var searchMethod;
 
 $(document).ready(function(){
     charCutoff = 300;
     searchTags = new SearchTags();
     uiSettings = new UISettings();
+    searchMethod = "Relevance";
 
     $('#searchBox').keydown( function(e) {
         if(e.keyCode == 9 && !e.shiftKey) {
@@ -27,6 +29,12 @@ $(document).ready(function(){
         searchTags.remove($(this).html());
         search();
     });
+
+    $("#searchMethodsMenu").on("click", "li", function(e){
+        e.preventDefault();
+        JavaBridge.print($(this).children().first().html());
+        searchMethod = $(this).children().first().html();
+    })
 });
 
 function UISettings(){
@@ -120,7 +128,7 @@ function autoSearch(query, backoff){
 function search(){
     reset();
     var query = $('#searchBox').val() + " " + searchTags.getQuerySyntax();
-    JavaBridge.searchButtonClicked(query);
+    JavaBridge.searchButtonClicked(query, searchMethod);
     generateListeners();
 }
 

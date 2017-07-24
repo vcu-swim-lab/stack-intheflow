@@ -157,3 +157,12 @@ blockquote > :last-child {
 #historyAddon {
     border-left: 1px solid #888;
 }
+
+.dropdown-menu li span {
+    color: #CCC;
+}
+
+.dropdown-menu li span:hover {
+    cursor:pointer;
+    text-decoration: none;
+}

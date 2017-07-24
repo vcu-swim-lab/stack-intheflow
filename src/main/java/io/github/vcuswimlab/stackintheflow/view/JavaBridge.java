@@ -14,8 +14,8 @@ public class JavaBridge {
         System.out.println("From Java: " + msg);
     }
 
-    public void searchButtonClicked(String query){
-        System.out.println("Search Box is clicked with query: " + query);
+    public void searchButtonClicked(String query, String searchMethod){
+        System.out.println("Search Box is clicked with query: " + query + "with method: " + searchMethod);
         guiInstance.executeQuery(query, false);
     }
 

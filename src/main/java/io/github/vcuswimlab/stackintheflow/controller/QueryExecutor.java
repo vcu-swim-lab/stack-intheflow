@@ -23,6 +23,6 @@ public class QueryExecutor {
     }
 
     public static JerseyResponse executeQuery(Query q, JerseyGet.SearchType searchType) {
-        return JerseyGet.getInstance().executeQuery(q, searchType); 
+        return JerseyGet.getInstance().executeQuery(q, searchType);
     }
 }
