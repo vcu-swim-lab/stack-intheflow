@@ -13,7 +13,7 @@ $(document).ready(function(){
     uiSettings = new UISettings();
     searchMethod = "RELEVANCE";
 
-    $('#searchBox').keydown( function(e) {
+    $('#searchBox').keydown(function(e) {
         if(e.keyCode == 9 && !e.shiftKey) {
             e.preventDefault();
 
@@ -23,6 +23,7 @@ $(document).ready(function(){
             $('#searchBox').val(words);
             search();
         }
+        $("#autoQueryIcon").addClass("hidden");
     });
 
     $("#searchTags").on("click", "li", function(e){
