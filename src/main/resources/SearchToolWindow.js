@@ -11,7 +11,7 @@ $(document).ready(function(){
     charCutoff = 300;
     searchTags = new SearchTags();
     uiSettings = new UISettings();
-    searchMethod = "Relevance";
+    searchMethod = "RELEVANCE";
 
     $('#searchBox').keydown( function(e) {
         if(e.keyCode == 9 && !e.shiftKey) {
@@ -31,9 +31,19 @@ $(document).ready(function(){
     });
 
     $("#searchMethodsMenu").on("click", "li", function(e){
-        e.preventDefault();
-        JavaBridge.print($(this).children().first().html());
-        searchMethod = $(this).children().first().html();
+        var dropdownVal = $(this).children().first().html().toLowerCase();
+
+        if(dropdownVal == "relevance")
+            dropdownVal = "RELEVANCE";
+        else if(dropdownVal == "votes")
+            dropdownVal = "VOTES";
+        else if(dropdownVal == "newest")
+            dropdownVal = "CREATION";
+        else if(dropdownVal == "active")
+            dropdownVal = "ACTIVITY";
+
+        searchMethod = dropdownVal;
+        search();
     })
 });
 

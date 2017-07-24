@@ -7,6 +7,7 @@ import com.intellij.openapi.editor.colors.EditorColorsManager;
 import com.intellij.util.ui.UIUtil;
 import com.sun.javafx.application.PlatformImpl;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
+import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
@@ -213,11 +214,10 @@ public class SearchToolWindowGUI {
         });
     }
 
-    public void executeQuery(String query, boolean backoff) {
+    public void executeQuery(String query, boolean backoff, String searchMethod) {
         Future<List<Question>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
-
-            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery, JerseyGet.SortType.valueOf(searchMethod));
             List<Question> questionList = jerseyResponse.getItems();
 
             if (backoff && questionList.isEmpty()) {

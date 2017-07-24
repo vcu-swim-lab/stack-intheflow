@@ -80,7 +80,7 @@ public class JerseyGet {
         RELEVANCE("relevance"),
         ACTIVITY("activity"),
         CREATION("creation"),
-        VOTES("score");
+        VOTES("votes");
 
         private final String label;
 
