@@ -150,6 +150,10 @@ blockquote > :last-child {
     background-color: #818c94;
 }
 
-.glyphicon-search {
+.glyphicon-search, .glyphicon-chevron-down, .glyphicon-time {
     color: #DDD;
+}
+
+#historyAddon {
+    border-left: 1px solid #888;
 }

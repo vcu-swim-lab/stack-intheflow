@@ -32,6 +32,23 @@ body {
     background: transparent;
 }
 
+#searchMethodsButton:hover, #historyButton:hover {
+    background-color: transparent;
+}
+
+#searchAddons {
+    border-left: 0;
+}
+
+#searchAddons, #historyAddon {
+    margin: 0;
+    padding: 0;
+}
+
+#searchMethodsGroup, #historyGroup {
+    display: inline;
+}
+
 .questionTags ul, .searchTags ul {
     list-style-type: none;
 }

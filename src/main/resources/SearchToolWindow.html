@@ -13,27 +13,62 @@
 <body class="themeBG">
     <div class="well well-sm myWell">
         <div class="row">
+
             <div class="col-xs-12">
                 <div class="input-group stylish-input-group">
-                    <div class="input-group-btn search-panel">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="buttonDropdown">
-                            <span id="searchMethod">Search by</span> <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Relevance</a></li>
-                            <li><a href="#">Top</a></li>
-                            <li><a href="#">New</a></li>
-                        </ul>
-                    </div>
+
                     <input type="hidden" name="search-param" value="all" id="searchParam">
+                    <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
+                    <span class="input-group-addon" id="searchAddons">
+                        <button type="submit" id="searchButton">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        <div class="input-group-btn search-panel" id="searchMethodsGroup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchMethodsButton">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li><a href="#">Relevance</a></li>
+                                <li><a href="#">Top</a></li>
+                                <li><a href="#">New</a></li>
+                            </ul>
+                        </div>
+                    </span>
+
+                    <span class="input-group-addon" id="historyAddon">
+                        <div class="input-group-btn search-panel" id="historyGroup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="historyButton">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                <li><a href="#">www.google.com</a></li>
+                                <li><a href="#">www.youtube.com</a></li>
+                                <li><a href="#">more links</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
+            <!--
+            <div class="col-xs-12">
+                <div class="input-group stylish-input-group">
                     <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
                     <span class="input-group-addon">
                         <button type="submit" id="searchButton">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
+                        <button type="submit" id="searchMethods" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu" id="searchMethodsMenu" role="menu">
+                            <li><a href="">Relevance</a></li>
+                            <li><a href="">Relevance</a></li>
+                            <li><a href="">Top</a></li>
+                        </ul>
                     </span>
                 </div>
-            </div>
+            </div> -->
         </div>
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1 col-xs-12">
