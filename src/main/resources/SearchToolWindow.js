@@ -46,7 +46,10 @@ $(document).ready(function(){
 
         searchMethod = dropdownVal;
         search();
-    })
+    });
+
+    //Activate Tooltips
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 function UISettings(){
