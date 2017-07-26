@@ -33,18 +33,18 @@ public class PersistSettingsComponent implements PersistentStateComponent<Persis
         this.state = state;
     }
 
-    public void setFoo(String foo) {
-        this.state.foo = foo;
+    public boolean getAutoQuery() {
+        return this.state.autoQuery;
     }
 
-    public String getFoo() {
-        return this.state.foo;
+    public void setAutoQuery(boolean value) {
+        this.state.autoQuery = value;
     }
 
     public static class State {
+        public boolean autoQuery;
         public State() {
-            this.foo = "<default>";
+            this.autoQuery = true;
         }
-        public String foo;
     }
 }

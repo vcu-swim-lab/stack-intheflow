@@ -19,7 +19,7 @@ public class SettingsConfigurable implements Configurable {
 
     private static final String DISPLAY_NAME = "Stack-InTheFlow";
     private static PersistSettingsComponent settingsComponent;
-    private static JTextArea fooTextArea;
+    private static UIState uiState;
 
     @Nls
     @Override
@@ -37,20 +37,36 @@ public class SettingsConfigurable implements Configurable {
     @Override
     public JComponent createComponent() {
         settingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
-        JPanel panel = new JPanel();
-        fooTextArea = new JTextArea();
-        fooTextArea.setText(settingsComponent.getFoo());
-        panel.add(fooTextArea);
-        return panel;
+        uiState = new UIState(settingsComponent.getAutoQuery());
+        return uiState.getPanel();
     }
 
     @Override
     public boolean isModified() {
-        return !settingsComponent.getFoo().equals(fooTextArea.getText());
+        return uiState.getAutoQuery() != settingsComponent.getAutoQuery();
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        settingsComponent.setFoo(fooTextArea.getText());
+        settingsComponent.setAutoQuery(uiState.getAutoQuery());
+    }
+
+    private class UIState {
+        JPanel panel;
+        JCheckBox autoQueryCheckBox;
+
+        UIState(boolean autoQueryState) {
+            panel = new JPanel();
+            autoQueryCheckBox = new JCheckBox("Allow auto query", autoQueryState);
+            panel.add(autoQueryCheckBox);
+        }
+
+        JComponent getPanel() {
+            return this.panel;
+        }
+
+        boolean getAutoQuery() {
+            return this.autoQueryCheckBox.isSelected();
+        }
     }
 }
