@@ -24,14 +24,14 @@ $(document).ready(function(){
             searchTags.add(words[words.length - 1]);
             words.splice(words.length - 1, 1);
             $('#searchBox').val(words);
-            search();
+            search(true);
         }
         $("#autoQueryIcon").addClass("hidden");
     });
 
     $("#searchTags").on("click", "li", function(e){
         searchTags.remove($(this).html());
-        search();
+        search(true);
     });
 
     $("#searchMethodsMenu").on("click", "li", function(e){
@@ -48,7 +48,7 @@ $(document).ready(function(){
             dropdownVal = "ACTIVITY";
 
         searchMethod = dropdownVal;
-        search();
+        search(true);
     });
 
     $('#historyButton').click(function(){
@@ -59,7 +59,7 @@ $(document).ready(function(){
     $('#historyMenu').on('click', 'li', function(e){
         var query = $(this).children().first().html();
         setSearchBox(query);
-        search();
+        search(false);
     });
 
     //Activate Tooltips
@@ -177,6 +177,7 @@ function SearchTags(){
 }
 
 function autoSearch(query, backoff){
+    addQueryToHistory($('#searchBox').val(), searchTags.toString());
     reset();
     searchTags.clear();
     tags = "";
@@ -188,7 +189,10 @@ function setSearchBox(query){
     $('#searchBox').val(query);
 }
 
-function search(){
+function search(addToHistory){
+    if(addToHistory){
+        addQueryToHistory($('#searchBox').val(), searchTags.toString());
+    }
     reset();
     var query = $('#searchBox').val();
     var tags = searchTags.getQuerySyntax();
@@ -220,21 +224,20 @@ function updateUISearchType(searchType){
 }
 
 $("#searchButton").click(function(){
-    search();
+    search(true);
 });
 
 $(document).on('keypress', '#searchBox', function(e){
     if(e.which == 13){
-        search();
+        search(true);
     }
 });
 
-function addQueryToHistory(){
-    queryHistory.add($('#searchBox').val(), searchTags.toString());
+function addQueryToHistory(query, tag){
+    queryHistory.add(query, tag);
 }
 
 function reset(){
-    addQueryToHistory();
     $('#questions').empty();
     questionsList = new Array();
     questionSections = new Array();
@@ -465,7 +468,7 @@ function generateListeners(){
 
         $(questionSections[i]).on("click", ".questionTags li", function(e){
             searchTags.add($(this).html());
-            search();
+            search(true);
         });
 
         $(questionSections[i]).on("click", ".searchResultTitle", function(e){

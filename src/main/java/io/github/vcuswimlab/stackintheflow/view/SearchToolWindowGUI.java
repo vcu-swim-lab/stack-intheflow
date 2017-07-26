@@ -222,6 +222,7 @@ public class SearchToolWindowGUI {
                 window.call("showAutoQueryIcon");
                 window.call("updateUISearchType", "Relevance");
                 window.call("setSearchBox", finalQuestionListPair.getKey());
+                window.call("addQueryToHistory", finalQuestionListPair.getKey(), "");
                 updateQuestionList(finalQuestionListPair.getValue());
             });
         } catch (ExecutionException | InterruptedException e) {
