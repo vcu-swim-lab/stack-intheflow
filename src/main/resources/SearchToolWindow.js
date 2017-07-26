@@ -135,10 +135,13 @@ function SearchTags(){
 
 function autoSearch(query, backoff){
     reset();
-    $('#searchBox').val(query);
     JavaBridge.autoQuery(query, backoff);
     generateListeners();
     $("#autoQueryIcon").removeClass("hidden");
+}
+
+function setSearchBox(query){
+    $('#searchBox').val(query);
 }
 
 function errorSearch(firstMessage, secondMessage, backoff){

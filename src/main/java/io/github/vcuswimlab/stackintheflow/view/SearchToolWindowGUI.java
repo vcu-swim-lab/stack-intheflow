@@ -237,7 +237,12 @@ public class SearchToolWindowGUI {
                     jerseyResponse = QueryExecutor.executeQuery(searchQuery);
                     questionList = jerseyResponse.getItems();
                 }
+
             }
+
+            final String searchQueryFinal = searchQuery;
+            Platform.runLater(() -> window.call("setSearchBox", searchQueryFinal));
+
             //setSearchBoxContent(searchQuery);
             if(searchMethod.equals("RELEVANCE"))
                 return searchModel.rankQuesitonList(questionList);
@@ -245,18 +250,19 @@ public class SearchToolWindowGUI {
                 return questionList;
         });
 
-        try {
-            List<Question> questionList = questionListFuture.get();
-            for(Question question : questionList){
-                window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray(), question.getLink());
+        Platform.runLater(() -> {
+            try {
+                List<Question> questionList = questionListFuture.get();
+                for(Question question : questionList){
+                    window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray(), question.getLink());
+                }
+                engine.executeScript("displayQuestions()");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
             }
-            engine.executeScript("displayQuestions()");
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
+        });
     }
 
     /*
