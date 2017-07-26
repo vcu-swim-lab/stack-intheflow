@@ -136,7 +136,6 @@ function SearchTags(){
 function autoSearch(query, backoff){
     reset();
     JavaBridge.autoQuery(query, backoff);
-    generateListeners();
     $("#autoQueryIcon").removeClass("hidden");
 }
 
@@ -153,7 +152,7 @@ function errorSearch(firstMessage, secondMessage, backoff){
         $('#searchBox').val(firstMessage);
         JavaBridge.autoQuery(firstMessage, backoff);
     }
-    generateListeners();
+
     $("#autoQueryIcon").removeClass("hidden");
 }
 
@@ -161,7 +160,7 @@ function search(){
     reset();
     var query = $('#searchBox').val() + " " + searchTags.getQuerySyntax();
     JavaBridge.searchButtonClicked(query, searchMethod);
-    generateListeners();
+
     $("#autoQueryIcon").addClass("hidden");
 }
 
@@ -377,7 +376,6 @@ function appendNewResultSkeleton(i){
 }
 
 function generateListeners(){
-
     for(var i = 0; i < questionSections.length; i++){
         $(questionSections[i]).on("click", ".excerptController", function(e){
             var clickedSection = $(this).closest('.searchResultItem');
