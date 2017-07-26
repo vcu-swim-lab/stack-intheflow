@@ -6,11 +6,14 @@ var questionSections;
 var searchTags;
 var uiSettings;
 var searchMethod;
+var queryHistory;
 
 $(document).ready(function(){
     charCutoff = 300;
     searchTags = new SearchTags();
     uiSettings = new UISettings();
+    queryHistory = new History();
+
     searchMethod = "RELEVANCE";
 
     $('#searchBox').keydown(function(e) {
@@ -48,6 +51,17 @@ $(document).ready(function(){
         search();
     });
 
+    $('#historyButton').click(function(){
+        JavaBridge.print("Click");
+        queryHistory.updateUI();
+    });
+
+    $('#historyMenu').on('click', 'li', function(e){
+        var query = $(this).children().first().html();
+        setSearchBox(query);
+        search();
+    });
+
     //Activate Tooltips
     $('[data-toggle="tooltip"]').tooltip();
 });
@@ -71,6 +85,27 @@ function updateUISettings(isDark){
     uiSettings.isDark = isDark;
     uiSettings.updateUI();
 }
+
+function History(){
+    this.queries = new Array();
+    this.tags = new Array();
+
+    this.add = function(query, tag){
+        this.queries.push(query);
+        this.tags.push(tag);
+    }
+
+    this.updateUI = function(){
+        $('#historyMenu').empty();
+        for(var i = this.queries.length - 1; i >= 0; i--){
+            var li = $("<li>");
+            var span = $("<span>").html(this.queries[i]);
+            $(li).append(span);
+            $('#historyMenu').append(li);
+        }
+    }
+}
+
 
 function SearchTags(){
     this.tags = new Array();
@@ -131,6 +166,14 @@ function SearchTags(){
 
         return query;
     }
+
+    this.toString = function(){
+        var string = "";
+        for(var i = 0; i < this.tags.length; i++){
+            string += this.tags[i] + (i == this.tags.length - 1 ? "" : " ");
+        }
+        return string;
+    }
 }
 
 function autoSearch(query, backoff){
@@ -145,26 +188,12 @@ function setSearchBox(query){
     $('#searchBox').val(query);
 }
 
-function errorSearch(firstMessage, secondMessage, backoff){
-    reset();
-    searchTags.clear();
-    tags = "";
-    JavaBridge.autoQuery(secondMessage, tags, backoff);
-    if(numQuestions == 0){
-        reset();
-        JavaBridge.autoQuery(firstMessage, tags, backoff);
-    }
-
-    showAutoQueryIcon();
-}
-
 function search(){
     reset();
     var query = $('#searchBox').val();
     var tags = searchTags.getQuerySyntax();
     JavaBridge.searchButtonClicked(query, tags, searchMethod);
-
-    hideAutoQueryIcon()
+    hideAutoQueryIcon();
 }
 
 function resetSearchTags(){
@@ -200,7 +229,12 @@ $(document).on('keypress', '#searchBox', function(e){
     }
 });
 
+function addQueryToHistory(){
+    queryHistory.add($('#searchBox').val(), searchTags.toString());
+}
+
 function reset(){
+    addQueryToHistory();
     $('#questions').empty();
     questionsList = new Array();
     questionSections = new Array();
