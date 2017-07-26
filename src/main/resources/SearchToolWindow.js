@@ -57,7 +57,12 @@ $(document).ready(function(){
     });
 
     $('#historyMenu').on('click', 'li', function(e){
-        var query = $(this).children().first().html();
+        var index = $(this).index();
+        var query = queryHistory.getQuery(index);
+        var tags = queryHistory.getTag(index);
+        JavaBridge.print("Query: " + query);
+        JavaBridge.print("Tags: " + tags);
+
         setSearchBox(query);
         search(false);
     });
@@ -93,6 +98,14 @@ function History(){
     this.add = function(query, tag){
         this.queries.push(query);
         this.tags.push(tag);
+    }
+
+    this.getQuery = function(index){
+        return this.queries[this.queries.length - index - 1];
+    }
+
+    this.getTag = function(index){
+        return this.tags[this.tags.length - index - 1];
     }
 
     this.updateUI = function(){
