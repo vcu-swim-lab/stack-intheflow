@@ -19,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import netscape.javascript.JSObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,31 +38,23 @@ import java.util.stream.Collectors;
  */
 public class SearchToolWindowGUI {
     private JPanel content;
-    private DefaultListModel<Question> questionListModel;
     private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
 
 
     private PersonalSearchModel searchModel;
 
-    private List<String> compilerMessages;
-
     private ScheduledThreadPoolExecutor timer;
 
-    private Stage stage;
     private WebView webView;
     private JFXPanel jfxPanel;
     private WebEngine engine;
     private JSObject window;
     private JavaBridge bridge;
-    private EditorColorsManager editorColorsManager;
 
     private SearchToolWindowGUI(JPanel content,
                                 PersonalSearchModel searchModel) {
-        this.editorColorsManager = EditorColorsManager.getInstance();
         this.content = content;
         this.searchModel = searchModel;
-
-        compilerMessages = new ArrayList<>();
 
         timer = new ScheduledThreadPoolExecutor(1);
         bridge = new JavaBridge(this);
@@ -69,9 +62,7 @@ public class SearchToolWindowGUI {
     }
 
     private void initComponents(){
-        ApplicationManager.getApplication().getMessageBus().connect().subscribe(EditorColorsManager.TOPIC, scheme -> {
-            updateUISettings();
-        });
+        ApplicationManager.getApplication().getMessageBus().connect().subscribe(EditorColorsManager.TOPIC, scheme -> updateUISettings());
 
         jfxPanel = new JFXPanel();
         createScene();
@@ -211,22 +202,53 @@ public class SearchToolWindowGUI {
     public void autoQuery(String query, boolean backoff){
         Platform.runLater(() -> {
             window.call("autoSearch", query, backoff);
+            window.call("updateUISearchType", "Relevance");
         });
     }
 
-    public void errorQuery(List<String> parsedMessages, boolean backOff){
-        Platform.runLater(() -> {
-            window.call("errorSearch", parsedMessages.get(0), parsedMessages.get(1), backOff);
-        });
+    public void errorQuery(List<String> parsedMessages, boolean backoff){
+        try {
+
+            Pair<String, List<Question>> questionListPair = retriveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
+            if(questionListPair.getValue().isEmpty()) {
+                questionListPair = retriveResults(parsedMessages.get(0), "", backoff, JerseyGet.SortType.RELEVANCE);
+            }
+
+            final Pair<String, List<Question>> finalQuestionListPair = questionListPair;
+
+            Platform.runLater(() -> {
+                window.call("reset");
+                window.call("resetSearchTags");
+                window.call("showAutoQueryIcon");
+                window.call("updateUISearchType", "Relevance");
+                window.call("setSearchBox", finalQuestionListPair.getKey());
+                updateQuestionList(finalQuestionListPair.getValue());
+            });
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void executeQuery(String query, boolean backoff, String searchMethod) {
-        Future<List<Question>> questionListFuture = timer.submit(() -> {
+    public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType) {
+        try {
+            Pair<String, List<Question>> questionListPair = retriveResults(query, tags, backoff, sortType);
+            Platform.runLater(() -> {
+                window.call("setSearchBox", questionListPair.getKey());
+                updateQuestionList(questionListPair.getValue());
+            });
+        } catch (ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Pair<String, List<Question>> retriveResults(String query, String tags, boolean backoff, JerseyGet.SortType sortType) throws ExecutionException, InterruptedException {
+
+        Future<Pair<String, List<Question>>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
-            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery, JerseyGet.SortType.valueOf(searchMethod));
+            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags, sortType);
             List<Question> questionList = jerseyResponse.getItems();
 
-            if (backoff && questionList.isEmpty()) {
+            if(backoff && questionList.isEmpty()) {
 
                 Deque<String> queryStack = new ArrayDeque<>();
                 queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
@@ -234,36 +256,28 @@ public class SearchToolWindowGUI {
                 while (questionList.isEmpty()) {
                     queryStack.pop();
                     searchQuery = queryStack.stream().collect(Collectors.joining(" "));
-                    jerseyResponse = QueryExecutor.executeQuery(searchQuery);
+                    jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags);
                     questionList = jerseyResponse.getItems();
                 }
 
             }
 
-            final String searchQueryFinal = searchQuery;
-            Platform.runLater(() -> window.call("setSearchBox", searchQueryFinal));
-
-            //setSearchBoxContent(searchQuery);
-            if(searchMethod.equals("RELEVANCE"))
-                return searchModel.rankQuesitonList(questionList);
-            else
-                return questionList;
-        });
-
-        Platform.runLater(() -> {
-            try {
-                List<Question> questionList = questionListFuture.get();
-                for(Question question : questionList){
-                    window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray(), question.getLink());
-                }
-                engine.executeScript("displayQuestions()");
-                engine.executeScript("generateListeners()");
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            } catch (ExecutionException e) {
-                e.printStackTrace();
+            if(sortType.equals(JerseyGet.SortType.RELEVANCE)) {
+                questionList = searchModel.rankQuesitonList(questionList);
             }
+
+            return new Pair<>(searchQuery, questionList);
         });
+
+        return questionListFuture.get();
+    }
+
+    private void updateQuestionList(List<Question> questions) {
+        for(Question question : questions){
+            window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray(), question.getLink());
+        }
+        engine.executeScript("displayQuestions()");
+        engine.executeScript("generateListeners()");
     }
 
     /*

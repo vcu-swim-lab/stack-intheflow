@@ -135,8 +135,10 @@ function SearchTags(){
 
 function autoSearch(query, backoff){
     reset();
-    JavaBridge.autoQuery(query, backoff);
-    $("#autoQueryIcon").removeClass("hidden");
+    searchTags.clear();
+    tags = "";
+    JavaBridge.autoQuery(query, tags, backoff);
+    showAutoQueryIcon();
 }
 
 function setSearchBox(query){
@@ -145,23 +147,47 @@ function setSearchBox(query){
 
 function errorSearch(firstMessage, secondMessage, backoff){
     reset();
-    $('#searchBox').val(secondMessage);
-    JavaBridge.autoQuery(secondMessage, backoff);
+    searchTags.clear();
+    tags = "";
+    JavaBridge.autoQuery(secondMessage, tags, backoff);
     if(numQuestions == 0){
         reset();
-        $('#searchBox').val(firstMessage);
-        JavaBridge.autoQuery(firstMessage, backoff);
+        JavaBridge.autoQuery(firstMessage, tags, backoff);
     }
 
-    $("#autoQueryIcon").removeClass("hidden");
+    showAutoQueryIcon();
 }
 
 function search(){
     reset();
-    var query = $('#searchBox').val() + " " + searchTags.getQuerySyntax();
-    JavaBridge.searchButtonClicked(query, searchMethod);
+    var query = $('#searchBox').val();
+    var tags = searchTags.getQuerySyntax();
+    JavaBridge.searchButtonClicked(query, tags, searchMethod);
 
+    hideAutoQueryIcon()
+}
+
+function resetSearchTags(){
+    searchTags.clear();
+}
+
+function showAutoQueryIcon(){
+    $("#autoQueryIcon").removeClass("hidden");
+}
+
+function hideAutoQueryIcon(){
     $("#autoQueryIcon").addClass("hidden");
+}
+
+function updateUISearchType(searchType){
+    $('#searchMethodsMenu').find(".selectedItem").removeClass("selectedItem");
+    var children = $('#searchMethodsMenu').children();
+    $(children).each(function(){
+        if($(this).children().first().html().toLowerCase() == searchType.toLowerCase()){
+            $(this).children().first().addClass("selectedItem");
+        }
+    });
+    searchMethod = searchType.toUpperCase();
 }
 
 $("#searchButton").click(function(){
