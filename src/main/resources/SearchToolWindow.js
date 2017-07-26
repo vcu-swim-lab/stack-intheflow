@@ -60,8 +60,7 @@ $(document).ready(function(){
         var index = $(this).index();
         var query = queryHistory.getQuery(index);
         var tags = queryHistory.getTag(index);
-        JavaBridge.print("Query: " + query);
-        JavaBridge.print("Tags: " + tags);
+
 
         setSearchBox(query);
         search(false);
@@ -108,11 +107,27 @@ function History(){
         return this.tags[this.tags.length - index - 1];
     }
 
+    this.setQuery = function(index, query){
+        this.queries[this.queries.length - index - 1] = query;
+    }
+
+    this.setTag = function(index, tag){
+        this.tags[this.tags.length - index - 1] = tag;
+    }
+
+    this.getMostRecentQuery = function(){
+        return this.getQuery(0);
+    }
+
+    this.getMostRecentTag = function(){
+        return this.getTag(0);
+    }
+
     this.updateUI = function(){
         $('#historyMenu').empty();
         for(var i = this.queries.length - 1; i >= 0; i--){
             var li = $("<li>");
-            var span = $("<span>").html(this.queries[i]);
+            var span = $("<span>").html(this.queries[i] + (this.tags[i] == "" ? "" : " [" + this.tags[i] + "]"));
             $(li).append(span);
             $('#historyMenu').append(li);
         }
@@ -146,6 +161,10 @@ function SearchTags(){
             }
         }
         return false;
+    }
+
+    this.setTags = function(tags){
+        this.tags = tags;
     }
 
     this.updateUI = function(){
@@ -204,7 +223,11 @@ function setSearchBox(query){
 
 function search(addToHistory){
     if(addToHistory){
-        addQueryToHistory($('#searchBox').val(), searchTags.toString());
+        if(queryHistory.getMostRecentQuery() == $('#searchBox').val()){
+            queryHistory.setTag(0, searchTags.toString());
+        } else {
+            addQueryToHistory($('#searchBox').val(), searchTags.toString());
+        }
     }
     reset();
     var query = $('#searchBox').val();

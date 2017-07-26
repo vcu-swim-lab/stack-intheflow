@@ -18,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import javafx.util.Pair;
 import netscape.javascript.JSObject;
 import org.apache.logging.log4j.LogManager;
@@ -28,9 +27,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.Future;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.stream.Collectors;
 
 /**
@@ -43,8 +39,6 @@ public class SearchToolWindowGUI {
 
     private PersonalSearchModel searchModel;
 
-    private ScheduledThreadPoolExecutor timer;
-
     private WebView webView;
     private JFXPanel jfxPanel;
     private WebEngine engine;
@@ -55,8 +49,6 @@ public class SearchToolWindowGUI {
                                 PersonalSearchModel searchModel) {
         this.content = content;
         this.searchModel = searchModel;
-
-        timer = new ScheduledThreadPoolExecutor(1);
         bridge = new JavaBridge(this);
         initComponents();
     }
@@ -207,44 +199,35 @@ public class SearchToolWindowGUI {
     }
 
     public void errorQuery(List<String> parsedMessages, boolean backoff){
-        try {
-
-            Pair<String, List<Question>> questionListPair = retriveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
-            if(questionListPair.getValue().isEmpty()) {
-                questionListPair = retriveResults(parsedMessages.get(0), "", backoff, JerseyGet.SortType.RELEVANCE);
-            }
-
-            final Pair<String, List<Question>> finalQuestionListPair = questionListPair;
 
             Platform.runLater(() -> {
+                Pair<String, List<Question>> questionListPair = retrieveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
+                if(questionListPair.getValue().isEmpty()) {
+                    questionListPair = retrieveResults(parsedMessages.get(0), "", backoff, JerseyGet.SortType.RELEVANCE);
+                }
                 window.call("reset");
                 window.call("resetSearchTags");
                 window.call("showAutoQueryIcon");
                 window.call("updateUISearchType", "Relevance");
-                window.call("setSearchBox", finalQuestionListPair.getKey());
-                window.call("addQueryToHistory", finalQuestionListPair.getKey(), "");
-                updateQuestionList(finalQuestionListPair.getValue());
+                window.call("setSearchBox", questionListPair.getKey());
+                window.call("addQueryToHistory", questionListPair.getKey(), "");
+                updateQuestionList(questionListPair.getValue());
             });
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType) {
-        try {
-            Pair<String, List<Question>> questionListPair = retriveResults(query, tags, backoff, sortType);
+
             Platform.runLater(() -> {
+                Pair<String, List<Question>> questionListPair = retrieveResults(query, tags, backoff, sortType);
                 window.call("setSearchBox", questionListPair.getKey());
                 updateQuestionList(questionListPair.getValue());
             });
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+
     }
 
-    private Pair<String, List<Question>> retriveResults(String query, String tags, boolean backoff, JerseyGet.SortType sortType) throws ExecutionException, InterruptedException {
+    private Pair<String, List<Question>> retrieveResults(String query, String tags, boolean backoff, JerseyGet.SortType sortType) {
 
-        Future<Pair<String, List<Question>>> questionListFuture = timer.submit(() -> {
             String searchQuery = query;
             JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags, sortType);
             List<Question> questionList = jerseyResponse.getItems();
@@ -264,13 +247,10 @@ public class SearchToolWindowGUI {
             }
 
             if(sortType.equals(JerseyGet.SortType.RELEVANCE)) {
-                questionList = searchModel.rankQuesitonList(questionList);
+                questionList = searchModel.rankQuestionList(questionList);
             }
 
             return new Pair<>(searchQuery, questionList);
-        });
-
-        return questionListFuture.get();
     }
 
     private void updateQuestionList(List<Question> questions) {

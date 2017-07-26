@@ -24,7 +24,7 @@ public class PersonalSearchModel {
         tags.forEach(tag -> userStatMap.put(tag, userStatMap.getOrDefault(tag, 0) + 1));
     }
 
-    public List<Question> rankQuesitonList(List<Question> initialList) {
+    public List<Question> rankQuestionList(List<Question> initialList) {
 
         List<QuestionRank> questionRankList = new ArrayList<>();
         for (int i = 0; i < initialList.size(); i++) {
