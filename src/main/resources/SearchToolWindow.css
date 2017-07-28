@@ -26,8 +26,8 @@ body {
     background: transparent;
 }
 
-.stylish-input-group .input-group-addon{
-    background: white !important;
+.stylish-input-group .input-group-addon {
+    background-color: white !important;
 }
 
 .stylish-input-group .form-control{
@@ -37,13 +37,9 @@ body {
     border-color: #ccc;
 }
 
-.stylish-input-group button {
+.stylish-input-group button, .stylish-input-group button:hover {
     border: 0;
-    background: transparent;
-}
-
-#searchMethodsButton:hover, #historyButton:hover {
-    background-color: transparent;
+    background: transparent !important;
 }
 
 #searchAddons {
