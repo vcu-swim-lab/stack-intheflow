@@ -210,11 +210,10 @@ function SearchTags(){
 }
 
 function autoSearch(query, backoff){
-    addQueryToHistory($('#searchBox').val(), searchTags.toString());
     reset();
     searchTags.clear();
     tags = "";
-    JavaBridge.autoQuery(query, tags, backoff);
+    JavaBridge.autoQuery(query, tags, backoff, true);
     showAutoQueryIcon();
 }
 
@@ -226,14 +225,13 @@ function search(addToHistory){
     if(addToHistory){
         if(queryHistory.getMostRecentQuery() == $('#searchBox').val()){
             queryHistory.setTag(0, searchTags.toString());
-        } else {
-            addQueryToHistory($('#searchBox').val(), searchTags.toString());
+            addToHistory = false;
         }
     }
     reset();
     var query = $('#searchBox').val();
     var tags = searchTags.getQuerySyntax();
-    JavaBridge.searchButtonClicked(query, tags, searchMethod);
+    JavaBridge.searchButtonClicked(query, tags, searchMethod, addToHistory);
     hideAutoQueryIcon();
 }
 
@@ -270,8 +268,8 @@ $(document).on('keypress', '#searchBox', function(e){
     }
 });
 
-function addQueryToHistory(query, tag){
-    queryHistory.add(query, tag);
+function addCurrentQueryToHistory(){
+    queryHistory.add($('#searchBox').val(), searchTags.toString());
 }
 
 function reset(){

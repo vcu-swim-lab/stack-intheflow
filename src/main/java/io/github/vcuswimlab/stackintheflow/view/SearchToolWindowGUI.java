@@ -209,15 +209,18 @@ public class SearchToolWindowGUI {
             window.call("showAutoQueryIcon");
             window.call("updateUISearchType", "Relevance");
             window.call("setSearchBox", questionListPair.getKey());
-            window.call("addQueryToHistory", questionListPair.getKey(), "");
+            window.call("addCurrentQueryToHistory");
             updateQuestionList(questionListPair.getValue());
         });
     }
 
-    public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType) {
+    public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType, boolean addToQueryHistory) {
         Platform.runLater(() -> {
             Pair<String, List<Question>> questionListPair = retrieveResults(query, tags, backoff, sortType);
             window.call("setSearchBox", questionListPair.getKey());
+            if(addToQueryHistory) {
+                window.call("addCurrentQueryToHistory");
+            }
             updateQuestionList(questionListPair.getValue());
         });
     }
