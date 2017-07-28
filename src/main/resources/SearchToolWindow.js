@@ -59,10 +59,10 @@ $(document).ready(function(){
     $('#historyMenu').on('click', 'li', function(e){
         var index = $(this).index();
         var query = queryHistory.getQuery(index);
-        var tags = queryHistory.getTag(index);
-
-
+        var tags = queryHistory.getTag(index).split(" ").filter((item) => item != '');
         setSearchBox(query);
+        searchTags.setTags(tags);
+
         search(false);
     });
 
@@ -165,6 +165,7 @@ function SearchTags(){
 
     this.setTags = function(tags){
         this.tags = tags;
+        this.updateUI();
     }
 
     this.updateUI = function(){
@@ -427,8 +428,6 @@ function displayQuestions(){
                 excerptController.removeClass('blockExcerptController');
                 $(lastChild).append(excerptController);
             }
-
-            //$(questionBody).children().last().append(excerptController);
         }
 
         var questionTagsContainer = $(questionSection).find(".questionTags");

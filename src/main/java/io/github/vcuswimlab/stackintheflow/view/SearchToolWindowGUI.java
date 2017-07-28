@@ -199,58 +199,52 @@ public class SearchToolWindowGUI {
     }
 
     public void errorQuery(List<String> parsedMessages, boolean backoff){
-
-            Platform.runLater(() -> {
-                Pair<String, List<Question>> questionListPair = retrieveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
-                if(questionListPair.getValue().isEmpty()) {
-                    questionListPair = retrieveResults(parsedMessages.get(0), "", backoff, JerseyGet.SortType.RELEVANCE);
-                }
-                window.call("reset");
-                window.call("resetSearchTags");
-                window.call("showAutoQueryIcon");
-                window.call("updateUISearchType", "Relevance");
-                window.call("setSearchBox", questionListPair.getKey());
-                window.call("addQueryToHistory", questionListPair.getKey(), "");
-                updateQuestionList(questionListPair.getValue());
-            });
-
+        Platform.runLater(() -> {
+            Pair<String, List<Question>> questionListPair = retrieveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
+            if(questionListPair.getValue().isEmpty()) {
+                questionListPair = retrieveResults(parsedMessages.get(0), "", backoff, JerseyGet.SortType.RELEVANCE);
+            }
+            window.call("reset");
+            window.call("resetSearchTags");
+            window.call("showAutoQueryIcon");
+            window.call("updateUISearchType", "Relevance");
+            window.call("setSearchBox", questionListPair.getKey());
+            window.call("addQueryToHistory", questionListPair.getKey(), "");
+            updateQuestionList(questionListPair.getValue());
+        });
     }
 
     public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType) {
-
-            Platform.runLater(() -> {
-                Pair<String, List<Question>> questionListPair = retrieveResults(query, tags, backoff, sortType);
-                window.call("setSearchBox", questionListPair.getKey());
-                updateQuestionList(questionListPair.getValue());
-            });
-
+        Platform.runLater(() -> {
+            Pair<String, List<Question>> questionListPair = retrieveResults(query, tags, backoff, sortType);
+            window.call("setSearchBox", questionListPair.getKey());
+            updateQuestionList(questionListPair.getValue());
+        });
     }
 
     private Pair<String, List<Question>> retrieveResults(String query, String tags, boolean backoff, JerseyGet.SortType sortType) {
+        String searchQuery = query;
+        JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags, sortType);
+        List<Question> questionList = jerseyResponse.getItems();
 
-            String searchQuery = query;
-            JerseyResponse jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags, sortType);
-            List<Question> questionList = jerseyResponse.getItems();
+        if(backoff && questionList.isEmpty()) {
+            Deque<String> queryStack = new ArrayDeque<>();
+            queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
 
-            if(backoff && questionList.isEmpty()) {
-
-                Deque<String> queryStack = new ArrayDeque<>();
-                queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
-
-                while (questionList.isEmpty()) {
-                    queryStack.pop();
-                    searchQuery = queryStack.stream().collect(Collectors.joining(" "));
-                    jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags);
-                    questionList = jerseyResponse.getItems();
-                }
-
+            while (questionList.isEmpty()) {
+                queryStack.pop();
+                searchQuery = queryStack.stream().collect(Collectors.joining(" "));
+                jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags);
+                questionList = jerseyResponse.getItems();
             }
 
-            if(sortType.equals(JerseyGet.SortType.RELEVANCE)) {
-                questionList = searchModel.rankQuestionList(questionList);
-            }
+        }
 
-            return new Pair<>(searchQuery, questionList);
+        if(sortType.equals(JerseyGet.SortType.RELEVANCE)) {
+            questionList = searchModel.rankQuestionList(questionList);
+        }
+
+        return new Pair<>(searchQuery, questionList);
     }
 
     private void updateQuestionList(List<Question> questions) {
