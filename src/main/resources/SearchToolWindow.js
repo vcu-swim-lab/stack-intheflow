@@ -404,7 +404,11 @@ function HTMLTag(open, close, length){
 }
 
 function getQuestion(title, body, tags, link){
-    questionsList.push(new Question(title, body, tags, link));;
+    tagsString = new Array();
+    for(i = 0; i < tags.length; i++){
+        tagsString.push(tags[i].toString());
+    }
+    questionsList.push(new Question(title, body, tagsString, link));;
     questionsList[numQuestions].findCodeTags();
     questionsList[numQuestions].findHTMLTags();
     numQuestions++;
@@ -439,7 +443,7 @@ function displayQuestions(){
             var unorderedList = $("<ul>");
 
             for(var j = 0; j < questionsList[i].tags.length; j++){
-                var tagItem = $("<li>").html(questionsList[i].tags[j].toString());
+                var tagItem = $("<li>").html(questionsList[i].tags[j]);
                 $(unorderedList).append(tagItem);
             }
             $(questionTagsContainer).append(unorderedList);

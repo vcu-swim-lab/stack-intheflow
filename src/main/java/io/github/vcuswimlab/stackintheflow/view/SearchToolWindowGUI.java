@@ -254,8 +254,8 @@ public class SearchToolWindowGUI {
         for(Question question : questions){
             window.call("getQuestion", question.getTitle(), question.getBody(), question.getTags().toArray(), question.getLink());
         }
-        engine.executeScript("displayQuestions()");
-        engine.executeScript("generateListeners()");
+        window.call("displayQuestions");
+        window.call("generateListeners");
     }
 
     /*
