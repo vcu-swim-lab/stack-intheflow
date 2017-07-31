@@ -9,6 +9,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
+import io.github.vcuswimlab.stackintheflow.view.JavaBridge;
 import io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI;
 
 import java.util.List;
@@ -38,11 +39,10 @@ public class AutoQueryAction extends AnAction {
         //Generate the autoQuery
         String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(editor);
 
-
         //Execute Search and Open Tool Window
         ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
         SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
-        toolWindowGUI.executeQuery(autoQuery, true);
+        toolWindowGUI.autoQuery(autoQuery, true, "action");
         toolWindow.activate(() -> {
         });
     }

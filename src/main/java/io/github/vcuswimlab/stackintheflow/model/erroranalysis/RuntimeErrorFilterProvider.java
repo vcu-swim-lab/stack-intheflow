@@ -59,7 +59,7 @@ public class RuntimeErrorFilterProvider implements ConsoleInputFilterProvider {
                 // if 'consoleErrorComponent.appendError()' was never called, null is returned
                 if (runtimeErrorMessage != null && runtimeErrorMessage.get(ErrorMessage.MessageType.ERROR).length != 0) {
                     List<String> parsedMessages = ErrorMessageParser.parseRuntimeError(runtimeErrorMessage, project);
-                    project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
+                    project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().errorQuery(parsedMessages, false, "runtime");
                 }
             } else if (consoleViewContentType.equals(ConsoleViewContentType.SYSTEM_OUTPUT)){
                 runtimeErrorComponent.appendMessage(this, "INFORMATION", s);
