@@ -52,7 +52,6 @@ $(document).ready(function(){
     });
 
     $('#historyButton').click(function(){
-        JavaBridge.print("Click");
         queryHistory.updateUI();
     });
 
@@ -180,15 +179,12 @@ function SearchTags(){
             var tag = $('<li>').html(this.tags[i]);
             $('#searchTags').append(tag);
         }
-
         if(this.tags.length > 0){
             $('#content').removeClass("contentStart").addClass("contentWithSearchTags");
         }
         else {
             $('#content').removeClass("contentWithSearchTags").addClass("contentStart");
         }
-
-        JavaBridge.debugBreakpoint();
      }
 
     this.clear = function(){

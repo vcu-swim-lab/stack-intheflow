@@ -93,104 +93,6 @@ public class SearchToolWindowGUI {
         });
     }
 
-    /*
-    private void addListeners() {
-
-        consoleErrorPane.setVisible(false);
-
-        searchButton.addActionListener(e -> executeQuery(searchBox.getText(), false));
-
-        //Logging search query's
-
-        searchButton.addActionListener(e -> logger.info("{SearchQuery: " + searchBox.getText() + "}"));
-        searchBox.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
-                    searchButton.doClick();
-                }
-            }
-        });
-        resultsList.setListData(new Question[0]);
-        questionListModel = new DefaultListModel<>();
-        resultsList.setModel(questionListModel);
-        QuestionRenderer renderer = new QuestionRenderer(resultsList);
-        resultsList.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent componentEvent) {
-                renderer.setWidth(resultsList.getWidth());
-            }
-        });
-        resultsList.setCellRenderer(renderer);
-        resultsList.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent evt) {
-                JList<String> list = (JList<String>) evt.getSource();
-                if (evt.getClickCount() == 1 && evt.getButton() == MouseEvent.BUTTON1) {
-                    if (handleSingleClick(evt, list)) return;
-                }
-
-                if (evt.getClickCount() == 2 && evt.getButton() == MouseEvent.BUTTON1) {
-                    handleDoubleClick(evt, list);
-                }
-            }
-
-            private void handleDoubleClick(MouseEvent evt, JList<String> list) {
-                int index = list.locationToIndex(evt.getPoint());
-                if (index < 0 || index >= questionListModel.size()) {
-                    return;
-                }
-
-                openBrowser(questionListModel.get(index).getLink());
-
-                //Logging question browser
-
-                logger.info("{QuestionBrowserListRank: " + index + ", Title: " + questionListModel.get(index).getTitle() + ", Tags: " + questionListModel.get(index).getTags() + "}");
-            }
-
-            private boolean handleSingleClick(MouseEvent evt, JList<String> list) {
-                int index = list.locationToIndex(evt.getPoint());
-                if (index < 0 || index >= questionListModel.size()) {
-                    return false;
-                }
-
-                Question question = questionListModel.get(index);
-
-                // If they are expanding the question, increase the tags in the search model
-                if (!question.isExpanded()) {
-                    searchModel.increaseTags(question.getTags());
-                }
-
-                question.toggleExpanded();
-
-                //Logging question expansion
-
-                logger.info("{QuestionExpansionListRank: " + index + ", Title: " + questionListModel.get(index).getTitle() + ", Tags: " + questionListModel.get(index).getTags() + "}");
-
-                refreshListView();
-                return true;
-            }
-        });
-
-        consoleErrorPane.addHyperlinkListener(e -> {
-            if (e.getEventType() == HyperlinkEvent.EventType.ACTIVATED) {
-                setSearchBoxContent(e.getDescription());
-
-                //Logging the error pane
-
-                logger.info("{consoleErrorQuery: " + e.getDescription() + ", Rank: " + consoleErrorPane.getText().indexOf(e.getDescription()) + "}");
-
-                executeQuery(e.getDescription(), false);
-            }
-        });
-    }
-
-    private void refreshListView() {
-        updateList(listModelToList());
-    }
- */
-
     public void autoQuery(String query, boolean backoff, String reasoning){ //reasoning is either "action" or "difficulty"
         Platform.runLater(() -> {
             window.call("autoSearch", query, backoff, reasoning);
@@ -260,64 +162,6 @@ public class SearchToolWindowGUI {
         window.call("generateListeners");
     }
 
-    /*
-    private void updateList(List<Question> elements) {
-        if (elements == null) {
-            return;
-        }
-
-        questionListModel.clear();
-        for (Question element : elements) {
-            questionListModel.addElement(element);
-        }
-
-        if (elements.isEmpty()) {
-            questionListModel.addElement(new Question(null, "Sorry, your search returned no results :(", "", "", "http://www.stackoverflow.com"));
-        }
-    }
-
-    private void setSearchBoxContent(String content) {
-        searchBox.setText(content);
-    }
-    */
-    public void setConsoleError(List<String> compilerMessages) {
-        /*
-        this.compilerMessages = compilerMessages;
-        if (!compilerMessages.isEmpty()) {
-            HTMLEditorKit kit = new HTMLEditorKit();
-            HTMLDocument doc = new HTMLDocument();
-            consoleErrorPane.setEditorKit(kit);
-            consoleErrorPane.setDocument(doc);
-
-            //Logging that an error has occured
-
-            logger.info("{ConsoleError: An error has occured");
-
-            // for each message in compilerMessages, build html link
-            String consoleErrorHTML = compilerMessages.stream().map(message ->
-                    "<font color=\"" + EditorFonts.getPrimaryFontColorHex() + "\">" +
-                        "search for:&nbsp;&nbsp;" +
-                    "</font>" +
-                    "<font color=\"" + EditorFonts.getHyperlinkColorHex() + "\">" +
-                        // href allows hyperlink listener to grab message
-                        "<a href=\"" + message.replace("<", "&lt;").replace(">", "&gt;") + "\">" +
-                            "<u>" +
-                                message.replace("<", "&lt;").replace(">", "&gt;").replace("\n", "<br>") +
-                            "</u>" +
-                        "</a>" +
-                    "</font>").collect(Collectors.joining("<br><br>"));
-
-            try {
-                kit.insertHTML(doc, 0, consoleErrorHTML, 0, 0, null);
-                consoleErrorPane.setVisible(true);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            consoleErrorPane.setVisible(false);
-        } */
-    }
-
     public void log(String message){
         logger.info(message);
     }
@@ -351,8 +195,4 @@ public class SearchToolWindowGUI {
             );
         }
     }
-
-    public JavaBridge getBridge(){ return this.bridge;}
-
-    public String rgbToHex(int r, int g, int b){ return String.format("#%02x%02x%02x", r, g, b); }
 }
