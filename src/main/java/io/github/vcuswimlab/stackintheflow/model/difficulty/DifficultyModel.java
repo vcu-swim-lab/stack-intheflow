@@ -104,7 +104,7 @@ public class DifficultyModel {
                                 }
 
                                 // Execute Search
-                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().autoQuery(autoQuery, true);
+                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().autoQuery(autoQuery, true, "difficulty");
                             }
 
                             eventQueue.clear();

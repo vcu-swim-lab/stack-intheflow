@@ -191,14 +191,14 @@ public class SearchToolWindowGUI {
     }
  */
 
-    public void autoQuery(String query, boolean backoff){
+    public void autoQuery(String query, boolean backoff, String reasoning){ //reasoning is either "manual" or "difficulty"
         Platform.runLater(() -> {
-            window.call("autoSearch", query, backoff);
+            window.call("autoSearch", query, backoff, reasoning);
             window.call("updateUISearchType", "Relevance");
         });
     }
 
-    public void errorQuery(List<String> parsedMessages, boolean backoff){
+    public void errorQuery(List<String> parsedMessages, boolean backoff, String reasoning){ //Reasoning is either "runtime" or "compiler"
         Platform.runLater(() -> {
             Pair<String, List<Question>> questionListPair = retrieveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
             if(questionListPair.getValue().isEmpty()) {
@@ -206,7 +206,7 @@ public class SearchToolWindowGUI {
             }
             window.call("reset");
             window.call("resetSearchTags");
-            window.call("showAutoQueryIcon");
+            window.call("showAutoQueryIcon", reasoning);
             window.call("updateUISearchType", "Relevance");
             window.call("setSearchBox", questionListPair.getKey());
             window.call("addCurrentQueryToHistory");
