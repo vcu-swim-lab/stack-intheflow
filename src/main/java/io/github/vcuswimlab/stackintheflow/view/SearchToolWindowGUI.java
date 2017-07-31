@@ -316,6 +316,10 @@ public class SearchToolWindowGUI {
         } */
     }
 
+    public void log(String message){
+        logger.info(message);
+    }
+
     public void openBrowser(String url) {
         BrowserLauncher.getInstance().browse(url, WebBrowserManager.getInstance().getFirstActiveBrowser());
     }
@@ -349,18 +353,4 @@ public class SearchToolWindowGUI {
     public JavaBridge getBridge(){ return this.bridge;}
 
     public String rgbToHex(int r, int g, int b){ return String.format("#%02x%02x%02x", r, g, b); }
-
-    public String colorToHex(Color color){
-        return rgbToHex(color.getRed(), color.getGreen(), color.getBlue());
-    }
-
-    public static Color getSlightlyDarkerColor(Color c) {
-        float[] hsl = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), new float[3]);
-        return new Color(Color.HSBtoRGB(hsl[0], hsl[1], hsl[2] - .04f > 0 ? hsl[2] - .04f : hsl[2]));
-    }
-
-    public static Color getSlightlyLighterColor(Color c) {
-        float[] hsl = Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), new float[3]);
-        return new Color(Color.HSBtoRGB(hsl[0], hsl[1], hsl[2] + .04f < 1 ? hsl[2] + .04f : hsl[2]));
-    }
 }

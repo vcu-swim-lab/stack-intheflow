@@ -67,8 +67,6 @@ public class DifficultyModel {
                 }
             }
 
-            System.out.println(event);
-
             switch (currentState) {
                 case PAUSE:
                     // Transition to collect state, queue event
