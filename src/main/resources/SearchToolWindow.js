@@ -7,8 +7,10 @@ var searchTags;
 var uiSettings;
 var searchMethod;
 var queryHistory;
+var initialized = false;
 
-$(document).ready(function(){
+function initialize(){
+    initialized = true;
     charCutoff = 300;
     searchTags = new SearchTags();
     uiSettings = new UISettings();
@@ -67,7 +69,7 @@ $(document).ready(function(){
 
     //Activate Tooltips
     $('[data-toggle="tooltip"]').tooltip();
-});
+}
 
 function UISettings(){
     this.isDark = false;

@@ -64,7 +64,7 @@ public class SearchToolWindowGUI {
     }
 
     private void createScene(){
-        PlatformImpl.startup(() -> {
+        Platform.runLater(() -> {
             StackPane root = new StackPane();
             Scene scene = new Scene(root);
             webView = new WebView();
@@ -77,6 +77,7 @@ public class SearchToolWindowGUI {
                 if(newState == Worker.State.SUCCEEDED) {
                     window = (JSObject) engine.executeScript("window");
                     window.setMember("JavaBridge", bridge);
+                    window.call("initialize");
                     updateUISettings();
                 }
             });
