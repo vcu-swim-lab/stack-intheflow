@@ -191,7 +191,7 @@ public class SearchToolWindowGUI {
     }
  */
 
-    public void autoQuery(String query, boolean backoff, String reasoning){ //reasoning is either "manual" or "difficulty"
+    public void autoQuery(String query, boolean backoff, String reasoning){ //reasoning is either "action" or "difficulty"
         Platform.runLater(() -> {
             window.call("autoSearch", query, backoff, reasoning);
             window.call("updateUISearchType", "Relevance");
@@ -210,14 +210,16 @@ public class SearchToolWindowGUI {
             window.call("updateUISearchType", "Relevance");
             window.call("setSearchBox", questionListPair.getKey());
             window.call("addCurrentQueryToHistory");
+            window.call("logQuery", reasoning);
             updateQuestionList(questionListPair.getValue());
         });
     }
 
-    public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType, boolean addToQueryHistory) {
+    public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType, boolean addToQueryHistory, String reasoning) {
         Platform.runLater(() -> {
             Pair<String, List<Question>> questionListPair = retrieveResults(query, tags, backoff, sortType);
             window.call("setSearchBox", questionListPair.getKey());
+            window.call("logQuery", reasoning);
             if(addToQueryHistory) {
                 window.call("addCurrentQueryToHistory");
             }

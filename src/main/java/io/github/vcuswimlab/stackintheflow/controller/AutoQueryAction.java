@@ -42,7 +42,7 @@ public class AutoQueryAction extends AnAction {
         //Execute Search and Open Tool Window
         ToolWindow toolWindow = ToolWindowManager.getInstance(project).getToolWindow("StackInTheFlow");
         SearchToolWindowGUI toolWindowGUI = project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI();
-        toolWindowGUI.autoQuery(autoQuery, true, "manual");
+        toolWindowGUI.autoQuery(autoQuery, true, "action");
         toolWindow.activate(() -> {
         });
     }
