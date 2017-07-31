@@ -32,12 +32,16 @@ body {
     background-color: #45494a;
 }
 
-.dropdown-menu {``
+.dropdown-menu {
     margin: 0;
     padding: 0;
 }
 
 .dropdown-menu li {
+    background-color: #3c3f41;
+}
+
+.dropdown-menu > span {
     background-color: #3c3f41;
 }
 
@@ -159,7 +163,7 @@ blockquote > :last-child {
     border-left: 1px solid #888;
 }
 
-.dropdown-menu li span {
+.dropdown-menu span {
     color: #CCC;
 }
 

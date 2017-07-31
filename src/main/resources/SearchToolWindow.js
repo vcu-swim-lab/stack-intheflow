@@ -125,11 +125,17 @@ function History(){
 
     this.updateUI = function(){
         $('#historyMenu').empty();
-        for(var i = this.queries.length - 1; i >= 0; i--){
-            var li = $("<li>");
-            var span = $("<span>").html(this.queries[i] + (this.tags[i] == "" ? "" : " [" + this.tags[i] + "]"));
-            $(li).append(span);
-            $('#historyMenu').append(li);
+        if(this.queries.length > 0){
+            for(var i = this.queries.length - 1; i >= 0; i--){
+                var li = $("<li>");
+                var span = $("<span>").html(this.queries[i] + (this.tags[i] == "" ? "" : " [" + this.tags[i] + "]"));
+                $(li).append(span);
+                $('#historyMenu').append(li);
+            }
+        }
+        else {
+            var message = $("<span>").html("No history to show yet...");
+            $('#historyMenu').append(message);
         }
     }
 }
@@ -405,37 +411,43 @@ function getQuestion(title, body, tags, link){
 }
 
 function displayQuestions(){
-    for(var i = 0; i < numQuestions; i++){
-        appendNewResultSkeleton(i);
-        var questionSection = questionSections[i];
-        $(questionSection).find(".searchResultTitle").html(questionsList[i].title);
+    if(numQuestions > 0){
+        for(var i = 0; i < numQuestions; i++){
+            appendNewResultSkeleton(i);
+            var questionSection = questionSections[i];
+            $(questionSection).find(".searchResultTitle").html(questionsList[i].title);
 
-        var questionBody = $(questionSection).find(".questionBody");
-        $(questionBody).html(questionsList[i].getShortenedContent());
+            var questionBody = $(questionSection).find(".questionBody");
+            $(questionBody).html(questionsList[i].getShortenedContent());
 
-        if(questionsList[i].hasMoreContent()){
-            var excerptController = $("<div>").addClass("excerptController").html("More");
-            var lastChild = $(questionBody).children().last();
-            if($(lastChild).is("PRE")){
-                excerptController.removeClass('inlineExcerptController');
-                excerptController.addClass('blockExcerptController');
-                $(questionBody).append(excerptController);
+            if(questionsList[i].hasMoreContent()){
+                var excerptController = $("<div>").addClass("excerptController").html("More");
+                var lastChild = $(questionBody).children().last();
+                if($(lastChild).is("PRE")){
+                    excerptController.removeClass('inlineExcerptController');
+                    excerptController.addClass('blockExcerptController');
+                    $(questionBody).append(excerptController);
+                }
+                else {
+                    excerptController.addClass('inlineExcerptController');
+                    excerptController.removeClass('blockExcerptController');
+                    $(lastChild).append(excerptController);
+                }
             }
-            else {
-                excerptController.addClass('inlineExcerptController');
-                excerptController.removeClass('blockExcerptController');
-                $(lastChild).append(excerptController);
+
+            var questionTagsContainer = $(questionSection).find(".questionTags");
+            var unorderedList = $("<ul>");
+
+            for(var j = 0; j < questionsList[i].tags.length; j++){
+                var tagItem = $("<li>").html(questionsList[i].tags[j].toString());
+                $(unorderedList).append(tagItem);
             }
+            $(questionTagsContainer).append(unorderedList);
         }
-
-        var questionTagsContainer = $(questionSection).find(".questionTags");
-        var unorderedList = $("<ul>");
-
-        for(var j = 0; j < questionsList[i].tags.length; j++){
-            var tagItem = $("<li>").html(questionsList[i].tags[j].toString());
-            $(unorderedList).append(tagItem);
-        }
-        $(questionTagsContainer).append(unorderedList);
+    }
+    else {
+        var message = $("<h2>").html("Sorry, querying \"" + $('#searchBox').val() + "\" yielded no results. :(");
+        $('#questions').append(message);
     }
 
     uiSettings.updateUI();

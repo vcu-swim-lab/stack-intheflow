@@ -55,7 +55,7 @@ body {
     display: inline;
 }
 
-.dropdown-menu li span {
+.dropdown-menu span {
     display: block;
     padding: 5px 15px 5px 25px;
     line-height: 20px;

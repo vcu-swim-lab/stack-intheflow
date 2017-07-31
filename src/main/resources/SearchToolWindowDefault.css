@@ -141,7 +141,7 @@ blockquote > :last-child {
     background-color: white;
 }
 
-.dropdown-menu li span {
+.dropdown-menu span {
     color: #333;
 }
 
