@@ -11,24 +11,11 @@ import org.jetbrains.annotations.NotNull;
 import javax.swing.*;
 
 public class SearchToolWindowFactory {
-
-    private JButton searchButton;
-    private JTextField searchBox;
     private JPanel content;
-    private JList<Question> resultsList;
-    private JScrollPane resultsScrollPane;
-    private JPanel searchJPanel;
-    private JEditorPane consoleErrorPane;
 
     public SearchToolWindowGUI buildGUI(@NotNull ToolWindow toolWindow, Project project) {
         SearchToolWindowGUI windowGUI = new SearchToolWindowGUI.SearchToolWindowGUIBuilder()
                 .setContent(content)
-                .setConsoleErrorPane(consoleErrorPane)
-                .setResultsList(resultsList)
-                .setResultsScrollPane(resultsScrollPane)
-                .setSearchBox(searchBox)
-                .setSearchButton(searchButton)
-                .setSearchJPanel(searchJPanel)
                 .setSearchModel(project.getComponent(UserTagStatComponent.class).getSearchModel()).build();
         ContentFactory contentFactory = ContentFactory.SERVICE.getInstance();
         Content windowContent = contentFactory.createContent(windowGUI.getContentPanel(), "", false);

@@ -27,7 +27,7 @@ public class ToolWindowComponent implements ProjectComponent {
     public void projectOpened() {
         ToolWindow toolWindow = ToolWindowManager.getInstance(project).registerToolWindow("StackInTheFlow", false, ToolWindowAnchor.RIGHT);
         toolWindow.setIcon(StackInTheFlowIcons.TOOL_WINDOW_ICON);
-        toolWindow.activate(() -> {
+        toolWindow.setAvailable(true, () -> {
             SearchToolWindowFactory windowFactory = new SearchToolWindowFactory();
             setSearchToolWindowGUI(windowFactory.buildGUI(toolWindow, project));
         });
