@@ -67,12 +67,11 @@ public class DifficultyModel {
                 }
             }
 
-            System.out.println(event);
-
             switch (currentState) {
                 case PAUSE:
                     // Transition to collect state, queue event
                     currentState = State.COLLECT;
+                    logger.info("[difficulty_event]<type>transition</type><state>collect</state>");
                 case COLLECT:
                     eventCounts.put(event.getType(), eventCounts.getOrDefault(event.getType(), 0) + 1);
 
@@ -80,7 +79,10 @@ public class DifficultyModel {
                     if (inactiveTaskFuture != null) {
                         inactiveTaskFuture.cancel(true);
                     }
-                    inactiveTaskFuture = timer.schedule(() -> currentState = State.PAUSE, INACTIVE_DELAY, TimeUnit.MINUTES);
+                    inactiveTaskFuture = timer.schedule(() -> {
+                        currentState = State.PAUSE;
+                        logger.info("[difficulty_event]<type>transition</type><state>pause</state>");
+                    }, INACTIVE_DELAY, TimeUnit.MINUTES);
 
                     if (isFull()) {
                         EditorEventType oldEventType = eventQueue.poll().getType();
@@ -99,23 +101,37 @@ public class DifficultyModel {
                                 //Logging the threshold and event counts
 
                                 if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO) {
-                                    logger.info("{DeleteRatioAutoQuery: " + autoQuery + ", Scroll: "+ Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + ", Click: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + ", Insert: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + ", Delete: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "}");
+                                    logger.info("[difficulty_event]<type>deleteRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
+                                            "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
+                                            "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
+                                            "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
+                                    );
+
                                 }
                                 if (getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO){
-                                    logger.info("{NonEditRatioAutoQuery: " + autoQuery + ", Scroll: "+ Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + ", Click: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + ", Insert: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + ", Delete: " + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "}");
+                                    logger.info("[difficulty_event]<type>nonEditRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
+                                            "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
+                                            "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
+                                            "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
+                                    );
                                 }
 
+
                                 // Execute Search
-                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().executeQuery(autoQuery, true);
+                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().autoQuery(autoQuery, true, "difficulty");
                             }
 
                             eventQueue.clear();
                             eventCounts.clear();
 
                             currentState = State.QUERY;
+                            logger.info("[difficulty_event]<type>transition</type><state>query</state>");
 
                             // After QUERY_DELAY seconds, transition to collect state
-                            timer.schedule(() -> currentState = State.COLLECT, QUERY_DELAY, TimeUnit.SECONDS);
+                            timer.schedule(() -> {
+                                currentState = State.COLLECT;
+                                logger.info("[difficulty_event]<type>transition</type><state>collect</state>");
+                            }, QUERY_DELAY, TimeUnit.SECONDS);
 
                             // Remove the inactive task as we no longer need it in this state
                             inactiveTaskFuture.cancel(true);

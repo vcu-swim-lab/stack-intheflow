@@ -4,10 +4,12 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
 import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent;
+import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent.SettingKey;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+import java.util.EnumMap;
 
 /**
  * <h1>SettingsConfigurable</h1>
@@ -18,8 +20,8 @@ import javax.swing.*;
 public class SettingsConfigurable implements Configurable {
 
     private static final String DISPLAY_NAME = "Stack-InTheFlow";
-    private static PersistSettingsComponent settingsComponent;
-    private static UIState uiState;
+    private static PersistSettingsComponent persistSettingsComponent;
+    private static SettingsGUI settingsGUI;
 
     @Nls
     @Override
@@ -36,37 +38,27 @@ public class SettingsConfigurable implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        settingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
-        uiState = new UIState(settingsComponent.getAutoQuery());
-        return uiState.getPanel();
+        persistSettingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
+        settingsGUI = new SettingsGUI();
+        return settingsGUI.build(persistSettingsComponent.getSettingsMap());
+    }
+
+    @Override
+    public void disposeUIResources() {
+        settingsGUI = null;
     }
 
     @Override
     public boolean isModified() {
-        return uiState.getAutoQuery() != settingsComponent.getAutoQuery();
+        EnumMap<SettingKey, Boolean> guiState = settingsGUI.getGUIState();
+        EnumMap<SettingKey, Boolean> persistState = persistSettingsComponent.getSettingsMap();
+        return !guiState.equals(persistState);
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        settingsComponent.setAutoQuery(uiState.getAutoQuery());
+        EnumMap<SettingKey, Boolean> guiState = settingsGUI.getGUIState();
+        persistSettingsComponent.updateSettings(guiState);
     }
 
-    private class UIState {
-        JPanel panel;
-        JCheckBox autoQueryCheckBox;
-
-        UIState(boolean autoQueryState) {
-            panel = new JPanel();
-            autoQueryCheckBox = new JCheckBox("Allow auto query", autoQueryState);
-            panel.add(autoQueryCheckBox);
-        }
-
-        JComponent getPanel() {
-            return this.panel;
-        }
-
-        boolean getAutoQuery() {
-            return this.autoQueryCheckBox.isSelected();
-        }
-    }
 }

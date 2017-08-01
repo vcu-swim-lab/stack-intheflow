@@ -50,7 +50,7 @@ public class JerseyGet {
             target = target.queryParam(entry.getKey(), entry.getValue());
         }
         //This is the dev key
-        target.queryParam(KEY_PARAM, DEV_KEY);
+        target = target.queryParam(KEY_PARAM, DEV_KEY);
         Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE).acceptEncoding(ENCODING_TYPE);
 
         return builder.get().readEntity(JerseyResponse.class);
@@ -80,7 +80,7 @@ public class JerseyGet {
         RELEVANCE("relevance"),
         ACTIVITY("activity"),
         CREATION("creation"),
-        VOTES("score");
+        VOTES("votes");
 
         private final String label;
 
