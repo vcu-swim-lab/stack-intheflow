@@ -39,18 +39,20 @@ public class CompilerListenerComponent implements ProjectComponent {
                 @Override
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
 
-                    if(compileContext.getMessages(CompilerMessageCategory.ERROR).length != 0){
-                        ErrorMessage messages = new ErrorMessage();
+                    if(project.getComponent(PersistSettingsComponent.class).compileErrorEnabled()){
+                        if(compileContext.getMessages(CompilerMessageCategory.ERROR).length != 0){
+                            ErrorMessage messages = new ErrorMessage();
 
-                        messages.put(ErrorMessage.MessageType.ERROR, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.ERROR)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
-                        messages.put(ErrorMessage.MessageType.WARNING, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.WARNING)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
-                        messages.put(ErrorMessage.MessageType.INFORMATION, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.INFORMATION)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
+                            messages.put(ErrorMessage.MessageType.ERROR, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.ERROR)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
+                            messages.put(ErrorMessage.MessageType.WARNING, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.WARNING)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
+                            messages.put(ErrorMessage.MessageType.INFORMATION, Arrays.stream(compileContext.getMessages(CompilerMessageCategory.INFORMATION)).map(CompilerMessage::getMessage).collect(Collectors.toList()));
 
-                        // Let the parser class handle all data mining
-                        List<String> parsedMessages = ErrorMessageParser.parseCompilerError(messages, project);
+                            // Let the parser class handle all data mining
+                            List<String> parsedMessages = ErrorMessageParser.parseCompilerError(messages, project);
 
-                        // Send the results to be displayed on the console
-                        project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
+                            // Send the results to be displayed on the console
+                            project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().setConsoleError(parsedMessages);
+                        }
                     }
                 }
             });
