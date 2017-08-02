@@ -41,7 +41,7 @@ body {
     background: transparent !important;
 }
 
-#searchAddons {
+#searchAddons, #historyAddon {
     border-left: 0;
 }
 
