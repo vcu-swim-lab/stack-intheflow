@@ -23,6 +23,9 @@ function initialize(){
             e.preventDefault();
 
             var words = $('#searchBox').val().split(" ");
+            if(words.length == 1 && words[0] == ''){
+                return;
+            }
             searchTags.add(words[words.length - 1]);
             words.splice(words.length - 1, 1);
             $('#searchBox').val(words);
@@ -239,11 +242,12 @@ function search(addToHistory){
         }
     }
     var query = $('#searchBox').val();
-    if(query == ""){
+    var tags = searchTags.getQuerySyntax();
+    if(query == "" && tags == ''){
         return;
     }
     reset();
-    var tags = searchTags.getQuerySyntax();
+
     JavaBridge.searchButtonClicked(query, tags, searchMethod, addToHistory);
     hideAutoQueryIcon();
 }
