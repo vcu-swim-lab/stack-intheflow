@@ -29,6 +29,7 @@ function initialize(){
 
             searchTags.add(words[words.length - 1]);
             words.splice(words.length - 1, 1);
+            words = words.toString().split(",").join(" ");
             $('#searchBox').val(words);
             search(true);
         }
