@@ -77,11 +77,14 @@ function initialize(){
     });
 
     //Activate Tooltips
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger: 'hover'
+    });
 
     $('[data-toggle="tooltip"]').on('click', function () {
-        $(this).tooltip('hide')
-    })
+        $(this).tooltip('hide');
+    });
+
 }
 
 function UISettings(){
@@ -233,6 +236,7 @@ function autoSearch(query, backoff, reasoning){
     if(query == ""){
         var message = $("<h2>").html("Unable to generate query, not enough data points.");
         $('#questions').append(message);
+        hideAutoQueryIcon();
         return;
     }
     tags = "";
@@ -329,6 +333,7 @@ function addCurrentQueryToHistory(){
 }
 
 function reset(){
+    setSearchBox('');
     $('#questions').empty();
     questionsList = new Array();
     questionSections = new Array();
