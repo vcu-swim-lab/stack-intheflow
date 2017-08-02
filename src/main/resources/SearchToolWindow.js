@@ -77,11 +77,14 @@ function initialize(){
     });
 
     //Activate Tooltips
-    $('[data-toggle="tooltip"]').tooltip();
+    $('[data-toggle="tooltip"]').tooltip({
+        trigger: 'hover'
+    });
 
     $('[data-toggle="tooltip"]').on('click', function () {
-        $(this).tooltip('hide')
-    })
+        $(this).tooltip('hide');
+    });
+
 }
 
 function UISettings(){
