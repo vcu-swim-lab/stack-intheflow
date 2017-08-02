@@ -20,10 +20,12 @@
                     </span>
                     <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
                     <span class="input-group-addon" id="searchAddons">
-                        <button type="submit" id="searchButton">
+                        <button type="submit" id="searchButton" data-placement="bottom" data-toggle="tooltip"
+                                title="Search" data-delay='{"show":"1000", "hide":"100"}'>
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <div class="input-group-btn search-panel" id="searchMethodsGroup">
+                        <div class="input-group-btn search-panel" id="searchMethodsGroup" data-placement="bottom"
+                             data-toggle="tooltip" title="Sort by" data-delay='{"show":"1000", "hide":"100"}'>
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchMethodsButton">
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>
@@ -36,7 +38,8 @@
                         </div>
                     </span>
 
-                    <span class="input-group-addon" id="historyAddon">
+                    <span class="input-group-addon" id="historyAddon" data-placement="bottom" data-toggle="tooltip"
+                          title="History" data-delay='{"show":"1000", "hide":"100"}'>
                         <div class="input-group-btn search-panel" id="historyGroup">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="historyButton">
                                 <span class="glyphicon glyphicon-time"></span>
