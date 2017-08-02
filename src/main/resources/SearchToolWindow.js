@@ -28,7 +28,7 @@ function initialize(){
             $('#searchBox').val(words);
             search(true);
         }
-        $("#autoQueryIcon").addClass("hidden");
+        hideAutoQueryIcon();
     });
 
     $("#searchTags").on("click", "li", function(e){
@@ -258,9 +258,12 @@ function showAutoQueryIcon(reasoning){
 
     $("#autoQueryIcon").attr("title", message).tooltip('fixTitle');
     $("#autoQueryIcon").removeClass("hidden");
+    $("#searchBox").addClass('removeBorderLeft');
+    JavaBridge.debugBreakpoint();
 }
 
 function hideAutoQueryIcon(){
+    $("#searchBox").removeClass('removeBorderLeft');
     $("#autoQueryIcon").addClass("hidden");
 }
 
