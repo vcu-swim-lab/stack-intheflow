@@ -217,6 +217,11 @@ function SearchTags(){
 function autoSearch(query, backoff, reasoning){
     reset();
     searchTags.clear();
+    if(query == ""){
+        var message = $("<h2>").html("Unable to generate query, not enough data points.");
+        $('#questions').append(message);
+        return;
+    }
     tags = "";
     JavaBridge.autoQuery(query, tags, backoff, true, reasoning);
     showAutoQueryIcon(reasoning);
@@ -233,8 +238,11 @@ function search(addToHistory){
             addToHistory = false;
         }
     }
-    reset();
     var query = $('#searchBox').val();
+    if(query == ""){
+        return;
+    }
+    reset();
     var tags = searchTags.getQuerySyntax();
     JavaBridge.searchButtonClicked(query, tags, searchMethod, addToHistory);
     hideAutoQueryIcon();
