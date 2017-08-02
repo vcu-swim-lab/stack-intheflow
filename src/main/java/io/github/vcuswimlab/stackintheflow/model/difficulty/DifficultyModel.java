@@ -5,6 +5,7 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
+import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
@@ -95,30 +96,36 @@ public class DifficultyModel {
 
                             // Check to see if the tool window is visible before generating the query.
                             if (toolWindow.isVisible()) {
-                                // Generate the autoQuery
-                                String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
 
-                                //Logging the threshold and event counts
+                                // Check to see if the difficulty setting is enabled before generating the query
+                                if (project.getComponent(PersistSettingsComponent.class).difficultyEnabled()) {
 
-                                if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO) {
-                                    logger.info("[difficulty_event]<type>deleteRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
-                                            "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
-                                            "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
-                                            "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
-                                    );
+                                    // Generate the autoQuery
+                                    String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());
+
+                                    //Logging the threshold and event counts
+
+                                    if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO) {
+                                        logger.info("[difficulty_event]<type>deleteRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
+                                                "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
+                                                "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
+                                                "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
+                                        );
+
+                                    }
+                                    if (getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO) {
+                                        logger.info("[difficulty_event]<type>nonEditRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
+                                                "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
+                                                "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
+                                                "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
+                                        );
+                                    }
+
+
+                                    // Execute Search
+                                    project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().autoQuery(autoQuery, true, "difficulty");
 
                                 }
-                                if (getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO){
-                                    logger.info("[difficulty_event]<type>nonEditRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
-                                            "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
-                                            "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
-                                            "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
-                                    );
-                                }
-
-
-                                // Execute Search
-                                project.getComponent(ToolWindowComponent.class).getSearchToolWindowGUI().autoQuery(autoQuery, true, "difficulty");
                             }
 
                             eventQueue.clear();

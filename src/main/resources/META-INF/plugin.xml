@@ -19,6 +19,8 @@
 
   <extensions defaultExtensionNs="com.intellij">
       <consoleInputFilterProvider implementation="io.github.vcuswimlab.stackintheflow.model.erroranalysis.RuntimeErrorFilterProvider"/>
+      <applicationConfigurable instance="io.github.vcuswimlab.stackintheflow.view.SettingsConfigurable"/>
+      <applicationService serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.SettingsComponent" />
   </extensions>
 
   <actions>
@@ -33,6 +35,9 @@
   </actions>
 
     <application-components>
+        <component>
+            <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent</implementation-class>
+        </component>
         <component>
             <implementation-class>io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent
             </implementation-class>

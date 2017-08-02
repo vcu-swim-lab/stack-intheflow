@@ -72,6 +72,10 @@ function initialize(){
         search(false);
     });
 
+    $('#settingsButton').click(function(){
+        JavaBridge.openSettings();
+    });
+
     //Activate Tooltips
     $('[data-toggle="tooltip"]').tooltip();
 }
