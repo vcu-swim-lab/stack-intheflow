@@ -1,5 +1,7 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+import com.intellij.openapi.application.TransactionGuard;
+import com.intellij.openapi.options.ShowSettingsUtil;
 import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 
 /**
@@ -26,6 +28,13 @@ public class JavaBridge {
 
     public void log(String message){
         guiInstance.log(message);
+    }
+
+    public void openSettings() {
+        TransactionGuard.getInstance().submitTransactionLater(() -> {
+                },
+                () -> ShowSettingsUtil.getInstance().showSettingsDialog(guiInstance.getProject(), "Stack-InTheFlow"));
+
     }
 
     public void openInBrowser(String url){
