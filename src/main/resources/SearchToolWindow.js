@@ -21,11 +21,12 @@ function initialize(){
     $('#searchBox').keydown(function(e) {
         if(e.keyCode == 9 && !e.shiftKey) {
             e.preventDefault();
+            var words = $('#searchBox').val().split(" ").filter((item) => item != '');
 
-            var words = $('#searchBox').val().split(" ");
-            if(words.length == 1 && words[0] == ''){
+            if(words.length == 0){
                 return;
             }
+
             searchTags.add(words[words.length - 1]);
             words.splice(words.length - 1, 1);
             $('#searchBox').val(words);
