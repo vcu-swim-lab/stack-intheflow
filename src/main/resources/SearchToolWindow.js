@@ -481,16 +481,26 @@ function displayQuestions(){
 
             if(questionsList[i].hasMoreContent()){
                 var excerptController = $("<div>").addClass("excerptController").html("More");
-                var lastChild = $(questionBody).children().last();
-                if($(lastChild).is("PRE")){
-                    excerptController.removeClass('inlineExcerptController');
-                    excerptController.addClass('blockExcerptController');
-                    $(questionBody).append(excerptController);
+
+                if($(questionBody).children().length > 0){
+                    var lastChild = $(questionBody).children().last();
+                    if($(lastChild).is("PRE")){
+                        excerptController.removeClass('inlineExcerptController');
+                        excerptController.addClass('blockExcerptController');
+                        $(questionBody).append(excerptController);
+                    }
+                    else {
+                        excerptController.addClass('inlineExcerptController');
+                        excerptController.removeClass('blockExcerptController');
+                        $(lastChild).append(excerptController);
+                    }
                 }
                 else {
-                    excerptController.addClass('inlineExcerptController');
-                    excerptController.removeClass('blockExcerptController');
-                    $(lastChild).append(excerptController);
+                    var newChild = $("<span>");
+                    excerptController.removeClass('inlineExcerptController');
+                    excerptController.addClass('blockExcerptController');
+                    $(newChild).append(excerptController);
+                    $(questionBody).append(newChild);
                 }
             }
 
@@ -509,6 +519,7 @@ function displayQuestions(){
         $('#questions').append(message);
     }
 
+    JavaBridge.debugBreakpoint();
     uiSettings.updateUI();
 }
 
@@ -555,6 +566,11 @@ function generateListeners(){
             }
             else {
                 $(questionBody).html(questionsList[index].getShortenedContent());
+                if(questionBody.children().length == 0){
+                    var newChild = $("<span>");
+                    $(newChild).append($(this));
+                    $(questionBody).append(newChild);
+                }
                 $(this).html("More");
                 logResultEvent("contract", index);
             }
