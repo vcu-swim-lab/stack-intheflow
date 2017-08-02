@@ -58,13 +58,18 @@ body {
     display: inline;
 }
 
+.dropdown-menu {
+    max-height: 12.5em; /* 5 elements with 2.5em height */
+    overflow-y: auto;
+}
+
 .dropdown-menu span {
     display: block;
-    padding: 5px 15px 5px 25px;
-    line-height: 20px;
+    padding-left: 1em;
+    font-size: 1em;
     clear: both;
     font-weight: normal;
-    line-height: 1.42857143;
+    line-height: 2.5em;
     white-space: nowrap;
 }
 
