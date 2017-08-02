@@ -142,7 +142,7 @@ public class SearchToolWindowGUI {
             Deque<String> queryStack = new ArrayDeque<>();
             queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
 
-            while (questionList.isEmpty()) {
+            while (questionList.isEmpty() && queryStack.size() > 1) {
                 queryStack.pop();
                 searchQuery = queryStack.stream().collect(Collectors.joining(" "));
                 jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags);
