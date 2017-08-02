@@ -41,11 +41,15 @@ body {
     background: transparent !important;
 }
 
-#searchAddons, #historyAddon {
+#searchAddons {
+    border-right: 0;
+}
+
+#searchAddons, #searchMethodsAddon, #historyAddon {
     border-left: 0;
 }
 
-#searchAddons, #historyAddon, #settingsAddon {
+#searchAddons, #searchMethodsAddon, #historyAddon, #settingsAddon {
     margin: 0;
     padding: 0;
 }

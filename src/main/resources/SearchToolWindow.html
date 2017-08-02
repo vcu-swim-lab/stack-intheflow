@@ -20,14 +20,17 @@
                         <img src="icons/toolWindowIcon.png">
                     </span>
                     <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
-                    <span class="input-group-addon" id="searchAddons">
-                        <button type="submit" id="searchButton" data-placement="bottom" data-toggle="tooltip"
-                                title="Search" data-delay='{"show":"1000", "hide":"100"}'>
+                    <span class="input-group-addon" id="searchAddons" data-placement="bottom" data-toggle="tooltip"
+                          title="Search" data-delay='{"show":"1000", "hide":"100"}' data-container="body">
+                        <button type="submit" id="searchButton">
                             <span class="glyphicon glyphicon-search"></span>
                         </button>
-                        <div class="input-group-btn search-panel" id="searchMethodsGroup" data-placement="bottom"
-                             data-toggle="tooltip" title="Sort by" data-delay='{"show":"1000", "hide":"100"}'
-                             data-container="body">
+                    </span>
+
+                    <span class="input-group-addon" id="searchMethodsAddon" data-placement="bottom"
+                          data-toggle="tooltip" title="Sort by" data-delay='{"show":"1000", "hide":"100"}'
+                          data-container="body">
+                        <div class="input-group-btn search-panel" id="searchMethodsGroup">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchMethodsButton">
                                 <span class="glyphicon glyphicon-chevron-down"></span>
                             </button>
