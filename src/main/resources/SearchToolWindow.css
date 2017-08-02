@@ -32,7 +32,6 @@ body {
 
 .stylish-input-group .form-control{
     border-right: 0;
-    border-left: 0;
     box-shadow: 0 0 0;
     border-color: #ccc;
 }
