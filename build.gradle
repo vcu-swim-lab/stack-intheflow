@@ -4,6 +4,7 @@ plugins {
 }
 
 group 'io.github.vcuswimlab'
+version '0.0.1'
 
 repositories {
     mavenCentral()
@@ -25,6 +26,10 @@ repositories {
 intellij {
     version 'IC-2017.1'
     pluginName 'StackInTheFlow'
+}
+
+patchPluginXml {
+    untilBuild '172.*'
 }
 
 dependencies {

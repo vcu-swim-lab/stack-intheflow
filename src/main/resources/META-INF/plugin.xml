@@ -1,26 +1,21 @@
-<idea-plugin version="2">
+<idea-plugin>
     <id>io.github.vcuswimlab.stackintheflow</id>
     <name>StackInTheFlow</name>
-    <version>0.0.1</version>
     <vendor email="vcuswimlab@gmail.com" url="https://github.com/vcu-swim-lab/stack-intheflow">VCU SWIM Lab</vendor>
 
   <description><![CDATA[
       Plugin to query Stack Overflow.
     ]]></description>
 
-  <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="171"/>
-
   <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
        on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
+    <depends>com.intellij.modules.java</depends>
 
   <extensions defaultExtensionNs="com.intellij">
       <consoleInputFilterProvider implementation="io.github.vcuswimlab.stackintheflow.model.erroranalysis.RuntimeErrorFilterProvider"/>
       <applicationConfigurable instance="io.github.vcuswimlab.stackintheflow.view.SettingsConfigurable"/>
-      <applicationService serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.SettingsComponent" />
+      <applicationService
+              serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent"/>
   </extensions>
 
   <actions>
