@@ -61,4 +61,7 @@ public class SettingsConfigurable implements Configurable {
         persistSettingsComponent.updateSettings(guiState);
     }
 
+    @Override
+    public void reset() {
+    }
 }

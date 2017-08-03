@@ -24,11 +24,12 @@ repositories {
 }
 
 intellij {
-    version 'IC-2017.1'
+    version 'IC-2017.2'
     pluginName 'StackInTheFlow'
 }
 
 patchPluginXml {
+    sinceBuild '162.*'
     untilBuild '172.*'
 }
 
