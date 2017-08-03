@@ -15,9 +15,9 @@ public class PersonalSearchModel {
     private Map<String, Integer> userStatMap;
     private TagStatComponent tagStatComponent;
 
-    public PersonalSearchModel(TagStatComponent tagStatComponent) {
+    public PersonalSearchModel(TagStatComponent tagStatComponent, Map<String, Integer> userStateMap) {
         this.tagStatComponent = tagStatComponent;
-        userStatMap = new HashMap<>();
+        this.userStatMap = userStateMap;
     }
 
     public void increaseTags(Collection<String> tags) {

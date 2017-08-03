@@ -1,4 +1,4 @@
-<idea-plugin version="2">
+<idea-plugin>
     <id>io.github.vcuswimlab.stackintheflow</id>
     <name>StackInTheFlow</name>
     <version>0.0.1</version>
@@ -20,7 +20,8 @@
   <extensions defaultExtensionNs="com.intellij">
       <consoleInputFilterProvider implementation="io.github.vcuswimlab.stackintheflow.model.erroranalysis.RuntimeErrorFilterProvider"/>
       <applicationConfigurable instance="io.github.vcuswimlab.stackintheflow.view.SettingsConfigurable"/>
-      <applicationService serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.SettingsComponent" />
+      <applicationService serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent" />
+      <projectService serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.PersistProfileComponent" />
   </extensions>
 
   <actions>

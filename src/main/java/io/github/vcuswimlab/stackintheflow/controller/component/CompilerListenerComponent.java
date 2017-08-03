@@ -23,10 +23,6 @@ public class CompilerListenerComponent implements ProjectComponent {
     private final Project project;
     private MessageBusConnection connection;
 
-    // Categories of compiler messages that can be extracted
-    // ERROR, WARNING, INFORMATION, STATISTICS
-    private final List<CompilerMessageCategory> messageCategories = Arrays.asList(CompilerMessageCategory.values());
-
     public CompilerListenerComponent(Project project) {
         this.project = project;
     }
