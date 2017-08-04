@@ -5,14 +5,13 @@ import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
 import com.intellij.util.messages.MessageBus;
 import com.intellij.util.messages.MessageBusConnection;
+import io.github.vcuswimlab.stackintheflow.controller.Logging;
 import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.controller.component.stat.terms.TermStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.DifficultyTrigger;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEvent;
 import io.github.vcuswimlab.stackintheflow.model.difficulty.events.EditorEventType;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayDeque;
 import java.util.Deque;
@@ -33,7 +32,7 @@ public class DifficultyModel {
     private static final int QUERY_DELAY = 30; // Delay in seconds
     private static final int INACTIVE_DELAY = 15; // Delay in minutes
     private final int MAX_QUEUE_SIZE = 25;
-    private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
+    private Logging logger = new Logging();
 
 
     private Project project;
@@ -72,7 +71,7 @@ public class DifficultyModel {
                 case PAUSE:
                     // Transition to collect state, queue event
                     currentState = State.COLLECT;
-                    logger.info("[difficulty_event]<type>transition</type><state>collect</state>");
+                    logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "transition" + "\"" + ", " + "\"" + "State" + "\"" + ":" + "\"" + "collect" + "\"" + "}");
                 case COLLECT:
                     eventCounts.put(event.getType(), eventCounts.getOrDefault(event.getType(), 0) + 1);
 
@@ -82,7 +81,7 @@ public class DifficultyModel {
                     }
                     inactiveTaskFuture = timer.schedule(() -> {
                         currentState = State.PAUSE;
-                        logger.info("[difficulty_event]<type>transition</type><state>pause</state>");
+                        logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "transition" + "\"" + ", " + "\"" + "State" + "\"" + ":" + "\"" + "pause" + "\"" + "}");
                     }, INACTIVE_DELAY, TimeUnit.MINUTES);
 
                     if (isFull()) {
@@ -106,18 +105,18 @@ public class DifficultyModel {
                                     //Logging the threshold and event counts
 
                                     if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO) {
-                                        logger.info("[difficulty_event]<type>deleteRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
-                                                "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
-                                                "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
-                                                "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
+                                        logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "DeleteRatioAutoQuery" + "\"" + ", " + "\"" + "scroll" + "\"'" + ":" + eventCounts.getOrDefault(EditorEventType.SCROLL, 0) + ", " +
+                                                "\"" + "click" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.CLICK, 0) + ", " +
+                                                "\"" + "insert" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.INSERT, 0) + ", " +
+                                                "\"" + "delete" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.DELETE, 0) + "}"
                                         );
 
                                     }
                                     if (getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO) {
-                                        logger.info("[difficulty_event]<type>nonEditRatioAutoQuery</type><scroll>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.SCROLL, 0)) + "</scroll>" +
-                                                "<click>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.CLICK, 0)) + "</click>" +
-                                                "<insert>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.INSERT, 0)) + "</insert>" +
-                                                "<delete>" + Integer.toString(eventCounts.getOrDefault(EditorEventType.DELETE, 0)) + "</delete>"
+                                        logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "NonEditRatioAutoQuery" + "\"" + ", " + "\"" + "scroll" + "\"'" + ":" + eventCounts.getOrDefault(EditorEventType.SCROLL, 0) + ", " +
+                                                "\"" + "click" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.CLICK, 0) + ", " +
+                                                "\"" + "insert" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.INSERT, 0) + ", " +
+                                                "\"" + "delete" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.DELETE, 0) + "}"
                                         );
                                     }
 
@@ -132,12 +131,12 @@ public class DifficultyModel {
                             eventCounts.clear();
 
                             currentState = State.QUERY;
-                            logger.info("[difficulty_event]<type>transition</type><state>query</state>");
+                            logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "transition" + "\"" + ", " + "\"" + "State" + "\"" + ":" + "\"" + "query" + "\"" + "}");
 
                             // After QUERY_DELAY seconds, transition to collect state
                             timer.schedule(() -> {
                                 currentState = State.COLLECT;
-                                logger.info("[difficulty_event]<type>transition</type><state>collect</state>");
+                                logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "transition" + "\"" + ", " + "\"" + "State" + "\"" + ":" + "\"" + "collect" + "\"" + "}");
                             }, QUERY_DELAY, TimeUnit.SECONDS);
 
                             // Remove the inactive task as we no longer need it in this state
