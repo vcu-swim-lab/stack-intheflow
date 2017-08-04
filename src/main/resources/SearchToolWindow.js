@@ -317,11 +317,6 @@ function logQuery(queryType){
     var message = '"QueryEventType":' + '"' + queryType + '"' + ', ' + '"Tags":[' +
                     tagString.split(" ").join(", ") + '], ' + '"sort":' + '"' + searchMethod.toLowerCase() + '"' + '}';
 
-/*
-        var message = "[query_event]<type>" + queryType + "</type><query>" + query + "</query><tags>" +
-
-                        tags.split(" ").join(", ") + "</tags>" + "<sort>" + searchMethod.toLowerCase() + "</sort>";
-*/
     JavaBridge.log(message);
 }
 
