@@ -18,6 +18,12 @@ function initialize(){
 
     searchMethod = "RELEVANCE";
 
+    limitDropdownWidth(Math.round($(window).width() * 0.8));
+
+    $(window).resize(function(){
+       limitDropdownWidth(Math.round($(window).width() * 0.8));
+    });
+
     $('#searchBox').keydown(function(e) {
         if(e.keyCode == 9 && !e.shiftKey) {
             e.preventDefault();
@@ -605,6 +611,11 @@ function generateListeners(){
         e.preventDefault();
         JavaBridge.openInBrowser($(this).attr('href'));
     });
+}
+
+function limitDropdownWidth(width){
+    $('#historyMenu').css('max-width', width + "px");
+    $('#historyMenu').css('overflow-x', "auto");
 }
 
 function RegexMatch(result, index, length){
