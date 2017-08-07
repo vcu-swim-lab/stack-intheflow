@@ -216,6 +216,7 @@ function SearchTags(){
     this.add = function(newTag){
         if(!this.contains(newTag)){
             this.tags.push(newTag);
+            JavaBridge.updatePersonalSearchModel(newTag, 2);
             this.updateUI();
         }
     }
@@ -662,7 +663,7 @@ function generateListeners(){
         $(questionSections[i]).on("click", ".searchResultTitle", function(e){ //Click on title to open in browser
             var clickedSection = $(this).closest('.searchResultItem');
             var index = $(clickedSection).find('#questionIndex').html();
-            JavaBridge.updatePersonalSearchModel(questionsList[index].tags, 2);
+            JavaBridge.updatePersonalSearchModel(questionsList[index].tags, 3);
             JavaBridge.openInBrowser(questionsList[index].link);
             logResultEvent("browser", index);
         });
