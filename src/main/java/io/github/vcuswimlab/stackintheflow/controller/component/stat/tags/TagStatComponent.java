@@ -21,7 +21,7 @@ import java.util.Optional;
  */
 public class TagStatComponent implements ApplicationComponent {
 
-    public static final String COMPONENT_ID = "StackInTheFlow.TermStatComponent";
+    public static final String COMPONENT_ID = "StackInTheFlow.TagStatComponent";
     private long tagCount;
     private long docCount;
     private Map<String, Stat> tagStatMap;

@@ -3,6 +3,7 @@ package io.github.vcuswimlab.stackintheflow.model.erroranalysis;
 import com.intellij.execution.filters.ConsoleInputFilterProvider;
 import com.intellij.execution.filters.InputFilter;
 import com.intellij.execution.ui.ConsoleViewContentType;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Pair;
 import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent;
@@ -43,7 +44,7 @@ public class RuntimeErrorFilterProvider implements ConsoleInputFilterProvider {
         @Nullable
         @Override
         public List<Pair<String, ConsoleViewContentType>> applyFilter(String s, ConsoleViewContentType consoleViewContentType) {
-            if(project.getComponent(PersistSettingsComponent.class).runtimeErrorEnabled()) {
+            if(ServiceManager.getService(PersistSettingsComponent.class).runtimeErrorEnabled()) {
                 if (consoleViewContentType.equals(ConsoleViewContentType.ERROR_OUTPUT)) {
                     // all ERROR_OUTPUT is a result of runtime error
                     runtimeErrorComponent.appendMessage(this, "ERROR", s);

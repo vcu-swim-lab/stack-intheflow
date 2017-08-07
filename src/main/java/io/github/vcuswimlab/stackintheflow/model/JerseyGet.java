@@ -9,6 +9,8 @@ import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.MediaType;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Map;
 
 
@@ -46,9 +48,15 @@ public class JerseyGet {
 
     public JerseyResponse executeQuery(Query query, SearchType type) {
         WebTarget target = webTarget.path(type.toString());
-        for(Map.Entry<String, String> entry : query.getComponentMap().entrySet()) {
-            target = target.queryParam(entry.getKey(), entry.getValue());
+
+        try {
+            for (Map.Entry<String, String> entry : query.getComponentMap().entrySet()) {
+                target = target.queryParam(entry.getKey(), URLEncoder.encode(entry.getValue(), "UTF-8"));
+            }
+        } catch (UnsupportedEncodingException ignored) {
+            // Ignore
         }
+
         //This is the dev key
         target = target.queryParam(KEY_PARAM, DEV_KEY);
         Invocation.Builder builder = target.request(MediaType.APPLICATION_JSON_TYPE).acceptEncoding(ENCODING_TYPE);

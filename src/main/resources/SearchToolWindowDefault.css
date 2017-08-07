@@ -137,8 +137,12 @@ blockquote > :last-child {
     -webkit-box-shadow: 0 -1px 0px #ededed;
 }
 
+.removeBorderLeft {
+    border-left: 0;
+}
+
 #autoQueryIcon {
-    background-color: white;
+    border-right: 0;
 }
 
 .dropdown-menu span {

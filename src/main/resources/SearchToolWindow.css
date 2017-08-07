@@ -32,7 +32,6 @@ body {
 
 .stylish-input-group .form-control{
     border-right: 0;
-    border-left: 0;
     box-shadow: 0 0 0;
     border-color: #ccc;
 }
@@ -43,10 +42,14 @@ body {
 }
 
 #searchAddons {
+    border-right: 0;
+}
+
+#searchAddons, #searchMethodsAddon, #historyAddon {
     border-left: 0;
 }
 
-#searchAddons, #historyAddon, #settingsAddon {
+#searchAddons, #searchMethodsAddon, #historyAddon, #settingsAddon {
     margin: 0;
     padding: 0;
 }
@@ -55,13 +58,18 @@ body {
     display: inline;
 }
 
+.dropdown-menu {
+    max-height: 12.5em; /* 5 elements with 2.5em height */
+    overflow-y: auto;
+}
+
 .dropdown-menu span {
     display: block;
-    padding: 5px 15px 5px 25px;
-    line-height: 20px;
+    padding-left: 1em;
+    font-size: 1em;
     clear: both;
     font-weight: normal;
-    line-height: 1.42857143;
+    line-height: 2.5em;
     white-space: nowrap;
 }
 
