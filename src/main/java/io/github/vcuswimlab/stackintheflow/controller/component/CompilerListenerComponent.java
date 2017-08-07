@@ -2,6 +2,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 
 import com.intellij.openapi.compiler.*;
 import com.intellij.openapi.components.ProjectComponent;
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.messages.MessageBusConnection;
 import io.github.vcuswimlab.stackintheflow.model.erroranalysis.ErrorMessageParser;
@@ -39,7 +40,7 @@ public class CompilerListenerComponent implements ProjectComponent {
             connection.subscribe(CompilerTopics.COMPILATION_STATUS, new CompilationStatusListener() {
                 @Override
                 public void compilationFinished(boolean aborted, int errors, int warnings, CompileContext compileContext) {
-                    if(project.getComponent(PersistSettingsComponent.class).compileErrorEnabled()) {
+                    if(ServiceManager.getService(PersistSettingsComponent.class).compileErrorEnabled()) {
                         if(compileContext.getMessages(CompilerMessageCategory.ERROR).length != 0){
                             ErrorMessage messages = new ErrorMessage();
 
