@@ -4,6 +4,7 @@ import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsC
 
 import javax.swing.*;
 import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * <h1>SettingsGUI</h1>
@@ -19,7 +20,7 @@ public class SettingsGUI {
     private JCheckBox difficultyCheckBox;
     private JCheckBox loggingCheckBox;
 
-    public JPanel build(EnumMap<SettingKey, Boolean> settingsMap) {
+    public JPanel build(Map<SettingKey, Boolean> settingsMap) {
         this.autoQueryCheckBox.setSelected(settingsMap.get(SettingKey.AUTO_QUERY));
         this.runtimeErrorCheckBox.setSelected(settingsMap.get(SettingKey.RUNTIME_ERROR));
         this.compileErrorCheckbox.setSelected(settingsMap.get(SettingKey.COMPILE_ERROR));
@@ -47,8 +48,8 @@ public class SettingsGUI {
         return content;
     }
 
-    public EnumMap<SettingKey, Boolean> getGUIState() {
-        EnumMap<SettingKey, Boolean> guiState = new EnumMap<>(SettingKey.class);
+    public Map<SettingKey, Boolean> getGUIState() {
+        Map<SettingKey, Boolean> guiState = new EnumMap<>(SettingKey.class);
         guiState.put(SettingKey.AUTO_QUERY, this.autoQueryCheckBox.isSelected());
         guiState.put(SettingKey.RUNTIME_ERROR, this.runtimeErrorCheckBox.isSelected());
         guiState.put(SettingKey.COMPILE_ERROR, this.compileErrorCheckbox.isSelected());

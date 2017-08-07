@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * <h1>SettingsConfigurable</h1>
@@ -50,14 +51,14 @@ public class SettingsConfigurable implements Configurable {
 
     @Override
     public boolean isModified() {
-        EnumMap<SettingKey, Boolean> guiState = settingsGUI.getGUIState();
-        EnumMap<SettingKey, Boolean> persistState = persistSettingsComponent.getSettingsMap();
+        Map<SettingKey, Boolean> guiState = settingsGUI.getGUIState();
+        Map<SettingKey, Boolean> persistState = persistSettingsComponent.getSettingsMap();
         return !guiState.equals(persistState);
     }
 
     @Override
     public void apply() throws ConfigurationException {
-        EnumMap<SettingKey, Boolean> guiState = settingsGUI.getGUIState();
+        Map<SettingKey, Boolean> guiState = settingsGUI.getGUIState();
         persistSettingsComponent.updateSettings(guiState);
     }
 
