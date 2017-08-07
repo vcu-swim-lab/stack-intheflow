@@ -2,10 +2,9 @@ package io.github.vcuswimlab.stackintheflow.view;
 
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.browsers.WebBrowserManager;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.ide.ui.LafManager;
+import com.intellij.openapi.project.Project;
 import com.intellij.util.ui.UIUtil;
-import com.sun.javafx.application.PlatformImpl;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
@@ -25,7 +24,9 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ import java.util.stream.Collectors;
 public class SearchToolWindowGUI {
     private JPanel content;
     private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
-
+    private Project project;
 
     private PersonalSearchModel searchModel;
 
@@ -45,16 +46,17 @@ public class SearchToolWindowGUI {
     private JSObject window;
     private JavaBridge bridge;
 
-    private SearchToolWindowGUI(JPanel content,
+    private SearchToolWindowGUI(JPanel content, Project project,
                                 PersonalSearchModel searchModel) {
         this.content = content;
+        this.project = project;
         this.searchModel = searchModel;
         bridge = new JavaBridge(this);
         initComponents();
     }
 
     private void initComponents(){
-        ApplicationManager.getApplication().getMessageBus().connect().subscribe(EditorColorsManager.TOPIC, scheme -> updateUISettings());
+        LafManager.getInstance().addLafManagerListener(source -> updateUISettings());
 
         jfxPanel = new JFXPanel();
         createScene();
@@ -139,7 +141,7 @@ public class SearchToolWindowGUI {
             Deque<String> queryStack = new ArrayDeque<>();
             queryStack.addAll(Arrays.asList(searchQuery.split("\\s")));
 
-            while (questionList.isEmpty()) {
+            while (questionList.isEmpty() && queryStack.size() > 1) {
                 queryStack.pop();
                 searchQuery = queryStack.stream().collect(Collectors.joining(" "));
                 jerseyResponse = QueryExecutor.executeQuery(searchQuery + " " + tags);
@@ -175,9 +177,14 @@ public class SearchToolWindowGUI {
         return content;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
     public static class SearchToolWindowGUIBuilder {
         private JPanel content;
         private PersonalSearchModel searchModel;
+        private Project project;
 
         public SearchToolWindowGUIBuilder setContent(JPanel content) {
             this.content = content;
@@ -189,9 +196,15 @@ public class SearchToolWindowGUI {
             return this;
         }
 
+        public SearchToolWindowGUIBuilder setProject(Project project) {
+            this.project = project;
+            return this;
+        }
+
         public SearchToolWindowGUI build() {
             return new SearchToolWindowGUI(
                     content,
+                    project,
                     searchModel
             );
         }

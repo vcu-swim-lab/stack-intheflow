@@ -155,11 +155,11 @@ blockquote > :last-child {
     background-color: #818c94;
 }
 
-.glyphicon-search, .glyphicon-chevron-down, .glyphicon-time {
+.glyphicon-search, .glyphicon-chevron-down, .glyphicon-time, .glyphicon-cog {
     color: #DDD;
 }
 
-#historyAddon {
+#historyAddon, #settingsAddon {
     border-left: 1px solid #888;
 }
 
