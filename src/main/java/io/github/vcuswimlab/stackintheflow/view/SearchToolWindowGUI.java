@@ -23,9 +23,7 @@ import netscape.javascript.JSObject;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
+import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -162,6 +160,10 @@ public class SearchToolWindowGUI {
         }
         window.call("displayQuestions");
         window.call("generateListeners");
+    }
+
+    public void updateSearchModel(Collection<String> tags, int amount) {
+        searchModel.increaseTags(tags, amount);
     }
 
     public void log(String message){
