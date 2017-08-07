@@ -5,6 +5,7 @@ import com.intellij.ide.browsers.WebBrowserManager;
 import com.intellij.ide.ui.LafManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.ui.UIUtil;
+import io.github.vcuswimlab.stackintheflow.controller.Logging;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
 import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
@@ -19,8 +20,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.util.Pair;
 import netscape.javascript.JSObject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +34,7 @@ import java.util.stream.Collectors;
  */
 public class SearchToolWindowGUI {
     private JPanel content;
-    private Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
+    private Logging logger = new Logging() ;
     private Project project;
 
     private PersonalSearchModel searchModel;

@@ -313,14 +313,24 @@ function updateUISearchType(searchType){
 function logQuery(queryType){
     query = $("#searchBox").val();
     tags = searchTags.toString();
-    var message = "[query_event]<type>" + queryType + "</type><query>" + query + "</query><tags>" +
-                    tags.split(" ").join(", ") + "</tags>" + "<sort>" + searchMethod.toLowerCase() + "</sort>";
+    var tagArray = tags.split(" ");
+    var tagLength = tagArray.length;
+    for (var i = 0; i < tagLength; i++){
+    tagArray[i] = hashCode(tagArray[i]);
+    }
+    var tagString = tagArray.toString();
+
+    var message = '"QueryEventType":' + '"' + queryType + '"' + ', ' + '"Tags":[' +
+                    tagString.split(" ").join(", ") + '], ' + '"sort":' + '"' + searchMethod.toLowerCase() + '"' + '}';
+
     JavaBridge.log(message);
 }
 
 function logResultEvent(resultType, index){
     var totalResults = numQuestions;
-    var message = "[result_event]<type>" + resultType + "</type><index>" + index + "</index><total>" + totalResults + "</total>";
+
+    var message = '"ResultEventType":' + '"' + resultType + '"' + ', ' + '"Index":' + index + ', ' + '"Total":' + totalResults + '}';
+
     JavaBridge.log(message);
 }
 
@@ -629,4 +639,17 @@ String.prototype.regexIndexOf = function(regex, fromIndex){
   var match = str.match(regex);
 
   return new RegexMatch(match ? match[0] : "", match ? str.indexOf(match[0]) + fromIndex : -1, match ? match[0].length : -1);
+}
+
+function hashCode(string) {
+
+  var hash = 0, length = string.length, i = 0;
+
+  if ( length > 0 )
+
+    while (i < length)
+
+      hash = (hash << 5) - hash + string.charCodeAt(i++) | 0;
+
+  return hash;
 }
