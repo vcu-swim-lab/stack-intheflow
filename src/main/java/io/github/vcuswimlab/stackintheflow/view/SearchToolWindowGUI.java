@@ -2,8 +2,7 @@ package io.github.vcuswimlab.stackintheflow.view;
 
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.browsers.WebBrowserManager;
-import com.intellij.openapi.application.ApplicationManager;
-import com.intellij.openapi.editor.colors.EditorColorsManager;
+import com.intellij.ide.ui.LafManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.util.ui.UIUtil;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
@@ -57,7 +56,7 @@ public class SearchToolWindowGUI {
     }
 
     private void initComponents(){
-        ApplicationManager.getApplication().getMessageBus().connect().subscribe(EditorColorsManager.TOPIC, scheme -> updateUISettings());
+        LafManager.getInstance().addLafManagerListener(source -> updateUISettings());
 
         jfxPanel = new JFXPanel();
         createScene();

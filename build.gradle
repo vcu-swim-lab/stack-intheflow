@@ -24,11 +24,15 @@ repositories {
 }
 
 intellij {
-    version 'IC-2017.1'
+    version 'IC-2017.2'
     pluginName 'StackInTheFlow'
+
+    // Uncomment to test against android studio
+    // alternativeIdePath '/applications/android-studio'
 }
 
 patchPluginXml {
+    sinceBuild '162.1121'
     untilBuild '172.*'
 }
 
