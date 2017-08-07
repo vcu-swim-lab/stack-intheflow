@@ -15,16 +15,16 @@ public class PersonalSearchModel {
     private Map<String, Integer> userStatMap;
     private TagStatComponent tagStatComponent;
 
-    public PersonalSearchModel(TagStatComponent tagStatComponent) {
+    public PersonalSearchModel(TagStatComponent tagStatComponent, Map<String, Integer> userStateMap) {
         this.tagStatComponent = tagStatComponent;
-        userStatMap = new HashMap<>();
+        this.userStatMap = userStateMap;
     }
 
     public void increaseTags(Collection<String> tags) {
         tags.forEach(tag -> userStatMap.put(tag, userStatMap.getOrDefault(tag, 0) + 1));
     }
 
-    public List<Question> rankQuesitonList(List<Question> initialList) {
+    public List<Question> rankQuestionList(List<Question> initialList) {
 
         List<QuestionRank> questionRankList = new ArrayList<>();
         for (int i = 0; i < initialList.size(); i++) {

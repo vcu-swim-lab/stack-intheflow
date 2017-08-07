@@ -1,0 +1,179 @@
+body {
+    background-color: #3c3f41;
+    color: #cccccc;
+}
+
+.searchResultItem {
+    background-color: #45494a;
+}
+
+.myWell {
+    background-color: #515455;
+    border: 0;
+}
+
+#searchMethod {
+    color: #dddddd;
+}
+
+#searchBox {
+    background-color: #45494a;
+    color: #dddddd;
+    border: 0;
+}
+
+.stylish-input-group .input-group-addon{
+    background: #45494a !important;
+    border: 0;
+}
+
+#searchMethodsButton, #searchMethodsButton:hover, #searchMethodsButton:focus, #searchMethodsButton:active, #searchMethodsButton:visited
+#historyButton, #historyButton:hover, #historyButton:focus, #historyButton:active, #historyButton:visited {
+    background-color: #45494a;
+}
+
+.dropdown-menu {
+    margin: 0;
+    padding: 0;
+}
+
+.dropdown-menu li {
+    background-color: #3c3f41;
+}
+
+.dropdown-menu > span {
+    background-color: #3c3f41;
+}
+
+.dropdown-menu li:hover {
+    background-color: #45494a;
+}
+
+.dropdown-menu li a, .dropdown-menu li a:hover {
+    color: #dddddd;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #45494a;
+}
+
+pre {
+    font-size: 1em;
+    margin-top: 0;
+    margin-bottom: 0;
+    font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #2c2c2c;
+    border-radius: 3px;
+    color: #dddddd;
+    word-wrap: normal;
+    border: 0;
+}
+
+code {
+    font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+    font-size: 12px;
+    padding: 0.2em 0;
+    margin: 0;
+    font-size: 85%;
+    color: #dddddd;
+    background-color: #333333;
+    border-radius: 3px;
+    border: 0;
+}
+
+/* #2b2b2b */
+
+code:before,
+code:after {
+    letter-spacing: -0.2em;
+    content: "\00a0";
+}
+
+pre > code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+}
+
+pre code {
+    display: inline;
+    max-width: initial;
+    padding: 0;
+    margin: 0;
+    overflow: initial;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: transparent;
+    border: 0;
+}
+
+pre code:before,
+pre code:after {
+    content: normal;
+}
+
+blockquote {
+    padding: 0 15px;
+    color: #a0a4a5;
+    border-left: 4px solid #626667;
+}
+
+blockquote > :first-child {
+    margin-top: 0;
+}
+
+blockquote > :last-child {
+    margin-bottom: 0;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+    background-color: inherit;
+}
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border: 2px solid #2c2c2c;
+    background-color: #404040;
+}
+::-webkit-scrollbar-track {
+    width: 12px;
+    height: 12px;
+    background-color: #2c2c2c;
+}
+
+.questionTags li, .searchTags li {
+    color: #19638d;
+    background-color: #818c94;
+}
+
+.glyphicon-search, .glyphicon-chevron-down, .glyphicon-time, .glyphicon-cog {
+    color: #DDD;
+}
+
+#historyAddon, #settingsAddon {
+    border-left: 1px solid #888;
+}
+
+.dropdown-menu span {
+    color: #CCC;
+}
+
+.dropdown-menu li span:hover {
+    cursor:pointer;
+    text-decoration: none;
+    color: #CCC;
+    background-color: #45494a;
+}
+
+#searchMethodsMenu li .selectedItem {
+    background-color: #45494a;
+}

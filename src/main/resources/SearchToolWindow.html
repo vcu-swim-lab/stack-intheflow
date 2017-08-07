@@ -1,0 +1,106 @@
+<html>
+<head>
+    <link rel="stylesheet" href="Bootstrap-custom/css/bootstrap.min.css">
+    <link rel="stylesheet" href="SearchToolWindow.css" id="baseSheet">
+    <link rel="stylesheet" href="SearchToolWindowDark.css" id="darkSheet">
+    <link rel="stylesheet" href="SearchToolWindowDefault.css" id="defaultSheet">
+    <script
+            src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <script src="Bootstrap-custom/js/bootstrap.min.js"></script>
+</head>
+<body class="themeBG">
+    <div class="well well-sm myWell">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="input-group stylish-input-group">
+                    <span class="input-group-addon hidden" id="autoQueryIcon" data-toggle="tooltip"
+                          data-placement="bottom" title="This query was automatically generated" data-container="body">
+                        <img src="icons/toolWindowIcon.png">
+                    </span>
+                    <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
+                    <span class="input-group-addon" id="searchAddons" data-placement="bottom" data-toggle="tooltip"
+                          title="Search" data-delay='{"show":"1000", "hide":"100"}' data-container="body">
+                        <button type="submit" id="searchButton">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+
+                    <span class="input-group-addon" id="searchMethodsAddon" data-placement="bottom"
+                          data-toggle="tooltip" title="Sort by" data-delay='{"show":"1000", "hide":"100"}'
+                          data-container="body">
+                        <div class="input-group-btn search-panel" id="searchMethodsGroup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="searchMethodsButton">
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" id="searchMethodsMenu">
+                                <li><span class="selectedItem">Relevance</span></li>
+                                <li><span>Votes</span></li>
+                                <li><span>Newest</span></li>
+                                <li><span>Active</span></li>
+                            </ul>
+                        </div>
+                    </span>
+
+                    <span class="input-group-addon" id="historyAddon" data-placement="bottom" data-toggle="tooltip"
+                          title="History" data-delay='{"show":"1000", "hide":"100"}' data-container="body">
+                        <div class="input-group-btn search-panel" id="historyGroup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="historyButton">
+                                <span class="glyphicon glyphicon-time"></span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-right" role="menu" id="historyMenu">
+                                <li></li>
+                            </ul>
+                        </div>
+                    </span>
+
+                    <span class="input-group-addon" id="settingsAddon" data-placement="bottom" data-toggle="tooltip"
+                          title="Settings" data-delay='{"show":"1000", "hide":"100"}' data-container="body">
+                        <div class="input-group-btn search-panel" id="settingsGroup">
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    id="settingsButton">
+                                <span class="glyphicon glyphicon-cog"></span>
+                            </button>
+                        </div>
+                    </span>
+                </div>
+            </div>
+
+            <!--
+            <div class="col-xs-12">
+                <div class="input-group stylish-input-group">
+                    <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
+                    <span class="input-group-addon">
+                        <button type="submit" id="searchButton">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                        <button type="submit" id="searchMethods" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-chevron-down"></span>
+                        </button>
+                        <ul class="dropdown-menu" id="searchMethodsMenu" role="menu">
+                            <li><a href="">Relevance</a></li>
+                            <li><a href="">Relevance</a></li>
+                            <li><a href="">Top</a></li>
+                        </ul>
+                    </span>
+                </div>
+            </div> -->
+        </div>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1 col-xs-12">
+                <div id="searchTagsContainer">
+                    <ul id="searchTags" class="searchTags"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="content" class="contentStart themeBG">
+        <div id="questions">
+        </div>
+    </div>
+
+    <script src="SearchToolWindow.js"></script>
+</body>
+</html>
