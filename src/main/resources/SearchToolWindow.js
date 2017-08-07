@@ -627,6 +627,7 @@ function generateListeners(){
             if($(this).html() == 'More'){
                 $(questionBody).html(questionsList[index].body);
                 $(this).html("Less");
+                JavaBridge.updatePersonalSearchModel(questionsList[index].tags, 1);
                 logResultEvent("expand", index);
             }
             else {
@@ -661,6 +662,7 @@ function generateListeners(){
         $(questionSections[i]).on("click", ".searchResultTitle", function(e){ //Click on title to open in browser
             var clickedSection = $(this).closest('.searchResultItem');
             var index = $(clickedSection).find('#questionIndex').html();
+            JavaBridge.updatePersonalSearchModel(questionsList[index].tags, 2);
             JavaBridge.openInBrowser(questionsList[index].link);
             logResultEvent("browser", index);
         });
