@@ -1,11 +1,8 @@
 package io.github.vcuswimlab.stackintheflow.controller;
 
 import com.intellij.openapi.application.PathManager;
-import com.intellij.openapi.components.BaseComponent;
-import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.project.ProjectManager;
-import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -27,7 +24,7 @@ public class Logging {
     public void info(String info){
 
         File file = new File(PathManager.getLogPath() + "/logfile.log");
-        System.out.println(file.length());
+        //System.out.println(file.length());
         if (file.length() > 500){
             LogServer logServer = new LogServer();
             logServer.LogToServer(file);

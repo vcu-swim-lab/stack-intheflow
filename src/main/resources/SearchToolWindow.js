@@ -377,7 +377,7 @@ function logQuery(queryType){
     var tagArray = tags.split(" ");
     var tagLength = tagArray.length;
     for (var i = 0; i < tagLength; i++){
-    tagArray[i] = hashCode(tagArray[i]);
+        tagArray[i] = hashCode(tagArray[i]);
     }
     var tagString = tagArray.toString();
 
