@@ -4,6 +4,9 @@ import com.intellij.openapi.application.TransactionGuard;
 import com.intellij.openapi.options.ShowSettingsUtil;
 import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by stackintheflow on 6/26/17.
  */
@@ -34,7 +37,11 @@ public class JavaBridge {
         TransactionGuard.getInstance().submitTransactionLater(() -> {
                 },
                 () -> ShowSettingsUtil.getInstance().showSettingsDialog(guiInstance.getProject(), "Stack-InTheFlow"));
+    }
 
+    public void updatePersonalSearchModel(String tagsString, int amount) {
+        List<String> tagsList = Arrays.asList(tagsString.split(","));
+        guiInstance.updateSearchModel(tagsList, amount);
     }
 
     public void openInBrowser(String url){

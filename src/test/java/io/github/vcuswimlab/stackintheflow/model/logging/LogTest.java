@@ -7,7 +7,6 @@ import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -25,7 +24,7 @@ public class LogTest {
         //Checks if file exists and has content
 
         System.out.println(PathManager.getLogPath());
-        logger.info("HELLOWORLD");
+        logger.info("\"" + "Test" + "\"" + ":" + "\"" + "Hello World!" + "\"" + "}");
         File file = new File(PathManager.getLogPath() + "/logfile.log");
 
         try{

@@ -21,7 +21,11 @@ public class PersonalSearchModel {
     }
 
     public void increaseTags(Collection<String> tags) {
-        tags.forEach(tag -> userStatMap.put(tag, userStatMap.getOrDefault(tag, 0) + 1));
+        increaseTags(tags, 1);
+    }
+
+    public void increaseTags(Collection<String> tags, int amount) {
+        tags.forEach(tag -> userStatMap.put(tag, userStatMap.getOrDefault(tag, 0) + amount));
     }
 
     public List<Question> rankQuestionList(List<Question> initialList) {

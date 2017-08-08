@@ -4,9 +4,8 @@
         <RollingFile name="RollingFile"
                      fileName="${LOG_PATH:call}/logfile.log"
                      filePattern="${LOG_PATH:call}/logfile-%d{yyyy-MM-dd}-%i.log.gz">
-            <Jsonlayout compact="false" />
             <Policies>
-                <SizeBasedTriggeringPolicy size="100 kB"/>
+                <SizeBasedTriggeringPolicy size="512 kB"/>
             </Policies>
             <DefaultRolloverStrategy max="1" />
         </RollingFile>
