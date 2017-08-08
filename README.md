@@ -45,11 +45,10 @@ Kevin Ngo ([cptcomo](https://github.com/cptcomo)) - UI
 
 Kosta Damevski - Project Advisor  
 
-*This plugin is produced by the ([SWIM Lab](http://vcu-swim-lab.github.io/)) @ Virginia Commonwealth University*
+*This plugin is produced by the [SWIM Lab](http://vcu-swim-lab.github.io/) @ Virginia Commonwealth University*
 
 ## Install
 [StackInTheFlow](https://plugins.jetbrains.com/plugin/9653-stackintheflow)
 
 ## License
-
 [MIT](../LICENSE)
