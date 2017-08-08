@@ -17,10 +17,18 @@ Never forget your queries again, browse your previous queries with history
 
 ![History](https://i.imgur.com/fyOwJvy.gif)
 
-### Solve Errors
+### Understand Errors
 Find meaning behind cryptic error messages, StackInTheFlow will automatically search an error when thrown either at compile or run time.
 
 ![Error](https://i.imgur.com/TcEB9Es.png)
+
+### Smarter Queries for a Smarter You
+Take your queries one step further by having StackInTheFlow generate them for you. Either highlight a section of code or right-click on a troublsome line and select AutoQuery!
+
+![Auto](https://i.imgur.com/SrBiEST.gif)
+
+### StackInTheFLow Helping you solve Development Issues
+If enabled, StackInTheFLow with even make suggestions of Stack Overflow articles when it thinks they will help you out with your current task, ensuring relevant information is always at your fingertips.
 
 ## Contributors
 
