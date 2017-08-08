@@ -20,9 +20,9 @@ public class UserTagStatComponent implements ProjectComponent {
     private PersonalSearchModel searchModel;
     private Map<String, Integer> userStatMap;
 
-    public UserTagStatComponent(TagStatComponent tagStatComponent) {
+    public UserTagStatComponent(TagStatComponent tagStatComponent, Project project) {
         this.tagStatComponent = tagStatComponent;
-        userStatMap = ServiceManager.getService(PersistProfileComponent.class).getUserStateMap();
+        this.userStatMap = ServiceManager.getService(project, PersistProfileComponent.class).getUserStatMap();
     }
 
     @Override

@@ -20,13 +20,13 @@ import java.util.Map;
         name = "ProfileState", storages = {
         @Storage(
                 id = "stack-overflow",
-                file = "$APP_CONFIG$/stackoverflow-profile.xml")
+                file = "$PROJECT_CONFIG_DIR$/stackoverflow-profile.xml")
 })
 public class PersistProfileComponent implements PersistentStateComponent<PersistProfileComponent> {
 
     private Map<String, Integer> userStatMap;
 
-    public Map<String, Integer> getUserStateMap() {
+    public Map<String, Integer> getUserStatMap() {
         return userStatMap;
     }
 
