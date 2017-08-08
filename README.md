@@ -1,5 +1,7 @@
 # StackInTheFlow
 
+*TODO: Insert the logo*
+
 An IntellJ plugin to query Stack Overflow.
 
 ### Search StackOverflow Without Ever Leaving the IDE
