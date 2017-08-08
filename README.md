@@ -9,7 +9,7 @@ Kostadin Damevski, Ph.D. - Project Advisor
 
 John Coogle ([cooglejj](https://github.com/cooglejj)) - Core Developer  
 Jeet Gajjar ([kakorrhaphio](https://github.com/kakorrhaphio)) - Core Developer  
-Tyler Haden ([tylerjohnhaden]((https://github.com/tylerjohnhaden)) - Core Developer
+Tyler Haden ([tylerjohnhaden](https://github.com/tylerjohnhaden)) - Core Developer
 
 Kevin Ngo ([cptcomo](https://github.com/cptcomo)) - UI Developer  
 
