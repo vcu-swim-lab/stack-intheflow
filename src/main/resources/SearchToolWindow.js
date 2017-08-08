@@ -1,56 +1,79 @@
 
-var questionsList;
-var numQuestions;
-var charCutoff;
-var questionSections;
-var searchTags;
-var uiSettings;
-var searchMethod;
-var queryHistory;
-var initialized = false;
+/* Variables and Objects for the entire UI */
 
+var questionsList; //An array of Question objects that hold the information for the question results
+var questionSections; //An array of <section> tags in HTML, what the user sees
+var numQuestions; //Number of results
+var charCutoff; //The ideal excerpt cutoff - number of characters
+var searchTags; //SearchTag object, responsible for search tags logic
+var uiSettings; //UISettings object, responsible for the UI color schemes
+var searchMethod; //A string representing the current selected sort type (Relevance, Votes, New, Active)
+var queryHistory; //History object, holds the query history
+
+//This function replaces $(document).ready(), which for some reason does not get called if a second instance of the UI is opened. See Pull Req. #107
+//initialize() is called in Java createScene() when the JavaBridge gets set up.
 function initialize(){
-    initialized = true;
-    charCutoff = 300;
+    charCutoff = 300; //Change this to make excerpts longer/shorter
+
     searchTags = new SearchTags();
     uiSettings = new UISettings();
     queryHistory = new History();
 
     searchMethod = "RELEVANCE";
 
-    limitDropdownWidth(Math.round($(window).width() * 0.8));
+    /*Set up the event listeners for elements that are NOT part of the question results. Those event listeners are added in generateListeners().
+        Diff between ".on" and ".click()":
+            ".on" with the event as a parameter means that the event listener is added to the parent, and is triggered when a child element is triggered with the event
+            ".click()" or other events are applied to the element itself. This means that if the element is destroyed, the listener is destroyed
+    */
 
+    //Limit the width of the history window, see issue #116
+    limitDropdownWidth(Math.round($(window).width() * 0.8));
     $(window).resize(function(){
        limitDropdownWidth(Math.round($(window).width() * 0.8));
     });
 
-    $('#searchBox').keydown(function(e) {
-        if(e.keyCode == 9 && !e.shiftKey) {
-            e.preventDefault();
-            var words = $('#searchBox').val().split(" ").filter((item) => item != '');
+    $('#searchBox').keydown(function(e){
+        if(e.keyCode == 9 && !e.shiftKey){ //Tab was pressed, make the last word in the search box a search tag
+            e.preventDefault(); //Don't do what a tab usually does (advance focus to next element)
+            var words = $('#searchBox').val().split(" ").filter((item) => item != ''); //Convert search box value to an array of strings, remove extraneous spaces
 
-            if(words.length == 0){
+            if(words.length == 0){ //Don't add a tag if there is nothing in the box
                 return;
             }
 
             searchTags.add(words[words.length - 1]);
-            words.splice(words.length - 1, 1);
-            words = words.toString().split(",").join(" ");
-            $('#searchBox').val(words);
+            words.pop(); //Remove last element
+            words = words.toString().split(",").join(" "); //pop() returns comma separated tags, so replace commas with spaces
+
+            setSearchBox(words);
+
             search(true);
         }
         hideAutoQueryIcon();
     });
 
-    $("#searchTags").on("click", "li", function(e){
+    $(document).on('keypress', '#searchBox', function(e){
+        if(e.which == 13){ //The enter key
+            search(true);
+        }
+    });
+
+    $("#searchButton").click(function(){
+        search(true);
+    });
+
+    $("#searchTags").on("click", "li", function(e){ //Click on a search tag in the bar to remove it
         searchTags.remove($(this).html());
         search(true);
     });
 
-    $("#searchMethodsMenu").on("click", "li", function(e){
-        $('#searchMethodsMenu').find(".selectedItem").removeClass("selectedItem");
-        $(this).children().first().addClass("selectedItem");
+    $("#searchMethodsMenu").on("click", "li", function(e){ //A new sort type is selected
+        $('#searchMethodsMenu').find(".selectedItem").removeClass("selectedItem"); //Remove styling for the current sort type
+        $(this).children().first().addClass("selectedItem"); //And add the styling to this
         var dropdownVal = $(this).children().first().html().toLowerCase();
+
+        //Convert UI options to API
         if(dropdownVal == "relevance")
             dropdownVal = "RELEVANCE";
         else if(dropdownVal == "votes")
@@ -64,21 +87,23 @@ function initialize(){
         search(true);
     });
 
-    $('#historyButton').click(function(){
+    $('#historyButton').click(function(){ //History button event listener
         queryHistory.updateUI();
     });
 
-    $('#historyMenu').on('click', 'li', function(e){
+    $('#historyMenu').on('click', 'li', function(e){ //History dropdown element listener, - requery the item clicked
+        //Get the query and tags of the element clicked
         var index = $(this).index();
         var query = queryHistory.getQuery(index);
         var tags = queryHistory.getTag(index).split(" ").filter((item) => item != '');
+
         setSearchBox(query);
         searchTags.setTags(tags);
 
         search(false);
     });
 
-    $('#settingsButton').click(function(){
+    $('#settingsButton').click(function(){ //Settings button event listener
         JavaBridge.openSettings();
     });
 
@@ -87,16 +112,19 @@ function initialize(){
         trigger: 'hover'
     });
 
-    $('[data-toggle="tooltip"]').on('click', function () {
+    $('[data-toggle="tooltip"]').on('click', function(){
         $(this).tooltip('hide');
     });
-
 }
 
+/*
+    Object that handles the UI color theme. Changes between the light and dark theme
+*/
 function UISettings(){
     this.isDark = false;
 
     this.updateUI = function(){
+        //Enable and disable the 2 different spreadsheets as appropriate.
         if(this.isDark){
             document.getElementById("defaultSheet").disabled = true;
             document.getElementById("darkSheet").disabled = false;
@@ -108,12 +136,17 @@ function UISettings(){
     }
 }
 
+// This function is called by JavaBridge in Java, which tells the UI to update the color theme.
 function updateUISettings(isDark){
     uiSettings.isDark = isDark;
     uiSettings.updateUI();
 }
 
+/*
+    Object that handles the History feature of the UI
+*/
 function History(){
+    //Arrays to hold queries and tags, index links the queries and the tags.
     this.queries = new Array();
     this.tags = new Array();
 
@@ -121,6 +154,8 @@ function History(){
         this.queries.push(query);
         this.tags.push(tag);
     }
+
+    //For use case, index of 0 is to be the latest query, but that is the last element in the array. Getters and setters reverse order
 
     this.getQuery = function(index){
         return this.queries[this.queries.length - index - 1];
@@ -147,9 +182,18 @@ function History(){
     }
 
     this.updateUI = function(){
-        $('#historyMenu').empty();
-        if(this.queries.length > 0){
+        $('#historyMenu').empty(); //To update, clear out all the history and regenerate
+        if(this.queries.length > 0){ //There is at least one query already made
             for(var i = this.queries.length - 1; i >= 0; i--){
+                /*
+                    History HTML is of the form:
+                    <ul ... historyMenu>
+                        <li>
+                            <span>Query string here [tag1 tag2 tag3]</span>
+                        </li>
+                        ...
+                    </ul>
+                */
                 var li = $("<li>");
                 var span = $("<span>").html(this.queries[i] + (this.tags[i] == "" ? "" : " [" + this.tags[i] + "]"));
                 $(li).append(span);
@@ -163,13 +207,16 @@ function History(){
     }
 }
 
-
+/*
+    Object to handle the tags to search feature
+*/
 function SearchTags(){
     this.tags = new Array();
 
     this.add = function(newTag){
         if(!this.contains(newTag)){
             this.tags.push(newTag);
+            JavaBridge.updatePersonalSearchModel(newTag, 2);
             this.updateUI();
         }
     }
@@ -192,7 +239,7 @@ function SearchTags(){
         return false;
     }
 
-    this.setTags = function(tags){
+    this.setTags = function(tags){ //tags is an array of Strings
         this.tags = tags;
         this.updateUI();
     }
@@ -203,6 +250,8 @@ function SearchTags(){
             var tag = $('<li>').html(this.tags[i]);
             $('#searchTags').append(tag);
         }
+
+        // add/remove spacing in the UI to accommodate for the presence of search tags
         if(this.tags.length > 0){
             $('#content').removeClass("contentStart").addClass("contentWithSearchTags");
         }
@@ -216,7 +265,7 @@ function SearchTags(){
         this.updateUI();
     }
 
-    this.getQuerySyntax = function(){
+    this.getQuerySyntax = function(){ //Returns the syntax for the API advanced syntax. Ex. [tag1] [tag2] [tag3]
         var query = "";
 
         for(var i = 0; i < this.tags.length; i++){
@@ -226,7 +275,7 @@ function SearchTags(){
         return query;
     }
 
-    this.toString = function(){
+    this.toString = function(){ //Return a string representation of the tags separated by spaces
         var string = "";
         for(var i = 0; i < this.tags.length; i++){
             string += this.tags[i] + (i == this.tags.length - 1 ? "" : " ");
@@ -235,40 +284,45 @@ function SearchTags(){
     }
 }
 
-//Reasoning is either "manual" or "difficulty"
+//This function is called in Java autoQuery(...) which is triggered by the backend Components
+//Reasoning is either "action" or "difficulty"
 function autoSearch(query, backoff, reasoning){
     reset();
     searchTags.clear();
+
     if(query == ""){
         var message = $("<h2>").html("Unable to generate query, not enough data points.");
         $('#questions').append(message);
         hideAutoQueryIcon();
         return;
     }
-    tags = "";
-    JavaBridge.autoQuery(query, tags, backoff, true, reasoning);
+
+    tags = ""; //Wipe out tags for autoqueries
+    JavaBridge.autoQuery(query, tags, backoff, true, reasoning); //Call JavaBridge to execute the actual query.
+
     showAutoQueryIcon(reasoning);
 }
 
-function setSearchBox(query){
-    $('#searchBox').val(query);
-}
-
+//This function is called when the user is actively triggering the search manually.
+//(Clicking the search button, pressing enter, adding/removing tags, clicking on history query, clicking on another sort type, etc.)
 function search(addToHistory){
     if(addToHistory){
-        if(queryHistory.getMostRecentQuery() == $('#searchBox').val()){
-            queryHistory.setTag(0, searchTags.toString());
+        if(queryHistory.getMostRecentQuery() == $('#searchBox').val()){ //Don't add a new entry for the history if the user is just modifying the latest query (Ex. adding/removing tags)
+            queryHistory.setTag(0, searchTags.toString()); //Just update the tags for the latest entry
             addToHistory = false;
         }
     }
+
     var query = $('#searchBox').val();
     var tags = searchTags.getQuerySyntax();
-    if(query == "" && tags == ''){
+
+    if(query == "" && tags == ''){ //Don't make empty queries
         return;
     }
+
     reset();
 
-    JavaBridge.searchButtonClicked(query, tags, searchMethod, addToHistory);
+    JavaBridge.searchButtonClicked(query, tags, searchMethod, addToHistory); //Call JavaBridge to execute the actual query
     hideAutoQueryIcon();
 }
 
@@ -288,17 +342,20 @@ function showAutoQueryIcon(reasoning){
         message = "This query was automatically generated due to a runtime error";
     }
 
+    //This line is necessary in order to change the text
     $("#autoQueryIcon").attr("title", message).tooltip('fixTitle');
+
     $("#autoQueryIcon").removeClass("hidden");
-    $("#searchBox").addClass('removeBorderLeft');
-    JavaBridge.debugBreakpoint();
+    $("#searchBox").addClass('removeBorderLeft'); //In the default state, the search box has a left border. Remove this if the icon is there.
 }
 
 function hideAutoQueryIcon(){
-    $("#searchBox").removeClass('removeBorderLeft');
+    $("#searchBox").removeClass('removeBorderLeft'); //In the default state, the search box has a left border. Re-add this if the icon is being removed.
     $("#autoQueryIcon").addClass("hidden");
 }
 
+//Currently, this function is being called in Java autoQuery and errorQuery. This is because the auto queries are relevance sorted.
+//This updates the UI to reflect that.
 function updateUISearchType(searchType){
     $('#searchMethodsMenu').find(".selectedItem").removeClass("selectedItem");
     var children = $('#searchMethodsMenu').children();
@@ -310,30 +367,35 @@ function updateUISearchType(searchType){
     searchMethod = searchType.toUpperCase();
 }
 
+function setSearchBox(newValue){
+    $('#searchBox').val(newValue);
+}
+
 function logQuery(queryType){
     query = $("#searchBox").val();
     tags = searchTags.toString();
-    var message = "[query_event]<type>" + queryType + "</type><query>" + query + "</query><tags>" +
-                    tags.split(" ").join(", ") + "</tags>" + "<sort>" + searchMethod.toLowerCase() + "</sort>";
+    var tagArray = tags.split(" ");
+    var tagLength = tagArray.length;
+    for (var i = 0; i < tagLength; i++){
+        tagArray[i] = hashCode(tagArray[i]);
+    }
+    var tagString = tagArray.toString();
+
+    var message = '"QueryEventType":' + '"' + queryType + '"' + ', ' + '"Tags":[' +
+                    tagString.split(" ").join(", ") + '], ' + '"sort":' + '"' + searchMethod.toLowerCase() + '"' + '}';
+
     JavaBridge.log(message);
 }
 
 function logResultEvent(resultType, index){
     var totalResults = numQuestions;
-    var message = "[result_event]<type>" + resultType + "</type><index>" + index + "</index><total>" + totalResults + "</total>";
+
+    var message = '"ResultEventType":' + '"' + resultType + '"' + ', ' + '"Index":' + index + ', ' + '"Total":' + totalResults + '}';
+
     JavaBridge.log(message);
 }
 
-$("#searchButton").click(function(){
-    search(true);
-});
-
-$(document).on('keypress', '#searchBox', function(e){
-    if(e.which == 13){
-        search(true);
-    }
-});
-
+//This function is called from Java to ensure that the searchBox has the latest query.
 function addCurrentQueryToHistory(){
     queryHistory.add($('#searchBox').val(), searchTags.toString());
 }
@@ -344,18 +406,22 @@ function reset(){
     questionsList = new Array();
     questionSections = new Array();
     numQuestions = 0;
-    $('html, body').animate({ scrollTop: 0 }, 'fast');
+    $('html, body').animate({ scrollTop: 0 }, 'fast'); //Scroll back to the top
 }
 
+/* Below is code for the search results themselves */
+
+/*
+    Object that represents a Question result
+*/
 function Question(title, body, tags, link){
     this.title = title;
     this.body = body;
     this.tags = tags;
     this.link = link;
-    this.codeTags = new Array();
-    this.htmlTags = new Array();
+    this.codeTags = new Array(); //An array of CodeTag
 
-    this.findCodeTags = function(){
+    this.findCodeTags = function(){ //Find the start and end index of code blocks
         var lastStartIndex = -1;
         var lastEndIndex = -1;
         while(true){
@@ -366,26 +432,6 @@ function Question(title, body, tags, link){
                 this.codeTags.push(new CodeTag(start, end));
                 lastStartIndex = start;
                 lastEndIndex = end;
-            }
-            else {
-                break;
-            }
-        }
-    }
-
-    this.findHTMLTags = function(){
-        var lastStartIndex = -1;
-        var lastEndIndex = -1;
-        while(true){
-            var startMatch = this.body.regexIndexOf("<\\w[^>]*>", lastStartIndex + 1);
-            var startIndex = parseInt(startMatch.index);
-            var endMatch = this.body.regexIndexOf("<\\/[^>]+>", lastEndIndex + 1);
-            var endIndex = parseInt(endMatch.index);
-
-            if(startIndex != endIndex && startIndex != -1){
-                this.htmlTags.push(new HTMLTag(startIndex, endIndex, endMatch.length));
-                lastStartIndex = startIndex;
-                lastEndIndex = endIndex;
             }
             else {
                 break;
@@ -415,33 +461,28 @@ function Question(title, body, tags, link){
         }
     }
 
+    /*
+        This function returns the final number of characters to include in the excerpt. It tries to get as close to charCutoff as possible,
+        but it has to take into account a couple of factors:
+
+        Sometimes charCutoff happens to be in the middle of a code block. Cutting the content off here is awkward, and it also breaks the formatting of the code blocks
+        So this will try to either place the cutoff before the start of a code block or after the end of a code block, but within the tolerance
+    */
     this.getCutoff = function(){
-        var tolerance = 100;
+        var tolerance = 100; //Modify this to change how much content is willing to be added on or removed in order to meet criteria above.
         for(var i = this.codeTags.length - 1; i >= 0; i--){
-            if(Math.abs(this.codeTags[i].close - charCutoff) < tolerance){
+            if(Math.abs(this.codeTags[i].close - charCutoff) < tolerance){ //First, try to include the entire code block if it is within tolerance
                 return this.codeTags[i].close;
             }
-            else if(Math.abs(this.codeTags[i].open - charCutoff) < tolerance){
+            else if(Math.abs(this.codeTags[i].open - charCutoff) < tolerance){ //Then, if the start of a code block is within tolerance, cut off before
                 return this.codeTags[i].open - 1;
             }
-            else if(this.codeTags[i].open < charCutoff && this.codeTags[i].close > charCutoff){
+            else if(this.codeTags[i].open < charCutoff && this.codeTags[i].close > charCutoff){ //The code block is too large but charCutoff is in the block. Safest is to just cutoff before.
                 return this.codeTags[i].open - 1;
             }
         }
 
-
-        for(var i = 0; i < this.htmlTags.length; i++){
-            if(charCutoff - this.htmlTags[i].open < this.htmlTags[i].length - 1 &&
-                charCutoff - this.htmlTags[i].open > 0){
-                return this.htmlTags[i].open - 1;
-            }
-            else if(charCutoff - this.htmlTags[i].close < this.htmlTags[i].length - 1 &&
-                charCutoff - this.htmlTags[i].close > 0){
-                return this.htmlTags[i].close + this.htmlTags[i].length;
-            }
-        }
-
-        return charCutoff;
+        return charCutoff; //If it gets to this point, then just return the default cutoff.
     }
 
     this.getShortenedContent = function(){
@@ -453,17 +494,18 @@ function Question(title, body, tags, link){
     }
 }
 
+/*
+    Object that represents a code block. Simply for the purpose of easiness to code/read - in place of an array.
+*/
 function CodeTag(open, close){
     this.open = open;
     this.close = close;
 }
 
-function HTMLTag(open, close, length){
-    this.open = open;
-    this.close = close;
-    this.length = length;
-}
-
+//This function is called in Java updateQuestionList(...)
+//This function receives each of the question results one by one.
+//JavaBridge doesn't support passing Objects (I don't think), so Questions are decomposed in Java and rebuilt into a Question object in JS.
+// title, body, link - String, tags - Array of Strings
 function getQuestion(title, body, tags, link){
     tagsString = new Array();
     for(i = 0; i < tags.length; i++){
@@ -471,24 +513,29 @@ function getQuestion(title, body, tags, link){
     }
     questionsList.push(new Question(title, body, tagsString, link));;
     questionsList[numQuestions].findCodeTags();
-    questionsList[numQuestions].findHTMLTags();
     numQuestions++;
 }
 
+/*
+    Takes the questionList, which holds the Question objects, and creates the HTML elements (and updates questionSections in the process)
+*/
 function displayQuestions(){
     if(numQuestions > 0){
         for(var i = 0; i < numQuestions; i++){
-            appendNewResultSkeleton(i);
+            appendNewResultSkeleton(i); //Generate the skeleton of a question result.
             var questionSection = questionSections[i];
-            $(questionSection).find(".searchResultTitle").html(questionsList[i].title);
+
+            $(questionSection).find(".searchResultTitle").html(questionsList[i].title); //Set title
 
             var questionBody = $(questionSection).find(".questionBody");
-            $(questionBody).html(questionsList[i].getShortenedContent());
+            $(questionBody).html(questionsList[i].getShortenedContent()); //Set body to the excerpt
 
-            if(questionsList[i].hasMoreContent()){
+            if(questionsList[i].hasMoreContent()){ //If the content had to be cut off, add in the "more"
                 var excerptController = $("<div>").addClass("excerptController").html("More");
 
                 if($(questionBody).children().length > 0){
+                    //This is logic for whether or not to place the "more" on a new line or at the end of the last line.
+                    //Generally, in-line if the last element is text-based, new line if the cutoff is after code block.
                     var lastChild = $(questionBody).children().last();
                     if($(lastChild).is("PRE")){
                         excerptController.removeClass('inlineExcerptController');
@@ -502,6 +549,9 @@ function displayQuestions(){
                     }
                 }
                 else {
+                    //This fixes a bug where the post starts off with a really long code block. The cutoff is then before the code block, so the excerpt is empty.
+                    //The controller was attempted to be added into the last child element, but there is no last child element because the excerpt is empty.
+                    //So this makes a "fake" element to append the controller
                     var newChild = $("<span>");
                     excerptController.removeClass('inlineExcerptController');
                     excerptController.addClass('blockExcerptController');
@@ -510,6 +560,7 @@ function displayQuestions(){
                 }
             }
 
+            //Display the tags associated with the result
             var questionTagsContainer = $(questionSection).find(".questionTags");
             var unorderedList = $("<ul>");
 
@@ -524,11 +575,26 @@ function displayQuestions(){
         var message = $("<h2>").html("Sorry, querying \"" + $('#searchBox').val() + "\" yielded no results. :(");
         $('#questions').append(message);
     }
-
-    JavaBridge.debugBreakpoint();
     uiSettings.updateUI();
 }
 
+/*
+    Generates the skeleton of a question result. The HTML skeleton is as follows:
+
+    <section class="searchResultItem">
+        <span class="hidden" id="...">...</span>
+        <div class="searchResultItemBody">
+            <div class="row">
+                <div class="col-xs-12">
+                    <h3 class="searchResultTitle">...</h3>
+                    <div class="questionBody contentShortened">
+                        ...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+*/
 function appendNewResultSkeleton(i){
     var questionSection = $("<section>").addClass("searchResultItem");
     var questionBodyDiv = $("<div>").addClass("searchResultItemBody");
@@ -559,8 +625,12 @@ function appendNewResultSkeleton(i){
     questionSections.push(questionSection);
 }
 
+/*
+    Generates listeners necessary for question results
+*/
 function generateListeners(){
     for(var i = 0; i < questionSections.length; i++){
+        // Expand/contract results
         $(questionSections[i]).on("click", ".excerptController", function(e){
             var clickedSection = $(this).closest('.searchResultItem');
             var index = $(clickedSection).find('#questionIndex').html();
@@ -568,6 +638,7 @@ function generateListeners(){
             if($(this).html() == 'More'){
                 $(questionBody).html(questionsList[index].body);
                 $(this).html("Less");
+                JavaBridge.updatePersonalSearchModel(questionsList[index].tags, 1);
                 logResultEvent("expand", index);
             }
             else {
@@ -594,39 +665,43 @@ function generateListeners(){
             }
         });
 
-        $(questionSections[i]).on("click", ".questionTags li", function(e){
+        $(questionSections[i]).on("click", ".questionTags li", function(e){ //Click on question tags to add to search tags
             searchTags.add($(this).html());
             search(true);
         });
 
-        $(questionSections[i]).on("click", ".searchResultTitle", function(e){
+        $(questionSections[i]).on("click", ".searchResultTitle", function(e){ //Click on title to open in browser
             var clickedSection = $(this).closest('.searchResultItem');
             var index = $(clickedSection).find('#questionIndex').html();
+            JavaBridge.updatePersonalSearchModel(questionsList[index].tags, 3);
             JavaBridge.openInBrowser(questionsList[index].link);
             logResultEvent("browser", index);
         });
     }
 
-    $(document).on("click", "a", function(e){
+    $(document).on("click", "a", function(e){ //Intercept link clicks to open in browser. WebView breaks if links are opened in it.
         e.preventDefault();
         JavaBridge.openInBrowser($(this).attr('href'));
     });
 }
 
+/*
+    Set the max width of the history dropdown elements according to screen size, add scrollbar if too long.
+*/
 function limitDropdownWidth(width){
     $('#historyMenu').css('max-width', width + "px");
     $('#historyMenu').css('overflow-x', "auto");
 }
 
-function RegexMatch(result, index, length){
-    this.result = result;
-    this.index = index;
-    this.length = length;
-}
+function hashCode(string) {
 
-String.prototype.regexIndexOf = function(regex, fromIndex){
-  var str = fromIndex ? this.substring(fromIndex) : this;
-  var match = str.match(regex);
+  var hash = 0, length = string.length, i = 0;
 
-  return new RegexMatch(match ? match[0] : "", match ? str.indexOf(match[0]) + fromIndex : -1, match ? match[0].length : -1);
+  if ( length > 0 )
+
+    while (i < length)
+
+      hash = (hash << 5) - hash + string.charCodeAt(i++) | 0;
+
+  return hash;
 }

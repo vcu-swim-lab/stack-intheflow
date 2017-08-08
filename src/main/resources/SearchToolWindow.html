@@ -10,16 +10,18 @@
             crossorigin="anonymous"></script>
     <script src="Bootstrap-custom/js/bootstrap.min.js"></script>
 </head>
-<body class="themeBG">
+<body>
     <div class="well well-sm myWell">
-        <div class="row">
+        <div class="row"> <!--Search Bar Menu-->
             <div class="col-xs-12">
                 <div class="input-group stylish-input-group">
                     <span class="input-group-addon hidden" id="autoQueryIcon" data-toggle="tooltip"
-                          data-placement="bottom" title="This query was automatically generated" data-container="body">
+                          data-placement="bottom" title="This query was automatically generated" data-container="body"> <!--This tooltip is modified in showAutoQueryIcon(...) of the JavaScript-->
                         <img src="icons/toolWindowIcon.png">
                     </span>
+
                     <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
+
                     <span class="input-group-addon" id="searchAddons" data-placement="bottom" data-toggle="tooltip"
                           title="Search" data-delay='{"show":"1000", "hide":"100"}' data-container="body">
                         <button type="submit" id="searchButton">
@@ -64,40 +66,22 @@
                             </button>
                         </div>
                     </span>
+
                 </div>
             </div>
+        </div> <!--End Row (Search bar menu)-->
 
-            <!--
-            <div class="col-xs-12">
-                <div class="input-group stylish-input-group">
-                    <input type="text" class="form-control" id="searchBox" name="searchBox" placeholder="Search...">
-                    <span class="input-group-addon">
-                        <button type="submit" id="searchButton">
-                            <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                        <button type="submit" id="searchMethods" class="dropdown-toggle" data-toggle="dropdown">
-                            <span class="glyphicon glyphicon-chevron-down"></span>
-                        </button>
-                        <ul class="dropdown-menu" id="searchMethodsMenu" role="menu">
-                            <li><a href="">Relevance</a></li>
-                            <li><a href="">Relevance</a></li>
-                            <li><a href="">Top</a></li>
-                        </ul>
-                    </span>
-                </div>
-            </div> -->
-        </div>
-        <div class="row">
+        <div class="row"> <!--Tags Row-->
             <div class="col-sm-10 col-sm-offset-1 col-xs-12">
                 <div id="searchTagsContainer">
-                    <ul id="searchTags" class="searchTags"></ul>
+                    <ul id="searchTags" class="searchTags"></ul> <!--This element is appended to in JavaScript-->
                 </div>
             </div>
         </div>
-    </div>
+    </div> <!--End Well (Search Menu)-->
 
-    <div id="content" class="contentStart themeBG">
-        <div id="questions">
+    <div id="content" class="contentStart"> <!--Search results-->
+        <div id="questions"> <!--This element will contain all of the search results using append() -->
         </div>
     </div>
 
