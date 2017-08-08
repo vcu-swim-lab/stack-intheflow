@@ -2,15 +2,18 @@
 
 An IntellJ plugin to query Stack Overflow.
 
-### Search StackOverflow without ever leaving the IDE
+### Search StackOverflow Without Ever Leaving the IDE
 StackInTheFlow integrates seamlessly with Intellij to allow you to find the solutions to the development problems you face without ever leaving the "flow" of you development environment.
+
+*TODO: the initial GIF should show the entire IDE*
 
 ![Search](https://i.imgur.com/cRgp2fX.gif)
 
 ### Sort & Filter
 Refine your searches by sorting by different metrics and filtering by specific tags. If you never want to leave the comfort of your keyboard, you can even press `<TAB>` to add the previous word as a tag.
 
-![Sort](https://i.imgur.com/ViKhVDW.gif) ![Filter](https://i.imgur.com/NuQF2cl.gif)
+![Sort](https://i.imgur.com/ViKhVDW.gif) 
+![Filter](https://i.imgur.com/NuQF2cl.gif)
 
 ### Browse History
 Never forget your queries again, browse your previous queries with history
@@ -28,7 +31,7 @@ Take your queries one step further by having StackInTheFlow generate them for yo
 ![Auto](https://i.imgur.com/SrBiEST.gif)
 
 ### Recommend Articles in Specific Context
-If enabled, StackInTheFLow with even make suggestions of Stack Overflow articles when it thinks they will help you out with your current task, ensuring relevant information is always at your fingertips.
+If enabled, StackInTheFlow with even make suggestions of Stack Overflow articles when it thinks they will help you out with your current task, ensuring relevant information is always at your fingertips.
 
 ## Contributors
 
@@ -41,6 +44,8 @@ Tyler Haden ([tylerjohnhaden](https://github.com/tylerjohnhaden)) - Core
 Kevin Ngo ([cptcomo](https://github.com/cptcomo)) - UI   
 
 Kosta Damevski - Project Advisor  
+
+*This plugin is produced by the ([SWIM Lab](http://vcu-swim-lab.github.io/)) @ Virginia Commonwealth University*
 
 ## Install
 [StackInTheFlow](https://plugins.jetbrains.com/plugin/9653-stackintheflow)
