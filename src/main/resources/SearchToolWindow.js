@@ -306,14 +306,19 @@ function autoSearch(query, backoff, reasoning){
 //This function is called when the user is actively triggering the search manually.
 //(Clicking the search button, pressing enter, adding/removing tags, clicking on history query, clicking on another sort type, etc.)
 function search(addToHistory){
+    var query = $('#searchBox').val().split("<script>").join("").split("</script>").join("");
+
+    while(query.includes("<script>") || query.includes("</script>")){
+        query = query.split("<script>").join("").split("</script>").join("");
+    }
+
     if(addToHistory){
-        if(queryHistory.getMostRecentQuery() == $('#searchBox').val()){ //Don't add a new entry for the history if the user is just modifying the latest query (Ex. adding/removing tags)
+        if(queryHistory.getMostRecentQuery() == query){ //Don't add a new entry for the history if the user is just modifying the latest query (Ex. adding/removing tags)
             queryHistory.setTag(0, searchTags.toString()); //Just update the tags for the latest entry
             addToHistory = false;
         }
     }
 
-    var query = $('#searchBox').val().split("<script>").join("").split("</script>").join("");
     var tags = searchTags.getQuerySyntax();
 
     if(query == "" && tags == ''){ //Don't make empty queries
