@@ -690,7 +690,6 @@ function generateListeners(){
 */
 function limitDropdownWidth(width){
     $('#historyMenu').css('max-width', width + "px");
-    $('#historyMenu').css('overflow-x', "auto");
 }
 
 function hashCode(string) {
