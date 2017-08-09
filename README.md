@@ -12,20 +12,15 @@ Take your queries one step further by having StackInTheFlow generate them for yo
 
 ![Auto](https://i.imgur.com/hYgFOJh.gif)
 
+### Recieve Smart Recommendations to Accelerate your Workflow
+If enabled, StackInTheFlow with make suggestions of Stack Overflow articles when it thinks they will help you out with your current task, ensuring relevant information is always at your fingertips. Never manually search for the meaning behind a cryptic error message again!
+
+![Error](https://i.imgur.com/TcEB9Es.png)
+
 ### Sort & Filter
 Refine your searches by sorting by different metrics and filtering by specific tags. If you never want to leave the comfort of your keyboard, you can even press `<TAB>` to add the previous word as a tag.
 
 ![Filter](https://i.imgur.com/NuQF2cl.gif)
-
-### Understand Errors
-Find meaning behind cryptic error messages, StackInTheFlow will automatically search an error when thrown either at compile or run time.
-
-![Error](https://i.imgur.com/TcEB9Es.png)
-
-### Recommend Articles in Specific Context
-If enabled, StackInTheFlow with even make suggestions of Stack Overflow articles when it thinks they will help you out with your current task, ensuring relevant information is always at your fingertips.
-
-*TODO: suggest combining errors and recommendations into one bullet point and move it behind auto queries*
 
 ## Contributors
 Chase Greco ([Zerthick](https://github.com/zerthick)) - Project Lead  
