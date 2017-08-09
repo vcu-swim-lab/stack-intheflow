@@ -111,6 +111,6 @@ public class ErrorMessageParser {
         if(message[0].equals("\n")) {
             return "";
         }
-        return message[0].split("\n")[0];
+        return message[0].split("\n")[0].replaceAll(":", "");
     }
 }
