@@ -1,6 +1,4 @@
-# StackInTheFlow
-
-*TODO: Insert the logo*
+# StackInTheFlow <img src="https://github.com/vcu-swim-lab/stack-intheflow/blob/master/src/main/resources/icons/main.png" width="65" height="60">
 
 An IntellJ plugin to query Stack Overflow.
 
@@ -19,17 +17,7 @@ Take your queries one step further by having StackInTheFlow generate them for yo
 ### Sort & Filter
 Refine your searches by sorting by different metrics and filtering by specific tags. If you never want to leave the comfort of your keyboard, you can even press `<TAB>` to add the previous word as a tag.
 
-*TODO: Suggest removing sort*
-
-![Sort](https://i.imgur.com/ViKhVDW.gif) 
 ![Filter](https://i.imgur.com/NuQF2cl.gif)
-
-### Browse History
-Never forget your queries again, browse your previous queries with history
-
-*TODO: Suggest removing history*
-
-![History](https://i.imgur.com/fyOwJvy.gif)
 
 ### Understand Errors
 Find meaning behind cryptic error messages, StackInTheFlow will automatically search an error when thrown either at compile or run time.
@@ -44,11 +32,11 @@ If enabled, StackInTheFlow with even make suggestions of Stack Overflow articles
 ## Contributors
 Chase Greco ([Zerthick](https://github.com/zerthick)) - Project Lead  
 
-Chris Carpenter ([carpentercr](https://github.com/carpentercr)) - Logging
-John Coogle ([cooglejj](https://github.com/cooglejj)) - Core   
-Jeet Gajjar ([kakorrhaphio](https://github.com/kakorrhaphio)) - Core   
-Tyler Haden ([tylerjohnhaden](https://github.com/tylerjohnhaden)) - Core 
-Kevin Ngo ([cptcomo](https://github.com/cptcomo)) - UI   
+Chris Carpenter ([carpentercr](https://github.com/carpentercr)) - Logging  
+John Coogle ([cooglejj](https://github.com/cooglejj)) - Core  
+Jeet Gajjar ([kakorrhaphio](https://github.com/kakorrhaphio)) - Core  
+Tyler Haden ([tylerjohnhaden](https://github.com/tylerjohnhaden)) - Core  
+Kevin Ngo ([cptcomo](https://github.com/cptcomo)) - UI  
 
 Kosta Damevski - Project Advisor  
 
