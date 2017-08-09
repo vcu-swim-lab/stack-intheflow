@@ -572,7 +572,7 @@ function displayQuestions(){
         }
     }
     else {
-        var message = $("<h2>").html("Sorry, querying \"" + $('#searchBox').val() + "\" yielded no results. :(");
+        var message = $("<h2>").text("Sorry, querying \"" + $('#searchBox').val() + "\" yielded no results. :(");
         $('#questions').append(message);
     }
     uiSettings.updateUI();
