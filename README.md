@@ -3,7 +3,7 @@
 An IntellJ plugin to query Stack Overflow.
 
 ### Search StackOverflow Without Ever Leaving the IDE
-StackInTheFlow integrates seamlessly with Intellij to allow you to find the solutions to the development problems you face without ever leaving the "flow" of you development environment.
+StackInTheFlow integrates seamlessly with Intellij to allow you to find the solutions to the development problems you face without ever leaving the "flow" of your development environment.
 
 ![Search](https://i.imgur.com/jvoysIm.gif)
 
