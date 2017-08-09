@@ -313,7 +313,7 @@ function search(addToHistory){
         }
     }
 
-    var query = $('#searchBox').val();
+    var query = $('#searchBox').val().split("<script>").join("").split("</script>").join("");
     var tags = searchTags.getQuerySyntax();
 
     if(query == "" && tags == ''){ //Don't make empty queries
