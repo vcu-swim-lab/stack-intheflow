@@ -1,13 +1,19 @@
 package io.github.vcuswimlab.stackintheflow.controller;
 
-import com.intellij.ide.util.PropertiesComponent;
 import org.glassfish.jersey.client.authentication.HttpAuthenticationFeature;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.properties.EncryptableProperties;
 
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.net.URL;
+import java.nio.file.Paths;
+import java.util.Properties;
 import java.util.Scanner;
-import java.util.UUID;
+
 
 /**
  * Created by Ryan on 7/27/2017.
@@ -19,29 +25,35 @@ public class LogServer {
     private Response response;
     private Invocation.Builder builder;
     private HttpAuthenticationFeature feature;
+    private StandardPBEStringEncryptor encryptor;
+    private Properties props;
 
     public LogServer(){
         this.client = ClientBuilder.newClient();
-        this.feature = HttpAuthenticationFeature.basic("vcuswim", "SITF1234analytics");
+        this.encryptor = new StandardPBEStringEncryptor();
+        encryptor.setPassword("jasypt");
+        this.props = new EncryptableProperties(encryptor);
+        getPropFile();
+        this.feature = HttpAuthenticationFeature.basic(props.getProperty("logstash.username"), props.getProperty("logstash.password"));
         client.register(feature);
-        this.target = client.target("http://104.131.188.205:31311");
+        this.target = client.target(props.getProperty("logstash.url"));
     }
 
     public void LogToServer(File file){
         try{
-            StringBuilder foo = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
             Scanner scanner = new Scanner(file);
-            foo = foo.append("{" + "\"" + getUUID() + "\"" + ": [");
+            sb = sb.append("{" + "\"" + "Logs" + "\"" + ": [");
             while(scanner.hasNextLine()){
-                foo = foo.append(scanner.nextLine());
+                sb = sb.append(scanner.nextLine());
                 if(scanner.hasNextLine()){
-                    foo = foo.append(", ");
+                    sb = sb.append(", ");
                 }
 
             }
-            foo = foo.append("]}");
+            sb = sb.append("]}");
             builder = target.request();
-            response = builder.put(Entity.json(foo.toString()));
+            response = builder.put(Entity.json(sb.toString()));
             response.close();
             scanner.close();
 
@@ -50,19 +62,18 @@ public class LogServer {
         }
     }
 
-    public String getUUID() {
+    public void getPropFile(){
 
-        String uuid;
-        PropertiesComponent c = PropertiesComponent.getInstance();
-        uuid = c.getValue("uuid");
+        try {
 
-        if (uuid == null){
-            String save = UUID.randomUUID().toString().replace("-", "");
-            c.setValue("uuid", save);
-            uuid = c.getValue("uuid");
+            InputStream inputStream = getClass().getResourceAsStream("/logstash.properties");
+            props.load(inputStream);
         }
-
-        return uuid;
+        catch (Exception e){
+            e.printStackTrace();
+        }
     }
+
+
 
 }
