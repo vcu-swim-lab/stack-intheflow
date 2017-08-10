@@ -7,6 +7,9 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+#logstash.properties
+logstash.properties
+
 # Gradle
 .gradle/
 build/
