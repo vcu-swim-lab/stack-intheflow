@@ -26,7 +26,7 @@ public class LogTest {
     @Test
     public void logTest(){
 
-        //Jasypt encryptor
+        //Jasypt encryptor to generate encrypted information
 
         /*
         StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
