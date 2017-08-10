@@ -39,4 +39,4 @@ Kosta Damevski - Project Advisor
 [StackInTheFlow](https://plugins.jetbrains.com/plugin/9653-stackintheflow)
 
 ## License
-[MIT](../LICENSE)
+[MIT](./LICENSE)
