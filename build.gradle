@@ -29,8 +29,6 @@ intellij {
 
     // Uncomment to test against android studio
     // alternativeIdePath '/applications/android-studio'
-
-    // alternativeIdePath 'C:\\Program Files\\JetBrains\\IntelliJ IDEA Community Edition 2017.1.3'
 }
 
 patchPluginXml {
