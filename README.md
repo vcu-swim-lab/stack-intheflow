@@ -15,7 +15,7 @@ Take your queries one step further by having StackInTheFlow generate them for yo
 ### Recieve Smart Recommendations to Accelerate your Workflow
 If enabled, StackInTheFlow with make suggestions of Stack Overflow articles when it thinks they will help you out with your current task, ensuring relevant information is always at your fingertips. Never manually search for the meaning behind a cryptic error message again!
 
-![Error](https://i.imgur.com/TcEB9Es.png)
+![Error](https://i.imgur.com/L9WO8OF.png)
 
 ### Sort & Filter
 Refine your searches by sorting by different metrics and filtering by specific tags. If you never want to leave the comfort of your keyboard, you can even press `<TAB>` to add the previous word as a tag.
