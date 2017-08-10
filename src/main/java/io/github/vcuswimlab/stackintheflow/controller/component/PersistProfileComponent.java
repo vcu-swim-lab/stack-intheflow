@@ -36,6 +36,11 @@ public class PersistProfileComponent implements PersistentStateComponent<Persist
     @Override
     public void loadState(PersistProfileComponent state) {
         XmlSerializerUtil.copyBean(state, this);
+
+        // Prevent loading a null map
+        if (userStatMap == null) {
+            userStatMap = new HashMap<>();
+        }
     }
 
     @Nullable
