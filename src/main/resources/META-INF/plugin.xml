@@ -15,6 +15,7 @@
       <consoleInputFilterProvider implementation="io.github.vcuswimlab.stackintheflow.model.erroranalysis.RuntimeErrorFilterProvider"/>
       <applicationConfigurable instance="io.github.vcuswimlab.stackintheflow.view.SettingsConfigurable"/>
       <applicationService serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent" />
+      <projectService serviceImplementation="io.github.vcuswimlab.stackintheflow.controller.component.PersistProfileComponent" />
   </extensions>
 
   <actions>
