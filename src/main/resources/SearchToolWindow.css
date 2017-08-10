@@ -61,6 +61,8 @@ body {
 .dropdown-menu {
     max-height: 12.5em; /* 5 elements with 2.5em height */
     overflow-y: auto;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
 .dropdown-menu span {
@@ -71,6 +73,8 @@ body {
     font-weight: normal;
     line-height: 2.5em;
     white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
 .questionTags ul, .searchTags ul {

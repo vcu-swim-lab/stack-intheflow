@@ -1,39 +1,42 @@
-# StackInTheFlow
+# StackInTheFlow <img src="https://github.com/vcu-swim-lab/stack-intheflow/blob/master/src/main/resources/icons/main.png" width="65" height="60">
 
+An IntellJ plugin to query Stack Overflow.
 
+### Search StackOverflow Without Ever Leaving the IDE
+StackInTheFlow integrates seamlessly with Intellij to allow you to find the solutions to the development problems you face without ever leaving the "flow" of your development environment.
 
-## Table of Contents
+![Search](https://i.imgur.com/jvoysIm.gif)
 
-- [Introduction](#introuction)
-- [Security](#security)
-- [Background](#background)
-- [Install](#install)
-- [Usage](#usage)
-- [API](#api)
-- [Contribute](#contribute)
-- [License](#license)
+### Automatically Generate Queries from Code
+Take your queries one step further by having StackInTheFlow generate them for you. Either highlight a section of code or right-click on a troublsome line and select AutoQuery!
 
-## Introduction
-Programmers increasing rely on an Integrated Development Environment (IDE), which offers capabilities for writing, debugging and testing code. Most developers, ranging from novices to pros, reference outside sources when developing, such as the popular Q&A site StackOverflow. In the 2016 StackOverflow Developer Survey it was observed that 78% of survey participants visited StackOverflow at least once a day, with 58% visiting multiple times a day. The purpose of the StackInTheFlow software development tool is to reduce the amount of time and interruption necessary to gather external information during development. This enables the developer to remain in-the-flow of solving software engineering problems. This tool not only provides standard information retrieval capabilities similar to popular search engines such as Google, but also a feature to auto-generate queries based on the developer’s current work context, extracted from within the IDE. The auto-query feature functions by first extracting features from the IDE, including snippets of source code such as import statements and the current cursor line, as well as, if available, compilation error messages.  From these features candidate query terms are extracted.  These candidate terms are then compared against a dictionary constructed from a dump of all StackOverflow articles.  From this dictionary, various retrieval statistics for pre-retrieval query quality are computed for each term.  The highest ranking terms are then chosen to form a query which is sent to the StackOverflow API and the relevant questions are returned and displayed to the developer. 
+![Auto](https://i.imgur.com/hYgFOJh.gif)
 
+### Recieve Smart Recommendations to Accelerate your Workflow
+If enabled, StackInTheFlow with make suggestions of Stack Overflow articles when it thinks they will help you out with your current task, ensuring relevant information is always at your fingertips. Never manually search for the meaning behind a cryptic error message again!
 
-## Background
+![Error](https://i.imgur.com/TcEB9Es.png)
 
+### Sort & Filter
+Refine your searches by sorting by different metrics and filtering by specific tags. If you never want to leave the comfort of your keyboard, you can even press `<TAB>` to add the previous word as a tag.
 
+![Filter](https://i.imgur.com/NuQF2cl.gif)
+
+## Contributors
+Chase Greco ([Zerthick](https://github.com/zerthick)) - Project Lead  
+
+Chris Carpenter ([carpentercr](https://github.com/carpentercr)) - Logging  
+John Coogle ([cooglejj](https://github.com/cooglejj)) - Core  
+Jeet Gajjar ([kakorrhaphio](https://github.com/kakorrhaphio)) - Core  
+Tyler Haden ([tylerjohnhaden](https://github.com/tylerjohnhaden)) - Core  
+Kevin Ngo ([cptcomo](https://github.com/cptcomo)) - UI  
+
+Kosta Damevski - Project Advisor  
+
+*This plugin is produced by the [SWIM Lab](http://vcu-swim-lab.github.io/) @ Virginia Commonwealth University*
 
 ## Install
 [StackInTheFlow](https://plugins.jetbrains.com/plugin/9653-stackintheflow)
 
-
-## Usage
-
-
-## Contribute
-
-See [the contribute file](contribute.md)!
-
-PRs accepted.
-
 ## License
-
 [MIT](../LICENSE)
