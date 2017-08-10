@@ -1,5 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.model.difficulty;
 
+import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.openapi.wm.ToolWindowManager;
@@ -36,6 +37,7 @@ public class DifficultyModel {
 
 
     private Project project;
+    private PersistSettingsComponent persistSettingsComponent;
     private MessageBus messageBus;
     private MessageBusConnection connection;
 
@@ -48,6 +50,7 @@ public class DifficultyModel {
 
     public DifficultyModel(Project project) {
         this.project = project;
+        this.persistSettingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
         messageBus = project.getMessageBus();
         connection = messageBus.connect();
         eventCounts = new EnumMap<>(EditorEventType.class);
@@ -97,7 +100,7 @@ public class DifficultyModel {
                             if (toolWindow.isVisible()) {
 
                                 // Check to see if the difficulty setting is enabled before generating the query
-                                if (project.getComponent(PersistSettingsComponent.class).difficultyEnabled()) {
+                                if (persistSettingsComponent.difficultyEnabled()) {
 
                                     // Generate the autoQuery
                                     String autoQuery = project.getComponent(TermStatComponent.class).generateQuery(event.getEditor());

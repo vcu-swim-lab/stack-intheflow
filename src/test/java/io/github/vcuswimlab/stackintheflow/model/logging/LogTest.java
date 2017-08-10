@@ -3,12 +3,17 @@ package io.github.vcuswimlab.stackintheflow.model.logging;
 import com.intellij.openapi.application.PathManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.properties.EncryptableProperties;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 /**
@@ -20,6 +25,20 @@ public class LogTest {
 
     @Test
     public void logTest(){
+
+        //Jasypt encryptor
+
+        /*
+        StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
+        encryptor.setPassword("jasypt");
+        String usr = encryptor.encrypt("INSERT");
+        System.out.println(usr);
+        String pw = encryptor.encrypt("INSERT");
+        System.out.println(pw);
+        String ip = encryptor.encrypt("INSERT");
+        System.out.println(ip);
+        */
+
 
         //Checks if file exists and has content
 
