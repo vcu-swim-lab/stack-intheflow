@@ -21,6 +21,9 @@ public class Logging {
     private int identifier;
     private PersistSettingsComponent persistSettingsComponent;
 
+    // Environment string
+    private final static String env = "Production";
+
     public Logging(){
         this.p = ProjectManager.getInstance().getOpenProjects()[0];
         this.identifier = p.getName().hashCode();
@@ -40,7 +43,7 @@ public class Logging {
                 file.delete();
             }
 
-            String message = "{" + "\"" + "User" + "\"" + ":" + "\"" + getUUID() + "\"" + ", " + "\"" + "ProjectCode" + "\"" + ":" + "\"" + identifier + "\"" + ", " + "\"" + "Environment" + "\"" + ":" + "\"" + "InsertEnvironmentHere" + "\"" + ", " + info;
+            String message = "{" + "\"" + "User" + "\"" + ":" + "\"" + getUUID() + "\"" + ", " + "\"" + "ProjectCode" + "\"" + ":" + "\"" + identifier + "\"" + ", " + "\"" + "Environment" + "\"" + ":" + "\"" + env + "\"" + ", " + info;
 
             try {
                 Logger logger = LogManager.getLogger("ROLLING_FILE_APPENDER");
