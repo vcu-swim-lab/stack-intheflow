@@ -2,12 +2,12 @@
 
 An IntellJ plugin to query Stack Overflow.
 
-### Search StackOverflow Without Ever Leaving the IDE
-StackInTheFlow integrates seamlessly with Intellij to allow you to find the solutions to the development problems you face without ever leaving the "flow" of your development environment.
+### Search StackOverflow Without Leaving the IDE
+StackInTheFlow integrates seamlessly with Intellij to allow you to find the solutions to the development problems you face without ever leaving the *flow* of your development environment.
 
 ![Search](https://i.imgur.com/jvoysIm.gif)
 
-### Automatically Generate Queries from Code
+### Automatically Generate Queries from Your Code
 Take your queries one step further by having StackInTheFlow generate them for you. Either highlight a section of code or right-click on a troublsome line and select AutoQuery!
 
 ![Auto](https://i.imgur.com/hYgFOJh.gif)
@@ -31,7 +31,7 @@ Jeet Gajjar ([kakorrhaphio](https://github.com/kakorrhaphio)) - Core
 Tyler Haden ([tylerjohnhaden](https://github.com/tylerjohnhaden)) - Core  
 Kevin Ngo ([cptcomo](https://github.com/cptcomo)) - UI  
 
-Kosta Damevski - Project Advisor  
+Kosta Damevski  ([damevski](https://damevski.github.io)) - Project Advisor  
 
 *This plugin is produced by the [SWIM Lab](http://vcu-swim-lab.github.io/) @ Virginia Commonwealth University*
 
