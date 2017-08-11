@@ -8,7 +8,7 @@ StackInTheFlow integrates seamlessly with Intellij to allow you to find the solu
 ![Search](https://i.imgur.com/jvoysIm.gif)
 
 ### Automatically Generate Queries from Your Code
-Take your queries one step further by having StackInTheFlow generate them for you. Either highlight a section of code or right-click on a troublsome line and select AutoQuery!
+Take your automation one step further by having StackInTheFlow generate queries for you. Either generate a query from an editor tab or select a block of code, then right-click and select AutoQuery!
 
 ![Auto](https://i.imgur.com/hYgFOJh.gif)
 
