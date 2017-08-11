@@ -7,10 +7,7 @@ import org.jasypt.properties.EncryptableProperties;
 import javax.ws.rs.client.*;
 import javax.ws.rs.core.Response;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.Scanner;
 

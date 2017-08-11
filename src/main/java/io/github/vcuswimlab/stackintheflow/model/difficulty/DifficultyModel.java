@@ -108,7 +108,7 @@ public class DifficultyModel {
                                     //Logging the threshold and event counts
 
                                     if (getRatio(EditorEventType.DELETE, EditorEventType.INSERT) >= DELETE_RATIO) {
-                                        logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "DeleteRatioAutoQuery" + "\"" + ", " + "\"" + "scroll" + "\"'" + ":" + eventCounts.getOrDefault(EditorEventType.SCROLL, 0) + ", " +
+                                        logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "DeleteRatioAutoQuery" + "\"" + ", " + "\"" + "scroll" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.SCROLL, 0) + ", " +
                                                 "\"" + "click" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.CLICK, 0) + ", " +
                                                 "\"" + "insert" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.INSERT, 0) + ", " +
                                                 "\"" + "delete" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.DELETE, 0) + "}"
@@ -116,7 +116,7 @@ public class DifficultyModel {
 
                                     }
                                     if (getRatio(EditorEventType.INSERT) + getRatio(EditorEventType.DELETE) < NON_EDIT_RATIO) {
-                                        logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "NonEditRatioAutoQuery" + "\"" + ", " + "\"" + "scroll" + "\"'" + ":" + eventCounts.getOrDefault(EditorEventType.SCROLL, 0) + ", " +
+                                        logger.info("\"" + "DifficultyEventType" + "\"" + ":" + "\"" + "NonEditRatioAutoQuery" + "\"" + ", " + "\"" + "scroll" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.SCROLL, 0) + ", " +
                                                 "\"" + "click" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.CLICK, 0) + ", " +
                                                 "\"" + "insert" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.INSERT, 0) + ", " +
                                                 "\"" + "delete" + "\"" + ":" + eventCounts.getOrDefault(EditorEventType.DELETE, 0) + "}"
