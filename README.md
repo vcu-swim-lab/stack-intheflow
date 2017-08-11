@@ -1,4 +1,4 @@
-# Stack**InTheFlow** <img src="https://github.com/vcu-swim-lab/stack-intheflow/blob/master/src/main/resources/icons/main.png" width="65" height="60">
+# Stack **InTheFlow** <img src="https://github.com/vcu-swim-lab/stack-intheflow/blob/master/src/main/resources/icons/main.png" width="65" height="60">
 
 An IntellJ plugin to query Stack Overflow.
 
