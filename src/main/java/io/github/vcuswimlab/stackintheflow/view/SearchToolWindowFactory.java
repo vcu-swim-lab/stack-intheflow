@@ -13,7 +13,7 @@ public class SearchToolWindowFactory {
     private JPanel content;
 
     public SearchToolWindowGUI buildGUI(@NotNull ToolWindow toolWindow, Project project) {
-        SearchToolWindowGUI windowGUI = new SearchToolWindowGUI.SearchToolWindowGUIBuilder()
+        SearchToolWindowGUI windowGUI = new SearchToolWindowGUIBuilder()
                 .setContent(content)
                 .setProject(project)
                 .setSearchModel(project.getComponent(UserTagStatComponent.class).getSearchModel()).build();

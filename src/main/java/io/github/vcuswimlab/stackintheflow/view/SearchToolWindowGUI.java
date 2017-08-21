@@ -70,8 +70,8 @@ public class SearchToolWindowGUI {
     private JSObject window; //Object to interact with JS. Use window.call(...) to call a JS function
     private JavaBridge bridge; //Object to interact with JS. In JS, use JavaBridge.<method>(...) to call a Java method
 
-    private SearchToolWindowGUI(JPanel content, Project project,
-                                PersonalSearchModel searchModel) {
+    public SearchToolWindowGUI(JPanel content, Project project,
+                               PersonalSearchModel searchModel) {
         this.content = content;
         this.project = project;
         this.searchModel = searchModel;
@@ -257,34 +257,5 @@ public class SearchToolWindowGUI {
 
     public Project getProject() {
         return project;
-    }
-
-    public static class SearchToolWindowGUIBuilder {
-        private JPanel content;
-        private PersonalSearchModel searchModel;
-        private Project project;
-
-        public SearchToolWindowGUIBuilder setContent(JPanel content) {
-            this.content = content;
-            return this;
-        }
-
-        public SearchToolWindowGUIBuilder setSearchModel(PersonalSearchModel searchModel) {
-            this.searchModel = searchModel;
-            return this;
-        }
-
-        public SearchToolWindowGUIBuilder setProject(Project project) {
-            this.project = project;
-            return this;
-        }
-
-        public SearchToolWindowGUI build() {
-            return new SearchToolWindowGUI(
-                    content,
-                    project,
-                    searchModel
-            );
-        }
     }
 }

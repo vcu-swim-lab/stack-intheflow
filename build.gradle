@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.github.vcuswimlab'
-version '0.1.0'
+version '0.2.0'
 
 repositories {
     mavenCentral()
@@ -28,7 +28,7 @@ intellij {
     pluginName 'StackInTheFlow'
 
     // Uncomment to test against android studio
-    // alternativeIdePath '/applications/android-studio'
+    // alternativeIdePath '/home/chase/Code/android-studio'
 }
 
 patchPluginXml {
