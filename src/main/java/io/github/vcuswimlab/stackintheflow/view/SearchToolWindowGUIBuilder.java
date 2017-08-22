@@ -1,13 +1,15 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+import com.intellij.ide.plugins.cl.PluginClassLoader;
 import com.intellij.openapi.project.Project;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
 
 import javax.swing.*;
 import java.lang.reflect.InvocationTargetException;
-import java.net.*;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchToolWindowGUIBuilder {
     private JPanel content;
@@ -29,30 +31,40 @@ public class SearchToolWindowGUIBuilder {
         return this;
     }
 
+    private static MyClassLoader createClassLoader() {
+
+        String installPath = JavaFXInstaller.getInstallationPath();
+
+        final ArrayList<URL> urls = new ArrayList<>();
+        try {
+            urls.add(new URI("file", "", installPath + "/jre/lib/ext/jfxrt.jar", null).toURL());
+            urls.add(new URI("file", "", installPath + "/jre/lib/jfxswt.jar", null).toURL());
+            urls.add(new URI("file", "", installPath + "/jre/lib/*.dylib", null).toURL());
+        } catch (Exception ignore) {
+        }
+
+        final ClassLoader parent = SearchToolWindowGUIBuilder.class.getClassLoader();
+        if (parent instanceof PluginClassLoader) {
+            urls.addAll(((PluginClassLoader) parent).getUrls());
+        }
+
+        return new MyClassLoader(urls.toArray(new URL[urls.size()]), parent);
+    }
+
     public SearchToolWindowGUI build() {
 
         JavaFXInstaller installer = new JavaFXInstaller();
-        String installPath = JavaFXInstaller.INSTALL_URL;
 
-        if (!installer.isAvailable()) {
+        if (true) { //!installer.isAvailable()
             if (installer.installOpenJFXAndReport(content)) {
-                List<URL> urls = new ArrayList<>();
                 try {
-                    urls.add(new URI("file", "", installPath + "/jre/lib/ext/jfxrt.jar", null).toURL());
-                    urls.add(new URI("file", "", installPath + "/jre/lib/jfxswt.jar", null).toURL());
-                    urls.add(new URI("file", "", installPath + "/jre/lib/*.dylib", null).toURL());
-                } catch (URISyntaxException | MalformedURLException e) {
-                }
+                    Class searchToolWindowClass = createClassLoader().loadClass("io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI");
+                    return (SearchToolWindowGUI) searchToolWindowClass.getConstructor(JPanel.class, Project.class, PersonalSearchModel.class).newInstance(content, project, searchModel);
 
-                ClassLoader parent = SearchToolWindowGUIBuilder.class.getClassLoader();
-
-                URLClassLoader urlClassLoader = new URLClassLoader(urls.toArray(new URL[urls.size()]), parent);
-
-                try {
-                    return (SearchToolWindowGUI) urlClassLoader.loadClass("io.github.vcuswimlab.stackintheflow.view.SearchToolWindowGUI")
-                            .getConstructor(JPanel.class, Project.class, PersonalSearchModel.class).newInstance(content, project, searchModel);
                 } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
                 }
+            } else {
+                throw new UnsupportedOperationException("Unable to install JavaFX");
             }
         }
 
@@ -63,4 +75,31 @@ public class SearchToolWindowGUIBuilder {
         );
     }
 
+    private static class MyClassLoader extends URLClassLoader {
+        public MyClassLoader(URL[] urls, ClassLoader classLoader) {
+            super(urls, classLoader);
+        }
+
+        @Override
+        protected Class<?> loadClass(String s, boolean b) throws ClassNotFoundException {
+
+            if (s.startsWith("java.") || s.startsWith("javax.")) {
+                return super.loadClass(s, b);
+            }
+
+            Class<?> loadedClass;
+
+            try {
+                loadedClass = findClass(s);
+            } catch (ClassNotFoundException e) {
+                return super.loadClass(s, b);
+            }
+
+            if (b) {
+                resolveClass(loadedClass);
+            }
+
+            return loadedClass;
+        }
+    }
 }

@@ -1,5 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.util.Pair;
 import com.intellij.openapi.vfs.VfsUtilCore;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class JavaFXInstaller {
 
-    public static final String INSTALL_URL = "http://download.jetbrains.com/idea/open-jfx/javafx-sdk-overlay.zip";
+    private static final String INSTALL_URL = "http://download.jetbrains.com/idea/open-jfx/javafx-sdk-overlay.zip";
 
     public boolean isAvailable() {
         try {
@@ -27,13 +28,17 @@ public class JavaFXInstaller {
         }
     }
 
+    public static String getInstallationPath() {
+        return PathManager.getConfigPath() + "/openjfx";
+    }
+
     public boolean installOpenJFXAndReport(@NotNull JComponent parentComponent) {
         final DownloadableFileService fileService = DownloadableFileService.getInstance();
         final DownloadableFileDescription fileDescription = fileService.createFileDescription(INSTALL_URL, "javafx-sdk-overlay.zip");
         final FileDownloader downloader = fileService.createDownloader(Collections.singletonList(fileDescription), "OpenJFX");
 
         final List<Pair<VirtualFile, DownloadableFileDescription>> progress =
-                downloader.downloadWithProgress(INSTALL_URL, null, parentComponent);
+                downloader.downloadWithProgress(getInstallationPath(), null, parentComponent);
 
         if (progress == null) {
             return false;
@@ -51,7 +56,7 @@ public class JavaFXInstaller {
 
             final File archiveFile = VfsUtilCore.virtualToIoFile(file);
             try {
-                ZipUtil.extract(archiveFile, new File(INSTALL_URL), null, true);
+                ZipUtil.extract(archiveFile, new File(getInstallationPath()), null, true);
                 success = true;
             } catch (IOException ignore) {
             }
