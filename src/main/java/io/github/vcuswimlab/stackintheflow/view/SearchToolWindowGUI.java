@@ -57,7 +57,7 @@ import java.util.stream.Collectors;
 
 public class SearchToolWindowGUI {
     private JPanel content;
-    private Logging logger = new Logging();
+    private Logging logger;
     private Project project;
 
     private PersonalSearchModel searchModel;
@@ -74,6 +74,7 @@ public class SearchToolWindowGUI {
                                 PersonalSearchModel searchModel) {
         this.content = content;
         this.project = project;
+        this.logger = new Logging(project);
         this.searchModel = searchModel;
         bridge = new JavaBridge(this);
         initComponents();
