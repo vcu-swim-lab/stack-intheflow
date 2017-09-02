@@ -18,7 +18,7 @@ import java.util.Map;
 
 @State(
         name = "ProfileState", storages = {
-        @Storage("stackoverflow-profile.xml")
+        @Storage("stackintheflow-profile.xml")
 })
 public class PersistProfileComponent implements PersistentStateComponent<PersistProfileComponent> {
 

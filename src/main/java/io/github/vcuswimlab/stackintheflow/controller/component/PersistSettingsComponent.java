@@ -20,7 +20,7 @@ import java.util.Map;
         name = "SettingsState", storages = {
         @Storage(
                 id = "stack-overflow",
-                file = "$APP_CONFIG$/stackoverflow-settings.xml")
+                file = "$APP_CONFIG$/stackintheflow-settings.xml")
 })
 public class PersistSettingsComponent implements PersistentStateComponent<PersistSettingsComponent> {
 
