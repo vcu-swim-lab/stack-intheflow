@@ -62,6 +62,8 @@ public class SearchToolWindowGUIBuilder {
                     return (SearchToolWindowGUI) searchToolWindowClass.getConstructor(JPanel.class, Project.class, PersonalSearchModel.class).newInstance(content, project, searchModel);
 
                 } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
+                } catch (NoClassDefFoundError e) {
+                    return null;
                 }
             } else {
                 throw new UnsupportedOperationException("Unable to install JavaFX");
