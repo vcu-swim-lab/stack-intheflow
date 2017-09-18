@@ -18,9 +18,7 @@ import java.util.Map;
 // http://www.jetbrains.org/intellij/sdk/docs/basics/persisting_state_of_components.html
 @State(
         name = "SettingsState", storages = {
-        @Storage(
-                id = "stack-overflow",
-                file = "$APP_CONFIG$/stackintheflow-settings.xml")
+        @Storage("StackInTheFlow-settings.xml")
 })
 public class PersistSettingsComponent implements PersistentStateComponent<PersistSettingsComponent> {
 

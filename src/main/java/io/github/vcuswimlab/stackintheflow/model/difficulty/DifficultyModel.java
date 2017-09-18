@@ -33,7 +33,7 @@ public class DifficultyModel {
     private static final int QUERY_DELAY = 30; // Delay in seconds
     private static final int INACTIVE_DELAY = 15; // Delay in minutes
     private final int MAX_QUEUE_SIZE = 25;
-    private Logging logger = new Logging();
+    private Logging logger;
 
 
     private Project project;
@@ -50,6 +50,7 @@ public class DifficultyModel {
 
     public DifficultyModel(Project project) {
         this.project = project;
+        this.logger = new Logging(project);
         this.persistSettingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
         messageBus = project.getMessageBus();
         connection = messageBus.connect();

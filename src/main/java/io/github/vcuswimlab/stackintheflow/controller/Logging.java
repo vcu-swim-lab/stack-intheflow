@@ -17,16 +17,19 @@ import java.util.UUID;
  */
 public class Logging {
 
-    private Project p;
     private int identifier;
     private PersistSettingsComponent persistSettingsComponent;
 
     // Environment string
     private final static String env = "Production";
 
-    public Logging(){
-        this.p = ProjectManager.getInstance().getOpenProjects()[0];
-        this.identifier = p.getName().hashCode();
+    public Logging() {
+        this.identifier = 0;
+        this.persistSettingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
+    }
+
+    public Logging(Project project){
+        this.identifier = project.getName().hashCode();
         this.persistSettingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
     }
 
