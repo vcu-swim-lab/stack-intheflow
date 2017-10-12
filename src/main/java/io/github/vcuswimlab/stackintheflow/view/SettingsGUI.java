@@ -1,5 +1,6 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+import com.intellij.util.PlatformUtils;
 import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent.SettingKey;
 
 import javax.swing.*;
@@ -20,7 +21,17 @@ public class SettingsGUI {
     private JCheckBox difficultyCheckBox;
     private JCheckBox loggingCheckBox;
 
+    private static final String NO_SETTINGS_GUI_MESSAGE =
+            "<html>" +
+                    "Your platform does not currently support settings." +
+                    "</html>";
+
     public JPanel build(Map<SettingKey, Boolean> settingsMap) {
+
+        if (!PlatformUtils.isIntelliJ()) {
+            return getFallbackGUI();
+        }
+
         this.autoQueryCheckBox.setSelected(settingsMap.get(SettingKey.AUTO_QUERY));
         this.runtimeErrorCheckBox.setSelected(settingsMap.get(SettingKey.RUNTIME_ERROR));
         this.compileErrorCheckbox.setSelected(settingsMap.get(SettingKey.COMPILE_ERROR));
@@ -59,4 +70,14 @@ public class SettingsGUI {
         return guiState;
     }
 
+    private JPanel getFallbackGUI() {
+        JPanel noSettingsPanel = new JPanel();
+        JEditorPane noSettingsPane = new JEditorPane();
+        noSettingsPane.setContentType("text/html");
+        noSettingsPane.setEditable(false);
+        noSettingsPane.setOpaque(false);
+        noSettingsPane.setText(NO_SETTINGS_GUI_MESSAGE);
+        noSettingsPanel.add(noSettingsPane);
+        return noSettingsPanel;
+    }
 }

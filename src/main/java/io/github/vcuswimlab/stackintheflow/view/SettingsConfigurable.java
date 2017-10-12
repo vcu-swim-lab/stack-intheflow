@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
-import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -42,8 +41,9 @@ public class SettingsConfigurable implements Configurable {
     @Nullable
     @Override
     public JComponent createComponent() {
-        persistSettingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
+
         settingsGUI = new SettingsGUI();
+        persistSettingsComponent = ServiceManager.getService(PersistSettingsComponent.class);
         return settingsGUI.build(persistSettingsComponent.getSettingsMap());
     }
 

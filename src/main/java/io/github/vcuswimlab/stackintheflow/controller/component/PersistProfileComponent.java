@@ -3,6 +3,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
+import com.intellij.util.PlatformUtils;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -23,6 +24,12 @@ import java.util.Map;
 public class PersistProfileComponent implements PersistentStateComponent<PersistProfileComponent> {
 
     public Map<String, Integer> userStatMap;
+
+    public PersistProfileComponent() {
+        if (!PlatformUtils.isIntelliJ()) {
+            noStateLoaded();
+        }
+    }
 
     public Map<String, Integer> getUserStatMap() {
         return userStatMap;
