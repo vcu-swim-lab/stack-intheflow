@@ -4,7 +4,6 @@ import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.application.PathManager;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.project.ProjectManager;
 import io.github.vcuswimlab.stackintheflow.controller.component.PersistSettingsComponent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,7 +36,7 @@ public class Logging {
 
         Boolean isEnabled = persistSettingsComponent.loggingEnabled();
 
-        if (isEnabled == true) {
+        if (isEnabled) {
 
             File file = new File(PathManager.getLogPath() + "/logfile.log");
             if (file.length() > 1000) {
