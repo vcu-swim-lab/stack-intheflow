@@ -18,6 +18,7 @@ public class ToolWindowComponent implements ProjectComponent {
     public static final String COMPONENT_ID = "StackInTheFlow.ToolWindowComponent";
     private final Project project;
     private SearchToolWindowGUI searchToolWindowGUI;
+    private ToolWindow toolWindow = null;
 
     public ToolWindowComponent(Project project) {
         this.project = project;
@@ -25,12 +26,20 @@ public class ToolWindowComponent implements ProjectComponent {
 
     @Override
     public void projectOpened() {
-        ToolWindow toolWindow = ToolWindowManager.getInstance(project).registerToolWindow("StackInTheFlow", false, ToolWindowAnchor.RIGHT);
+        toolWindow = ToolWindowManager.getInstance(project).registerToolWindow("StackInTheFlow", false, ToolWindowAnchor.RIGHT);
         toolWindow.setIcon(StackInTheFlowIcons.TOOL_WINDOW_ICON);
         toolWindow.setAvailable(true, () -> {
             SearchToolWindowFactory windowFactory = new SearchToolWindowFactory();
             setSearchToolWindowGUI(windowFactory.buildGUI(toolWindow, project));
         });
+    }
+
+    public boolean toolWindowIsVisible(){
+        if(toolWindow == null) {
+            return false;
+        } else {
+            return toolWindow.isVisible();
+        }
     }
 
     @Override
