@@ -7,6 +7,7 @@ import com.intellij.openapi.project.Project;
 import com.intellij.util.ui.UIUtil;
 import io.github.vcuswimlab.stackintheflow.controller.Logging;
 import io.github.vcuswimlab.stackintheflow.controller.QueryExecutor;
+import io.github.vcuswimlab.stackintheflow.controller.component.ToolWindowComponent;
 import io.github.vcuswimlab.stackintheflow.model.JerseyGet;
 import io.github.vcuswimlab.stackintheflow.model.JerseyResponse;
 import io.github.vcuswimlab.stackintheflow.model.Question;
@@ -78,6 +79,7 @@ public class SearchToolWindowGUI {
         this.searchModel = searchModel;
         bridge = new JavaBridge(this);
         initComponents();
+
     }
 
     /**
@@ -158,23 +160,27 @@ public class SearchToolWindowGUI {
      * @param backoff        - whether or not to backoff
      * @param reasoning      - either "runtime" or "compiler" for their respective type of error messages
      */
-    public void errorQuery(List<String> parsedMessages, boolean backoff, String reasoning){
-        Platform.runLater(() -> {
-            //There are two parsed error messages. Try the second one first, if that gives nothing, then try the first one.
-            Pair<String, List<Question>> questionListPair = retrieveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
-            if(questionListPair.getValue().isEmpty()) {
-                questionListPair = retrieveResults(parsedMessages.get(0), "", backoff, JerseyGet.SortType.RELEVANCE);
-            }
-            //For this logic, we can't send a message to JS first, so all the stuff done in JS query functions needs to be done here.
-            window.call("reset");
-            window.call("resetSearchTags");
-            window.call("showAutoQueryIcon", reasoning);
-            window.call("updateUISearchType", "Relevance");
-            window.call("setSearchBox", questionListPair.getKey());
-            window.call("addCurrentQueryToHistory");
-            window.call("logQuery", reasoning);
-            updateQuestionList(questionListPair.getValue());
-        });
+    public void errorQuery(List<String> parsedMessages, boolean backoff, String reasoning) {
+        if (project.getComponent(ToolWindowComponent.class).toolWindowIsVisible()) {
+            Platform.runLater(() -> {
+                //There are two parsed error messages. Try the second one first, if that gives nothing, then try the first one.
+                Pair<String, List<Question>> questionListPair = retrieveResults(parsedMessages.get(1), "", backoff, JerseyGet.SortType.RELEVANCE);
+                if (questionListPair.getValue().isEmpty()) {
+                    questionListPair = retrieveResults(parsedMessages.get(0), "", backoff, JerseyGet.SortType.RELEVANCE);
+                }
+                //For this logic, we can't send a message to JS first, so all the stuff done in JS query functions needs to be done here.
+                window.call("reset");
+                window.call("resetSearchTags");
+                window.call("showAutoQueryIcon", reasoning);
+                window.call("updateUISearchType", "Relevance");
+                window.call("setSearchBox", questionListPair.getKey());
+                window.call("addCurrentQueryToHistory");
+                window.call("logQuery", reasoning);
+                updateQuestionList(questionListPair.getValue());
+            });
+        } else {
+            log("\"QueryEventType\": \"" + reasoning + "\", \"Visible\": \"false\"}");
+        }
     }
 
     /**

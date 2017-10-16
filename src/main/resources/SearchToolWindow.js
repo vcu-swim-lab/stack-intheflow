@@ -9,6 +9,8 @@ var searchTags; //SearchTag object, responsible for search tags logic
 var uiSettings; //UISettings object, responsible for the UI color schemes
 var searchMethod; //A string representing the current selected sort type (Relevance, Votes, New, Active)
 var queryHistory; //History object, holds the query history
+var lastQueryType; //always has the most recent query type, used for log correlation
+
 
 //This function replaces $(document).ready(), which for some reason does not get called if a second instance of the UI is opened. See Pull Req. #107
 //initialize() is called in Java createScene() when the JavaBridge gets set up.
@@ -18,6 +20,7 @@ function initialize(){
     searchTags = new SearchTags();
     uiSettings = new UISettings();
     queryHistory = new History();
+    lastQueryType = "-1";
 
     searchMethod = "RELEVANCE";
 
@@ -390,12 +393,13 @@ function logQuery(queryType){
                     tagString.split(" ").join(", ") + '], ' + '"sort":' + '"' + searchMethod.toLowerCase() + '"' + '}';
 
     JavaBridge.log(message);
+    lastQueryType = queryType;
 }
 
 function logResultEvent(resultType, index){
     var totalResults = numQuestions;
 
-    var message = '"ResultEventType":' + '"' + resultType + '"' + ', ' + '"Index":' + index + ', ' + '"Total":' + totalResults + '}';
+    var message = '"ResultEventType":' + '"' + resultType + '"' + ', ' + '"SourceQuery":"' + lastQueryType + '", ' + '"Index":' + index + ', ' + '"Total":' + totalResults + '}';
 
     JavaBridge.log(message);
 }
