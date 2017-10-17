@@ -3,6 +3,7 @@ package io.github.vcuswimlab.stackintheflow.controller.component;
 import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
+import com.intellij.util.PlatformUtils;
 import com.intellij.util.xmlb.XmlSerializerUtil;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,6 +25,12 @@ public class PersistSettingsComponent implements PersistentStateComponent<Persis
 
 
     public Map<SettingKey, Boolean> settingsMap;
+
+    public PersistSettingsComponent() {
+        if (!PlatformUtils.isIntelliJ()) {
+            noStateLoaded();
+        }
+    }
 
     @Override
     public void noStateLoaded() {
