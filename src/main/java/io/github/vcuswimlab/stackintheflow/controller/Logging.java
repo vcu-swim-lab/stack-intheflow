@@ -20,7 +20,7 @@ public class Logging {
     private PersistSettingsComponent persistSettingsComponent;
 
     // Environment string
-    private final static String env = "Production";
+    private final static String env = "Production_v0.2.0";
 
     public Logging() {
         this.identifier = 0;
