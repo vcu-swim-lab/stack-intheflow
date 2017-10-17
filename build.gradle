@@ -28,12 +28,12 @@ intellij {
     pluginName 'StackInTheFlow'
 
     // Uncomment to test against android studio
-    alternativeIdePath '/home/chase/Code/android-studio'
+    // alternativeIdePath '/path/to/android-studio'
 }
 
 patchPluginXml {
     sinceBuild '162.1121'
-    untilBuild '172.*'
+    untilBuild '173.*'
 }
 
 dependencies {
