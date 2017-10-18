@@ -22,8 +22,10 @@ Refine your searches by sorting by different metrics and filtering by specific t
 
 ![Filter](https://i.imgur.com/NuQF2cl.gif)
 
+********
+
 ### Running in Android Studio
-In order to run StackInTheFlow within Android Stuido you must set the `STUDIO_JDK` environment variable to point to an Oracle JDK installation on your machine. You can read about setting Android Studio environment variables [here](https://developer.android.com/studio/command-line/variables.html#set).  
+In order to run StackInTheFlow within Android Studio you must set the `STUDIO_JDK` environment variable to point to an Oracle JDK installation on your machine. You can read about setting Android Studio environment variables [here](https://developer.android.com/studio/command-line/variables.html#set).  
 For example on Windows in the command prompt you would run:
 ```
 set STUDIO_JDK="C:\Program Files\Java\jdk_version_something"
