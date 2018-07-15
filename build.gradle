@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'io.github.vcuswimlab'
-version '0.2.0'
+version '0.2.2'
 
 repositories {
     mavenCentral()
@@ -33,7 +33,7 @@ intellij {
 
 patchPluginXml {
     sinceBuild '162.1121'
-    untilBuild '173.*'
+    untilBuild '181.*'
 }
 
 dependencies {
