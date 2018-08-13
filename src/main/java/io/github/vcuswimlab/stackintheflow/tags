@@ -1,0 +1,702 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ACCEPTED	model/Query.java	/^        ACCEPTED("accepted"),$/;"	e	enum:Query.Component	file:
+ACTIVITY	model/JerseyGet.java	/^        ACTIVITY("activity"),$/;"	e	enum:JerseyGet.SortType	file:
+ADVANCED	model/JerseyGet.java	/^        ADVANCED("advanced");$/;"	e	enum:JerseyGet.SearchType	file:
+ALPHA	model/L2H/CustomL2H.java	/^    public static final int ALPHA = 0; \/\/ concentration parameter$/;"	f	class:CustomL2H
+ANSWERS	model/Query.java	/^        ANSWERS("answers"),$/;"	e	enum:Query.Component	file:
+AUTO_QUERY	controller/component/PersistSettingsComponent.java	/^        AUTO_QUERY,$/;"	e	enum:PersistSettingsComponent.SettingKey	file:
+A_0	model/L2H/CustomL2H.java	/^    public static final int A_0 = 2;$/;"	f	class:CustomL2H
+AbstractCombiner	model/score/combiner/AbstractCombiner.java	/^    public AbstractCombiner(Collection<Scorer> scorers) {$/;"	m	class:AbstractCombiner
+AbstractCombiner	model/score/combiner/AbstractCombiner.java	/^public abstract class AbstractCombiner implements Combiner {$/;"	c
+AbstractScorer	model/score/AbstractScorer.java	/^    public AbstractScorer(TermStatComponent statComponent) {$/;"	m	class:AbstractScorer
+AbstractScorer	model/score/AbstractScorer.java	/^public abstract class AbstractScorer implements Scorer {$/;"	c
+AutoQueryAction	controller/AutoQueryAction.java	/^public class AutoQueryAction extends AnAction {$/;"	c
+AutoQueryGenerator	controller/AutoQueryGenerator.java	/^public class AutoQueryGenerator {$/;"	c
+BETA	model/L2H/CustomL2H.java	/^    public static final int BETA = 1; \/\/ concentration parameter$/;"	f	class:CustomL2H
+BODY	model/Query.java	/^        BODY("body"),$/;"	e	enum:Query.Component	file:
+BOLD_LINE_HEIGHT	view/QuestionRenderer.java	/^    private static final int BOLD_LINE_HEIGHT = 18;$/;"	f	class:QuestionRenderer	file:
+B_0	model/L2H/CustomL2H.java	/^    public static final int B_0 = 3;$/;"	f	class:CustomL2H
+CLICK	model/difficulty/events/EditorEventType.java	/^    INSERT("Insert"), DELETE("Delete"), SCROLL("Scroll"), CLICK("Click");$/;"	e	enum:EditorEventType	file:
+CLOSED	model/Query.java	/^        CLOSED("closed"),$/;"	e	enum:Query.Component	file:
+COLLECT	model/difficulty/DifficultyModel.java	/^        COLLECT, QUERY, PAUSE$/;"	e	enum:DifficultyModel.State	file:
+COMPILE_ERROR	controller/component/PersistSettingsComponent.java	/^        COMPILE_ERROR,$/;"	e	enum:PersistSettingsComponent.SettingKey	file:
+COMPONENT_ID	controller/component/CompilerListenerComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.CompilerListenerComponent";$/;"	f	class:CompilerListenerComponent
+COMPONENT_ID	controller/component/DifficultyModelComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.DifficultyModelComponent";$/;"	f	class:DifficultyModelComponent
+COMPONENT_ID	controller/component/RuntimeErrorComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.ConsoleErrorComponent";$/;"	f	class:RuntimeErrorComponent
+COMPONENT_ID	controller/component/ToolWindowComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.ToolWindowComponent";$/;"	f	class:ToolWindowComponent
+COMPONENT_ID	controller/component/document/DocumentListenerComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.DocumentListenerComponent";$/;"	f	class:DocumentListenerComponent
+COMPONENT_ID	controller/component/stat/tags/TagStatComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.TagStatComponent";$/;"	f	class:TagStatComponent
+COMPONENT_ID	controller/component/stat/tags/UserTagStatComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.UserTagStatComponent";$/;"	f	class:UserTagStatComponent
+COMPONENT_ID	controller/component/stat/terms/TermStatComponent.java	/^    public static final String COMPONENT_ID = "StackInTheFlow.TermStatComponent";$/;"	f	class:TermStatComponent
+CREATION	model/JerseyGet.java	/^        CREATION("creation"),$/;"	e	enum:JerseyGet.SortType	file:
+Click	model/difficulty/events/EditorEvent.java	/^        public Click(Editor editor, long timeStamp) {$/;"	m	class:EditorEvent.Click
+Click	model/difficulty/events/EditorEvent.java	/^    public static class Click extends EditorEvent {$/;"	c	class:EditorEvent
+Combiner	model/score/combiner/Combiner.java	/^public interface Combiner {$/;"	i
+CompilerListenerComponent	controller/component/CompilerListenerComponent.java	/^    public CompilerListenerComponent(Project project) {$/;"	m	class:CompilerListenerComponent
+CompilerListenerComponent	controller/component/CompilerListenerComponent.java	/^public class CompilerListenerComponent implements ProjectComponent {$/;"	c
+Component	model/Query.java	/^        Component(String label) {$/;"	m	class:Query.Component
+Component	model/Query.java	/^    public enum Component {$/;"	g	class:Query
+ConsoleErrorInputFilter	model/erroranalysis/RuntimeErrorFilterProvider.java	/^        private ConsoleErrorInputFilter(Project project) {$/;"	m	class:RuntimeErrorFilterProvider.ConsoleErrorInputFilter	file:
+ConsoleErrorInputFilter	model/erroranalysis/RuntimeErrorFilterProvider.java	/^    private class ConsoleErrorInputFilter implements InputFilter {$/;"	c	class:RuntimeErrorFilterProvider
+CustomL2H	model/L2H/CustomL2H.java	/^    public CustomL2H() {$/;"	m	class:CustomL2H
+CustomL2H	model/L2H/CustomL2H.java	/^    public CustomL2H(String basename) {$/;"	m	class:CustomL2H
+CustomL2H	model/L2H/CustomL2H.java	/^public class CustomL2H extends AbstractSampler {$/;"	c
+D	model/L2H/CustomL2H.java	/^    protected int D;    \/\/ number of documents$/;"	f	class:CustomL2H
+DELETE	model/difficulty/events/EditorEventType.java	/^    INSERT("Insert"), DELETE("Delete"), SCROLL("Scroll"), CLICK("Click");$/;"	e	enum:EditorEventType	file:
+DELETE_RATIO	model/difficulty/DifficultyModel.java	/^    private static final double DELETE_RATIO = .6;$/;"	f	class:DifficultyModel	file:
+DEV_KEY	model/JerseyGet.java	/^    private static final String DEV_KEY = "4ZsC*xim)NbV1IbL5Z2xEg((";$/;"	f	class:JerseyGet	file:
+DIFFICULTY	controller/component/PersistSettingsComponent.java	/^        DIFFICULTY,$/;"	e	enum:PersistSettingsComponent.SettingKey	file:
+DIFFICULTY_TRIGGER_TOPIC	model/difficulty/events/DifficultyTrigger.java	/^    Topic<DifficultyTrigger> DIFFICULTY_TRIGGER_TOPIC = Topic.create("Difficulty Trigger", DifficultyTrigger.class);$/;"	f	interface:DifficultyTrigger
+DISPLAY_NAME	view/SettingsConfigurable.java	/^    private static final String DISPLAY_NAME = "Stack-InTheFlow";$/;"	f	class:SettingsConfigurable	file:
+Delete	model/difficulty/events/EditorEvent.java	/^        public Delete(String deletedText, Editor editor, long timeStamp) {$/;"	m	class:EditorEvent.Delete
+Delete	model/difficulty/events/EditorEvent.java	/^    public static class Delete extends EditorEvent {$/;"	c	class:EditorEvent
+DifficultyModel	model/difficulty/DifficultyModel.java	/^    public DifficultyModel(Project project) {$/;"	m	class:DifficultyModel
+DifficultyModel	model/difficulty/DifficultyModel.java	/^public class DifficultyModel {$/;"	c
+DifficultyModelComponent	controller/component/DifficultyModelComponent.java	/^    public DifficultyModelComponent(Project project) {$/;"	m	class:DifficultyModelComponent
+DifficultyModelComponent	controller/component/DifficultyModelComponent.java	/^public class DifficultyModelComponent implements ProjectComponent {$/;"	c
+DifficultyTrigger	model/difficulty/events/DifficultyTrigger.java	/^public interface DifficultyTrigger {$/;"	i
+DocumentListenerComponent	controller/component/document/DocumentListenerComponent.java	/^    public DocumentListenerComponent(Project project) {$/;"	m	class:DocumentListenerComponent
+DocumentListenerComponent	controller/component/document/DocumentListenerComponent.java	/^public class DocumentListenerComponent implements ProjectComponent {$/;"	c
+ENCODING_TYPE	model/JerseyGet.java	/^    private static final String ENCODING_TYPE = "gzip";$/;"	f	class:JerseyGet	file:
+ERROR	model/erroranalysis/ErrorMessage.java	/^        ERROR,$/;"	e	enum:ErrorMessage.MessageType	file:
+EVENT_DELAY	model/difficulty/DifficultyModel.java	/^    private static final int EVENT_DELAY = 1000; \/\/ Delay in milliseconds$/;"	f	class:DifficultyModel	file:
+EXCERPTS	model/JerseyGet.java	/^        EXCERPTS("excerpts"),$/;"	e	enum:JerseyGet.SearchType	file:
+EditorEvent	model/difficulty/events/EditorEvent.java	/^    private EditorEvent(Editor editor, long timeStamp) {$/;"	m	class:EditorEvent	file:
+EditorEvent	model/difficulty/events/EditorEvent.java	/^public abstract class EditorEvent {$/;"	c
+EditorEventType	model/difficulty/events/EditorEventType.java	/^    EditorEventType(String string) {$/;"	m	class:EditorEventType
+EditorEventType	model/difficulty/events/EditorEventType.java	/^public enum EditorEventType {$/;"	g
+EditorFonts	view/EditorFonts.java	/^public class EditorFonts {$/;"	c
+ErrorMessage	model/erroranalysis/ErrorMessage.java	/^    public ErrorMessage() {$/;"	m	class:ErrorMessage
+ErrorMessage	model/erroranalysis/ErrorMessage.java	/^public class ErrorMessage {$/;"	c
+ErrorMessageParser	model/erroranalysis/ErrorMessageParser.java	/^public class ErrorMessageParser {$/;"	c
+FILTER	model/Query.java	/^        FILTER("filter");$/;"	e	enum:Query.Component	file:
+FROMDATE	model/Query.java	/^        FROMDATE("fromdate"),$/;"	e	enum:Query.Component	file:
+IMPORT_STATEMENT_PATTERN	controller/info/match/StringMatchUtils.java	/^    public static final Pattern IMPORT_STATEMENT_PATTERN = Pattern.compile("import\\\\s+([\\\\w\\\\.]*?(\\\\w+));");$/;"	f	class:StringMatchUtils
+INACTIVE_DELAY	model/difficulty/DifficultyModel.java	/^    private static final int INACTIVE_DELAY = 15; \/\/ Delay in minutes$/;"	f	class:DifficultyModel	file:
+INFORMATION	model/erroranalysis/ErrorMessage.java	/^        INFORMATION$/;"	e	enum:ErrorMessage.MessageType	file:
+INITIAL_RANK	model/personalsearch/PersonalSearchModel.java	/^        final int INITIAL_RANK;$/;"	f	class:PersonalSearchModel.QuestionRank
+INSERT	model/difficulty/events/EditorEventType.java	/^    INSERT("Insert"), DELETE("Delete"), SCROLL("Scroll"), CLICK("Click");$/;"	e	enum:EditorEventType	file:
+INSIDE	model/L2H/CustomL2H.java	/^    public static final int INSIDE = 0;$/;"	f	class:CustomL2H
+IctfScorer	model/score/IctfScorer.java	/^    public IctfScorer(TermStatComponent statComponent) {$/;"	m	class:IctfScorer
+IctfScorer	model/score/IctfScorer.java	/^public class IctfScorer extends AbstractScorer {$/;"	c
+IdfScorer	model/score/IdfScorer.java	/^    public IdfScorer(TermStatComponent statComponent) {$/;"	m	class:IdfScorer
+IdfScorer	model/score/IdfScorer.java	/^public class IdfScorer extends AbstractScorer {$/;"	c
+Insert	model/difficulty/events/EditorEvent.java	/^        public Insert(String insertedText, Editor editor, long timeStamp) {$/;"	m	class:EditorEvent.Insert
+Insert	model/difficulty/events/EditorEvent.java	/^    public static class Insert extends EditorEvent {$/;"	c	class:EditorEvent
+JavaBridge	view/JavaBridge.java	/^    public JavaBridge(SearchToolWindowGUI guiInstance){$/;"	m	class:JavaBridge
+JavaBridge	view/JavaBridge.java	/^public class JavaBridge {$/;"	c
+JerseyGet	model/JerseyGet.java	/^    protected JerseyGet() {$/;"	m	class:JerseyGet
+JerseyGet	model/JerseyGet.java	/^public class JerseyGet {$/;"	c
+JerseyResponse	model/JerseyResponse.java	/^    public JerseyResponse() {$/;"	m	class:JerseyResponse
+JerseyResponse	model/JerseyResponse.java	/^    public JerseyResponse(List<Question> items, boolean has_more, int quota_max, int quota_remaining) {$/;"	m	class:JerseyResponse
+JerseyResponse	model/JerseyResponse.java	/^public class JerseyResponse {$/;"	c
+KEY_PARAM	model/JerseyGet.java	/^    private static final String KEY_PARAM = "key";$/;"	f	class:JerseyGet	file:
+L	model/L2H/CustomL2H.java	/^    protected int L;    \/\/ number of unique labels$/;"	f	class:CustomL2H
+L2HPredictor	model/L2H/L2HPredictor.java	/^public class L2HPredictor {$/;"	c
+L2HTestRunner	model/L2H/CustomL2H.java	/^    public L2HTestRunner(CustomL2H sampler,$/;"	m	class:L2HTestRunner
+L2HTestRunner	model/L2H/CustomL2H.java	/^class L2HTestRunner implements Runnable {$/;"	c
+LOGGING	controller/component/PersistSettingsComponent.java	/^        LOGGING$/;"	e	enum:PersistSettingsComponent.SettingKey	file:
+LogServer	controller/LogServer.java	/^    public LogServer(){$/;"	m	class:LogServer
+LogServer	controller/LogServer.java	/^public class LogServer {$/;"	c
+LogToServer	controller/LogServer.java	/^    public void LogToServer(File file){$/;"	m	class:LogServer
+Logging	controller/Logging.java	/^    public Logging() {$/;"	m	class:Logging
+Logging	controller/Logging.java	/^    public Logging(Project project){$/;"	m	class:Logging
+Logging	controller/Logging.java	/^public class Logging {$/;"	c
+MAX	model/Query.java	/^        MAX("max"),$/;"	e	enum:Query.Component	file:
+MAX_QUERY_TERMS	controller/AutoQueryGenerator.java	/^    private static final int MAX_QUERY_TERMS = 4;$/;"	f	class:AutoQueryGenerator	file:
+MAX_QUEUE_SIZE	model/difficulty/DifficultyModel.java	/^    private final int MAX_QUEUE_SIZE = 25;$/;"	f	class:DifficultyModel	file:
+MIGRATED	model/Query.java	/^        MIGRATED("migrated"),$/;"	e	enum:Query.Component	file:
+MIN	model/Query.java	/^        MIN("min"),$/;"	e	enum:Query.Component	file:
+MessageType	model/erroranalysis/ErrorMessage.java	/^    public enum MessageType{$/;"	g	class:ErrorMessage
+NON_EDIT_RATIO	model/difficulty/DifficultyModel.java	/^    private static final double NON_EDIT_RATIO = .6;$/;"	f	class:DifficultyModel	file:
+NORMAL	model/JerseyGet.java	/^        NORMAL(""),$/;"	e	enum:JerseyGet.SearchType	file:
+NORMAL_LINE_HEIGHT	view/QuestionRenderer.java	/^    private static final int NORMAL_LINE_HEIGHT = 15;$/;"	f	class:QuestionRenderer	file:
+NOTICE	model/Query.java	/^        NOTICE("notice"),$/;"	e	enum:Query.Component	file:
+NOTTAGGED	model/Query.java	/^        NOTTAGGED("nottagged"),$/;"	e	enum:Query.Component	file:
+NO_JAVAFX_FOUND_MESSAGE	view/SearchToolWindowFactory.java	/^    private static final String NO_JAVAFX_FOUND_MESSAGE =$/;"	f	class:SearchToolWindowFactory	file:
+NO_SETTINGS_GUI_MESSAGE	view/SettingsGUI.java	/^    private static final String NO_SETTINGS_GUI_MESSAGE =$/;"	f	class:SettingsGUI	file:
+Node	model/L2H/CustomL2H.java	/^        Node(int id, int index, int level,$/;"	m	class:CustomL2H.Node
+Node	model/L2H/CustomL2H.java	/^    public class Node extends TreeNode<Node, SparseCount> {$/;"	c	class:CustomL2H
+ORDER	model/Query.java	/^        ORDER("order"),$/;"	e	enum:Query.Component	file:
+OUTSIDE	model/L2H/CustomL2H.java	/^    public static final int OUTSIDE = 1;$/;"	f	class:CustomL2H
+PAGE	model/Query.java	/^        PAGE("page"),$/;"	e	enum:Query.Component	file:
+PAGESIZE	model/Query.java	/^        PAGESIZE("pagesize"),$/;"	e	enum:Query.Component	file:
+PAUSE	model/difficulty/DifficultyModel.java	/^        COLLECT, QUERY, PAUSE$/;"	e	enum:DifficultyModel.State	file:
+PersistProfileComponent	controller/component/PersistProfileComponent.java	/^    public PersistProfileComponent() {$/;"	m	class:PersistProfileComponent
+PersistProfileComponent	controller/component/PersistProfileComponent.java	/^public class PersistProfileComponent implements PersistentStateComponent<PersistProfileComponent> {$/;"	c
+PersistSettingsComponent	controller/component/PersistSettingsComponent.java	/^    public PersistSettingsComponent() {$/;"	m	class:PersistSettingsComponent
+PersistSettingsComponent	controller/component/PersistSettingsComponent.java	/^public class PersistSettingsComponent implements PersistentStateComponent<PersistSettingsComponent> {$/;"	c
+PersonalSearchModel	model/personalsearch/PersonalSearchModel.java	/^    public PersonalSearchModel(TagStatComponent tagStatComponent, Map<String, Integer> userStateMap) {$/;"	m	class:PersonalSearchModel
+PersonalSearchModel	model/personalsearch/PersonalSearchModel.java	/^public class PersonalSearchModel {$/;"	c
+Q	model/Query.java	/^        Q("q"),$/;"	e	enum:Query.Component	file:
+QUERY	model/difficulty/DifficultyModel.java	/^        COLLECT, QUERY, PAUSE$/;"	e	enum:DifficultyModel.State	file:
+QUERY_DELAY	model/difficulty/DifficultyModel.java	/^    private static final int QUERY_DELAY = 30; \/\/ Delay in seconds$/;"	f	class:DifficultyModel	file:
+Query	model/Query.java	/^    public Query() {$/;"	m	class:Query
+Query	model/Query.java	/^    public Query(Map<String, String> components, String site) {$/;"	m	class:Query
+Query	model/Query.java	/^    public Query(String site) {$/;"	m	class:Query
+Query	model/Query.java	/^public class Query {$/;"	c
+QueryExecutor	controller/QueryExecutor.java	/^public class QueryExecutor {$/;"	c
+Question	model/Question.java	/^    public Question() {$/;"	m	class:Question
+Question	model/Question.java	/^    public Question(List<String> tags, String body, String excerpt, String title, String link) {$/;"	m	class:Question
+Question	model/Question.java	/^public class Question {$/;"	c
+QuestionRank	model/personalsearch/PersonalSearchModel.java	/^        public QuestionRank(Question question, int INITIAL_RANK) {$/;"	m	class:PersonalSearchModel.QuestionRank
+QuestionRank	model/personalsearch/PersonalSearchModel.java	/^    private class QuestionRank {$/;"	c	class:PersonalSearchModel
+QuestionRenderer	view/QuestionRenderer.java	/^    public QuestionRenderer(JComponent parentContent) {$/;"	m	class:QuestionRenderer
+QuestionRenderer	view/QuestionRenderer.java	/^public class QuestionRenderer extends JTextPane implements ListCellRenderer<Question> {$/;"	c
+RELEVANCE	model/JerseyGet.java	/^        RELEVANCE("relevance"),$/;"	e	enum:JerseyGet.SortType	file:
+RUNTIME_ERROR	controller/component/PersistSettingsComponent.java	/^        RUNTIME_ERROR,$/;"	e	enum:PersistSettingsComponent.SettingKey	file:
+RuntimeErrorComponent	controller/component/RuntimeErrorComponent.java	/^public class RuntimeErrorComponent implements ProjectComponent {$/;"	c
+RuntimeErrorFilterProvider	model/erroranalysis/RuntimeErrorFilterProvider.java	/^public class RuntimeErrorFilterProvider implements ConsoleInputFilterProvider {$/;"	c
+SCROLL	model/difficulty/events/EditorEventType.java	/^    INSERT("Insert"), DELETE("Delete"), SCROLL("Scroll"), CLICK("Click");$/;"	e	enum:EditorEventType	file:
+SEARCH_URL	model/JerseyGet.java	/^    private static final String SEARCH_URL = "https:\/\/api.stackexchange.com\/2.2\/search";$/;"	f	class:JerseyGet	file:
+SIMILAR	model/JerseyGet.java	/^        SIMILAR("similar"),$/;"	e	enum:JerseyGet.SearchType	file:
+SITE	model/Query.java	/^        SITE("site"),$/;"	e	enum:Query.Component	file:
+SORT	model/Query.java	/^        SORT("sort"),$/;"	e	enum:Query.Component	file:
+Scorer	model/score/Scorer.java	/^public interface Scorer {$/;"	i
+ScqScorer	model/score/ScqScorer.java	/^    public ScqScorer(TermStatComponent statComponent) {$/;"	m	class:ScqScorer
+ScqScorer	model/score/ScqScorer.java	/^public class ScqScorer extends AbstractScorer {$/;"	c
+Scroll	model/difficulty/events/EditorEvent.java	/^        public Scroll(Editor editor, long timeStamp) {$/;"	m	class:EditorEvent.Scroll
+Scroll	model/difficulty/events/EditorEvent.java	/^    public static class Scroll extends EditorEvent {$/;"	c	class:EditorEvent
+SearchToolWindowFactory	view/SearchToolWindowFactory.java	/^public class SearchToolWindowFactory {$/;"	c
+SearchToolWindowGUI	view/SearchToolWindowGUI.java	/^    private SearchToolWindowGUI(JPanel content, Project project,$/;"	m	class:SearchToolWindowGUI	file:
+SearchToolWindowGUI	view/SearchToolWindowGUI.java	/^public class SearchToolWindowGUI {$/;"	c
+SearchToolWindowGUIBuilder	view/SearchToolWindowGUI.java	/^    public static class SearchToolWindowGUIBuilder {$/;"	c	class:SearchToolWindowGUI
+SearchType	model/JerseyGet.java	/^        SearchType(String label) {$/;"	m	class:JerseyGet.SearchType
+SearchType	model/JerseyGet.java	/^    public enum SearchType {$/;"	g	class:JerseyGet
+SettingKey	controller/component/PersistSettingsComponent.java	/^    public enum SettingKey {$/;"	g	class:PersistSettingsComponent
+SettingsConfigurable	view/SettingsConfigurable.java	/^public class SettingsConfigurable implements Configurable {$/;"	c
+SettingsGUI	view/SettingsGUI.java	/^public class SettingsGUI {$/;"	c
+SortType	model/JerseyGet.java	/^        SortType(String label) {$/;"	m	class:JerseyGet.SortType
+SortType	model/JerseyGet.java	/^    public enum SortType {$/;"	g	class:JerseyGet
+Stat	controller/component/stat/Stat.java	/^    public Stat(long ctf, long df, double idf, double ictf) {$/;"	m	class:Stat
+Stat	controller/component/stat/Stat.java	/^public class Stat {$/;"	c
+State	model/difficulty/DifficultyModel.java	/^    private enum State {$/;"	g	class:DifficultyModel
+StringMatchUtils	controller/info/match/StringMatchUtils.java	/^public class StringMatchUtils {$/;"	c
+SumCombiner	model/score/combiner/SumCombiner.java	/^    public SumCombiner(Collection<Scorer> scorers) {$/;"	m	class:SumCombiner
+SumCombiner	model/score/combiner/SumCombiner.java	/^public class SumCombiner extends AbstractCombiner {$/;"	c
+TAGGED	model/Query.java	/^        TAGGED("tagged"),$/;"	e	enum:Query.Component	file:
+TERM_PATTERN	controller/info/match/StringMatchUtils.java	/^    public static final Pattern TERM_PATTERN = Pattern.compile("\\\\b([A-Z]\\\\w+)\\\\b");$/;"	f	class:StringMatchUtils
+TITLE	model/Query.java	/^        TITLE("title"),$/;"	e	enum:Query.Component	file:
+TODATE	model/Query.java	/^        TODATE("todate"),$/;"	e	enum:Query.Component	file:
+TagProbability	model/L2H/L2HPredictor.java	/^		public TagProbability(double probability, String tagName) {$/;"	m	class:L2HPredictor.TagProbability
+TagProbability	model/L2H/L2HPredictor.java	/^	private static class TagProbability implements Comparable<TagProbability> {$/;"	c	class:L2HPredictor
+TagStatComponent	controller/component/stat/tags/TagStatComponent.java	/^    public TagStatComponent() {$/;"	m	class:TagStatComponent
+TagStatComponent	controller/component/stat/tags/TagStatComponent.java	/^public class TagStatComponent implements ApplicationComponent {$/;"	c
+TermStatComponent	controller/component/stat/terms/TermStatComponent.java	/^    public TermStatComponent() {$/;"	m	class:TermStatComponent
+TermStatComponent	controller/component/stat/terms/TermStatComponent.java	/^public class TermStatComponent implements ApplicationComponent {$/;"	c
+TextDataLoader	model/L2H/L2HPredictor.java	/^		public TextDataLoader(String dataset, String fileName) throws FileNotFoundException, IOException, Exception {$/;"	m	class:L2HPredictor.TextDataLoader
+TextDataLoader	model/L2H/L2HPredictor.java	/^	private static class TextDataLoader extends TextDataset {		$/;"	c	class:L2HPredictor
+TfIdf	controller/info/TfIdf.java	/^public class TfIdf {$/;"	c
+ToolWindowComponent	controller/component/ToolWindowComponent.java	/^    public ToolWindowComponent(Project project) {$/;"	m	class:ToolWindowComponent
+ToolWindowComponent	controller/component/ToolWindowComponent.java	/^public class ToolWindowComponent implements ProjectComponent {$/;"	c
+URL	model/Query.java	/^        URL("url"),$/;"	e	enum:Query.Component	file:
+USER	model/Query.java	/^        USER("user"),$/;"	e	enum:Query.Component	file:
+UserTagStatComponent	controller/component/stat/tags/UserTagStatComponent.java	/^    public UserTagStatComponent(TagStatComponent tagStatComponent, Project project) {$/;"	m	class:UserTagStatComponent
+UserTagStatComponent	controller/component/stat/tags/UserTagStatComponent.java	/^public class UserTagStatComponent implements ProjectComponent {$/;"	c
+V	model/L2H/CustomL2H.java	/^    protected int V;    \/\/ vocab size$/;"	f	class:CustomL2H
+VIEWS	model/Query.java	/^        VIEWS("views"),$/;"	e	enum:Query.Component	file:
+VOTES	model/JerseyGet.java	/^        VOTES("votes");$/;"	e	enum:JerseyGet.SortType	file:
+VarScorer	model/score/VarScorer.java	/^    public VarScorer(TermStatComponent statComponent) {$/;"	m	class:VarScorer
+VarScorer	model/score/VarScorer.java	/^public class VarScorer extends AbstractScorer {$/;"	c
+WARNING	model/erroranalysis/ErrorMessage.java	/^        WARNING,$/;"	e	enum:ErrorMessage.MessageType	file:
+WIKI	model/Query.java	/^        WIKI("wiki"),$/;"	e	enum:Query.Component	file:
+a0	model/L2H/L2HPredictor.java	/^	private static final int a0 = 90;$/;"	f	class:L2HPredictor	file:
+actionPerformed	controller/AutoQueryAction.java	/^    public void actionPerformed(AnActionEvent e) {$/;"	m	class:AutoQueryAction
+addToken	model/L2H/CustomL2H.java	/^        public void addToken(int d, int n) {$/;"	m	class:CustomL2H.Node
+alpha	model/L2H/L2HPredictor.java	/^	private static final int alpha = 10;$/;"	f	class:L2HPredictor	file:
+appendMessage	controller/component/RuntimeErrorComponent.java	/^    public void appendMessage(InputFilter console, String type, String line) {$/;"	m	class:RuntimeErrorComponent
+apply	view/SettingsConfigurable.java	/^    public void apply() throws ConfigurationException {$/;"	m	class:SettingsConfigurable
+applyFilter	model/erroranalysis/RuntimeErrorFilterProvider.java	/^        public List<Pair<String, ConsoleViewContentType>> applyFilter(String s, ConsoleViewContentType consoleViewContentType) {$/;"	m	class:RuntimeErrorFilterProvider.ConsoleErrorInputFilter
+assignedTokens	model/L2H/CustomL2H.java	/^        HashMap<Integer, ArrayList<Integer>> assignedTokens;$/;"	f	class:CustomL2H.Node
+autoQuery	view/JavaBridge.java	/^    public void autoQuery(String query, String tags, boolean backoff, boolean addToQueryHistory, String reasoning){$/;"	m	class:JavaBridge
+autoQuery	view/SearchToolWindowGUI.java	/^    public void autoQuery(String query, boolean backoff, String reasoning){ \/\/reasoning is either "action" or "difficulty"$/;"	m	class:SearchToolWindowGUI
+autoQueryCheckBox	view/SettingsGUI.java	/^    private JCheckBox autoQueryCheckBox;$/;"	f	class:SettingsGUI	file:
+autoQueryEnabled	controller/component/PersistSettingsComponent.java	/^    public boolean autoQueryEnabled() {$/;"	m	class:PersistSettingsComponent
+b0	model/L2H/L2HPredictor.java	/^	private static final int b0 = 10;$/;"	f	class:L2HPredictor	file:
+beta	model/L2H/L2HPredictor.java	/^	private static final int beta = 1000;$/;"	f	class:L2HPredictor	file:
+body	model/Question.java	/^    private String body;$/;"	f	class:Question	file:
+bodyProcessing	view/QuestionRenderer.java	/^    private String bodyProcessing(String body, String textColor) {$/;"	m	class:QuestionRenderer	file:
+bridge	view/SearchToolWindowGUI.java	/^    private JavaBridge bridge; \/\/Object to interact with JS. In JS, use JavaBridge.<method>(...) to call a Java method$/;"	f	class:SearchToolWindowGUI	file:
+build	view/SearchToolWindowGUI.java	/^        public SearchToolWindowGUI build() {$/;"	m	class:SearchToolWindowGUI.SearchToolWindowGUIBuilder
+build	view/SettingsGUI.java	/^    public JPanel build(Map<SettingKey, Boolean> settingsMap) {$/;"	m	class:SettingsGUI
+buildGUI	view/SearchToolWindowFactory.java	/^    public SearchToolWindowGUI buildGUI(@NotNull ToolWindow toolWindow, Project project) {$/;"	m	class:SearchToolWindowFactory
+buildOutputPane	view/QuestionRenderer.java	/^    private JPanel buildOutputPane(Component mainPanel, JTextPane tagsPane) {$/;"	m	class:QuestionRenderer	file:
+buildTagsPane	view/QuestionRenderer.java	/^    private JTextPane buildTagsPane(JList<? extends Question> list, Question question, boolean isSelected) {$/;"	m	class:QuestionRenderer	file:
+burnIn	model/L2H/L2HPredictor.java	/^	private static final int burnIn = 250;$/;"	f	class:L2HPredictor	file:
+calculateRawScore	model/personalsearch/PersonalSearchModel.java	/^    private double calculateRawScore(Question question) {$/;"	m	class:PersonalSearchModel	file:
+client	model/JerseyGet.java	/^    private Client client;$/;"	f	class:JerseyGet	file:
+compareTo	model/L2H/L2HPredictor.java	/^		public int compareTo(TagProbability other) {$/;"	m	class:L2HPredictor.TagProbability
+compileErrorCheckbox	view/SettingsGUI.java	/^    private JCheckBox compileErrorCheckbox;$/;"	f	class:SettingsGUI	file:
+compileErrorEnabled	controller/component/PersistSettingsComponent.java	/^    public boolean compileErrorEnabled() {$/;"	m	class:PersistSettingsComponent
+compilerMessages	controller/AutoQueryAction.java	/^    private List<String> compilerMessages;$/;"	f	class:AutoQueryAction	file:
+components	model/Query.java	/^    private Map<String, String> components;$/;"	f	class:Query	file:
+computeDocLabelLogprob	model/L2H/CustomL2H.java	/^    private double computeDocLabelLogprob(SparseCount docLabelCount, Set<Integer> docMask) {$/;"	m	class:CustomL2H	file:
+computeInitPredictions	model/L2H/L2HPredictor.java	/^	private static double[][] computeInitPredictions(int[][] newWords, int numUniqTags) {$/;"	m	class:L2HPredictor	file:
+computeL2HPredictions	model/L2H/L2HPredictor.java	/^	public static void computeL2HPredictions(String fileToPredict, String outputFileName, String tempFileName) throws Exception {$/;"	m	class:L2HPredictor
+computeMostLikelyTags	model/L2H/L2HPredictor.java	/^	public static void computeMostLikelyTags(String predictionsFileName, List<String> tagNamesOut, List<Double> tagProbabilitiesOut, int topN) throws Exception {$/;"	m	class:L2HPredictor
+computeWordLogprob	model/L2H/CustomL2H.java	/^    private double computeWordLogprob(Node node, Node parent) {$/;"	m	class:CustomL2H	file:
+configure	model/L2H/CustomL2H.java	/^    public void configure(CustomL2H sampler) {$/;"	m	class:CustomL2H
+configure	model/L2H/CustomL2H.java	/^    public void configure(String folder,$/;"	m	class:CustomL2H
+connection	controller/component/CompilerListenerComponent.java	/^    private MessageBusConnection connection;$/;"	f	class:CompilerListenerComponent	file:
+connection	controller/component/document/DocumentListenerComponent.java	/^    private MessageBusConnection connection;$/;"	f	class:DocumentListenerComponent	file:
+connection	model/difficulty/DifficultyModel.java	/^    private MessageBusConnection connection;$/;"	f	class:DifficultyModel	file:
+content	view/SearchToolWindowFactory.java	/^    private JPanel content;$/;"	f	class:SearchToolWindowFactory	file:
+content	view/SearchToolWindowGUI.java	/^        private JPanel content;$/;"	f	class:SearchToolWindowGUI.SearchToolWindowGUIBuilder	file:
+content	view/SearchToolWindowGUI.java	/^    private JPanel content;$/;"	f	class:SearchToolWindowGUI	file:
+content	view/SettingsGUI.java	/^    private JPanel content;$/;"	f	class:SettingsGUI	file:
+convertColorToHex	view/EditorFonts.java	/^    private static String convertColorToHex(Color c) {$/;"	m	class:EditorFonts	file:
+createComponent	view/SettingsConfigurable.java	/^    public JComponent createComponent() {$/;"	m	class:SettingsConfigurable
+createScene	view/SearchToolWindowGUI.java	/^    private void createScene(){$/;"	m	class:SearchToolWindowGUI	file:
+ctf	controller/component/stat/Stat.java	/^    private long ctf;$/;"	f	class:Stat	file:
+currentState	model/difficulty/DifficultyModel.java	/^    private State currentState;$/;"	f	class:DifficultyModel	file:
+datasetName	model/L2H/L2HPredictor.java	/^	private static final String datasetName = "SOBigrams6";$/;"	f	class:L2HPredictor	file:
+debugBreakpoint	view/JavaBridge.java	/^    public void debugBreakpoint(){$/;"	m	class:JavaBridge
+deletedText	model/difficulty/events/EditorEvent.java	/^        private String deletedText;$/;"	f	class:EditorEvent.Delete	file:
+df	controller/component/stat/Stat.java	/^    private long df;$/;"	f	class:Stat	file:
+difficultyCheckBox	view/SettingsGUI.java	/^    private JCheckBox difficultyCheckBox;$/;"	f	class:SettingsGUI	file:
+difficultyEnabled	controller/component/PersistSettingsComponent.java	/^    public boolean difficultyEnabled() {$/;"	m	class:PersistSettingsComponent
+difficultyModel	controller/component/DifficultyModelComponent.java	/^    private DifficultyModel difficultyModel;$/;"	f	class:DifficultyModelComponent	file:
+disposeComponent	controller/component/CompilerListenerComponent.java	/^    public void disposeComponent() {$/;"	m	class:CompilerListenerComponent
+disposeComponent	controller/component/DifficultyModelComponent.java	/^    public void disposeComponent() {$/;"	m	class:DifficultyModelComponent
+disposeComponent	controller/component/RuntimeErrorComponent.java	/^    public void disposeComponent() {$/;"	m	class:RuntimeErrorComponent
+disposeComponent	controller/component/ToolWindowComponent.java	/^    public void disposeComponent() {$/;"	m	class:ToolWindowComponent
+disposeComponent	controller/component/document/DocumentListenerComponent.java	/^    public void disposeComponent() {$/;"	m	class:DocumentListenerComponent
+disposeComponent	controller/component/stat/tags/TagStatComponent.java	/^    public void disposeComponent() {$/;"	m	class:TagStatComponent
+disposeComponent	controller/component/stat/tags/UserTagStatComponent.java	/^    public void disposeComponent() {$/;"	m	class:UserTagStatComponent
+disposeComponent	controller/component/stat/terms/TermStatComponent.java	/^    public void disposeComponent() {$/;"	m	class:TermStatComponent
+disposeUIResources	view/SettingsConfigurable.java	/^    public void disposeUIResources() {$/;"	m	class:SettingsConfigurable
+doEdit	model/difficulty/events/DifficultyTrigger.java	/^    void doEdit(EditorEvent event);$/;"	m	interface:DifficultyTrigger
+docCount	controller/component/stat/tags/TagStatComponent.java	/^    private long docCount;$/;"	f	class:TagStatComponent	file:
+docCount	controller/component/stat/terms/TermStatComponent.java	/^    private long docCount;$/;"	f	class:TermStatComponent	file:
+docLabelCounts	model/L2H/CustomL2H.java	/^    private SparseCount[] docLabelCounts;$/;"	f	class:CustomL2H	file:
+docMaskes	model/L2H/CustomL2H.java	/^    private Set<Integer>[] docMaskes;$/;"	f	class:CustomL2H	file:
+docSwitches	model/L2H/CustomL2H.java	/^    private DirMult[] docSwitches;$/;"	f	class:CustomL2H	file:
+editor	model/difficulty/events/EditorEvent.java	/^    private Editor editor;$/;"	f	class:EditorEvent	file:
+endOfExecutionPattern	model/erroranalysis/RuntimeErrorFilterProvider.java	/^    private static Pattern endOfExecutionPattern = Pattern.compile("\\nProcess finished with exit code \\\\d+\\n");$/;"	f	class:RuntimeErrorFilterProvider	file:
+engine	view/SearchToolWindowGUI.java	/^    private WebEngine engine;$/;"	f	class:SearchToolWindowGUI	file:
+env	controller/Logging.java	/^    private final static String env = "Production_v0.2.0";$/;"	f	class:Logging	file:
+error	model/erroranalysis/ErrorMessage.java	/^    private List<String> error;$/;"	f	class:ErrorMessage	file:
+errorQuery	view/SearchToolWindowGUI.java	/^    public void errorQuery(List<String> parsedMessages, boolean backoff, String reasoning) {$/;"	m	class:SearchToolWindowGUI
+estimateEdgeWeights	model/L2H/CustomL2H.java	/^    public void estimateEdgeWeights() {$/;"	m	class:CustomL2H
+eventCounts	model/difficulty/DifficultyModel.java	/^    private Map<EditorEventType, Integer> eventCounts;$/;"	f	class:DifficultyModel	file:
+eventQueue	model/difficulty/DifficultyModel.java	/^    private Deque<EditorEvent> eventQueue;$/;"	f	class:DifficultyModel	file:
+excerpt	model/Question.java	/^    private String excerpt;$/;"	f	class:Question	file:
+executeQuery	controller/QueryExecutor.java	/^    public static JerseyResponse executeQuery(Query q) {$/;"	m	class:QueryExecutor
+executeQuery	controller/QueryExecutor.java	/^    public static JerseyResponse executeQuery(Query q, JerseyGet.SearchType searchType) {$/;"	m	class:QueryExecutor
+executeQuery	controller/QueryExecutor.java	/^    public static JerseyResponse executeQuery(String q) {$/;"	m	class:QueryExecutor
+executeQuery	controller/QueryExecutor.java	/^    public static JerseyResponse executeQuery(String q, JerseyGet.SortType sortType) {$/;"	m	class:QueryExecutor
+executeQuery	model/JerseyGet.java	/^    public JerseyResponse executeQuery(Query query) {$/;"	m	class:JerseyGet
+executeQuery	model/JerseyGet.java	/^    public JerseyResponse executeQuery(Query query, SearchType type) {$/;"	m	class:JerseyGet
+executeQuery	view/SearchToolWindowGUI.java	/^    public void executeQuery(String query, String tags, boolean backoff, JerseyGet.SortType sortType, boolean addToQueryHistory, String reasoning) {$/;"	m	class:SearchToolWindowGUI
+extractImports	controller/info/match/StringMatchUtils.java	/^    public static Set<String> extractImports(String s) {$/;"	m	class:StringMatchUtils
+filter	controller/QueryExecutor.java	/^    private final static String filter = "!-MOiNm40F1U019gR)UUjNV-IQScciBJZ0";$/;"	f	class:QueryExecutor	file:
+filterTerms	model/erroranalysis/ErrorMessageParser.java	/^    private static List<String> filterTerms(List<String> words, Project project) {$/;"	m	class:ErrorMessageParser	file:
+findPattern	model/erroranalysis/ErrorMessageParser.java	/^    public static List<String> findPattern(@NotNull Pattern pattern, int group, @NotNull String[]... textBlocks) {$/;"	m	class:ErrorMessageParser
+fixNulls	model/Question.java	/^    public void fixNulls() {$/;"	m	class:Question
+formatFile	model/L2H/L2HPredictor.java	/^	private static final String formatFile = "SOBigrams6";$/;"	f	class:L2HPredictor	file:
+formatFolder	model/L2H/L2HPredictor.java	/^	private static final String formatFolder = "\/SOBigrams6\/";$/;"	f	class:L2HPredictor	file:
+generateCumulativeScore	model/score/combiner/Combiner.java	/^    double generateCumulativeScore(String term);$/;"	m	interface:Combiner
+generateCumulativeScore	model/score/combiner/SumCombiner.java	/^    public double generateCumulativeScore(String term) {$/;"	m	class:SumCombiner
+generateFinalRank	model/personalsearch/PersonalSearchModel.java	/^    private void generateFinalRank(List<QuestionRank> weightedList) {$/;"	m	class:PersonalSearchModel	file:
+generateQuery	controller/AutoQueryGenerator.java	/^    public static String generateQuery(Editor editor, Combiner combiner) {$/;"	m	class:AutoQueryGenerator
+generateQuery	controller/component/stat/terms/TermStatComponent.java	/^    public String generateQuery(Editor editor) {$/;"	m	class:TermStatComponent
+generateWeightedRank	model/personalsearch/PersonalSearchModel.java	/^    private void generateWeightedRank(List<QuestionRank> initialList) {$/;"	m	class:PersonalSearchModel	file:
+get	model/Query.java	/^    public String get(Component component) {$/;"	m	class:Query
+get	model/erroranalysis/ErrorMessage.java	/^    public String[] get(MessageType messageType){$/;"	m	class:ErrorMessage
+getAssignedDocuments	model/L2H/CustomL2H.java	/^        public Set<Integer> getAssignedDocuments() {$/;"	m	class:CustomL2H.Node
+getAssignedTokens	model/L2H/CustomL2H.java	/^        public HashMap<Integer, ArrayList<Integer>> getAssignedTokens() {$/;"	m	class:CustomL2H.Node
+getAverageRank	model/personalsearch/PersonalSearchModel.java	/^        public double getAverageRank() {$/;"	m	class:PersonalSearchModel.QuestionRank
+getBody	model/Question.java	/^    public String getBody() {$/;"	m	class:Question
+getBodyHeight	view/QuestionRenderer.java	/^    private int getBodyHeight(boolean isExpanded) {$/;"	m	class:QuestionRenderer	file:
+getCandidates	model/L2H/CustomL2H.java	/^    private Set<Integer> getCandidates(double[] scores, int topK) {$/;"	m	class:CustomL2H	file:
+getCellWidth	view/QuestionRenderer.java	/^    private int getCellWidth() {$/;"	m	class:QuestionRenderer	file:
+getCodeFontColorHex	view/EditorFonts.java	/^    public static String getCodeFontColorHex() {$/;"	m	class:EditorFonts
+getComponentMap	model/Query.java	/^    public Map<String, String> getComponentMap() {$/;"	m	class:Query
+getComponentName	controller/component/CompilerListenerComponent.java	/^    public String getComponentName() {$/;"	m	class:CompilerListenerComponent
+getComponentName	controller/component/DifficultyModelComponent.java	/^    public String getComponentName() {$/;"	m	class:DifficultyModelComponent
+getComponentName	controller/component/RuntimeErrorComponent.java	/^    public String getComponentName() {$/;"	m	class:RuntimeErrorComponent
+getComponentName	controller/component/ToolWindowComponent.java	/^    public String getComponentName() {$/;"	m	class:ToolWindowComponent
+getComponentName	controller/component/document/DocumentListenerComponent.java	/^    public String getComponentName() {$/;"	m	class:DocumentListenerComponent
+getComponentName	controller/component/stat/tags/TagStatComponent.java	/^    public String getComponentName() {$/;"	m	class:TagStatComponent
+getComponentName	controller/component/stat/tags/UserTagStatComponent.java	/^    public String getComponentName() {$/;"	m	class:UserTagStatComponent
+getComponentName	controller/component/stat/terms/TermStatComponent.java	/^    public String getComponentName() {$/;"	m	class:TermStatComponent
+getComponents	model/Query.java	/^    public Set<String> getComponents() {$/;"	m	class:Query
+getContentPanel	view/SearchToolWindowGUI.java	/^    public JPanel getContentPanel() {$/;"	m	class:SearchToolWindowGUI
+getCtf	controller/component/stat/Stat.java	/^    public long getCtf() {$/;"	m	class:Stat
+getCurrentState	model/L2H/CustomL2H.java	/^    public String getCurrentState() {$/;"	m	class:CustomL2H
+getDefaultFilters	model/erroranalysis/RuntimeErrorFilterProvider.java	/^    public InputFilter[] getDefaultFilters(@NotNull Project project) {$/;"	m	class:RuntimeErrorFilterProvider
+getDeletedText	model/difficulty/events/EditorEvent.java	/^        public String getDeletedText() {$/;"	m	class:EditorEvent.Delete
+getDf	controller/component/stat/Stat.java	/^    public long getDf() {$/;"	m	class:Stat
+getDifficultyModel	controller/component/DifficultyModelComponent.java	/^    public DifficultyModel getDifficultyModel() {$/;"	m	class:DifficultyModelComponent
+getDisplayName	view/SettingsConfigurable.java	/^    public String getDisplayName() {$/;"	m	class:SettingsConfigurable
+getDocCount	controller/component/stat/tags/TagStatComponent.java	/^    public long getDocCount() {$/;"	m	class:TagStatComponent
+getDocCount	controller/component/stat/terms/TermStatComponent.java	/^    public long getDocCount() {$/;"	m	class:TermStatComponent
+getEditor	model/difficulty/events/EditorEvent.java	/^    public Editor getEditor() {$/;"	m	class:EditorEvent
+getExcerpt	model/Question.java	/^    public String getExcerpt() {$/;"	m	class:Question
+getFallbackGUI	view/SettingsGUI.java	/^    private JPanel getFallbackGUI() {$/;"	m	class:SettingsGUI	file:
+getFontStartBlock	view/QuestionRenderer.java	/^    private String getFontStartBlock(String fontName, String fontColorHex) {$/;"	m	class:QuestionRenderer	file:
+getFontStartBlockNoName	view/QuestionRenderer.java	/^    private String getFontStartBlockNoName(String fontColorHex) {$/;"	m	class:QuestionRenderer	file:
+getGUIState	view/SettingsGUI.java	/^    public Map<SettingKey, Boolean> getGUIState() {$/;"	m	class:SettingsGUI
+getHelpString	model/L2H/CustomL2H.java	/^    public static String getHelpString() {$/;"	m	class:CustomL2H
+getHelpTopic	view/SettingsConfigurable.java	/^    public String getHelpTopic() {$/;"	m	class:SettingsConfigurable
+getHyperlinkColorHex	view/EditorFonts.java	/^    public static String getHyperlinkColorHex() {$/;"	m	class:EditorFonts
+getIctf	controller/component/stat/Stat.java	/^    public double getIctf() {$/;"	m	class:Stat
+getId	model/L2H/CustomL2H.java	/^        public int getId() {$/;"	m	class:CustomL2H.Node
+getIdf	controller/component/stat/Stat.java	/^    public double getIdf() {$/;"	m	class:Stat
+getInsertedText	model/difficulty/events/EditorEvent.java	/^        public String getInsertedText() {$/;"	m	class:EditorEvent.Insert
+getInstance	model/JerseyGet.java	/^    public static JerseyGet getInstance() {$/;"	m	class:JerseyGet
+getInstanceScheme	view/EditorFonts.java	/^    private static EditorColorsScheme getInstanceScheme() {$/;"	m	class:EditorFonts	file:
+getInverseDocumentFrequency	controller/info/TfIdf.java	/^    public static double getInverseDocumentFrequency(String term, String[] documents) {$/;"	m	class:TfIdf
+getItems	model/JerseyResponse.java	/^    public List<Question> getItems() {$/;"	m	class:JerseyResponse
+getL	model/L2H/CustomL2H.java	/^    public int getL() {$/;"	m	class:CustomL2H
+getLabelString	model/L2H/CustomL2H.java	/^    protected String getLabelString(int labelIdx) {$/;"	m	class:CustomL2H
+getLink	model/Question.java	/^    public String getLink() {$/;"	m	class:Question
+getListCellRendererComponent	view/QuestionRenderer.java	/^    public Component getListCellRendererComponent(JList<? extends Question> list, Question question, int index, boolean$/;"	m	class:QuestionRenderer
+getLogLikelihood	model/L2H/CustomL2H.java	/^    public double getLogLikelihood() {$/;"	m	class:CustomL2H
+getLogLikelihood	model/L2H/CustomL2H.java	/^    public double getLogLikelihood(ArrayList<Double> tParams) {$/;"	m	class:CustomL2H
+getMessages	controller/component/RuntimeErrorComponent.java	/^    public ErrorMessage getMessages(InputFilter console) {$/;"	m	class:RuntimeErrorComponent
+getNoJavaFXFoundPanel	view/SearchToolWindowFactory.java	/^    private static JPanel getNoJavaFXFoundPanel() {$/;"	m	class:SearchToolWindowFactory	file:
+getNodes	model/L2H/CustomL2H.java	/^    public Node[] getNodes() {$/;"	m	class:CustomL2H
+getPrimaryFontColorHex	view/EditorFonts.java	/^    public static String getPrimaryFontColorHex()  {$/;"	m	class:EditorFonts
+getPrimaryFontName	view/EditorFonts.java	/^    public static String getPrimaryFontName() {$/;"	m	class:EditorFonts
+getPrimaryFontSize	view/EditorFonts.java	/^    public static float getPrimaryFontSize() {$/;"	m	class:EditorFonts
+getProject	view/SearchToolWindowGUI.java	/^    public Project getProject() {$/;"	m	class:SearchToolWindowGUI
+getPropFile	controller/LogServer.java	/^    public void getPropFile(){$/;"	m	class:LogServer
+getProposedMask	model/L2H/CustomL2H.java	/^    private Set<Integer> getProposedMask(int d,$/;"	m	class:CustomL2H	file:
+getPseudoCountsFromChildren	model/L2H/CustomL2H.java	/^        public void getPseudoCountsFromChildren() {$/;"	m	class:CustomL2H.Node
+getPseudoCountsFromChildrenMax	model/L2H/CustomL2H.java	/^        public void getPseudoCountsFromChildrenMax() {$/;"	m	class:CustomL2H.Node
+getPseudoCountsFromChildrenMin	model/L2H/CustomL2H.java	/^        public void getPseudoCountsFromChildrenMin() {$/;"	m	class:CustomL2H.Node
+getQuota_max	model/JerseyResponse.java	/^    public int getQuota_max() {$/;"	m	class:JerseyResponse
+getQuota_remaining	model/JerseyResponse.java	/^    public int getQuota_remaining() {$/;"	m	class:JerseyResponse
+getRatio	model/difficulty/DifficultyModel.java	/^    private double getRatio(EditorEventType eventType) {$/;"	m	class:DifficultyModel	file:
+getRatio	model/difficulty/DifficultyModel.java	/^    private double getRatio(EditorEventType num, EditorEventType denom) {$/;"	m	class:DifficultyModel	file:
+getSearchModel	controller/component/stat/tags/UserTagStatComponent.java	/^    public PersonalSearchModel getSearchModel() {$/;"	m	class:UserTagStatComponent
+getSearchToolWindowGUI	controller/component/ToolWindowComponent.java	/^    public SearchToolWindowGUI getSearchToolWindowGUI() {$/;"	m	class:ToolWindowComponent
+getSettingsMap	controller/component/PersistSettingsComponent.java	/^    public Map<SettingKey, Boolean> getSettingsMap() {$/;"	m	class:PersistSettingsComponent
+getState	controller/component/PersistProfileComponent.java	/^    public PersistProfileComponent getState() {$/;"	m	class:PersistProfileComponent
+getState	controller/component/PersistSettingsComponent.java	/^    public PersistSettingsComponent getState() {$/;"	m	class:PersistSettingsComponent
+getSubtree	model/L2H/CustomL2H.java	/^        public Set<Integer> getSubtree() {$/;"	m	class:CustomL2H.Node
+getSubtreeDocumentIndices	model/L2H/CustomL2H.java	/^    private Set<Integer> getSubtreeDocumentIndices(Node node) {$/;"	m	class:CustomL2H	file:
+getTagCount	controller/component/stat/tags/TagStatComponent.java	/^    public long getTagCount() {$/;"	m	class:TagStatComponent
+getTagStat	controller/component/stat/tags/TagStatComponent.java	/^    public Optional<Stat> getTagStat(String tag) {$/;"	m	class:TagStatComponent
+getTags	model/Question.java	/^    public List<String> getTags() {$/;"	m	class:Question
+getTagsAsFormattedString	model/Question.java	/^    public String getTagsAsFormattedString() {$/;"	m	class:Question
+getTermCount	controller/component/stat/terms/TermStatComponent.java	/^    public long getTermCount() {$/;"	m	class:TermStatComponent
+getTermFrequencies	controller/info/TfIdf.java	/^    public static Map<String, Integer> getTermFrequencies(String document, Pattern pattern) {$/;"	m	class:TfIdf
+getTermStat	controller/component/stat/terms/TermStatComponent.java	/^    public Optional<Stat> getTermStat(String term) {$/;"	m	class:TermStatComponent
+getTextHeight	view/QuestionRenderer.java	/^    private int getTextHeight(int normalLines, int boldLines) {$/;"	m	class:QuestionRenderer	file:
+getTimeStamp	model/difficulty/events/EditorEvent.java	/^    public long getTimeStamp() {$/;"	m	class:EditorEvent
+getTitle	model/Question.java	/^    public String getTitle() {$/;"	m	class:Question
+getTopic	model/L2H/CustomL2H.java	/^        public double[] getTopic() {$/;"	m	class:CustomL2H.Node
+getType	model/difficulty/events/EditorEvent.java	/^        public EditorEventType getType() {$/;"	m	class:EditorEvent.Click
+getType	model/difficulty/events/EditorEvent.java	/^        public EditorEventType getType() {$/;"	m	class:EditorEvent.Delete
+getType	model/difficulty/events/EditorEvent.java	/^        public EditorEventType getType() {$/;"	m	class:EditorEvent.Insert
+getType	model/difficulty/events/EditorEvent.java	/^        public EditorEventType getType() {$/;"	m	class:EditorEvent.Scroll
+getType	model/difficulty/events/EditorEvent.java	/^    public abstract EditorEventType getType();$/;"	m	class:EditorEvent
+getUUID	controller/Logging.java	/^    public String getUUID() {$/;"	m	class:Logging
+getUserStatMap	controller/component/PersistProfileComponent.java	/^    public Map<String, Integer> getUserStatMap() {$/;"	m	class:PersistProfileComponent
+getWordLogLikelihood	model/L2H/CustomL2H.java	/^        public double getWordLogLikelihood() {$/;"	m	class:CustomL2H.Node
+getWords	model/L2H/L2HPredictor.java	/^		public int[][] getWords() {$/;"	m	class:L2HPredictor.TextDataLoader
+guiInstance	view/JavaBridge.java	/^    private SearchToolWindowGUI guiInstance;$/;"	f	class:JavaBridge	file:
+has_more	model/JerseyResponse.java	/^    private boolean has_more;$/;"	f	class:JerseyResponse	file:
+ictf	controller/component/stat/Stat.java	/^    private double ictf;$/;"	f	class:Stat	file:
+id	model/L2H/CustomL2H.java	/^        final int id;$/;"	f	class:CustomL2H.Node
+identifier	controller/Logging.java	/^    private int identifier;$/;"	f	class:Logging	file:
+idf	controller/component/stat/Stat.java	/^    private double idf;$/;"	f	class:Stat	file:
+inWeights	model/L2H/CustomL2H.java	/^    private SparseVector[] inWeights; \/\/ the weights of in-edges for each nodes$/;"	f	class:CustomL2H	file:
+inactiveTaskFuture	model/difficulty/DifficultyModel.java	/^    private ScheduledFuture<?> inactiveTaskFuture;$/;"	f	class:DifficultyModel	file:
+increaseTags	model/personalsearch/PersonalSearchModel.java	/^    public void increaseTags(Collection<String> tags) {$/;"	m	class:PersonalSearchModel
+increaseTags	model/personalsearch/PersonalSearchModel.java	/^    public void increaseTags(Collection<String> tags, int amount) {$/;"	m	class:PersonalSearchModel
+info	controller/Logging.java	/^    public void info(String info) {$/;"	m	class:Logging
+information	model/erroranalysis/ErrorMessage.java	/^    private List<String> information;$/;"	f	class:ErrorMessage	file:
+initComponent	controller/component/CompilerListenerComponent.java	/^    public void initComponent() {$/;"	m	class:CompilerListenerComponent
+initComponent	controller/component/DifficultyModelComponent.java	/^    public void initComponent() {$/;"	m	class:DifficultyModelComponent
+initComponent	controller/component/RuntimeErrorComponent.java	/^    public void initComponent() {$/;"	m	class:RuntimeErrorComponent
+initComponent	controller/component/ToolWindowComponent.java	/^    public void initComponent() {$/;"	m	class:ToolWindowComponent
+initComponent	controller/component/document/DocumentListenerComponent.java	/^    public void initComponent() {$/;"	m	class:DocumentListenerComponent
+initComponent	controller/component/stat/tags/TagStatComponent.java	/^    public void initComponent() {$/;"	m	class:TagStatComponent
+initComponent	controller/component/stat/tags/UserTagStatComponent.java	/^    public void initComponent() {$/;"	m	class:UserTagStatComponent
+initComponent	controller/component/stat/terms/TermStatComponent.java	/^    public void initComponent() {$/;"	m	class:TermStatComponent
+initComponents	view/SearchToolWindowGUI.java	/^    private void initComponents() {$/;"	m	class:SearchToolWindowGUI	file:
+initHTMLJTextPane	view/QuestionRenderer.java	/^    private void initHTMLJTextPane(JTextPane pane, Dimension d, HTMLEditorKit kit, HTMLDocument doc, JList<? extends$/;"	m	class:QuestionRenderer	file:
+initPredidctions	model/L2H/CustomL2H.java	/^    double[][] initPredidctions;$/;"	f	class:L2HTestRunner
+initialize	model/L2H/CustomL2H.java	/^    public void initialize() {$/;"	m	class:CustomL2H
+initializeAssignments	model/L2H/CustomL2H.java	/^    private void initializeAssignments() {$/;"	m	class:CustomL2H	file:
+initializeDataStructure	model/L2H/CustomL2H.java	/^    private void initializeDataStructure() {$/;"	m	class:CustomL2H	file:
+initializeModelStructure	model/L2H/CustomL2H.java	/^    private void initializeModelStructure() {$/;"	m	class:CustomL2H	file:
+initializePresetAssignments	model/L2H/CustomL2H.java	/^    private void initializePresetAssignments() {$/;"	m	class:CustomL2H	file:
+inputAssignments	model/L2H/CustomL2H.java	/^    private void inputAssignments(String zipFilepath) {$/;"	m	class:CustomL2H	file:
+inputModel	model/L2H/CustomL2H.java	/^    private void inputModel(String zipFilepath) {$/;"	m	class:CustomL2H	file:
+inputState	model/L2H/CustomL2H.java	/^    public void inputState(File filepath, boolean inputModel, boolean inputData) {$/;"	m	class:CustomL2H
+inputState	model/L2H/CustomL2H.java	/^    public void inputState(String filepath) {$/;"	m	class:CustomL2H
+inputState	model/L2H/CustomL2H.java	/^    public void inputState(String filepath, boolean inputModel, boolean inputData) {$/;"	m	class:CustomL2H
+insertedText	model/difficulty/events/EditorEvent.java	/^        private String insertedText;$/;"	f	class:EditorEvent.Insert	file:
+instance	model/JerseyGet.java	/^    private static JerseyGet instance = null;$/;"	f	class:JerseyGet	file:
+io.github.vcuswimlab.stackintheflow.controller	controller/AutoQueryAction.java	/^package io.github.vcuswimlab.stackintheflow.controller;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller	controller/AutoQueryGenerator.java	/^package io.github.vcuswimlab.stackintheflow.controller;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller	controller/LogServer.java	/^package io.github.vcuswimlab.stackintheflow.controller;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller	controller/Logging.java	/^package io.github.vcuswimlab.stackintheflow.controller;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller	controller/QueryExecutor.java	/^package io.github.vcuswimlab.stackintheflow.controller;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component	controller/component/CompilerListenerComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component	controller/component/DifficultyModelComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component	controller/component/PersistProfileComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component	controller/component/PersistSettingsComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component	controller/component/RuntimeErrorComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component	controller/component/ToolWindowComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component.document	controller/component/document/DocumentListenerComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component.document;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component.stat	controller/component/stat/Stat.java	/^package io.github.vcuswimlab.stackintheflow.controller.component.stat;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component.stat.tags	controller/component/stat/tags/TagStatComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component.stat.tags;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component.stat.tags	controller/component/stat/tags/UserTagStatComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component.stat.tags;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.component.stat.terms	controller/component/stat/terms/TermStatComponent.java	/^package io.github.vcuswimlab.stackintheflow.controller.component.stat.terms;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.info	controller/info/TfIdf.java	/^package io.github.vcuswimlab.stackintheflow.controller.info;$/;"	p
+io.github.vcuswimlab.stackintheflow.controller.info.match	controller/info/match/StringMatchUtils.java	/^package io.github.vcuswimlab.stackintheflow.controller.info.match;$/;"	p
+io.github.vcuswimlab.stackintheflow.model	model/JerseyGet.java	/^package io.github.vcuswimlab.stackintheflow.model;$/;"	p
+io.github.vcuswimlab.stackintheflow.model	model/JerseyResponse.java	/^package io.github.vcuswimlab.stackintheflow.model;$/;"	p
+io.github.vcuswimlab.stackintheflow.model	model/Query.java	/^package io.github.vcuswimlab.stackintheflow.model;$/;"	p
+io.github.vcuswimlab.stackintheflow.model	model/Question.java	/^package io.github.vcuswimlab.stackintheflow.model;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.L2H	model/L2H/CustomL2H.java	/^package io.github.vcuswimlab.stackintheflow.model.L2H;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.L2H	model/L2H/L2HPredictor.java	/^package io.github.vcuswimlab.stackintheflow.model.L2H;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.difficulty	model/difficulty/DifficultyModel.java	/^package io.github.vcuswimlab.stackintheflow.model.difficulty;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.difficulty.events	model/difficulty/events/DifficultyTrigger.java	/^package io.github.vcuswimlab.stackintheflow.model.difficulty.events;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.difficulty.events	model/difficulty/events/EditorEvent.java	/^package io.github.vcuswimlab.stackintheflow.model.difficulty.events;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.difficulty.events	model/difficulty/events/EditorEventType.java	/^package io.github.vcuswimlab.stackintheflow.model.difficulty.events;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.erroranalysis	model/erroranalysis/ErrorMessage.java	/^package io.github.vcuswimlab.stackintheflow.model.erroranalysis;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.erroranalysis	model/erroranalysis/ErrorMessageParser.java	/^package io.github.vcuswimlab.stackintheflow.model.erroranalysis;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.erroranalysis	model/erroranalysis/RuntimeErrorFilterProvider.java	/^package io.github.vcuswimlab.stackintheflow.model.erroranalysis;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.personalsearch	model/personalsearch/PersonalSearchModel.java	/^package io.github.vcuswimlab.stackintheflow.model.personalsearch;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score	model/score/AbstractScorer.java	/^package io.github.vcuswimlab.stackintheflow.model.score;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score	model/score/IctfScorer.java	/^package io.github.vcuswimlab.stackintheflow.model.score;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score	model/score/IdfScorer.java	/^package io.github.vcuswimlab.stackintheflow.model.score;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score	model/score/Scorer.java	/^package io.github.vcuswimlab.stackintheflow.model.score;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score	model/score/ScqScorer.java	/^package io.github.vcuswimlab.stackintheflow.model.score;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score	model/score/VarScorer.java	/^package io.github.vcuswimlab.stackintheflow.model.score;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score.combiner	model/score/combiner/AbstractCombiner.java	/^package io.github.vcuswimlab.stackintheflow.model.score.combiner;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score.combiner	model/score/combiner/Combiner.java	/^package io.github.vcuswimlab.stackintheflow.model.score.combiner;$/;"	p
+io.github.vcuswimlab.stackintheflow.model.score.combiner	model/score/combiner/SumCombiner.java	/^package io.github.vcuswimlab.stackintheflow.model.score.combiner;$/;"	p
+io.github.vcuswimlab.stackintheflow.view	view/EditorFonts.java	/^package io.github.vcuswimlab.stackintheflow.view;$/;"	p
+io.github.vcuswimlab.stackintheflow.view	view/JavaBridge.java	/^package io.github.vcuswimlab.stackintheflow.view;$/;"	p
+io.github.vcuswimlab.stackintheflow.view	view/QuestionRenderer.java	/^package io.github.vcuswimlab.stackintheflow.view;$/;"	p
+io.github.vcuswimlab.stackintheflow.view	view/SearchToolWindowFactory.java	/^package io.github.vcuswimlab.stackintheflow.view;$/;"	p
+io.github.vcuswimlab.stackintheflow.view	view/SearchToolWindowGUI.java	/^package io.github.vcuswimlab.stackintheflow.view;$/;"	p
+io.github.vcuswimlab.stackintheflow.view	view/SettingsConfigurable.java	/^package io.github.vcuswimlab.stackintheflow.view;$/;"	p
+io.github.vcuswimlab.stackintheflow.view	view/SettingsGUI.java	/^package io.github.vcuswimlab.stackintheflow.view;$/;"	p
+isDescendent	model/L2H/CustomL2H.java	/^        public boolean isDescendent(Node node) {$/;"	m	class:CustomL2H.Node
+isExpanded	model/Question.java	/^    private boolean isExpanded;$/;"	f	class:Question	file:
+isExpanded	model/Question.java	/^    public boolean isExpanded() {$/;"	m	class:Question
+isFull	model/difficulty/DifficultyModel.java	/^    private boolean isFull() {$/;"	m	class:DifficultyModel	file:
+isHas_more	model/JerseyResponse.java	/^    public boolean isHas_more() {$/;"	m	class:JerseyResponse
+isJavaFXAvailable	view/SearchToolWindowFactory.java	/^    private static boolean isJavaFXAvailable() {$/;"	m	class:SearchToolWindowFactory	file:
+isModified	view/SettingsConfigurable.java	/^    public boolean isModified() {$/;"	m	class:SettingsConfigurable
+items	model/JerseyResponse.java	/^    private List<Question> items;$/;"	f	class:JerseyResponse	file:
+iterate	model/L2H/CustomL2H.java	/^    public void iterate() {$/;"	m	class:CustomL2H
+javaIOExceptionPattern_1	model/erroranalysis/ErrorMessageParser.java	/^    public static Pattern javaIOExceptionPattern_1 = Pattern.compile("java\\\\.io\\\\.([a-zA-Z]+(Exception|Error))");$/;"	f	class:ErrorMessageParser
+javaLangExceptionPattern_1	model/erroranalysis/ErrorMessageParser.java	/^    public static Pattern javaLangExceptionPattern_1 = Pattern.compile("java\\\\.lang\\\\.([a-zA-Z]+(Exception|Bounds|Error))");$/;"	f	class:ErrorMessageParser
+javaVersionPattern_6	model/erroranalysis/ErrorMessageParser.java	/^    public static Pattern javaVersionPattern_6 = Pattern.compile("((javac?)|(jdk)) ?(v(ersion)?)? ?1.([1-9])(.[\\\\d_]+)?", Pattern.CASE_INSENSITIVE);$/;"	f	class:ErrorMessageParser
+jfxPanel	view/SearchToolWindowGUI.java	/^    private JFXPanel jfxPanel;$/;"	f	class:SearchToolWindowGUI	file:
+label	model/JerseyGet.java	/^        private final String label;$/;"	f	class:JerseyGet.SearchType	file:
+label	model/JerseyGet.java	/^        private final String label;$/;"	f	class:JerseyGet.SortType	file:
+label	model/Query.java	/^        private final String label;$/;"	f	class:Query.Component	file:
+labelDocIndices	model/L2H/CustomL2H.java	/^    private HashMap<Integer, Set<Integer>> labelDocIndices;$/;"	f	class:CustomL2H	file:
+labelFreqs	model/L2H/CustomL2H.java	/^    private int[] labelFreqs;$/;"	f	class:CustomL2H	file:
+labelVocab	model/L2H/CustomL2H.java	/^    private ArrayList<String> labelVocab;$/;"	f	class:CustomL2H	file:
+labels	model/L2H/CustomL2H.java	/^    protected int[][] labels; \/\/ [D] x [T_d] $/;"	f	class:CustomL2H
+link	model/Question.java	/^    private String link;$/;"	f	class:Question	file:
+loadState	controller/component/PersistProfileComponent.java	/^    public void loadState(PersistProfileComponent state) {$/;"	m	class:PersistProfileComponent
+loadState	controller/component/PersistSettingsComponent.java	/^    public void loadState(PersistSettingsComponent state) {$/;"	m	class:PersistSettingsComponent
+loadTagStats	controller/component/stat/tags/TagStatComponent.java	/^    private void loadTagStats() {$/;"	m	class:TagStatComponent	file:
+loadTermStats	controller/component/stat/terms/TermStatComponent.java	/^    private void loadTermStats() {$/;"	m	class:TermStatComponent	file:
+log	view/JavaBridge.java	/^    public void log(String message){$/;"	m	class:JavaBridge
+log	view/SearchToolWindowGUI.java	/^    public void log(String message){$/;"	m	class:SearchToolWindowGUI
+logger	model/difficulty/DifficultyModel.java	/^    private Logging logger;$/;"	f	class:DifficultyModel	file:
+logger	view/SearchToolWindowGUI.java	/^    private Logging logger;$/;"	f	class:SearchToolWindowGUI	file:
+logger	view/SettingsConfigurable.java	/^    private Logging logger = new Logging();$/;"	f	class:SettingsConfigurable	file:
+loggingCheckBox	view/SettingsGUI.java	/^    private JCheckBox loggingCheckBox;$/;"	f	class:SettingsGUI	file:
+loggingEnabled	controller/component/PersistSettingsComponent.java	/^    public boolean loggingEnabled() {$/;"	m	class:PersistSettingsComponent
+main	model/L2H/CustomL2H.java	/^    public static void main(String[] args) {$/;"	m	class:CustomL2H
+messageBuilder	controller/component/RuntimeErrorComponent.java	/^    private Map<InputFilter, Map<String, StringBuilder>> messageBuilder;$/;"	f	class:RuntimeErrorComponent	file:
+messageBus	model/difficulty/DifficultyModel.java	/^    private MessageBus messageBus;$/;"	f	class:DifficultyModel	file:
+minLabelFreq	model/L2H/L2HPredictor.java	/^	private static final int minLabelFreq = 100;$/;"	f	class:L2HPredictor	file:
+modelIterations	model/L2H/L2HPredictor.java	/^	private static final int modelIterations = 500;$/;"	f	class:L2HPredictor	file:
+newWords	model/L2H/CustomL2H.java	/^    int[][] newWords;$/;"	f	class:L2HTestRunner
+noStateLoaded	controller/component/PersistProfileComponent.java	/^    public void noStateLoaded() {$/;"	m	class:PersistProfileComponent
+noStateLoaded	controller/component/PersistSettingsComponent.java	/^    public void noStateLoaded() {$/;"	m	class:PersistSettingsComponent
+nodes	model/L2H/CustomL2H.java	/^    private Node[] nodes;$/;"	f	class:CustomL2H	file:
+numAccepts	model/L2H/CustomL2H.java	/^    private int numAccepts; \/\/ number of sampled nodes accepted$/;"	f	class:CustomL2H	file:
+numTopWords	model/L2H/L2HPredictor.java	/^	private static final int numTopWords = 20;$/;"	f	class:L2HPredictor	file:
+openBrowser	view/SearchToolWindowGUI.java	/^    public void openBrowser(String url) {$/;"	m	class:SearchToolWindowGUI
+openInBrowser	view/JavaBridge.java	/^    public void openInBrowser(String url){$/;"	m	class:JavaBridge
+openSettings	view/JavaBridge.java	/^    public void openSettings() {$/;"	m	class:JavaBridge
+outputFile	model/L2H/CustomL2H.java	/^    String outputFile;$/;"	f	class:L2HTestRunner
+outputFolder	model/L2H/L2HPredictor.java	/^	private static final String outputFolder = "\/SOBigrams6_out";$/;"	f	class:L2HPredictor	file:
+outputGlobalTree	model/L2H/CustomL2H.java	/^    public void outputGlobalTree(File outputFile, int numTopWords) {$/;"	m	class:CustomL2H
+outputState	model/L2H/CustomL2H.java	/^    public void outputState(File filepath, boolean outputModel, boolean outputData) {$/;"	m	class:CustomL2H
+outputState	model/L2H/CustomL2H.java	/^    public void outputState(String filepath) {$/;"	m	class:CustomL2H
+outputState	model/L2H/CustomL2H.java	/^    public void outputState(String filepath, boolean outputModel, boolean outputData) {$/;"	m	class:CustomL2H
+parallelTest	model/L2H/CustomL2H.java	/^    public static void parallelTest(int[][] newWords, File iterPredFolder, CustomL2H sampler,$/;"	m	class:CustomL2H
+parseCompilerError	model/erroranalysis/ErrorMessageParser.java	/^    public static List<String> parseCompilerError(ErrorMessage messages, Project project) {$/;"	m	class:ErrorMessageParser
+parseFirstLine	model/erroranalysis/ErrorMessageParser.java	/^    public static String parseFirstLine(@NotNull String[] message) {$/;"	m	class:ErrorMessageParser
+parseRuntimeError	model/erroranalysis/ErrorMessageParser.java	/^    public static List<String> parseRuntimeError(ErrorMessage messages, Project project) {$/;"	m	class:ErrorMessageParser
+pathAssumption	model/L2H/CustomL2H.java	/^    private PathAssumption pathAssumption;$/;"	f	class:CustomL2H	file:
+persistSettingsComponent	controller/Logging.java	/^    private PersistSettingsComponent persistSettingsComponent;$/;"	f	class:Logging	file:
+persistSettingsComponent	model/difficulty/DifficultyModel.java	/^    private PersistSettingsComponent persistSettingsComponent;$/;"	f	class:DifficultyModel	file:
+persistSettingsComponent	view/SettingsConfigurable.java	/^    private static PersistSettingsComponent persistSettingsComponent;$/;"	f	class:SettingsConfigurable	file:
+print	view/JavaBridge.java	/^    public void print(String msg){$/;"	m	class:JavaBridge
+printTree	model/L2H/CustomL2H.java	/^    public String printTree(int numTopWords) {$/;"	m	class:CustomL2H
+printTreeStructure	model/L2H/CustomL2H.java	/^    public String printTreeStructure() {$/;"	m	class:CustomL2H
+probability	model/L2H/L2HPredictor.java	/^		public double probability;$/;"	f	class:L2HPredictor.TagProbability
+project	controller/component/CompilerListenerComponent.java	/^    private final Project project;$/;"	f	class:CompilerListenerComponent	file:
+project	controller/component/DifficultyModelComponent.java	/^    private Project project;$/;"	f	class:DifficultyModelComponent	file:
+project	controller/component/ToolWindowComponent.java	/^    private final Project project;$/;"	f	class:ToolWindowComponent	file:
+project	controller/component/document/DocumentListenerComponent.java	/^    private final Project project;$/;"	f	class:DocumentListenerComponent	file:
+project	model/difficulty/DifficultyModel.java	/^    private Project project;$/;"	f	class:DifficultyModel	file:
+project	model/erroranalysis/RuntimeErrorFilterProvider.java	/^        private Project project;$/;"	f	class:RuntimeErrorFilterProvider.ConsoleErrorInputFilter	file:
+project	view/SearchToolWindowGUI.java	/^        private Project project;$/;"	f	class:SearchToolWindowGUI.SearchToolWindowGUIBuilder	file:
+project	view/SearchToolWindowGUI.java	/^    private Project project;$/;"	f	class:SearchToolWindowGUI	file:
+projectClosed	controller/component/CompilerListenerComponent.java	/^    public void projectClosed() {$/;"	m	class:CompilerListenerComponent
+projectClosed	controller/component/DifficultyModelComponent.java	/^    public void projectClosed() {$/;"	m	class:DifficultyModelComponent
+projectClosed	controller/component/RuntimeErrorComponent.java	/^    public void projectClosed() {$/;"	m	class:RuntimeErrorComponent
+projectClosed	controller/component/ToolWindowComponent.java	/^    public void projectClosed() {$/;"	m	class:ToolWindowComponent
+projectClosed	controller/component/document/DocumentListenerComponent.java	/^    public void projectClosed() {$/;"	m	class:DocumentListenerComponent
+projectClosed	controller/component/stat/tags/UserTagStatComponent.java	/^    public void projectClosed() {$/;"	m	class:UserTagStatComponent
+projectOpened	controller/component/CompilerListenerComponent.java	/^    public void projectOpened() {$/;"	m	class:CompilerListenerComponent
+projectOpened	controller/component/DifficultyModelComponent.java	/^    public void projectOpened() {$/;"	m	class:DifficultyModelComponent
+projectOpened	controller/component/RuntimeErrorComponent.java	/^    public void projectOpened() {$/;"	m	class:RuntimeErrorComponent
+projectOpened	controller/component/ToolWindowComponent.java	/^    public void projectOpened() {$/;"	m	class:ToolWindowComponent
+projectOpened	controller/component/document/DocumentListenerComponent.java	/^    public void projectOpened() {$/;"	m	class:DocumentListenerComponent
+projectOpened	controller/component/stat/tags/UserTagStatComponent.java	/^    public void projectOpened() {$/;"	m	class:UserTagStatComponent
+proposeParent	model/L2H/CustomL2H.java	/^    private Node proposeParent(Node node) {$/;"	m	class:CustomL2H	file:
+proposeZ	model/L2H/CustomL2H.java	/^    private int proposeZ(int d, int n, int pX) {$/;"	m	class:CustomL2H	file:
+props	controller/LogServer.java	/^    private Properties props;$/;"	f	class:LogServer	file:
+pseudoCounts	model/L2H/CustomL2H.java	/^        SparseCount pseudoCounts;$/;"	f	class:CustomL2H.Node
+put	model/erroranalysis/ErrorMessage.java	/^    public void put(MessageType messageType, List<String> texts) {$/;"	m	class:ErrorMessage
+put	model/erroranalysis/ErrorMessage.java	/^    public void put(MessageType messageType, String text) {$/;"	m	class:ErrorMessage
+question	model/personalsearch/PersonalSearchModel.java	/^        Question question;$/;"	f	class:PersonalSearchModel.QuestionRank
+quota_max	model/JerseyResponse.java	/^    private int quota_max;$/;"	f	class:JerseyResponse	file:
+quota_remaining	model/JerseyResponse.java	/^    private int quota_remaining;$/;"	f	class:JerseyResponse	file:
+randoms	model/L2H/CustomL2H.java	/^    public static Randoms randoms = new Randoms(1);$/;"	f	class:CustomL2H
+rankQuestionList	model/personalsearch/PersonalSearchModel.java	/^    public List<Question> rankQuestionList(List<Question> initialList) {$/;"	m	class:PersonalSearchModel
+removeComments	controller/info/match/StringMatchUtils.java	/^    public static String removeComments(String s) {$/;"	m	class:StringMatchUtils
+removeToken	model/L2H/CustomL2H.java	/^        public void removeToken(int d, int n) {$/;"	m	class:CustomL2H.Node
+replaceHtmlTag	view/QuestionRenderer.java	/^    private String replaceHtmlTag(String html, String tagName, String startTagReplacement, String endTagReplacement) {$/;"	m	class:QuestionRenderer	file:
+reset	view/SettingsConfigurable.java	/^    public void reset() {$/;"	m	class:SettingsConfigurable
+retrieveResults	view/SearchToolWindowGUI.java	/^    private Pair<String, List<Question>> retrieveResults(String query, String tags, boolean backoff, JerseyGet.SortType sortType) {$/;"	m	class:SearchToolWindowGUI	file:
+root	model/L2H/CustomL2H.java	/^    private Node root;$/;"	f	class:CustomL2H	file:
+run	model/L2H/CustomL2H.java	/^    public void run() {$/;"	m	class:L2HTestRunner
+runModel	model/L2H/CustomL2H.java	/^    private static void runModel() throws Exception {$/;"	m	class:CustomL2H	file:
+runtimeErrorCheckBox	view/SettingsGUI.java	/^    private JCheckBox runtimeErrorCheckBox;$/;"	f	class:SettingsGUI	file:
+runtimeErrorComponent	model/erroranalysis/RuntimeErrorFilterProvider.java	/^        private RuntimeErrorComponent runtimeErrorComponent;$/;"	f	class:RuntimeErrorFilterProvider.ConsoleErrorInputFilter	file:
+runtimeErrorEnabled	controller/component/PersistSettingsComponent.java	/^    public boolean runtimeErrorEnabled() {$/;"	m	class:PersistSettingsComponent
+sampleExact	model/L2H/CustomL2H.java	/^    private boolean sampleExact = false;$/;"	f	class:CustomL2H	file:
+sampleLag	model/L2H/L2HPredictor.java	/^	private static final int sampleLag = 25;$/;"	f	class:L2HPredictor	file:
+sampleNewDocuments	model/L2H/CustomL2H.java	/^    public void sampleNewDocuments(String stateFile,$/;"	m	class:CustomL2H
+sampleTopic	model/L2H/CustomL2H.java	/^        public void sampleTopic() {$/;"	m	class:CustomL2H.Node
+sampleTopics	model/L2H/CustomL2H.java	/^    private long sampleTopics() {$/;"	m	class:CustomL2H	file:
+sampleXZExact	model/L2H/CustomL2H.java	/^    private void sampleXZExact(int d, int n,$/;"	m	class:CustomL2H	file:
+sampleXZMH	model/L2H/CustomL2H.java	/^    private void sampleXZMH(int d, int n,$/;"	m	class:CustomL2H	file:
+sampleXZsExact	model/L2H/CustomL2H.java	/^    private long sampleXZsExact($/;"	m	class:CustomL2H	file:
+sampleXZsMH	model/L2H/CustomL2H.java	/^    private long sampleXZsMH($/;"	m	class:CustomL2H	file:
+sampler	model/L2H/CustomL2H.java	/^    CustomL2H sampler;$/;"	f	class:L2HTestRunner
+score	model/score/IctfScorer.java	/^    public double score(String term) {$/;"	m	class:IctfScorer
+score	model/score/IdfScorer.java	/^    public double score(String term) {$/;"	m	class:IdfScorer
+score	model/score/Scorer.java	/^    double score(String term);$/;"	m	interface:Scorer
+score	model/score/ScqScorer.java	/^    public double score(String term) {$/;"	m	class:ScqScorer
+score	model/score/VarScorer.java	/^    public double score(String term) {$/;"	m	class:VarScorer
+scorers	controller/component/stat/terms/TermStatComponent.java	/^    private Collection<Scorer> scorers;$/;"	f	class:TermStatComponent	file:
+scorers	model/score/combiner/AbstractCombiner.java	/^    protected Collection<Scorer> scorers;$/;"	f	class:AbstractCombiner
+searchButtonClicked	view/JavaBridge.java	/^    public void searchButtonClicked(String query, String tags, String searchMethod, boolean addToQueryHistory){$/;"	m	class:JavaBridge
+searchModel	controller/component/stat/tags/UserTagStatComponent.java	/^    private PersonalSearchModel searchModel;$/;"	f	class:UserTagStatComponent	file:
+searchModel	view/SearchToolWindowGUI.java	/^        private PersonalSearchModel searchModel;$/;"	f	class:SearchToolWindowGUI.SearchToolWindowGUIBuilder	file:
+searchModel	view/SearchToolWindowGUI.java	/^    private PersonalSearchModel searchModel;$/;"	f	class:SearchToolWindowGUI	file:
+searchToolWindowGUI	controller/component/ToolWindowComponent.java	/^    private SearchToolWindowGUI searchToolWindowGUI;$/;"	f	class:ToolWindowComponent	file:
+set	model/Query.java	/^    public Query set(Component component, String value) {$/;"	m	class:Query
+set	model/Query.java	/^    public Query set(String component, String value) {$/;"	m	class:Query
+setBody	model/Question.java	/^    public void setBody(String body) {$/;"	m	class:Question
+setContent	view/SearchToolWindowGUI.java	/^        public SearchToolWindowGUIBuilder setContent(JPanel content) {$/;"	m	class:SearchToolWindowGUI.SearchToolWindowGUIBuilder
+setExcerpt	model/Question.java	/^    public void setExcerpt(String excerpt) {$/;"	m	class:Question
+setFontSizeToEditorFontSize	view/QuestionRenderer.java	/^    private void setFontSizeToEditorFontSize() {$/;"	m	class:QuestionRenderer	file:
+setHas_more	model/JerseyResponse.java	/^    public void setHas_more(boolean has_more) {$/;"	m	class:JerseyResponse
+setItems	model/JerseyResponse.java	/^    public void setItems(List<Question> items) {$/;"	m	class:JerseyResponse
+setLabelVocab	model/L2H/CustomL2H.java	/^    public void setLabelVocab(ArrayList<String> labelVocab) {$/;"	m	class:CustomL2H
+setLink	model/Question.java	/^    public void setLink(String link) {$/;"	m	class:Question
+setName	model/L2H/CustomL2H.java	/^    protected void setName() {$/;"	m	class:CustomL2H
+setProject	view/SearchToolWindowGUI.java	/^        public SearchToolWindowGUIBuilder setProject(Project project) {$/;"	m	class:SearchToolWindowGUI.SearchToolWindowGUIBuilder
+setQuota_max	model/JerseyResponse.java	/^    public void setQuota_max(int quota_max) {$/;"	m	class:JerseyResponse
+setQuota_remaining	model/JerseyResponse.java	/^    public void setQuota_remaining(int quota_remaining) {$/;"	m	class:JerseyResponse
+setSearchModel	view/SearchToolWindowGUI.java	/^        public SearchToolWindowGUIBuilder setSearchModel(PersonalSearchModel searchModel) {$/;"	m	class:SearchToolWindowGUI.SearchToolWindowGUIBuilder
+setSearchToolWindowGUI	controller/component/ToolWindowComponent.java	/^    public void setSearchToolWindowGUI(SearchToolWindowGUI searchToolWindowGUI) {$/;"	m	class:ToolWindowComponent
+setTags	model/Question.java	/^    public void setTags(List<String> tags) {$/;"	m	class:Question
+setTextFromQuestion	view/QuestionRenderer.java	/^    private void setTextFromQuestion(Question question, HTMLEditorKit kit, HTMLDocument doc) {$/;"	m	class:QuestionRenderer	file:
+setTitle	model/Question.java	/^    public void setTitle(String title) {$/;"	m	class:Question
+setTopic	model/L2H/CustomL2H.java	/^        public void setTopic(double[] t) {$/;"	m	class:CustomL2H.Node
+setWidth	view/QuestionRenderer.java	/^    public void setWidth(int width) {$/;"	m	class:QuestionRenderer
+settingsGUI	view/SettingsConfigurable.java	/^    private static SettingsGUI settingsGUI;$/;"	f	class:SettingsConfigurable	file:
+settingsMap	controller/component/PersistSettingsComponent.java	/^    public Map<SettingKey, Boolean> settingsMap;$/;"	f	class:PersistSettingsComponent
+statComponent	model/score/AbstractScorer.java	/^    protected TermStatComponent statComponent;$/;"	f	class:AbstractScorer
+stateFile	model/L2H/CustomL2H.java	/^    String stateFile;$/;"	f	class:L2HTestRunner
+stateFile	model/L2H/L2HPredictor.java	/^	private static final String stateFile = outputFolder + "\/PRESET_L2H_K-391_B-250_M-500_L-25_opt-false_MAXIMAL-10-1000-90-10-mst-false-falsereport\/iter-500.zip";$/;"	f	class:L2HPredictor	file:
+string	model/difficulty/events/EditorEventType.java	/^    private String string;$/;"	f	class:EditorEventType	file:
+switchPrior	model/L2H/CustomL2H.java	/^    private double[] switchPrior;$/;"	f	class:CustomL2H	file:
+tagCount	controller/component/stat/tags/TagStatComponent.java	/^    private long tagCount;$/;"	f	class:TagStatComponent	file:
+tagName	model/L2H/L2HPredictor.java	/^		public String tagName;$/;"	f	class:L2HPredictor.TagProbability
+tagStatComponent	controller/component/stat/tags/UserTagStatComponent.java	/^    private TagStatComponent tagStatComponent;$/;"	f	class:UserTagStatComponent	file:
+tagStatComponent	model/personalsearch/PersonalSearchModel.java	/^    private TagStatComponent tagStatComponent;$/;"	f	class:PersonalSearchModel	file:
+tagStatMap	controller/component/stat/tags/TagStatComponent.java	/^    private Map<String, Stat> tagStatMap;$/;"	f	class:TagStatComponent	file:
+tags	model/Question.java	/^    private List<String> tags;$/;"	f	class:Question	file:
+target	controller/LogServer.java	/^    private WebTarget target;$/;"	f	class:LogServer	file:
+termCount	controller/component/stat/terms/TermStatComponent.java	/^    private long termCount;$/;"	f	class:TermStatComponent	file:
+termStatMap	controller/component/stat/terms/TermStatComponent.java	/^    private Map<String, Stat> termStatMap;$/;"	f	class:TermStatComponent	file:
+test	model/L2H/CustomL2H.java	/^    public void test(int[][] newWords) {$/;"	m	class:CustomL2H
+timeStamp	model/difficulty/events/EditorEvent.java	/^    private long timeStamp;$/;"	f	class:EditorEvent	file:
+timer	model/difficulty/DifficultyModel.java	/^    private ScheduledThreadPoolExecutor timer;$/;"	f	class:DifficultyModel	file:
+title	model/Question.java	/^    private String title;$/;"	f	class:Question	file:
+toIntArray	model/L2H/L2HPredictor.java	/^	private static int[] toIntArray(List<Integer> list){$/;"	m	class:L2HPredictor	file:
+toString	model/JerseyGet.java	/^        public String toString() {$/;"	m	class:JerseyGet.SearchType
+toString	model/JerseyGet.java	/^        public String toString() {$/;"	m	class:JerseyGet.SortType
+toString	model/JerseyResponse.java	/^    public String toString() {$/;"	m	class:JerseyResponse
+toString	model/L2H/CustomL2H.java	/^        public String toString() {$/;"	m	class:CustomL2H.Node
+toString	model/Query.java	/^        public String toString() {$/;"	m	class:Query.Component
+toString	model/Question.java	/^    public String toString() {$/;"	m	class:Question
+toString	model/difficulty/events/EditorEvent.java	/^        public String toString() {$/;"	m	class:EditorEvent.Click
+toString	model/difficulty/events/EditorEvent.java	/^        public String toString() {$/;"	m	class:EditorEvent.Delete
+toString	model/difficulty/events/EditorEvent.java	/^        public String toString() {$/;"	m	class:EditorEvent.Insert
+toString	model/difficulty/events/EditorEvent.java	/^        public String toString() {$/;"	m	class:EditorEvent.Scroll
+toString	model/difficulty/events/EditorEvent.java	/^    public String toString() {$/;"	m	class:EditorEvent
+toString	model/difficulty/events/EditorEventType.java	/^    public String toString() {$/;"	m	class:EditorEventType
+toggleExpanded	model/Question.java	/^    public void toggleExpanded() {$/;"	m	class:Question
+tokenLimit	model/erroranalysis/ErrorMessageParser.java	/^    private static int tokenLimit = 10;$/;"	f	class:ErrorMessageParser	file:
+toolWindow	controller/component/ToolWindowComponent.java	/^    private ToolWindow toolWindow = null;$/;"	f	class:ToolWindowComponent	file:
+toolWindowIsVisible	controller/component/ToolWindowComponent.java	/^    public boolean toolWindowIsVisible(){$/;"	m	class:ToolWindowComponent
+topK	model/L2H/CustomL2H.java	/^    int topK;$/;"	f	class:L2HTestRunner
+topic	model/L2H/CustomL2H.java	/^        double[] topic;$/;"	f	class:CustomL2H.Node
+train	model/L2H/CustomL2H.java	/^    public void train(ArrayList<Integer> docIndices, int[][] words, int[][] labels) {$/;"	m	class:CustomL2H
+treeBuilder	model/L2H/CustomL2H.java	/^    private AbstractTaxonomyBuilder treeBuilder;$/;"	f	class:CustomL2H	file:
+treeUpdated	model/L2H/CustomL2H.java	/^    private boolean treeUpdated;$/;"	f	class:CustomL2H	file:
+update	controller/AutoQueryAction.java	/^    public void update(final AnActionEvent e) {$/;"	m	class:AutoQueryAction
+updateHyperparameters	model/L2H/CustomL2H.java	/^    public void updateHyperparameters(ArrayList<Double> tParams) {$/;"	m	class:CustomL2H
+updateMaskes	model/L2H/CustomL2H.java	/^    private void updateMaskes(int d) {$/;"	m	class:CustomL2H	file:
+updatePersonalSearchModel	view/JavaBridge.java	/^    public void updatePersonalSearchModel(String tagsString, int amount) {$/;"	m	class:JavaBridge
+updateQuestionList	view/SearchToolWindowGUI.java	/^    private void updateQuestionList(List<Question> questions) {$/;"	m	class:SearchToolWindowGUI	file:
+updateSearchModel	view/SearchToolWindowGUI.java	/^    public void updateSearchModel(Collection<String> tags, int amount) {$/;"	m	class:SearchToolWindowGUI
+updateSettings	controller/component/PersistSettingsComponent.java	/^    public void updateSettings(Map<SettingKey, Boolean> updatedSettingsMap) {$/;"	m	class:PersistSettingsComponent
+updateSettings	controller/component/PersistSettingsComponent.java	/^    public void updateSettings(SettingKey setting, boolean enabled) {$/;"	m	class:PersistSettingsComponent
+updateTree	model/L2H/CustomL2H.java	/^    private long updateTree() {$/;"	m	class:CustomL2H	file:
+updateUISettings	view/SearchToolWindowGUI.java	/^    public void updateUISettings(){$/;"	m	class:SearchToolWindowGUI
+userStatMap	controller/component/PersistProfileComponent.java	/^    public Map<String, Integer> userStatMap;$/;"	f	class:PersistProfileComponent
+userStatMap	controller/component/stat/tags/UserTagStatComponent.java	/^    private Map<String, Integer> userStatMap;$/;"	f	class:UserTagStatComponent	file:
+userStatMap	model/personalsearch/PersonalSearchModel.java	/^    private Map<String, Integer> userStatMap;$/;"	f	class:PersonalSearchModel	file:
+validate	model/L2H/CustomL2H.java	/^        public void validate(String msg) {$/;"	m	class:CustomL2H.Node
+validate	model/L2H/CustomL2H.java	/^    public void validate(String msg) {$/;"	m	class:CustomL2H
+warning	model/erroranalysis/ErrorMessage.java	/^    private List<String> warning;$/;"	f	class:ErrorMessage	file:
+webTarget	model/JerseyGet.java	/^    private WebTarget webTarget;$/;"	f	class:JerseyGet	file:
+webView	view/SearchToolWindowGUI.java	/^    private WebView webView;$/;"	f	class:SearchToolWindowGUI	file:
+weightedRank	model/personalsearch/PersonalSearchModel.java	/^        int weightedRank;$/;"	f	class:PersonalSearchModel.QuestionRank
+width	view/QuestionRenderer.java	/^    private int width;$/;"	f	class:QuestionRenderer	file:
+window	view/SearchToolWindowGUI.java	/^    private JSObject window; \/\/Object to interact with JS. Use window.call(...) to call a JS function$/;"	f	class:SearchToolWindowGUI	file:
+words	model/L2H/CustomL2H.java	/^    protected int[][] words; \/\/ [D] x [N_d]$/;"	f	class:CustomL2H
+x	model/L2H/CustomL2H.java	/^    private int[][] x;$/;"	f	class:CustomL2H	file:
+z	model/L2H/CustomL2H.java	/^    private int[][] z;$/;"	f	class:CustomL2H	file:

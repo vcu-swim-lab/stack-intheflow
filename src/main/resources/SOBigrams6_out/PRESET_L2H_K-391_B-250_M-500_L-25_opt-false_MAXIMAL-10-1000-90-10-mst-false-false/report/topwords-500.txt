@@ -1,0 +1,790 @@
+[390, 0, #c = 13, #o = 238253], root (0) 238253 [} }, = new, } public, public void, } else, = 0;, { return, { //, { if, else {, public class, { var, @Override public, " +, } });, public static, { public, e) {, } catch, } return]
+
+	[172, 0:12, #c = 10, #o = 19503], ios (3212) 19503 [} }, } -, } else, { if, else {, { //, { let, override func, alloc] init];, } func, { return, if let, } return, = nil;, } //, = true, = 0;, } override, = [NSString, { [super]
+
+		[384, 0:12:9, #c = 0, #o = 2422], xcode (556) 2422 [} }, { if, } -, } //, else {, } else, { //, exit code, alloc] init];, is not, } return, { return, override func, failed with, in the, + ', // Create, referenced from:, code 1, to the]
+
+		[348, 0:12:8, #c = 0, #o = 849], uiview (101) 849 [} }, { //, } else, } -, } return, { if, { let, = YES;, else {, } func, alloc] init];, } //, { return, = 0;, [super viewDidLoad];, override func, (void)viewDidLoad {, = NO;, to the, if let]
+
+		[347, 0:12:7, #c = 0, #o = 3452], uitableview (392) 3452 [cell =, *)indexPath {, } }, *)tableView:(UITableView *)tableView, *)tableView cellForRowAtIndexPath:(NSIndexPath, cell; }, { return, } -, return cell;, cellForRowAtIndexPath:(NSIndexPath *)indexPath, - (UITableViewCell, } else, *cell =, static NSString, = [tableView, (UITableViewCell *)tableView:(UITableView, { if, { static, { cell, else {]
+
+		[326, 0:12:6, #c = 0, #o = 1578], swift3 (170) 1578 [{ let, } }, } func, } else, if let, { if, } -, { //, override func, else {, { return, indexPath: IndexPath), { var, } override, } return, = true, tableView(_ tableView:, alloc] init];, } //, section: Int)]
+
+		[325, 0:12:5, #c = 0, #o = 13204], swift (1422) 13204 [} }, override func, { let, } func, if let, = true, } override, weak var, = false, @IBOutlet weak, { return, func viewDidLoad(), else {, { var, = self, { if, { super.viewDidLoad(), @IBAction func, viewDidLoad() {, } else]
+
+		[250, 0:12:4, #c = 0, #o = 1433], parse.com (138) 1433 [} }, else {, } else, = 0;, { //, " +, } -, query =, referenced from:, ) {, { let, { if, { for, } }];, = ", *error) {, alloc] init];, override func, { return, } return]
+
+		[241, 0:12:3, #c = 2, #o = 9068], objective-c (1708) 9068 [} -, alloc] init];, { //, = nil;, } return, { if, } }, = 0;, } @end, @property (nonatomic,, { [super, = [NSString, | |, } else, { [self, - (void), = self;, = NO;, else {, @end @implementation]
+
+			[61, 0:12:3:1, #c = 0, #o = 833], cocoa-touch (153) 833 [} -, alloc] init];, { //, } }, } return, = nil;, } else, = [super, { [self, = 0;, | |, else {, = [NSString, { if, = NO;, = [UIColor, = YES;, self; }, return self;, { [super]
+
+			[60, 0:12:3:0, #c = 0, #o = 851], cocoa (159) 851 [} -, { //, } return, { if, alloc] init];, = nil;, } }, else {, } @end, { [super, | |, = NO;, = 0;, @end @implementation, = [UIColor, - (void), self; }, return self;, { [self, @property (nonatomic,]
+
+		[174, 0:12:2, #c = 0, #o = 4248], iphone (966) 4248 [} -, } else, } }, alloc] init];, else {, = [NSString, { //, = YES;, { [super, { if, of the, in the, = 0;, = self;, = NO;, } if, = nil;, to the, release]; }, return YES;]
+
+		[173, 0:12:1, #c = 0, #o = 904], ipad (146) 904 [} }, } else, } -, { if, { return, else {, override func, alloc] init];, { //, = YES;, { var, = 0;, { let, if let, } return, YES; }, 0; var, = [NSString, } //, { }]
+
+		[71, 0:12:0, #c = 0, #o = 1156], core-data (152) 1156 [} }, } -, } else, = nil;, { //, { if, { return, (nonatomic, retain), = [self, to the, alloc] init];, override func, nil) {, { let, else {, NSString *, } return, if let,    , @property (nonatomic,]
+
+	[286, 0:11, #c = 7, #o = 15357], ruby-on-rails (2066) 15357 [end end, end def, %&gt; &lt;%=, &lt; ActiveRecord::Base, end class, `block in, &lt;% end, end %&gt;, %&gt; &lt;%, %&gt; &lt;/div&gt;, end #, │   │  , } end, =&gt; true, &lt; ApplicationController, { render, def create, respond_to do, ActiveRecord::Base belongs_to, do |f|]
+
+		[288, 0:11:6, #c = 0, #o = 1467], ruby-on-rails-4 (275) 1467 [end end, end def, &lt; ActiveRecord::Base, %&gt; &lt;%=, &lt;% end, end class, end %&gt;, format.html {, &lt; ApplicationController, %&gt; &lt;/div&gt;, } end, `block in, @user =, def show, { render, :class =&gt;, %&gt;&lt;/td&gt; &lt;td&gt;&lt;%=, ActiveRecord::Base has_many, # #, |f| %&gt;]
+
+		[287, 0:11:5, #c = 0, #o = 1963], ruby-on-rails-3 (381) 1963 [│   │  , end end, │   ├──, %&gt; &lt;%=, %&gt; &lt;/div&gt;, end %&gt;, %&gt; &lt;%, end def, &lt; ActiveRecord::Base, `block in, end class, { render, do |format|, &lt;% end, respond_to do, =&gt; true, format.html {, :class =&gt;, &lt;%= f.label, &lt;%= f.text_field]
+
+		[285, 0:11:4, #c = 1, #o = 4637], ruby (1424) 4637 [end end, end def, `block in, end class, `require' from, checking for, end %&gt;, end if, =&gt; {, `&lt;top (required)&gt;', &lt; ActiveRecord::Base, %&gt; &lt;%=, &lt;% end, =&gt; true, end #, = [], += 1, = 0, (required)&gt;' from, levels) in]
+
+			[152, 0:11:4:0, #c = 0, #o = 655], hash (105) 655 [end end, end def, `block in, end class, checking for, =&gt; {, end if, levels) in, = 0, `require' from, = [], &lt;% end, end %&gt;, the first, = {, =&gt; '',, user =, `&lt;top (required)&gt;', { return, &lt;% if]
+
+		[284, 0:11:3, #c = 0, #o = 802], rspec (113) 802 [end end, end def, levels) in, end class, %&gt; &lt;%=, `block in, &lt; ActiveRecord::Base, end #, end %&gt;, } end, %&gt; &lt;%, # #, &lt;% end, &lt;/div&gt; &lt;div, %&gt; &lt;/div&gt;, undefined method, = true, respond_to do, │   │  , ActiveRecord::Base belongs_to]
+
+		[154, 0:11:2, #c = 1, #o = 1753], heroku (176) 1753 [$ git, end end, git push, git checkout, app[web.1]: from, `block in, end def, to the, failed to, # #, will be, | |, up to, is not,    , # Use, %&gt; &lt;%=, in this, in the, such file]
+
+			[136, 0:11:2:0, #c = 0, #o = 1146], git (326) 1146 [git checkout, $ git, git push, up to,    , will be, in the, | |, unable to, # #, on the, to the, `block in, failed to, # Use, Failed to, does not, in this, is not, end end]
+
+		[91, 0:11:1, #c = 0, #o = 1116], devise (101) 1116 [end end, %&gt; &lt;%=, end def, end class, &lt;% end, end #, `block in, &lt; ActiveRecord::Base, =&gt; true, end %&gt;, the user, def create, @user =, %&gt; &lt;%, %&gt; &lt;/div&gt;, # #, %&gt; &lt;div, undefined method, # If, will be]
+
+		[3, 0:11:0, #c = 0, #o = 1166], activerecord (195) 1166 [&lt; ActiveRecord::Base, end end, end class, LIMIT 1, ActiveRecord::Base has_many, end def, =&gt; true, `block in, %&gt; &lt;%=, ActiveRecord::Base belongs_to, &lt;% end, end %&gt;, do |t|, %&gt; &lt;%, end #, true end, 0 0, %&gt; &lt;/div&gt;, INNER JOIN, | 1]
+
+	[272, 0:10, #c = 4, #o = 13236], r (1636) 13236 [NA NA, 1L, 1L,, 0 0, 1 1, 5L, 5L,, 2L, 2L,, 3L, 3L,, 1 2, 0 1, 2 2, 4L, 4L,, 1 0, 0, 0,, class =, 0L, 0L,, NA, NA,, Error in, 2 3, 2L, 1L,, ... $]
+
+		[302, 0:10:3, #c = 0, #o = 1223], shiny (122) 1223 [label =, ) ), 0 0, NA NA, 1 1, 1L, 1L,, ) ),, = 0,, width =, }) }, 5L, 5L,, value =, 0 1, server =, 2L, 2L,, 2 2, max =, 3L, 3L,, class =, = 2,]
+
+		[258, 0:10:2, #c = 0, #o = 930], plot (161) 930 [NA NA, 0, 0,, 1L, 1L,, 1 1, 0 0, 2L, 2L,, 5L, 5L,, col =, 1, 1,, type =, 0 1, 1 2, 2 2, 3L, 3L,, y =, size =, x =, 1 0, class =, 4L, 4L,]
+
+		[135, 0:10:1, #c = 0, #o = 2525], ggplot2 (154) 2525 [5L, 5L,, 1L, 1L,, 2L, 2L,, 4L, 4L,, 2L, 1L,, 1L, 2L,, 3L, 3L,, 0L, 0L,, NA NA, 0 0, y =, 1 1, class =, 2L, 3L,, size =, 1 2, color =, 2 2, .Names =, 0, 0,]
+
+		[81, 0:10:0, #c = 0, #o = 1560], dataframe (212) 1560 [1L, 1L,, 2L, 2L,, 1 1, 2 2, 3L, 3L,, 0 0, 1 2, 2L, 3L,, NA NA, 2L, 1L,, 1L, 2L,, 0 1, 5L, 5L,, class =, 2 3, 2 1, 1 0, 0 2, 3 2, Error in]
+
+	[268, 0:9, #c = 24, #o = 37598], python (6947) 37598 [i in, for i, in &lt;module&gt;, = [], = 0, (most recent, Traceback (most, recent call, last): File, call last):, | |, 0., 0.,, is not, def __init__(self,, of the, 0, 0,, import *, x =, if __name__, data =]
+
+		[7, 0:9:23, #c = 1, #o = 1364], amazon-web-services (238) 1364 [[ {, ] }, : {, } },, =&gt; 1, } ], recent call, to the, does not, = new, = {, = 0, } ],, }, {, // Create, for i, Unable to, = [], in &lt;module&gt;, } {]
+
+			[6, 0:9:23:0, #c = 0, #o = 766], amazon-s3 (135) 766 [] }, [ {, =&gt; 1, = {, does not, : {, recent call, }, {, } },, = new, else {, } ], } {, // Create, : [, data) {, params =, of the, =&gt; {, apt-get install]
+
+		[371, 0:9:22, #c = 0, #o = 809], web-scraping (120) 809 [Traceback (most, i in, url =, = [], call last):, to the, recent call, = 0, name =, for i, of the, data =, import requests, in &lt;module&gt;, 0., 0.,, (most recent, response =, import *, def __init__(self,, a =]
+
+		[349, 0:9:21, #c = 0, #o = 643], unicode (106) 643 [recent call, i in, for i, in &lt;module&gt;, Traceback (most, (most recent, = [], call last):, = 0, last): File, import sys, 0., 0.,, not in, name =, of the, [] for, = new, if not, | |, def __init__(self,]
+
+		[337, 0:9:20, #c = 0, #o = 1339], tkinter (157) 1339 [import *, text =, root =, def __init__(self,, command =, = 0, in &lt;module&gt;, frame =, i in, column =, for i, width =, recent call, call last):, last): File, = [], Traceback (most, (most recent, is not, can be]
+
+		[332, 0:9:19, #c = 0, #o = 1497], tensorflow (152) 1497 [of the, in &lt;module&gt;, last): File, y =, (most recent, x =, = [], recent call, Traceback (most, i in, | |, # Create, as np, for i, from the, if not, call last):, not found, numpy as, 0. 0.]
+
+		[295, 0:9:18, #c = 1, #o = 1530], selenium (314) 1530 [= new, driver =, public void, public static, static void, public class, Exception {, throws Exception, try {, in &lt;module&gt;, " +, { try, &lt;/tr&gt; &lt;tr&gt;, is not, recent call, break; }, = 0, Traceback (most, for i, def __init__(self,]
+
+			[296, 0:9:18:0, #c = 0, #o = 903], selenium-webdriver (154) 903 [= new, public void, driver =, static void, public static, public class, Exception {, break; }, " +, try {, import sys, throws Exception, { try, { public, &lt;/tr&gt; &lt;tr&gt;, &lt;/li&gt; &lt;li, void main(String[], for (int, def __init__(self,, &lt;button class="btn]
+
+		[270, 0:9:17, #c = 0, #o = 3214], python-3.x (721) 3214 [| |, for i, = [], = 0, i in, (most recent, Traceback (most, in &lt;module&gt;, recent call, last): File, call last):, while True:, def __init__(self,, + 1, data =, if __name__, is not, " +, return True, + "]
+
+		[269, 0:9:16, #c = 0, #o = 2781], python-2.7 (660) 2781 [for i, i in, = 0, in &lt;module&gt;, Traceback (most, (most recent, recent call, call last):, = [], last): File, import sys, if __name__, def __init__(self,, line 1,, &lt;module&gt; from, data =, += 1, a =, __name__ ==, not in]
+
+		[265, 0:9:15, #c = 0, #o = 965], printing (121) 965 [&lt;/tr&gt; &lt;tr&gt;, + 1, = [], c =, i in, last): File, | |, 3 4, = 0, if __name__, t =, Error in, + ", for i, 0., 0.,, in &lt;module&gt;, if not, Traceback (most, import *, import numpy]
+
+		[248, 0:9:14, #c = 0, #o = 3118], pandas (485) 3118 [0., 0.,, NaN NaN, df =, pandas as, import pandas, as pd, 1 2, 0 1, | |, 0 0, 1 1, 2 3, i in, data =, 1 |, | 0, | 1, for i, 3 0, 3 4]
+
+		[239, 0:9:13, #c = 0, #o = 1761], numpy (350) 1761 [import numpy, as np, numpy as, i in, for i, in &lt;module&gt;, x =, a =, for j, last): File, recent call, np import, 1, 2,, = [], j in, Traceback (most, 0, 0,, = 0, = 1, y =]
+
+		[213, 0:9:12, #c = 0, #o = 1686], matplotlib (217) 1686 [import matplotlib.pyplot, as plt, matplotlib.pyplot as, numpy as, import numpy, as np, 0 0, i in, y =, 0 1, for i, 1 0, np import, x =, call last):, = [], = 0, in &lt;module&gt;, 0. 0., data =]
+
+		[209, 0:9:11, #c = 0, #o = 2095], macos (361) 2095 [checking for, In function, yes checking, │   │  , such file, No such, file or, │   ├──, or directory, no checking, has no, not found, included from, │   └──, In file, file included, error: expected, in &lt;module&gt;, path to, Could not]
+
+		[208, 0:9:10, #c = 0, #o = 863], machine-learning (119) 863 [i in, recent call, = 1, call last):, last): File, y =, (most recent, = 0, X =, in &lt;module&gt;, x =, Traceback (most, 0 0, = [], is not, 1 1, not in, 0., 0.,, in the, for i]
+
+		[203, 0:9:9, #c = 1, #o = 2669], list (610) 2669 [0, 0,, a -&gt;, = do, 1, 1,, a =, 1, 0,, 0, 1,, In the, = [], n =, -&gt; Int, main =, x =, a b, for i, b =, list =, f =, = 0, of a]
+
+			[153, 0:9:9:0, #c = 0, #o = 1420], haskell (309) 1420 [a -&gt;, a =, In the, = do, -&gt; Int, main =, n =, a b, x y, _ =, 0, 0,, of a, x =, = [], 1, 1,, 1, 0,, from a, -&gt; Bool, use of, - 1)]
+
+		[166, 0:9:8, #c = 0, #o = 671], indexing (134) 671 [0 0, i in, Traceback (most, last): File, as np, = 0, (most recent, b =, call last):, recent call, for i, in &lt;module&gt;, a =, = [], 1 0, is not, [] for, = new, 0., 0.,, row in]
+
+		[165, 0:9:7, #c = 0, #o = 693], import (102) 693 [in &lt;module&gt;, = [], | |, recent call, Traceback (most, (most recent, module named, = 0, for i, call last):, i in, def __init__(self,, x in, import os, 1, in, " +, numpy as, such file, %} {%, No such]
+
+		[138, 0:9:6, #c = 0, #o = 1298], google-app-engine (214) 1298 [: {, "C:\Program Files, in &lt;module&gt;, - name:, _ _, } },, (most recent, : [, "type" :, in the, i in, = True), for i, recent call, to the, name =, x =, = None, = 1, is not]
+
+		[128, 0:9:5, #c = 0, #o = 1254], flask (144) 1254 [app =, not null,, call last):, if not, in &lt;module&gt;, if __name__, db =, response =, %} {%, def __init__(self,, for i, = True, = {, request.method ==, recent call, = [], email =, to get, = 0, i in]
+
+		[106, 0:9:4, #c = 0, #o = 842], encoding (115) 842 [0, 0,, in &lt;module&gt;, recent call, (most recent, i in, = [], = 0, for i, call last):, last): File, a =, " +, Traceback (most, of the, for the, is not, 0., 0.,, import *, value =, 00 00]
+
+		[93, 0:9:3, #c = 1, #o = 5716], django (1201) 5716 [%} {%, class Meta:, model =, name =, form =, return render(request,, = {, user =, {% for, endfor %}, = (, def __unicode__(self):, *args, **kwargs):, fields =, {% endfor, if request.method, request.method ==, {% block, response =, {% endblock]
+
+			[94, 0:9:3:0, #c = 0, #o = 816], django-models (139) 816 [class Meta:, def __unicode__(self):, name =, = True), %} {%, = {, model =, form =, id =, *args, **kwargs):, user =, = (, if request.method, endfor %}, = True, request.method ==, {% endif, {% for, {% endfor, endif %}]
+
+		[92, 0:9:2, #c = 0, #o = 1263], dictionary (323) 1263 [= {}, i in, for i, = 0, | |, = [], in &lt;module&gt;, }, {, last): File, new Dictionary&lt;string,, "name" :, ] }, for line, d =, line in, = False, of the, Traceback (most, [] for, value in]
+
+		[75, 0:9:1, #c = 1, #o = 2110], csv (411) 2110 [| |, = New-Object, } }, of the, reader =, row in, 1 2, " +, is not, } if, else {, for row, } function, = 0, for i, ) {, 0) {, = [], i in, call last):]
+
+			[263, 0:9:1:0, #c = 0, #o = 1138], powershell (342) 1138 [= New-Object, } }, | |, of the, as a, does not, is not, else {, in the, ) {, { #, } #, } if, set to, 0) {, call last):, for the, ID =, # This, on the]
+
+		[42, 0:9:0, #c = 0, #o = 940], beautifulsoup (115) 940 [Create a, = [], last): File, # Create, import requests, of the, = 0, i in, (most recent, url =, recent call, it to, Traceback (most, html =, for i, call last):, r =, if __name__, to the, in &lt;module&gt;]
+
+	[256, 0:8, #c = 40, #o = 60754], php (8784) 60754 [} }, | |, public function, } else, else {, { echo, = 0;, = new, 1 |, } ?&gt;, * FROM, | 1, Array (, /** *, { return, ) {, 2 |, * *, NOT NULL,, =&gt; Array]
+
+		[118, 0:8:39, #c = 1, #o = 2429], facebook (378) 2429 [INFO -, } else, { //, } }, else {, { if, /&gt; &lt;meta, : true,, = new, try {, the user, }); }, { var, resultCode, data);, { "name":, (response) {, } if, = id;, is not, of the]
+
+			[119, 0:8:39:0, #c = 0, #o = 1067], facebook-graph-api (164) 1067 [INFO -, } else, } }, { //, else {, = new, { var, { if, } if, (most recent, }); }, = null;, ) {, resultCode, data);, { "id":, try {, the user, the app, null; }, ] }]
+
+		[0, 0:8:38, #c = 3, #o = 2596], .htaccess (378) 2596 [RewriteCond %{REQUEST_FILENAME}, RewriteEngine On, RewriteRule ^(.*)$, %{REQUEST_FILENAME} !-d, %{REQUEST_FILENAME} !-f, RewriteCond %{HTTP_HOST}, [NC] RewriteRule, RewriteCond %{REQUEST_URI}, RewriteEngine on, !-f RewriteCond, # #, from all, !-d RewriteRule, RewriteBase /, &gt; &gt;, &lt;IfModule mod_rewrite.c&gt;, of the, to the, } }, } else]
+
+			[278, 0:8:38:2, #c = 0, #o = 692], redirect (194) 692 [RewriteCond %{REQUEST_FILENAME}, RewriteEngine On, of the, RewriteRule ^(.*)$, %{REQUEST_FILENAME} !-f, RewriteCond %{HTTP_HOST}, # #, [NC] RewriteRule, from all, %{REQUEST_FILENAME} !-d, will be, } else, . ., !-f RewriteCond, } if, RewriteCond %{REQUEST_URI}, RewriteEngine on, &lt;IfModule mod_rewrite.c&gt;, !-d RewriteRule, ) {]
+
+			[221, 0:8:38:1, #c = 0, #o = 916], mod-rewrite (196) 916 [RewriteCond %{REQUEST_FILENAME}, %{REQUEST_FILENAME} !-d, %{REQUEST_FILENAME} !-f, RewriteRule ^(.*)$, RewriteEngine On, !-f RewriteCond, RewriteEngine on, RewriteCond %{HTTP_HOST}, RewriteCond %{REQUEST_URI}, &lt;IfModule mod_rewrite.c&gt;, RewriteBase /, !-d RewriteRule, [NC] RewriteRule, of the, the request, # #, &gt; &gt;, } }, not found, not a]
+
+			[21, 0:8:38:0, #c = 0, #o = 1668], apache (424) 1668 [# #, RewriteCond %{REQUEST_FILENAME}, RewriteEngine On, from all, &gt; &gt;, of the, RewriteRule ^(.*)$, %{REQUEST_FILENAME} !-f, [NC] RewriteRule, in the, RewriteCond %{HTTP_HOST}, { }, %{REQUEST_FILENAME} !-d, to the, RewriteEngine on, number of, If you, will be, !-f RewriteCond, RewriteCond %{REQUEST_URI}]
+
+		[389, 0:8:37, #c = 0, #o = 908], zend-framework (119) 908 [} }, * *, | |, } else, public function, &lt;input type="text", NULL |, =&gt; array, = new, on line, { echo, = 0;, } public, protected function, | NULL, /** *, | 1, | NO, array (, ( )]
+
+		[388, 0:8:36, #c = 0, #o = 1596], yii (123) 1596 [&lt;?php echo, public function, } }, Array (, ?&gt; &lt;/div&gt;, ?&gt; &lt;?php, =&gt; 1, =&gt; Array, ), ),, /** *, =&gt; true,, ( ), else {, | |, =&gt; array(, 'class' =&gt;, = 0;, &lt;div class="row"&gt;, */ public, } else]
+
+		[380, 0:8:35, #c = 0, #o = 6347], wordpress (835) 6347 [) {, if (, ?&gt; &lt;?php, ) ), ); }, ) );, &lt;?php if, = array(, ) :, =&gt; true,, ?&gt; &lt;div, ); ?&gt;, } ?&gt;, ); //, &lt;/div&gt; &lt;/div&gt;, } }, &lt;?php }, &lt;/div&gt; &lt;div, * *, endif; ?&gt;]
+
+		[357, 0:8:34, #c = 0, #o = 1419], variables (299) 1419 [} }, = 0;, } else, = 1;, { echo, break; case, -1) {, } if, = new, public function, /** *, echo '&lt;div, | |, case 1:, else {, { case, is the, = 4;, break; }, 1; }]
+
+		[355, 0:8:33, #c = 0, #o = 773], utf-8 (110) 773 [} }, } echo, else {, { echo, } else, public function, } ?&gt;, | |, 1 |, = 0;, * *, = new, = '';, | 1, ) {, ); }, $sql =, | 2, $message =, [0] =&gt;]
+
+		[353, 0:8:32, #c = 0, #o = 926], url (156) 926 [} }, | |, public function, } else, = new, { echo, 1 |, else {, = 0;, { //, Array (, break; case, =&gt; array(, ) {, ORDER BY, } ?&gt;, =&gt; true,, * *, | 2, "&lt;td&gt;" .]
+
+		[341, 0:8:31, #c = 0, #o = 785], twitter (119) 785 [} }, = new, else {, | |, } else, =&gt; Array, { echo, 2 |, = 0;, Array (, } ?&gt;, // if, } public, /** *, 1 |, ) {, i =, | 1, public function, type="text/javascript"&gt;&lt;/script&gt; &lt;script]
+
+		[328, 0:8:30, #c = 1, #o = 5907], symfony (416) 5907 [public function, /** *, * *, */ public, { return, } /**, * @return, */ private, * @param, } public, * @var, } }, { /**, $this; }, * Get, return $this;, */ protected, = new, =&gt; string, { path:]
+
+			[97, 0:8:30:0, #c = 0, #o = 1167], doctrine2 (110) 1167 [/** *, public function, * *, { return, */ public, } public, =&gt; string, * @return, */ private, * @param, */ protected, } /**, * @var, { /**, } }, = new, =&gt; array, %} {%, protected function, { name:]
+
+		[300, 0:8:29, #c = 0, #o = 1803], session (245) 1803 [} else, } }, } ?&gt;, { echo, } function, public function, else {, &lt;/body&gt; &lt;/html&gt;, return true;, &lt;?php session_start();, &lt;input type="text", | |, = 0;, ?&gt; &lt;?php, = new, if the, = NULL;, { //, = "SELECT, true; }]
+
+		[293, 0:8:28, #c = 0, #o = 829], security (117) 829 [- -, } }, | |, else {, } else, public function, } ?&gt;, { echo, 1 |, = new, = 0;, * *, = 1;, = "SELECT, =&gt; array(, ?&gt; &lt;?php, ) {, Array (, } public, false; }]
+
+		[292, 0:8:27, #c = 0, #o = 1093], search (156) 1093 [} else, else {, } }, null &amp;&amp;, | |, != null, public function, { echo, } ?&gt;, echo "&lt;div, "&lt;td&gt;" ., = 0;, "&lt;/td&gt;"; echo, } public, ) {, /** *, in the, ) ), { //, ' .]
+
+		[261, 0:8:26, #c = 0, #o = 1248], post (260) 1248 [= 0;, } }, } else, else {, } ?&gt;, &lt;input type="submit", public function, | |, { echo, response =, = new, 1 |, &lt;/body&gt; &lt;/html&gt;, 2 |, &lt;/tr&gt; &lt;tr&gt;, = 8;, &lt;?php echo, { return, &lt;html&gt; &lt;head&gt;, } if]
+
+		[253, 0:8:25, #c = 0, #o = 1779], pdo (199) 1779 [} }, { echo, $stmt =, = new, $sql =, $e) {, try {, else {, = null;, } else, } ?&gt;, = ?, public function, $conn =, $result =, $db =, } //, | |, $query =, &lt;/div&gt; &lt;div]
+
+		[252, 0:8:24, #c = 0, #o = 1137], pdf (202) 1137 [= new, } }, text =, else {, | |, } else, 0 0, public function, } ?&gt;, &lt;script type="text/javascript", doc =, { echo, { if, ) ), } if, &lt;/script&gt; &lt;script, * *, = 0;, Array (, 1 3]
+
+		[247, 0:8:23, #c = 0, #o = 801], pagination (104) 801 [} }, else {, public function, | |, = 0;, = new, } ?&gt;, } public, } else, * FROM, = 3;, for the, * *, ) {, =&gt; Array, number of, { return, 1 |, { if, 2 |]
+
+		[242, 0:8:22, #c = 0, #o = 1919], oop (331) 1919 [} }, } public, public function, } class, = new, { public, | |, { return, abstract class, " ", = ", } else, private int, = "";, 0; private, = 0;, " +, } function, true; }, return true;]
+
+		[233, 0:8:21, #c = 1, #o = 1840], nginx (199) 1840 [server {, / {, | at, location /, } location, { listen, } }, # #, { #, failed to, } #, apt-get install, connect to, Unable to, = true, | |, location =, to get, not found, to the]
+
+			[96, 0:8:21:0, #c = 0, #o = 854], docker (173) 854 [| at, failed to, apt-get install, server {, to get, location /, } }, Unable to, connect to, } location, # #, { listen, trying to, } #, { #, / {, npm install, /&gt; &lt;property, to connect, not found]
+
+		[230, 0:8:20, #c = 0, #o = 1953], mysqli (209) 1953 [} }, $result =, } else, } ?&gt;, " ., { echo, * FROM, public function, = "SELECT, else {, $query =, "SELECT *, = array();, $sql =, $conn =, "&lt;td&gt;" ., = new, $username =, } function, NOT NULL,]
+
+		[229, 0:8:19, #c = 5, #o = 30461], mysql (3875) 30461 [| |, 1 |, | 1, NOT NULL,, * FROM, 2 |, | 2, INSERT INTO, ORDER BY, NOT NULL, GROUP BY, 3 |, INNER JOIN, CREATE TABLE, SELECT *, * from, LEFT JOIN, | NULL, | 3, NULL |]
+
+			[339, 0:8:19:4, #c = 0, #o = 683], triggers (104) 683 [| |, 1 |, NOT NULL,, | 1, NOT NULL, * FROM, INSERT INTO, END IF;, | 2, | 3, 2 |, GROUP BY, CREATE TABLE, INNER JOIN, ORDER BY, | 5, NULL |, NULL NULL, PRIMARY KEY, | NULL]
+
+			[312, 0:8:19:3, #c = 8, #o = 10553], sql (3225) 10553 [INSERT INTO, INNER JOIN, * FROM, NOT NULL,, GROUP BY, insert into, ORDER BY, ( SELECT, SELECT *, CREATE TABLE, * from, LEFT JOIN, = 1, = 0, select *, NOT NULL, CASE WHEN, ) AS, UNION ALL, 1 1]
+
+				[315, 0:8:19:3:7, #c = 0, #o = 1051], sql-server-2008 (316) 1051 [( SELECT, ) AS, NOT NULL,, ' +, INSERT INTO, OUTER JOIN, SELECT *, INNER JOIN, insert into, FROM (, ORDER BY, * FROM, LEFT OUTER, " +, = 1, CREATE TABLE, order by, = 0, UNION SELECT, + ']
+
+				[313, 0:8:19:3:6, #c = 3, #o = 3764], sql-server (1465) 3764 [INNER JOIN, ( SELECT, INSERT INTO, = 0, = 1, * FROM, ORDER BY, CASE WHEN, ' +, insert into, GROUP BY, SELECT *, UNION ALL, AS BEGIN, is not, ALL SELECT, * from, version of, ELSE 0, NOT NULL,]
+
+					[340, 0:8:19:3:6:2, #c = 0, #o = 893], tsql (346) 893 [INNER JOIN, insert into, ORDER BY, = 0, = 1, ( SELECT, INSERT INTO, UNION ALL, ' +, CASE WHEN, * FROM, GROUP BY, is not, SELECT *, " +, NOT NULL, 1 AND, AS BEGIN, of the, is null]
+
+					[321, 0:8:19:3:6:1, #c = 0, #o = 902], stored-procedures (240) 902 [= 1, * FROM, INNER JOIN, INSERT INTO, SELECT *, try {, ' +, ( SELECT, CASE WHEN, END IF;, &gt; 0, ORDER BY, = 0, &lt;/td&gt; &lt;td, GROUP BY, AS BEGIN, end if;, is not, IF EXISTS, ) AS]
+
+					[314, 0:8:19:3:6:0, #c = 0, #o = 580], sql-server-2005 (105) 580 [INNER JOIN, ( SELECT, INSERT INTO, ORDER BY, = 0, = 1, " +, SELECT *, ' +, * FROM, ) AS, CASE WHEN, GROUP BY, try {, is not, AS BEGIN, insert into, + ', NULL ), * from]
+
+				[262, 0:8:19:3:5, #c = 0, #o = 1749], postgresql (618) 1749 [INSERT INTO, NOT NULL,, CREATE TABLE, checking for, INNER JOIN, * FROM, SELECT *, ALTER TABLE, does not, OR REPLACE, ( SELECT, * from, insert into, GROUP BY, ( id, NOT NULL, ORDER BY, select *, IS NULL, CREATE OR]
+
+				[246, 0:8:19:3:4, #c = 1, #o = 1536], oracle (564) 1536 [insert into, OR REPLACE, INSERT INTO, CREATE OR, CREATE TABLE, SELECT *, * FROM, at line, select *, for this, = 1, create table, INNER JOIN, END IF;, * from, NOT NULL,, not null,, GROUP BY, = 0, NOT NULL]
+
+					[259, 0:8:19:3:4:0, #c = 0, #o = 636], plsql (132) 636 [insert into, CREATE OR, OR REPLACE, INSERT INTO, CREATE TABLE, end if;, END IF;, * from, INNER JOIN, SELECT *, create table, at line, i in, * FROM, () from, = 1, + 1;, in the, = 0, of the]
+
+				[237, 0:8:19:3:3, #c = 0, #o = 639], null (111) 639 [NOT NULL,, INNER JOIN, insert into, = 1, INSERT INTO, = 0, * from, SELECT *, * FROM, GROUP BY, ( SELECT, LEFT JOIN, NOT NULL, ORDER BY, select *, LEFT OUTER, CREATE TABLE, &gt; 0, | |, ' +]
+
+				[225, 0:8:19:3:2, #c = 0, #o = 995], ms-access (214) 995 [GROUP BY, INSERT INTO, * FROM, " &amp;, INNER JOIN, ORDER BY, End If, As String, " +, NOT NULL,, = 1, LEFT JOIN, &amp; ", * from, &amp; _, NOT NULL, CREATE TABLE, If End, for the, Private Sub]
+
+				[183, 0:8:19:3:1, #c = 0, #o = 817], join (264) 817 [LEFT JOIN, GROUP BY, INNER JOIN, INSERT INTO, ORDER BY, int(11) NOT, NOT NULL,, * FROM, ( SELECT, = 1, SELECT *, * from, left join, LEFT OUTER, insert into, = 0, NOT NULL, CREATE TABLE, select *, ) as]
+
+				[149, 0:8:19:3:0, #c = 0, #o = 666], group-by (139) 666 [INSERT INTO, GROUP BY, NOT NULL,, ORDER BY, ( SELECT, INNER JOIN, = 1, LEFT JOIN, ) AS, CREATE TABLE, * FROM, SELECT *, = 0, 1 1, * from, IN (SELECT, group by, 2 1, 1 2, ALTER TABLE]
+
+			[294, 0:8:19:2, #c = 0, #o = 1057], select (222) 1057 [| |, 1 |, | 1, 2 |, NOT NULL,, | 2, * FROM, | 3, ORDER BY, 3 |, name |, | 0, GROUP BY, 4 |, 5 |, SELECT *, INSERT INTO, | 5, CREATE TABLE, is called]
+
+			[80, 0:8:19:1, #c = 0, #o = 2178], database (755) 2178 [{ "id":, }, {, | |,    , 1 |, * FROM, NOT NULL,, * from, private String, 2 |, | 1, "INSERT INTO, = "SELECT, INSERT INTO, db =, CREATE TABLE, NOT NULL, = "INSERT, con =, id |]
+
+			[72, 0:8:19:0, #c = 0, #o = 876], count (115) 876 [| |, 1 |, | 1, INSERT INTO, | 2, * FROM, NOT NULL,, CREATE TABLE, 3 |, 2 |, LEFT JOIN, NOT NULL, SELECT *, 2 3, GROUP BY, | 3, | 5, $query =, ORDER BY, dolor sit]
+
+		[210, 0:8:18, #c = 0, #o = 1548], magento (161) 1548 [} }, public function, =&gt; string, &lt;?php echo, ?&gt; &lt;?php, =&gt; true,, } else, | |, protected function, href="&lt;?php echo, = array();, = new, { echo, } public, else {, catch (Exception, &lt;?php if, { if, } protected, endif; ?&gt;]
+
+		[206, 0:8:17, #c = 0, #o = 1089], login (118) 1089 [} }, else {, } else, } ?&gt;, | |, ?&gt; &lt;?php, = new, { echo, { return, = 0;, &lt;input type="text", public function, ORDER BY, 1 |, { //, $password =, } public, private set;, INNER JOIN, &lt;?php session_start();]
+
+		[198, 0:8:16, #c = 0, #o = 1632], laravel-5 (211) 1632 [public function, /** *, } }, */ public, * *, { return, * @return, | |, } /**, &lt;/div&gt; &lt;div, &lt;div class="form-group"&gt;, * @param, } public, else {, { /**, 1 |, } ?&gt;, = new, &lt;/div&gt; &lt;/div&gt;, &lt;?php namespace]
+
+		[197, 0:8:15, #c = 0, #o = 936], laravel-4 (118) 936 [} }, public function, } else, Array (, { return, | |, } public, else {, ( ), = new, = array(, =&gt; Array, } ?&gt;, 1 |, =&gt; 0, =&gt; 1, public static, = "SELECT, { echo, { protected]
+
+		[196, 0:8:14, #c = 0, #o = 3401], laravel (584) 3401 [public function, { return, } public, } }, }, {, /** *, * *, */ public, * @return, &lt;?php namespace, { public, Controller {, | |, $user =, { /**, =&gt; [, $request) {, &lt;/div&gt; &lt;div, * @var, } &lt;?php]
+
+		[131, 0:8:13, #c = 0, #o = 4001], forms (725) 4001 [&lt;input type="text", &lt;input type="submit", &lt;/div&gt; &lt;div, /&gt; &lt;input, } else, else {, } }, = "";, /&gt; &lt;/div&gt;, } ?&gt;, &lt;/tr&gt; &lt;tr&gt;, &lt;?php echo, &lt;div class="form-group"&gt;, &lt;input type="radio", &lt;tr&gt; &lt;td, &lt;input type="hidden", &lt;/div&gt; &lt;/div&gt;, = false;, &lt;/td&gt; &lt;/tr&gt;, /&gt; &lt;/form&gt;]
+
+		[130, 0:8:12, #c = 0, #o = 908], foreach (154) 908 [= new, } }, } else, | |, Array (, else {, = 0;, { echo, } ?&gt;, public function, { //, =&gt; Array, ) {, { if, * FROM, 1 |, to the, | 2, &lt;/div&gt; &lt;/div&gt;, 2 |]
+
+		[122, 0:8:11, #c = 0, #o = 1382], file-upload (165) 1382 [} }, &lt;input type="file", } else, else {, the file, &lt;/div&gt; &lt;/div&gt;, | |, = new, "" }, a file, } //, public function, = 0;, } ?&gt;, /** *, " ., ) {, &lt;!-- The, /&gt; &lt;input, { echo]
+
+		[110, 0:8:10, #c = 0, #o = 776], error-handling (113) 776 [| |, } }, } else, ) {, { return, } ?&gt;, = 0;, * FROM, else {, $query =, public function, * *, { //, = new, if (, 1 |, { echo, return false;, | 1, ) )]
+
+		[104, 0:8:9, #c = 0, #o = 1928], email (283) 1928 [$headers .=, $message =, else {, { echo, $headers =, = new, } }, $subject =, | |, has been, } else, not be, on line, to be, of the, message =, public function, will be, could not, to the]
+
+		[85, 0:8:8, #c = 1, #o = 1115], date (294) 1115 [= new, } }, | |, else {, } else, date =, new Date();, { echo, public function, 1 |, } public, now =, = 0;, * 60, = Calendar.getInstance();, Array (, ) {, } ?&gt;, } echo, * *]
+
+			[335, 0:8:8:0, #c = 0, #o = 724], time (110) 724 [= new, } }, 1 |, } else, else {, } public, // TODO, ) {, // The, | |, { echo, date =, | 7, }, {, ); }, public function, = 0;, $output =, { [super, { public]
+
+		[76, 0:8:7, #c = 0, #o = 1495], curl (254) 1495 [$ch =, = curl_init();, curl_setopt($ch, CURLOPT_RETURNTRANSFER,, = curl_exec($ch);, = array(, Array (, =&gt; 0, $data =, } }, ' ., $url =, $result =, 200 OK, { echo, =&gt; Array, | |, } else, } ?&gt;, { return, else {]
+
+		[69, 0:8:6, #c = 0, #o = 885], cookies (170) 885 [= new, } }, } else, ) {, } if, | |, else {, public function, } ?&gt;, { //, = 0;, = 1, { echo, 0 |, =&gt; array(, Array (, } public, | 1, ?&gt; &lt;?php, " "]
+
+		[62, 0:8:5, #c = 0, #o = 3394], codeigniter (471) 3394 [public function, &lt;?php echo, } }, Array (, =&gt; Array, = array(, } public, } function, $query =, &lt;td&gt;&lt;?php echo, $data =, [0] =&gt;, = TRUE;, ( !, if (, ?&gt; &lt;?php, } else, [1] =&gt;, else {, __construct() {]
+
+		[53, 0:8:4, #c = 0, #o = 1558], cakephp (186) 1558 [=&gt; array(, =&gt; [, } }, =&gt; false,, =&gt; true,, public function, = array(, | |, &lt;?php echo, 'id' =&gt;, ) );, ) ), =&gt; '',, = 0;, { public, else {, $name =, { if, } else, =&gt; true]
+
+		[52, 0:8:3, #c = 0, #o = 864], caching (133) 864 [}, {, } }, public function, | |, = new, else {, } ?&gt;, { echo, } else, ORDER BY, { public, 1 |, { return, = 0;, } if, &lt;?php echo, 3 |, the server, 2 |, * from]
+
+		[36, 0:8:2, #c = 0, #o = 891], authentication (168) 891 [} }, public function, = new, | |, =&gt; {, { if, { echo, } ?&gt;, } else, else {, { //, = 0;, | 1, &lt;input type="submit", { return, &lt;/div&gt; &lt;/div&gt;, * *, ) ), to the, ); }]
+
+		[25, 0:8:1, #c = 4, #o = 13903], arrays (2479) 13903 [Array (, = 0;, =&gt; Array, } }, 0 0, = new, [0] =&gt;, i =, i &lt;, ) ), ( [0], 0; i, [1] =&gt;, i++) {, for (int, [name] =&gt;, } else, = [];, =&gt; 1, 1 1]
+
+			[212, 0:8:1:3, #c = 1, #o = 2910], matlab (493) 2910 [0 0, not a, 1 1, or not, 1 0, end end, 0 1, = [];, 1 2, = 0;, 2 3, } }, A =, Array (, 3 4, for i, =&gt; Array, 4 5, x x, x =]
+
+				[214, 0:8:1:3:0, #c = 0, #o = 1919], matrix (192) 1919 [0 0, 1 0, 0 1, 1 1, or not, 1 2, } }, not a, = 0;, 2 3, end end, y =, 7 8, x x, i &lt;, 4 5, 3 4, 2 1, A =, = [];]
+
+			[2, 0:8:1:2, #c = 1, #o = 2721], actionscript-3 (236) 2721 [= new, } }, public function, } else, private var, = true;, { var, = false;, } private, } function, = 0;, private function, } public, } if, public var, public class, { if, Array (, else {, true) {]
+
+				[127, 0:8:1:2:0, #c = 0, #o = 1191], flash (168) 1191 [= new, } }, public function, } else, private var, = false;, = true;, } private, private function, public class, { if, = 0;, } public, { var, } if, } function, ) {, = null;, else {, public var]
+
+			[307, 0:8:1:1, #c = 0, #o = 1647], sorting (385) 1647 [} }, = 0;, Array (, for (int, 0; i, = new, =&gt; Array, }] },, 0 0, i++) {, { if, } return, i =, i &lt;, 0; }, [0] =&gt;, { for, = temp;, 'id' =&gt;, &lt;/td&gt; &lt;td&gt;]
+
+			[226, 0:8:1:0, #c = 0, #o = 2665], multidimensional-array (213) 2665 [Array (, =&gt; Array, [name] =&gt;, [0] =&gt;, ( [0], [1] =&gt;, ) ), [2] =&gt;, = 0;, =&gt; 1, =&gt; 0, } }, 0 ), ], [, 0 0, = new, [3] =&gt;, 1 =&gt;, ) [1], 0 =&gt;]
+
+		[23, 0:8:0, #c = 0, #o = 1550], api (313) 1550 [0, 0,, } }, = new, } //, }, {, public function, } else, } ?&gt;, { //, | |, { "id":, else {, throw new, { echo, $response =, 0) {, [ {, $result =, --&gt; &lt;!--, 1 |]
+
+	[185, 0:7, #c = 6, #o = 40894], jquery (7501) 40894 [} });, }); });, () {, { var, } else, &lt;/div&gt; &lt;div, function() {, &lt;/div&gt; &lt;/div&gt;, }); &lt;/script&gt;, }); }, else {, $(document).ready(function() {, &lt;script type="text/javascript"&gt;, function (), { if, &lt;input type="text", return false;, $.ajax({ type:, $.ajax({ url:, ) {]
+
+		[187, 0:7:5, #c = 0, #o = 2156], jquery-ui (292) 2156 [} });, &lt;/div&gt; &lt;div, { var, () {, }); });, function() {, &lt;/div&gt; &lt;/td&gt;, { $(, ui) {, &lt;/div&gt; &lt;/div&gt;, }); &lt;/script&gt;, } else, function (), $(function() {, }); }, &lt;script type="text/javascript", $(document).ready(function() {, { if, &lt;script type="text/javascript"&gt;, else {]
+
+		[186, 0:7:4, #c = 0, #o = 1451], jquery-mobile (155) 1451 [}); });, &lt;link rel="stylesheet", } });, &lt;/div&gt; &lt;div, &lt;script type="text/javascript", () {, --&gt; &lt;div, &lt;/div&gt; &lt;/div&gt;, { var, function() {, /&gt; &lt;label, } else, &lt;input type="text", &lt;/head&gt; &lt;body&gt;, &lt;/ul&gt; &lt;/div&gt;, &lt;/body&gt; &lt;/html&gt;, { if, }); &lt;/script&gt;, &lt;ul&gt; &lt;li&gt;&lt;a, &lt;script type="text/javascript"&gt;]
+
+		[99, 0:7:3, #c = 0, #o = 1243], drop-down-menu (133) 1243 [() {, { var, }); });, } });, &lt;/ul&gt; &lt;/li&gt;, } else, &lt;/div&gt; &lt;/div&gt;, &lt;/select&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, function() {, = '';, }); &lt;/script&gt;, else {, &lt;/li&gt; &lt;li&gt;, &lt;ul&gt; &lt;li&gt;&lt;a, }); }, &lt;li&gt; &lt;a, function (), $.ajax({ type:, { echo]
+
+		[84, 0:7:2, #c = 0, #o = 1456], datatables (102) 1456 [}, {, &lt;/tr&gt; &lt;tr&gt;, } });, { var, }); });, () {, } else, &lt;button type="button", type="button" class="btn, { data:, { "data":, &lt;/div&gt; &lt;div, } );, &lt;/div&gt; &lt;/div&gt;, function() {, [ {, function (), &lt;/tr&gt; &lt;/thead&gt;, }); &lt;/script&gt;, { //]
+
+		[58, 0:7:1, #c = 0, #o = 1685], checkbox (200) 1685 [} else, &lt;input type="checkbox", { var, function() {, } });, }); });, () {, { if, else {, &lt;input type="text", /&gt; &lt;input, &lt;input type="hidden", } if, &lt;br&gt; &lt;input, }); &lt;/script&gt;, else if, &lt;/label&gt; &lt;input, &lt;/tr&gt; &lt;tr&gt;, &lt;/div&gt; &lt;/div&gt;, "-" +]
+
+		[4, 0:7:0, #c = 0, #o = 7700], ajax (1594) 7700 [} });, }); });, $.ajax({ type:, { var, $.ajax({ url:, type: "POST",, function(data) {, }, error:, /&gt; &lt;img, success: function, }); }, "POST", url:, function() {, { $.ajax({, success: function(data), data: {, () {, { if, cache: false,, type: 'POST',]
+
+	[179, 0:6, #c = 42, #o = 79893], javascript (12831) 79893 [} }, { var, { return, }, {, = new, function() {, } });, () {, = {, }); }, } else, { if, =&gt; {, { //, [ {, else {, } function, function (), = 0;, }); });]
+
+		[17, 0:6:41, #c = 1, #o = 7227], angular (845) 7227 [import {, } from, export class, =&gt; {, } }, }) export, { path:, { }, from '@angular/core';, @Component({ selector:, { return, }, {, | |, '@angular/core'; import, }); }, { let, &lt;/div&gt; &lt;/div&gt;, { //, | |--, } import]
+
+			[345, 0:6:41:0, #c = 0, #o = 2342], typescript (452) 2342 [} from, import {, =&gt; {, export class, } }, | |, | |--, { }, }) export, { return, @Component({ selector:, { //, } export, () =&gt;, from '@angular/core';, { path:, }); }, }, {, import *, &lt;/div&gt; &lt;div]
+
+		[374, 0:6:40, #c = 0, #o = 928], websocket (103) 928 [{ var, = new, } }, { return, }, {, function() {, { //, { if, } function, }); });, = {, () {, =&gt; {, }); }, function (), = function, [ {, + ', else {, 0; i]
+
+		[373, 0:6:39, #c = 0, #o = 2059], webpack (180) 2059 [{ test:, }, {, module.exports =, = {, ] },, } }, } ], [ {, { return, { path:, { var, ] }, path =, npm ERR!, var path, to handle, not found:, } });, =&gt; {, = new]
+
+		[370, 0:6:38, #c = 0, #o = 967], web (120) 967 [} else, { var, } }, { return, } });, function() {, else {, = new, else if, { if, }); }, () {, { //, }); });, = {, &lt;/div&gt; &lt;/div&gt;, = false;, &lt;/div&gt; &lt;div, } ], } var]
+
+		[368, 0:6:37, #c = 0, #o = 1397], vue.js (138) 1397 [{ return, () {, } }, { name:, } },, { var, }, {, } });, function() {, =&gt; {, export default, function (), } &lt;/script&gt;, = new, return {, data: {, = {, { if, [ {, &lt;/div&gt; &lt;/div&gt;]
+
+		[356, 0:6:36, #c = 0, #o = 2566], validation (416) 2566 [false; }, } else, } }, return false;, { required:, else {, = false;, { return, a valid, = true;, must be, true; }, { var, { }, required: true,, return true;, break; case, } break;, { if, } function]
+
+		[324, 0:6:35, #c = 0, #o = 1555], svg (174) 1555 [0 0, 0 1, { var, } }, = new, } function, } });, { return, }, {, ' +, else {, () {, }); }, { if, =&gt; {, " +, [ {, = 0;, path =, + ']
+
+		[291, 0:6:34, #c = 0, #o = 966], scope (135) 966 [{ var, } }, { return, function() {, }, {, = 0;, } });, function (), = new, }); });, { if, }); }, () {, IS NOT, } else, } function, } },, { //, =&gt; {, [ {]
+
+		[281, 0:6:33, #c = 2, #o = 3051], regex (991) 3051 [pointer to, ) {, is a, } }, { print, . ., use strict;, or die, { my, else {, bla bla, This is, if (, In function, syntax error, =&gt; {, does not, in the, not match, in this]
+
+			[282, 0:6:33:1, #c = 0, #o = 672], replace (111) 672 [bla bla, ' ',, pointer to, } }, is a, does not, . ., This is, ) {, or die, use strict;, else {, { my, if (, { var, { return, pattern =, $username =, { print, } else]
+
+			[255, 0:6:33:0, #c = 0, #o = 1746], perl (415) 1746 [pointer to, use strict;, ) {, { print, { my, } }, syntax error, else {, . ., In function, or die, =&gt; {, declaration of, in this, use in, has no, is a, } #, { #, } else]
+
+		[276, 0:6:32, #c = 2, #o = 7998], reactjs (677) 7998 [=&gt; {, { return, return (, } }, } from, export default, render() {, = {, import {, ); }, extends React.Component, { const, } render(), () =&gt;, Component {, ) }, extends Component, from 'react';, does not, } export]
+
+			[279, 0:6:32:1, #c = 0, #o = 1579], redux (118) 1579 [does not, not exist, =&gt; {, { return, } }, } from, = {, export default, return {, return (, { const, import {, ); }, }; }, render() {, has no, ) }, is not, export const, Cannot find]
+
+			[275, 0:6:32:0, #c = 0, #o = 1471], react-native (196) 1471 [{ return, } }, =&gt; {, return (, } from, = {, import {, render() {, { width:, export default, ); }, { let, () =&gt;, { const, { position:, extends Component, from 'react';, Component {, return {, } render()]
+
+		[266, 0:6:31, #c = 0, #o = 1019], promise (101) 1019 [{ var, { return, =&gt; {, }); }, = new, } }, } else, }, {, = {, function() {, } });, () {, { //, { if, (data) {, }); });, return new, = function, else {, }); };]
+
+		[240, 0:6:30, #c = 0, #o = 1455], object (315) 1455 [} }, = {, { var, { return, = new, }, {, } else, function() {, } });, { if, = 0;, }); }, private int, }); });, [ {, name :, } ], =&gt; {, else {, i &lt;]
+
+		[235, 0:6:29, #c = 5, #o = 9851], node.js (1737) 9851 [npm ERR!, }, {, }); });, } });, { if, [ {, : {, { type:, res) {, =&gt; {, if (err), "_id" :, { "_id", }); }, : [, = new, else {, { var, npm http, } }]
+
+			[305, 0:6:29:4, #c = 0, #o = 935], socket.io (101) 935 [npm ERR!, socket =, } });, }); });, }, {, { type:, app =, { //, { if, function(data) {, else {, ' +, : {, } else, { var, =&gt; {, [ {, }); //, true },, http =]
+
+			[236, 0:6:29:3, #c = 0, #o = 1536], npm (134) 1536 [npm ERR!, npm http, npm WARN, npm install, gyp ERR!, ERR! npm, }); });, } });, [ {, }, {, : {, { type:, ] }, at the, res) {, "_id" :, { if, "dependencies": {, =&gt; {, if it]
+
+			[224, 0:6:29:2, #c = 0, #o = 1292], mongoose (186) 1292 [{ type:, } });, = new, type: String,, true },, }); });, required: true, npm ERR!, required: true,, }); }, if (err), { if, =&gt; {, module.exports =, [ {, }); var, else {, }, {, = false;, res) {]
+
+			[223, 0:6:29:1, #c = 0, #o = 3684], mongodb (698) 3684 [}, {, "_id" :, { "_id", : [, : {, [ {, ] }, : false,, } ], } {, } }, { type:, { "_id":, ] },, } },, } ],, : 1,, { _id:, "name" :, }); });]
+
+			[116, 0:6:29:0, #c = 0, #o = 2383], express (356) 2383 [}); });, res) {, =&gt; {, next) {, app =, (req, res), var app, express =, if (err), res, next), } });, module.exports =, { if, = require('express');, npm ERR!, var express, else {, function(req, res), { return, { var]
+
+		[219, 0:6:28, #c = 0, #o = 1320], meteor (193) 1320 [} });, { return, function (), { var, } }, function() {, { //, () {, }); }, = new, { if, = {, }, {, } else, else {, &lt;/div&gt; &lt;/div&gt;, } },, i =, } from, [ {]
+
+		[194, 0:6:27, #c = 0, #o = 1786], knockout.js (147) 1786 [{ var, () {, = function, { return, function (), var self, } }, self =, = this;, &lt;/div&gt; &lt;div, function() {, = {, }); }, } });, } else, }, {, }; var, &lt;/div&gt; &lt;/div&gt;, = new, (data) {]
+
+		[193, 0:6:26, #c = 0, #o = 1522], kendo-ui (141) 1522 [}, {, { var, { field:, { type:, } }, } });, { return, } },, [ {, }); }, () {, { url:, =&gt; {, = new, function (), function() {, (e) {, } ], = {, }); });]
+
+		[190, 0:6:25, #c = 1, #o = 8631], json (2019) 8631 [}, {, [ {, } }, } ], ] }, { "id":, { "name":, } },, ] },, } ],, nil {, } func, { return, != nil, if err, err !=, : {, struct {, public String, err :=]
+
+			[137, 0:6:25:0, #c = 0, #o = 1839], go (215) 1839 [nil {, if err, != nil, err !=, } func, }, {, err :=, struct {, } }, main() {, [ {, } ], { return, return }, { "id":, for i, { for, ] }, } if, i &lt;]
+
+		[180, 0:6:24, #c = 0, #o = 943], javascript-events (107) 943 [{ var, } }, { return, = new, } });, }, {, function() {, { if, { //, + ', } function, () {, = function(), } else, ' ', }); });, else {, }); }, i &lt;, =&gt; {]
+
+		[170, 0:6:23, #c = 0, #o = 1177], internet-explorer (222) 1177 [{ var, } }, = new, } });, msg =, else {, if (typeof, { return, = {, { //, }, {, () {, else if, &lt;/body&gt; &lt;/html&gt;, =&gt; {, } else, [ {, function() {, &lt;/div&gt; &lt;/div&gt;, }); }]
+
+		[162, 0:6:22, #c = 0, #o = 991], iframe (161) 991 [{ var, } }, { return, &lt;/body&gt; &lt;/html&gt;, = {, }, {, function() {, else {, }); }, } });, &lt;body&gt; &lt;div, () {, &lt;/head&gt; &lt;body&gt;, } else, = new, [ {, } function, function (), }); });, return false;]
+
+		[159, 0:6:21, #c = 1, #o = 3385], html5 (707) 3385 [bla bla, is a, } }, { var, } function, this is, = '';, { //, &lt;/body&gt; &lt;/html&gt;, } else, &lt;/div&gt; &lt;/div&gt;, a test, = 0;, i =, { return, to the, &lt;/head&gt; &lt;body&gt;, &lt;html&gt; &lt;head&gt;, { if, }); }]
+
+			[362, 0:6:21:0, #c = 0, #o = 938], video (126) 938 [} }, is a, bla bla, = '';, i =, { //, of the, { var, } //, = 0;, { if, i++) {, &lt;/div&gt; &lt;/div&gt;, to the, &lt;/body&gt; &lt;/html&gt;, } else, x =, &lt;/head&gt; &lt;body&gt;, may be, } function]
+
+		[156, 0:6:20, #c = 0, #o = 2713], highcharts (136) 2713 [0, 0,, } },, { text:, }, {, title: {, false },, name :, }); });, } }, () {, { name:, { type:, { return, }); }, } });, { var, = {, { title:, : {, { color:]
+
+		[142, 0:6:19, #c = 1, #o = 4837], google-maps (383) 4837 [= new, { var, map =, = {, new google.maps.Marker({, }); }, function() {, } function, var marker, marker =, { if, = 0;, var map, { //, i++) {, } });, map: map,, = [];, }); var, i &lt;]
+
+			[143, 0:6:19:0, #c = 0, #o = 1710], google-maps-api-3 (171) 1710 [= new, html +=, { var, = {, += ", }); }, new google.maps.Marker({, } function, map =, function() {, 0; i, " +, } });, i++) {, { if, { //, for (var, marker =, = 0;, var map]
+
+		[141, 0:6:18, #c = 0, #o = 1056], google-chrome-extension (115) 1056 [{ var, } }, { return, } var, function() {, { if, } else, } });, }); });, ] }, [ {, = new, { //, () {, = {, i &lt;, else {, { "name":, }, {, =&gt; {]
+
+		[140, 0:6:17, #c = 0, #o = 1303], google-chrome (291) 1303 [over the, } }, { var, { if, = new, else {, function() {, { return, }); }, }, {, { //, = {, } });, &lt;/body&gt; &lt;/html&gt;, } else, &lt;/div&gt; &lt;/div&gt;, " +, } function, for (var, = function]
+
+		[139, 0:6:16, #c = 0, #o = 1461], google-apps-script (120) 1461 [{ var, " +, } }, = 0;, for (var, = new, 0; i, }, {, ' +, i &lt;, () {, i =, function() {, var data, } function, = {, (var i, { return, = [];, }); }]
+
+		[132, 0:6:15, #c = 0, #o = 1927], function (580) 1927 [} }, { var, } function, () {, { if, } else, else {, function() {, = function(), { return, return false;, }, {, = new, this is, is some, = {, some text, false; }, { //, = true;]
+
+		[126, 0:6:14, #c = 0, #o = 1098], firefox (170) 1098 [} }, { var, INFO -, = new, () {, function (), } else, }, {, { return, } function, function() {, = {, &lt;/div&gt; &lt;/div&gt;, } });, &lt;/div&gt; &lt;div, { if, { //, i =, else {, of the]
+
+		[123, 0:6:13, #c = 0, #o = 804], filter (118) 804 [{ return, } }, { var, }, {, } });, { //, }); }, = new, [ {, } else, }); });, } ], = {, else {, function() {, * @return, 0; i, () {, ] }, &lt;/li&gt; &lt;/ul&gt;]
+
+		[117, 0:6:12, #c = 0, #o = 1472], extjs (160) 1472 [}, {, [ {, } }, { var, } });, = new, } ], } },, { type:, { return, function() {, : true,, ] });, { if, ] }, }); }, () {, { name:, = {, is the]
+
+		[111, 0:6:11, #c = 0, #o = 1031], events (203) 1031 [} }, { var, }, {, = false;, = new, { return, { if, = {, = true;, { //, = 0;, [ {, } else, () {, } });, else {, =&gt; {, } var, function (), = function()]
+
+		[105, 0:6:10, #c = 0, #o = 1494], ember.js (181) 1494 [} });, function() {, { return, export default, { var, () {, } }, }, {, }); });, { path:, function (), { //, } },, }); }, function(){ var, &lt;/script&gt; &lt;script, } else, of the, = new, &lt;/div&gt; &lt;/div&gt;]
+
+		[102, 0:6:9, #c = 0, #o = 1145], ecmascript-6 (163) 1145 [} }, =&gt; {, { return, { var, }, {, = {, () {, }); });, export default, = new, () =&gt;, { //, } else, }); }, { if, } });, function() {, 0; i, } export, ); }]
+
+		[98, 0:6:8, #c = 0, #o = 1104], dom (199) 1104 [} }, { var, } else, { return, { if, }, {, = new, function() {, } });, &lt;/div&gt; &lt;div, { //, else {, } &lt;/script&gt;, } function, class =, &lt;/body&gt; &lt;/html&gt;, &lt;/div&gt; &lt;/div&gt;, } if, function (), () {]
+
+		[77, 0:6:7, #c = 0, #o = 3777], d3.js (230) 3777 [{ return, function(d) {, }, {, (d) {, { var, i) {, + ",", "," +, width =, " +, } }, height =, ], [, { "name":, }); var, function() {, [ {, // Add, { if, data =]
+
+		[57, 0:6:6, #c = 0, #o = 1049], charts (117) 1049 [= new, }, {, } }, { var, } });, [ {, chart =, = {, { return, { //, { if, } ], () {, data =, }); }, }; var, &lt;/div&gt; &lt;/div&gt;, var data, } return, function() {]
+
+		[55, 0:6:5, #c = 0, #o = 2071], canvas (197) 2071 [= 0;, { var, } function, } }, = new, for (var, } else, canvas =, function() {, i =, new Image();, { if, ctx =, context =, / 2,, }, {, i &lt;, = 1;, 0, 0);, { //]
+
+		[54, 0:6:4, #c = 0, #o = 998], callback (118) 998 [{ var, } }, { //, () {, { return, = {, { if, }, {, } else, = new, } var, } });, } );, function() {, } };, = [];, function (), else if, } function, } ]]
+
+		[39, 0:6:3, #c = 0, #o = 1342], backbone.js (155) 1342 [function() {, } });, { var, = new, }); var, } }, () {, }, {, { return, function (), }); }, [ {, } },, }); return, for (var, = this;, } else, return this;, = {, of the]
+
+		[34, 0:6:2, #c = 0, #o = 1508], asynchronous (242) 1508 [{ var, }); }, } }, { return, } });, function() {, = new, =&gt; {, public async, } else, }, {, else {, = 0;, { if, client =, = await, } function, " +, { //, async Task]
+
+		[20, 0:6:1, #c = 0, #o = 1538], animation (223) 1538 [} }, } else, = 0;, { var, else {, = new, { if, { return, 0) {, { //, } });, = false;, function() {, } if, private int, function (), }, {, = function, () {, &lt; 0]
+
+		[18, 0:6:0, #c = 2, #o = 12533], angularjs (2130) 12533 [() {, function() {, function (), { return, &lt;/div&gt; &lt;/div&gt;, { var, = function, return {, } };, &lt;/div&gt; &lt;div, = function(), } });, &lt;input type="text", }); }, = {, } }, }; });, { templateUrl:, = false;, { restrict:]
+
+			[171, 0:6:0:1, #c = 0, #o = 1134], ionic-framework (174) 1134 [function() {, { return, () {, { var, }); }, { url:, function (), return {, &lt;/div&gt; &lt;/div&gt;, } }, = function, } };, = function(), + 1;, } });, &lt;/div&gt; &lt;div, &lt;input type="text", = [];, }; });, { //]
+
+			[19, 0:6:0:0, #c = 0, #o = 1330], angularjs-directive (148) 1330 [() {, return {, { return, &lt;/div&gt; &lt;/div&gt;, function() {, { var, function (), = function, &lt;input type="text", } };, { restrict:, } });, } }), }; });, } }, &lt;/div&gt; &lt;div, { //, attrs) {, }); }, + ']
+
+	[176, 0:5, #c = 62, #o = 120129], java (10441) 120129 [= new, } }, } public, public void, public class, public static, { return, = 0;, " +, } catch, static void, try {, e) {, @Override public, { public, private String, } else, public String, { //, { private]
+
+		[290, 0:5:61, #c = 2, #o = 3529], scala (574) 3529 [= {, } }, = new, { val, { def, | |, { case, } def, case class, = true), =&gt; {, ... }, String =, connect to, of type, } class, is not, public void, | |--, } case]
+
+			[257, 0:5:61:1, #c = 0, #o = 818], playframework (106) 818 [} }, = {, = new, { case, | |, { def, { val, case class, =&gt; {, of type, } def, not found, ... }, connect to, Exception in, @Override public, { return, data =, | |--, Method) at]
+
+			[22, 0:5:61:0, #c = 0, #o = 1224], apache-spark (251) 1224 [| |, = {, = new, = true), connect to, { case, | |--, { val, } }, Method) at, df =, sc =, { def, on port, =&gt; {, } def, case class, data =, = 0, thread "main"]
+
+		[148, 0:5:60, #c = 1, #o = 1832], groovy (149) 1832 [- -, } }, = {, = new, } class, { def, = true, . ., } public, } def, = 0;, public void, { String, nested exception, } //, = [, { static, exception is, " +, { return]
+
+			[145, 0:5:60:0, #c = 0, #o = 1113], grails (196) 1113 [} }, - -, = {, } class, = new, { def, = true, } def, exception is, } //, nested exception, { String, . ., { static, Caused by:, Error creating, not found, = false, = [, org.springframework.beans.factory.BeanCreationException: Error]
+
+		[188, 0:5:59, #c = 2, #o = 2402], jsf (192) 2402 [} public, public void, = new, { return, } }, public class, public String, private String, implements Serializable, Serializable {, Caused by:, // TODO, null; }, { private, /&gt; &lt;!--, final long, TODO Auto-generated, &lt;?xml version="1.0", { //, private static]
+
+			[264, 0:5:59:1, #c = 0, #o = 1007], primefaces (109) 1007 [} public, public void, { return, } }, = new, public String, public class, static final, private String, { //, of the, @Column(name =, /&gt; &lt;!--, null) {, { private, &lt;?xml version="1.0", &lt;!DOCTYPE html, 0 1, Serializable {, event) {]
+
+			[189, 0:5:59:0, #c = 0, #o = 880], jsf-2 (101) 880 [} public, public void, public class, { return, public String, } }, = new, = 0;, serialVersionUID =, html PUBLIC, null) {, TODO Auto-generated, Serializable {, // TODO, try {, event) {, } catch, init() {, } private, return null;]
+
+		[385, 0:5:58, #c = 2, #o = 4113], xml (1153) 4113 [&lt;?xml version="1.0", = new, version="1.0" encoding="UTF-8"?&gt;, version="1.0" encoding="utf-8"?&gt;, } }, &lt;/xsl:template&gt; &lt;xsl:template, blah blah, android:layout_width="wrap_content" android:layout_height="wrap_content", found that, - -, matches the, the given, that matches, &lt;?xml version="1.0"?&gt;, version="1.0" encoding="UTF-8", &lt;/body&gt; &lt;/html&gt;, } public, of the, doc =, android:layout_width="match_parent" android:layout_height="match_parent"]
+
+			[387, 0:5:58:1, #c = 0, #o = 1088], xslt (186) 1088 [&lt;?xml version="1.0", - -, &lt;/xsl:template&gt; &lt;xsl:template, version="1.0" encoding="UTF-8"?&gt;, = new, } }, &lt;/td&gt; &lt;td&gt;, version="1.0" encoding="utf-8"?&gt;, &lt;?xml version="1.0"?&gt;, version="1.0" encoding="UTF-8", &lt;/body&gt; &lt;/html&gt;, &lt;/li&gt; &lt;/ul&gt;, android:layout_width="wrap_content" android:layout_height="wrap_content", of the, &lt;/td&gt; &lt;td, blah blah, /&gt; &lt;/td&gt;, '', '',, &lt;html&gt; &lt;head&gt;, is the]
+
+			[386, 0:5:58:0, #c = 0, #o = 882], xpath (159) 882 [&lt;?xml version="1.0", blah blah, = new, } }, version="1.0" encoding="UTF-8"?&gt;, /&gt; &lt;property, '', '',, version="1.0" encoding="utf-8"?&gt;, android:layout_width="wrap_content" android:layout_height="wrap_content", &lt;/xsl:template&gt; &lt;xsl:template, is the, found that, } private, - -, &lt;/ul&gt; &lt;/div&gt;, the given, matches the, &lt;/body&gt; &lt;/html&gt;, e) {, } public]
+
+		[372, 0:5:57, #c = 1, #o = 2267], web-services (353) 2267 [= new, } }, &gt; at, at &gt;, try {, } public, &lt;?xml version="1.0", public class, response =, public void, " +, { return, =&gt; '',, } catch, e) {, public static, catch (Exception, of the, = "";, } return]
+
+			[304, 0:5:57:0, #c = 0, #o = 1134], soap (174) 1134 [= new, &gt; at, at &gt;, =&gt; '',, &lt;?xml version="1.0", } }, =&gt; array(, try {, { return, public static, } public, public void, public class, } return, response =, } catch, = ", of the, static String, { try]
+
+		[354, 0:5:56, #c = 0, #o = 2112], user-interface (240) 2112 [= new, } }, public void, " +, } public, public class, new JPanel();, { return, } /**, */ public, = 0;, { //, static void, else if, of the, } else, public static, { if, static int, { private]
+
+		[338, 0:5:55, #c = 0, #o = 1612], tomcat (191) 1612 [Source) at, = new, } }, Method) at, public void, public class, } public, - -, is not, at sun.reflect.NativeMethodAccessorImpl.invoke0(Native, Caused by:, --&gt; &lt;!--, to start, sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method), { return, Failed to, { //, try {, final String, in the]
+
+		[333, 0:5:54, #c = 0, #o = 995], testing (152) 995 [} }, = new, public void, } public, public class, public static, { return, e) {, } catch, @Test public, { private, " +, = 0;, public String, + ", @Override public, throws Exception, try {, } else, } //]
+
+		[329, 0:5:53, #c = 0, #o = 887], syntax (111) 887 [= new, } }, public class, } public, public void, static void, } else, { return, public static, i =, try {, void main(String[], } catch, @Override public, = 0;, 1, 1,, else if, { //, " +, e) {]
+
+		[327, 0:5:52, #c = 0, #o = 12492], swing (550) 12492 [= new, public void, } }, } public, @Override public, { public, e) {, } });, void actionPerformed(ActionEvent, public class, = 0;, } @Override, new JPanel();, public static, static void, private static, { //, } private, // TODO, { private]
+
+		[322, 0:5:51, #c = 0, #o = 2841], string (886) 2841 [= new, } }, = 0;, i =, public static, " +, " ", static void, data =, + ", { String, public class, } public, i &lt;, for (int, public void, s =, str =, a =, args) {]
+
+		[319, 0:5:50, #c = 0, #o = 1068], static (107) 1068 [= new, } }, public static, public void, } public, public class, static void, = 0;, { return, " +, new JPanel();, static int, { public, static class, { private, } //, version="1.0" encoding="UTF-8"?&gt;, @Override public, private static, for (int]
+
+		[318, 0:5:49, #c = 0, #o = 1306], ssl (185) 1306 [= new, } }, length =, } public, } catch, " +, public void, try {, unable to, { return, e) {, 00 00, public class, public static, catch (Exception, static void, { if, : ", { public, { //]
+
+		[310, 0:5:48, #c = 0, #o = 3236], spring-mvc (394) 3236 [public class, public String, { return, } }, @RequestMapping(value =, method =, } public, public void, = new, = RequestMethod.GET), | |, private String, return new, &lt;/tr&gt; &lt;tr&gt;, model) {, @Autowired private, { @Autowired, } return, " +, (MSC service]
+
+		[309, 0:5:47, #c = 0, #o = 3307], spring-boot (259) 3307 [&lt;/dependency&gt; &lt;dependency&gt;, [ main], public class, = new, --- [, } }, &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;, } public, exception is, { return, &lt;/div&gt; &lt;/div&gt;, private String, nested exception, not find, &lt;/div&gt; &lt;div, @Override public, @Autowired private, did not, public void, to start]
+
+		[308, 0:5:46, #c = 1, #o = 9381], spring (1015) 9381 [public class, { return, public void, nested exception, exception is, /&gt; &lt;property, @Override public, = new, &lt;/dependency&gt; &lt;dependency&gt;, } }, return new, /&gt; &lt;/bean&gt;, } public, } @Override, Error creating, &lt;/bean&gt; &lt;bean, Caused by:, @Bean public, bean with, @Autowired private]
+
+			[311, 0:5:46:0, #c = 0, #o = 1230], spring-security (133) 1230 [public class, } @Override, { return, public void, throws Exception, @Override public, = new, } @Bean, exception is, protected void, nested exception, @Bean public, @Override protected, Exception {, /&gt; &lt;property, &lt;/bean&gt; &lt;bean, return new, Error creating, /&gt; &lt;bean, public String]
+
+		[306, 0:5:45, #c = 1, #o = 4460], sockets (366) 4460 [= new, } }, } catch, try {, e) {, " +, 0) {, public void, catch (IOException, e.printStackTrace(); }, = null;, != null), null) {, { try, } public, catch (Exception, &lt; 0), (IOException e), (true) {, s =]
+
+			[330, 0:5:45:0, #c = 0, #o = 1078], tcp (118) 1078 [= new, } }, } catch, e) {, try {, " +, 0) {, public void, { try, != null), &lt; 0), = null;, client =, null) {, + ", catch (Exception, } else, -1) {, (Exception e), { //]
+
+		[299, 0:5:44, #c = 0, #o = 3133], servlets (186) 3133 [} @Override, { //, = new, } }, Auto-generated method, TODO Auto-generated, @Override public, // TODO, method stub, IOException {, throws ServletException,, protected void, request, HttpServletResponse, public class, HttpServletResponse response), null; }, return null;, ServletException, IOException, public void, response) throws]
+
+		[283, 0:5:43, #c = 0, #o = 2189], rest (413) 2189 [} }, = new, } public, public void, public class, { return, private String, public String, } catch, try {, return false;, " +, response =, e) {, or a, @Override public, client =, public static, null) {, request =]
+
+		[277, 0:5:42, #c = 0, #o = 2657], recursion (283) 2657 [} }, } else, = new, { return, else {, = 0;, } public, * @param, { if, 0) {, else if, == 0), /** *, . ., public static, true; }, public void, */ public, = ", left =]
+
+		[273, 0:5:41, #c = 0, #o = 1208], random (182) 1208 [= new, } }, public void, } public, public class, static void, = 0;, public static, for (int, new Random();, r =, " +, { return, i++) {, @Override public, try {, int index, e) {, } else, i =]
+
+		[254, 0:5:40, #c = 1, #o = 2580], performance (420) 2580 [= 0;, 1 |, } }, 0 |, = new, | 1, i =, i &lt;, | 0, for (int, 0; i, } else, i++) {, } public, public void, = 0, = 1;, public static, += 1;, } //]
+
+			[245, 0:5:40:0, #c = 0, #o = 1168], optimization (178) 1168 [1 |, 0 |, | 1, | 0, = 0;, } }, = new, i &lt;, 0; i, i++) {, i =, for (int, public static, = 1;, public void, } else, { return;, = 0, = 1, public class]
+
+		[251, 0:5:39, #c = 0, #o = 1769], parsing (296) 1769 [= new, } }, } public, } else, public void, public class, } {, } catch, { //, public static, { if, = true;, try {, { return, e) {, of the, } void, in this, " +, else if]
+
+		[238, 0:5:38, #c = 0, #o = 2039], nullpointerexception (137) 2039 [= new, } }, public void, } public, public class, Source) at, java.lang.NullPointerException at, = 0;, try {, Method) at, public static, { return, EXCEPTION: main, { //, Caused by:, Attempt to, to invoke, } else, " +, dalvik.system.NativeStart.main(Native Method)]
+
+		[232, 0:5:37, #c = 0, #o = 1277], networking (106) 1277 [= new, } }, public void, . ., } public, try {, e) {, } catch, public static, public class, { //, private void, { return, = 0;, &gt; &gt;, } else, that are, static void, static boolean, " +]
+
+		[231, 0:5:36, #c = 0, #o = 1862], netbeans (130) 1862 [" +, = new, } }, public void, cannot be, } public, 0 |, | 0, = ", = 0;, + ", public class, 0, 0,, } catch, be resolved, + ",, to a, try {, ) {, public static]
+
+		[227, 0:5:35, #c = 0, #o = 7146], multithreading (780) 7146 [} }, = new, public void, try {, = 0;, void run(), run() {, } catch, e) {, { try, } public, " +, } else, @Override public, { if, } private, e.printStackTrace(); }, catch (InterruptedException, { //, { public]
+
+		[220, 0:5:34, #c = 0, #o = 2386], methods (226) 2386 [} public, = new, } }, public static, } else, public void, static void, public class, " +, { public, static int, + ", = 0;, main(String[] args), void main(String[], public String, else if, { return, i =, for(int i]
+
+		[215, 0:5:33, #c = 0, #o = 5167], maven (361) 5167 [&lt;/dependency&gt; &lt;dependency&gt;, &lt;/configuration&gt; &lt;/plugin&gt;, &lt;/plugin&gt; &lt;plugin&gt;, --&gt; &lt;!--, [INFO] ------------------------------------------------------------------------, &lt;plugin&gt; &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;, &lt;/dependency&gt; &lt;/dependencies&gt;, &lt;executions&gt; &lt;execution&gt;, Failed to, --&gt; &lt;dependency&gt;, &lt;/dependency&gt; &lt;!--, &lt;/executions&gt; &lt;/plugin&gt;, &lt;dependencies&gt; &lt;dependency&gt;, &lt;/plugin&gt; &lt;/plugins&gt;, &lt;/execution&gt; &lt;/executions&gt;, = new, xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0, &lt;plugins&gt; &lt;plugin&gt;, xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance", ------------------------------------------------------------------------ [INFO]]
+
+		[211, 0:5:32, #c = 0, #o = 1952], math (184) 1952 [} }, = new, " +, + ", = 0;, } else, public static, public void, } public, b =, else if, static void, for (int, = 0, public class, else {, i++) {, a =, i =, { return]
+
+		[207, 0:5:31, #c = 1, #o = 3560], loops (561) 3560 [} }, = 0;, " +, = new, } else, + ", i =, else if, for (int, public static, i++) {, do {, i &lt;, = 1;, } if, 0; i, else {, static void, public class, } public]
+
+			[376, 0:5:31:0, #c = 0, #o = 1062], while-loop (171) 1062 [} }, } else, = 0;, i =, = new, " +, public static, do {, else if, number of, + ", else {, = 1;, public class, public void, for (int, 0) {, the number, break; }, == 0)]
+
+		[205, 0:5:30, #c = 0, #o = 925], logging (127) 925 [} }, = new, public void, } public, public class, private static, = 0;, public static, is a, logger =, try {, { return, log =, { //, static void, { private, &lt;?xml version="1.0", " +, public String, e) {]
+
+		[192, 0:5:29, #c = 0, #o = 1596], junit (125) 1596 [= new, public void, } }, } public, @Test public, public class, Exception {, { return, } @Test, public static, private String, throws Exception, " +, public String, { private, e) {, } catch, try {, */ public, = 0;]
+
+		[191, 0:5:28, #c = 0, #o = 2820], jsp (345) 2820 [= new, &lt;%@ page, } }, &lt;/body&gt; &lt;/html&gt;, &lt;/dependency&gt; &lt;dependency&gt;, &lt;html&gt; &lt;head&gt;, &lt;head&gt; &lt;meta, &lt;/tr&gt; &lt;tr&gt;, public class, } public, public void, &lt;/td&gt; &lt;/tr&gt;, } catch, try {, http-equiv="Content-Type" content="text/html;, "-//W3C//DTD HTML, &lt;/head&gt; &lt;body&gt;, &lt;td&gt;&lt;input type="text", &lt;input type="text", &lt;input type="submit"]
+
+		[184, 0:5:27, #c = 0, #o = 4669], jpa (294) 4669 [} public, ?, ?,, public void, public class, @Column(name =, { return, private String, = new, = false), query =, } }, public String, = "SELECT, Serializable {, private static, implements Serializable, { @Id, */ public, /** *, /&gt; &lt;property]
+
+		[182, 0:5:26, #c = 0, #o = 1225], jenkins (123) 1225 [| |, = new, } public, } }, Source) at, public void, public class, " +, Caused by:, Method) at, public static, } @Override, { if, at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43), try {, @Override public, more Caused, sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method), Could not, { try]
+
+		[181, 0:5:25, #c = 0, #o = 2294], jdbc (191) 2294 [try {, = new, } }, " +, } catch, = null;, e) {, public void, } public, public class, conn =, Source) at, cannot be, { e.printStackTrace();, public static, { try, rs =, final String, catch (SQLException, static void]
+
+		[178, 0:5:24, #c = 0, #o = 3073], javafx (181) 3073 [= new, public void, } }, @Override public, } public, @FXML private, { @Override, public class, } });, try {, { return, main(String[] args), scene =, public static, private final, event) {, -&gt; {, } catch, = 0;, root =]
+
+		[177, 0:5:23, #c = 0, #o = 1343], java-ee (145) 1343 [public class, = new, } }, } public, public void, " +, static final, { return, public static, public String, null) {, @Override public, = null;, { if, } catch, e) {, final String, try {, IOException {, static void]
+
+		[161, 0:5:22, #c = 0, #o = 1847], if-statement (328) 1847 [} else, = new, else if, } }, else {, } if, } public, public static, public void, public class, { return, = 0;, { if, you want, == 0), " +, want to, = true, null) {, void main(String[]]
+
+		[160, 0:5:21, #c = 0, #o = 1556], http (293) 1556 [= new, } }, : 0,, } public, } catch, url =, try {, public void, public class, e) {, " +, != null), public static, response =, = 0;, { try, { return, font-size: 14px;, (IOException e), e.printStackTrace(); }]
+
+		[155, 0:5:20, #c = 0, #o = 9586], hibernate (612) 9586 [} public, { return, public void, private String, @Column(name =, public class, public String, { @Id, @Table(name =, nullable =, private int, = false), } }, = new, @Entity @Table(name, @JoinColumn(name =, at &gt;, { private, Session session, id; }]
+
+		[151, 0:5:19, #c = 0, #o = 1873], hadoop (199) 1873 [= new, } }, Method) at, public void, public static, } public, java.security.AccessController.doPrivileged(Native Method), Exception in, Caused by:, public class, at java.security.AccessController.doPrivileged(Native, 0 0, static class, throws IOException,, Unable to, args) throws, static void, private static, connect to, sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) at]
+
+		[150, 0:5:18, #c = 0, #o = 1402], gwt (102) 1402 [= new, public void, @Override public, } }, } public, public class, { @Override, { //, event) {, } @Override, { return, public static, = 0;, } catch, } private, } });, { public, return new, " +, try {]
+
+		[146, 0:5:17, #c = 0, #o = 1530], graphics (104) 1530 [= new, } }, = 0;, public void, } public, ) {, public class, { return, e) {, public static, private function, 1, 1,, static void, " +, } private, } //, i++) {, i &lt;, { private, @Override public]
+
+		[134, 0:5:16, #c = 0, #o = 2618], generics (357) 2618 [} public, } }, public class, public static, { return, = new, public void, { public, static void, public interface, { private, abstract class, { }, where T, public abstract, @Override public, } class, T :, try {, args) {]
+
+		[129, 0:5:15, #c = 0, #o = 1827], for-loop (369) 1827 [- -, = 0;, } }, = new, i =, public void, public class, i++) {, 0; i, " +, for (int, } public, (int i, } else, { public, i &lt;, static void, { return, public static, { for]
+
+		[121, 0:5:14, #c = 0, #o = 1417], file-io (127) 1417 [= new, } }, public void, } public, the file, */ public, public class, { return, = 0;, /** *, } /**, public static, " +, * @param, e) {, public String, * *, path =, try {, = {]
+
+		[120, 0:5:13, #c = 0, #o = 2254], file (359) 2254 [= new, } }, - -, e) {, try {, " +, file =, public void, public static, } public, } catch, static void, catch (IOException, } //, (IOException e), { //, } else, the file, { e.printStackTrace();, else {]
+
+		[115, 0:5:12, #c = 0, #o = 1151], exception-handling (115) 1151 [} }, = new, } catch, public void, try {, } public, public class, throw new, e) {, { return, { throw, static void, { public, ex) {, " +, public static, { try, = 0;, } else, } private]
+
+		[114, 0:5:11, #c = 0, #o = 2062], exception (268) 2062 [} }, = new, public void, } catch, } public, try {, throw new, static void, e) {, public static, { //, " +, of the, break; case, { throw, public class, private void, = 0;, { public, /** *]
+
+		[109, 0:5:10, #c = 0, #o = 1160], enums (162) 1160 [} }, = new, } public, public enum, public class, public static, public void, { return, @Override public, = 0,, try {, static void, { public, public String, value; }, = 0;, = 1,, " +, else if, private static]
+
+		[107, 0:5:9, #c = 0, #o = 1566], encryption (140) 1566 [= new, i ==, } }, } public, public static, Source) at, try {, public void, private static, } catch, key =, } private, public class, " +, = 0;, result =, e) {, static String, = null;, { e.printStackTrace();]
+
+		[103, 0:5:8, #c = 0, #o = 2954], elasticsearch (238) 2954 [} }, : {, }, {, { "type":, } },, "type" :, [ {, = new, ] }, } ], } {, =&gt; [, public void, { type:, } public, 0 },, : [, { id:, public static, true }]
+
+		[101, 0:5:7, #c = 0, #o = 3289], eclipse (493) 3289 [Source) at, = new, } }, public void, } public, public class, Caused by:, /** *, Method) at, e) {, @Override public, { //, public static, = 0;, No such, file or, at sun.reflect.NativeMethodAccessorImpl.invoke0(Native, such file, static void, { return]
+
+		[90, 0:5:6, #c = 0, #o = 1513], design-patterns (133) 1513 [} }, } public, = new, @Override public, public class, public void, { return, an instance, instance of, { if, } @Override, != null), null) return, { public, } private, { @Override, public static, public String, = 0;, " +]
+
+		[79, 0:5:5, #c = 0, #o = 1393], data-structures (115) 1393 [} }, = new, } public, public void, public class, { return, */ public, " +, public static, { if, @Override public, static void, null; }, != null), { //, = 0;, * *, { private, Source) at, } return]
+
+		[67, 0:5:4, #c = 0, #o = 1299], concurrency (118) 1299 [= new, } }, public void, } public, public class, public static, } catch, try {, " +, { public, void run(), { return, = 0;, 0; i, (InterruptedException e), i =, @Override public, in the, e) {, void main(String[]]
+
+		[63, 0:5:3, #c = 0, #o = 981], collections (111) 981 [= new, } }, public void, } public, public class, { return, @Override public, = 0;, to the, public static, static void, { public, { if, } catch, with the, { //, " +, (int i, for (int, i &lt;]
+
+		[56, 0:5:2, #c = 0, #o = 1004], casting (123) 1004 [= new, } }, public static, public void, public class, } public, break; case, = 0;, { return, } return, @Override public, { public, } catch, in the, " +, { //, is not, 0; i, } private, i &lt;]
+
+		[24, 0:5:1, #c = 0, #o = 2463], arraylist (235) 2463 [= new, } }, } public, public void, public class, public static, " +, = 0;, for (int, { return, new ArrayList&lt;&gt;();, static void, public int, i =, public String, i &lt;, private String, (int i, { public, void main(String[]]
+
+		[5, 0:5:0, #c = 0, #o = 3802], algorithm (451) 3802 [= new, i =, = 0;, } }, i &lt;, { int, } public, for (int, } return, public void, 0; i, } //, i++) {, = 1;, { if, public class, (int i, public static, for(int i, // end]
+
+	[157, 0:4, #c = 4, #o = 40040], html (5797) 40040 [&lt;/div&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, { width:, { display:, width: 100%;, position: absolute;, position: relative;, 0; }, { position:, 1px solid, float: left;, { background-color:, &lt;/tr&gt; &lt;tr&gt;, text-align: center;, display: block;, { color:, &lt;/body&gt; &lt;/html&gt;, } }, none; }, { background:]
+
+		[334, 0:4:3, #c = 0, #o = 1040], text (125) 1040 [&lt;/div&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, &lt;ul&gt; &lt;li&gt;&lt;a, 0; }, position: absolute;, display: block;, { position:, position: relative;, float: left;, { display:, absolute; top:, { background:, width: 100%;, that you, &lt;/td&gt; &lt;/tr&gt;, { height:, display: inline-block;, 1px solid, { background-color:, padding: 0;]
+
+		[168, 0:4:2, #c = 0, #o = 939], input (170) 939 [else if, &lt;/div&gt; &lt;div, &lt;/div&gt; &lt;/div&gt;, &lt;/tr&gt; &lt;tr&gt;, &lt;input type="text", 0; }, { width:, { background-color:, { display:, /&gt; &lt;input, float: left;, position: relative;, 1px solid, } }, &lt;/td&gt; &lt;/tr&gt;, &lt;td&gt;&lt;input type="text", 0000 0000, { color:, li {, display: block;]
+
+		[158, 0:4:1, #c = 0, #o = 1192], html-table (128) 1192 [bla bla, &lt;/tr&gt; &lt;tr&gt;, &lt;tr&gt; &lt;td, &lt;/div&gt; &lt;/div&gt;, &lt;/td&gt; &lt;/tr&gt;, &lt;/tr&gt; &lt;/table&gt;, &lt;/div&gt; &lt;div, &lt;/td&gt; &lt;td, { width:, { display:, &lt;tr&gt; &lt;td&gt;, { background-color:, &lt;/tbody&gt; &lt;/table&gt;, &lt;/td&gt; &lt;td&gt;, | |, position: absolute;, 1px solid, width: 100%;, { background:, display: inline-block;]
+
+		[73, 0:4:0, #c = 5, #o = 20957], css (3942) 20957 [&lt;/div&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, { display:, position: absolute;, 0; }, width: 100%;, { width:, } }, { position:, position: relative;, 1 1, { background-color:, float: left;, = new, text-align: center;, &lt;div class="row"&gt;, class="row"&gt; &lt;div, | |, &lt;/ul&gt; &lt;/div&gt;, 0 0]
+
+			[343, 0:4:0:4, #c = 0, #o = 1401], twitter-bootstrap-3 (161) 1401 [&lt;/div&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, is not, &lt;/ul&gt; &lt;/div&gt;, &lt;div class="panel, 0 0, &lt;div class="row"&gt;, = new, &lt;div class="form-group"&gt;, position: relative;, position: absolute;, type="button" class="btn, { height:, { display:, class="row"&gt; &lt;div, &lt;button type="button", &lt;span class="icon-bar"&gt;&lt;/span&gt;, &lt;/div&gt; &lt;!--, class="form-group"&gt; &lt;label, width: 100%;]
+
+			[342, 0:4:0:3, #c = 0, #o = 4472], twitter-bootstrap (743) 4472 [&lt;/div&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, &lt;button type="button", &lt;div class="row"&gt;, &lt;span class="icon-bar"&gt;&lt;/span&gt;, &lt;span class="glyphicon, &lt;div class="container"&gt;, class="row"&gt; &lt;div, class="icon-bar"&gt;&lt;/span&gt; &lt;span, &lt;div class="form-group"&gt;, &lt;ul class="nav, type="button" class="btn, &lt;a href="#", class =, class="container"&gt; &lt;div, &lt;li&gt; &lt;a, &lt;/div&gt; &lt;!--, --&gt; &lt;div, &lt;/ul&gt; &lt;/div&gt;, class="form-group"&gt; &lt;label]
+
+			[289, 0:4:0:2, #c = 0, #o = 790], sass (102) 790 [&lt;/div&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, } }, { display:, { position:, { width:, { background-color:, options: {, width: 100%;, position: absolute;, --&gt; &lt;div, 0; }, | |--, border: 1px, text text, body {, position: relative;, text-align: center;, 1 1, float: left;]
+
+			[163, 0:4:0:1, #c = 0, #o = 1869], image (572) 1869 [= new, &lt;/div&gt; &lt;/div&gt;, &lt;/div&gt; &lt;div, img =, - 1), image =, } }, the image, 0, 0,, = null;, 0; }, 1) *, of the, width: 100%;, { display:, + 1), 1) =, display: block;, break; case, &lt;span class="icon-bar"&gt;&lt;/span&gt;]
+
+			[74, 0:4:0:0, #c = 0, #o = 3378], css3 (550) 3378 [1 1, 2 2, - -, &lt;/div&gt; &lt;/div&gt;, 3 3, position: absolute;, &lt;/div&gt; &lt;div, 4 4, This is, width: 100%;, { display:, { opacity:, { transform:, } }, { 0%, text-align: center;, position: relative;, { width:, display: flex;, left: 0;]
+
+	[50, 0:3, #c = 22, #o = 48471], c++ (4326) 48471 [cout &lt;&lt;, = 0;, &lt;&lt; endl;, 0 0, } }, " &lt;&lt;, 0; }, } void, return 0;, { return, main() {, std::cout &lt;&lt;, using namespace, #include &lt;iostream&gt;, { public:, int main(), for (int, ) {, i =, namespace std;]
+
+		[378, 0:3:21, #c = 1, #o = 2065], windows (438) 2065 [00 00, End If, " &amp;, not found, if (, &amp; ", = Nothing, in the, = 1, if not, ) ), } }, cout &lt;&lt;, for the, = 0;, = 0, return 0;, found in, ) {, " "]
+
+			[41, 0:3:21:0, #c = 1, #o = 1143], batch-file (157) 1143 [End If, " &amp;, 00 00, = Nothing, &amp; ", End Sub, = 1, = "", = 0, For Each, end if, = True, in the, ) ), = 2, "C:\Program Files, if not, + 1, cout &lt;&lt;, %&gt; &lt;%]
+
+				[360, 0:3:21:0:0, #c = 0, #o = 821], vbscript (124) 821 [" &amp;, End If, = Nothing, = 1, = 0, end if, For Each, End Function, End Sub, 00 00, &amp; ", = True, = new, cout &lt;&lt;, = "", like to, } //, Failed to, = 2, I am]
+
+		[377, 0:3:20, #c = 0, #o = 1214], winapi (148) 1214 [= 0;, cout &lt;&lt;, return 0;, 0; }, } }, } return, const int, { if, } void, 0, 0,, { //, { int, 0, 0);, } else, break; }, { case, int main(), private const, NULL, NULL,, break; case]
+
+		[364, 0:3:19, #c = 0, #o = 1147], visual-c++ (138) 1147 [defined in, cout &lt;&lt;, = 0;, " &lt;&lt;, int main(), i =, std::cout &lt;&lt;, &lt;&lt; endl;, } }, 0; }, } int, } void, for (int, { return, { }, &lt;&lt; ", { int, } else, using namespace, = 1;]
+
+		[361, 0:3:18, #c = 0, #o = 1213], vector (203) 1213 [cout &lt;&lt;, = 0;, } }, } void, return 0;, &lt;&lt; endl;, std::cout &lt;&lt;, " &lt;&lt;, 0; }, main() {, #include &lt;iostream&gt;, for (int, &lt;iostream&gt; #include, } else, { cout, 0 0, int main(), { public:, (int i, { if]
+
+		[331, 0:3:17, #c = 0, #o = 2729], templates (368) 2729 [template &lt;typename, { public:, template&lt;typename T&gt;, std::cout &lt;&lt;, { return, } };, template &lt;class, T&gt; class, &lt;&lt; std::endl;, { }, } void, main() {, = 0;, { std::cout, cout &lt;&lt;, " &lt;&lt;, int main(), &lt;typename T&gt;, &lt;class T&gt;, #include &lt;iostream&gt;]
+
+		[320, 0:3:16, #c = 0, #o = 986], stl (101) 986 [= 0;, cout &lt;&lt;, int main(), &lt;&lt; endl;, using namespace, 0; }, std::cout &lt;&lt;, " &lt;&lt;, { return, } }, main() {, return 0;, &lt;&lt; ", } int, } void, { int, in the, } };, ) {, () {]
+
+		[271, 0:3:15, #c = 0, #o = 3026], qt (447) 3026 [0 0, . ., } void, = new, qDebug() &lt;&lt;, break; case, } }, : public, cout &lt;&lt;, = 0;, " &lt;&lt;, int main(int, | |, 5 6, { name:, &lt;&lt; endl;, char *argv[]), i =, 3 3, 3 2]
+
+		[244, 0:3:14, #c = 0, #o = 2594], opengl (213) 2594 [= 0;, } void, 0, 1,, } }, 0, 0,, undefined reference, reference to, } else, ) {, } //, return 0;, void main(), 0; }, for (int, main() {, cout &lt;&lt;, of the, = {, i =, std::cout &lt;&lt;]
+
+		[243, 0:3:13, #c = 1, #o = 3097], opencv (272) 3097 [= 0;, for (int, 1 1, i &lt;, } }, = new, 1, 1,, i =, 0; i, 0 0, NaN NaN, cout &lt;&lt;, 0, 0,, 0; }, of the, (int i, i++) {, j &lt;, &lt;&lt; endl;, ) {]
+
+			[164, 0:3:13:0, #c = 0, #o = 1108], image-processing (156) 1108 [= 0;, for (int, NaN NaN, = new, i &lt;, j &lt;, &lt;&lt; endl;, 0; }, (int i, i++) {, } }, 1, 1,, i =, 0 0, { int, { for, return 0;, cout &lt;&lt;, of the, = 1;]
+
+		[218, 0:3:12, #c = 0, #o = 1174], memory-management (123) 1174 [0, 0,, 0, 1,, = 0;, cout &lt;&lt;, 1, 0,, i &lt;, } }, 0 0, } void, return 0;, for (int, { return, { int, { public:, 0; }, } return, using namespace, #include &lt;iostream&gt;, }; int, &lt;&lt; "]
+
+		[217, 0:3:11, #c = 0, #o = 1240], memory-leaks (119) 1240 [00 00, cout &lt;&lt;, = 0;, } }, bytes in, &lt;&lt; endl;, { return, 0; }, return 0;, for (int, } void, " &lt;&lt;, } return, } int, = null, { for(int, 0 0, #include &lt;iostream&gt;, ) {, using namespace]
+
+		[216, 0:3:10, #c = 0, #o = 1500], memory (125) 1500 [0 0, . ., 1 0, = 0;, 0 1, cout &lt;&lt;, } }, 1 1, index =, const int, &lt;&lt; endl;, 2 0, std::cout &lt;&lt;, { int, { return, ) {, main() {, 0; }, } void, " &lt;&lt;]
+
+		[175, 0:3:9, #c = 0, #o = 922], iterator (102) 922 [cout &lt;&lt;, = 0;, { int, main() {, { public:, &lt;&lt; endl;, . ., { //, } }, } void, { return, ) {, } else, " &lt;&lt;, () {, using namespace, #include &lt;iostream&gt;, for (int, i =, return 0;]
+
+		[167, 0:3:8, #c = 0, #o = 1768], inheritance (311) 1768 [{ public:, { }, = 0;, } }, virtual void, }; class, : public, public class, public abstract, cout &lt;&lt;, } class, A {, abstract class, { public, { cout, main() {, " &lt;&lt;, { return, } };, { void]
+
+		[133, 0:3:7, #c = 0, #o = 1738], gcc (204) 1738 [undefined reference, reference to, checking for, In function, no checking, main() {, return 0;, cout &lt;&lt;, to find, = 0;, 0; }, find the, int main(), 1 exit, std::cout &lt;&lt;, } void, } }, " &lt;&lt;, in the, 0 0]
+
+		[95, 0:3:6, #c = 1, #o = 1510], dll (109) 1510 [end; end;, then begin, | |, end; procedure, begin if, ' +, = 0, of the, end else, cout &lt;&lt;, + ', 00 00, 0 to, &lt;&lt; endl;, = 0;, 0; }, " &lt;&lt;, ) {, i =, return 0;]
+
+			[88, 0:3:6:0, #c = 0, #o = 955], delphi (175) 955 [end; end;, end; procedure, then begin, begin if, = 0, ' +, end else, | |, + ', 0 to, array of, of the, i =, else if, 1) +, for i, &lt;stdio.h&gt; #include, must be, if not, 1 to]
+
+		[87, 0:3:5, #c = 0, #o = 984], debugging (143) 984 [cout &lt;&lt;, = 0;, &lt;&lt; endl;, 0; }, } }, i &lt;, return 0;, main() {, } void, } return, ) {, { cout, i =, " &lt;&lt;, { return, reference to, { int, } //, } /*, int main()]
+
+		[68, 0:3:4, #c = 0, #o = 982], constructor (146) 982 [cout &lt;&lt;, = 0;, } }, &lt;&lt; endl;, int main(), 0 0, ) {, { public:, i &lt;, } void, A {, std::cout &lt;&lt;, } //, { }, " &lt;&lt;, { if, } int, for (int, } };, a =]
+
+		[66, 0:3:3, #c = 0, #o = 1718], compiler-errors (116) 1718 [checking for, yes checking, no checking, cout &lt;&lt;, = 0;, in this, In function, reference to, size of, " &lt;&lt;, 0; }, { return, : error, using namespace, 0 0, return 0;, defined in, i =, } };, } return]
+
+		[59, 0:3:2, #c = 0, #o = 2144], class (497) 2144 [} }, = 0;, { return, " +, = new, cout &lt;&lt;, " &lt;&lt;, } public, &lt;&lt; endl;, } //, return 0;, { public:, }; class, #include &lt;iostream&gt;, 0; }, break; case, for (int, namespace std;, i++) {, } };]
+
+		[51, 0:3:1, #c = 0, #o = 2887], c++11 (410) 2887 [{ return, 0; }, int main(), main() {, std::cout &lt;&lt;, cout &lt;&lt;, { public:, return 0;, } void, template &lt;typename, #include &lt;iostream&gt;, = 0;, }; int, } int, }; class, static void, &lt;&lt; std::endl;, { std::cout, } };, &lt;&lt; endl;]
+
+		[45, 0:3:0, #c = 0, #o = 1393], boost (149) 1393 [cout &lt;&lt;, = 0;, " &lt;&lt;, &lt;&lt; std::endl;, std::cout &lt;&lt;, because it, } void, &lt;&lt; endl;, } }, 0; }, return 0;, main() {, { return, using namespace, included from, ) {, const {, 1 |, i =, undefined reference]
+
+	[48, 0:2, #c = 39, #o = 78248], c# (8633) 78248 [= new, } }, } public, { get;, set; }, get; set;, public string, { public, public class, e) {, { return, private void, } private, public int, { if, { var, sender, EventArgs, EventArgs e), { get, new {]
+
+		[112, 0:2:38, #c = 1, #o = 7544], excel (836) 7544 [End If, End Sub, As String, End With, = False, = 0, As Long, = True, As Integer, = 1, String Dim, If Next, + 1, " &amp;, i =, For Each, If End, Private Sub, = Nothing, On Error]
+
+			[359, 0:2:38:0, #c = 1, #o = 5206], vba (756) 5206 [End If, End Sub, | |, = False, As String, End With, = 1, = True, As Long, As Range, + 1, As Integer, i =, String Dim, For Each, Long Dim, 1 To, = 0, For i, If Next]
+
+				[113, 0:2:38:0:0, #c = 0, #o = 3332], excel-vba (608) 3332 [| |, End If, = False, End Sub, End With, As String, As Range, = 1, = True, As Long, For Each, String Dim, + 1, i =, As Integer, 2 +, = 2, Long Dim, = 0, For i]
+
+		[383, 0:2:37, #c = 0, #o = 2191], xaml (309) 2191 [} }, } public, = new, { get;, get; set;, set; }, { public, { return, { get, } set, set {, get {, /&gt; &lt;Setter, e) {, public string, private void, = value;, &lt;Grid.RowDefinitions&gt; &lt;RowDefinition, partial class, xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"]
+
+		[382, 0:2:36, #c = 0, #o = 1933], xamarin (195) 1933 [= new, } }, } public, set; }, { get;, get; set;, public override, { public, override void, to resolve, =&gt; {, " +, = await, private void, null) {, public string, { var, } else, public class, { return]
+
+		[381, 0:2:35, #c = 2, #o = 7188], wpf (866) 7188 [} }, = new, } public, { get, { return, get {, } private, private void, e) {, { public, set {, } set, { if, set; }, = value;, != null), sender, RoutedEventArgs, public class, { get;, /&gt; &lt;Setter]
+
+			[228, 0:2:35:1, #c = 0, #o = 1318], mvvm (145) 1318 [} }, } public, { return, { get, = new, get {, { public, set {, { if, } private, } set, e) {, set; }, = value;, null) {, != null), private void, public void, public class, { get;]
+
+			[43, 0:2:35:0, #c = 0, #o = 995], binding (111) 995 [} }, = new, { public, { get, } public, get {, set {, private void, { if, { return, } private, e) {, /// &lt;summary&gt;, = value;, get; set;, public class, { get;, public partial, &lt;Grid.ColumnDefinitions&gt; &lt;ColumnDefinition, null) {]
+
+		[379, 0:2:34, #c = 0, #o = 4296], winforms (508) 4296 [= new, e) {, } }, private void, EventArgs e), sender, EventArgs, } private, } public, { if, = 0;, { InitializeComponent();, = true;, = false;, set; }, Form {, public partial, get; set;, { public, i =, (int i]
+
+		[369, 0:2:33, #c = 0, #o = 1830], wcf (271) 1830 [= new, } }, set; }, public string, } public, { get;, get; set;, public class, [DataMember] public, /&gt; &lt;add, public interface, { return, { var, try {, } catch, { public, = true)], ex) {, = false;, } private]
+
+		[367, 0:2:32, #c = 0, #o = 1165], visual-studio-2012 (103) 1165 [= new, } }, } public, set; }, { get;, get; set;, public class, { public, " +, private void, public string, { var, = 1;, with an, { return, = '", } private, new {, == "", } if]
+
+		[366, 0:2:31, #c = 0, #o = 1345], visual-studio-2010 (197) 1345 [} }, = new, } public, set; }, { get;, open the, | |, public string, get; set;, Cannot find, unresolved external, { public, returned 1, { return, in the, public class, not be, { if, private void, e) {]
+
+		[365, 0:2:30, #c = 0, #o = 1401], visual-studio (275) 1401 [} }, = new, } public, { get;, get; set;, set; }, public class, { return, public int, { public, { if, e) {, public string, Visual Studio, one of, public void, private void, &lt;?xml version="1.0", try {, } private]
+
+		[351, 0:2:29, #c = 0, #o = 2062], unity3d (186) 2062 [} }, = new, () {, public class, } public, } void, { get;, { if, get; set;, public float, = true;, = false;, } else, else {, set; }, false; }, { public, } //, true; }, public string]
+
+		[350, 0:2:28, #c = 0, #o = 2119], unit-testing (432) 2119 [} }, = new, public void, } public, { var, { get;, public class, =&gt; {, { public, get; set;, set; }, | |--, cannot find, { return, } private, @Test public, new {, result =, () =&gt;, { //]
+
+		[344, 0:2:27, #c = 0, #o = 840], types (118) 840 [} }, set; }, } public, = new, get; set;, { get;, public class, { public, } private, public string, private void, e) {, { var, } else, { //, { if, public int, { get, new {, } protected]
+
+		[336, 0:2:26, #c = 0, #o = 1263], timer (137) 1263 [} }, = new, } public, { get;, set; }, get; set;, { public, } private, { return, public class, private void, public int, timer =, = false;, static void, e) {, { var, sender, EventArgs, public string, void run()]
+
+		[303, 0:2:25, #c = 0, #o = 1162], silverlight (118) 1162 [} }, = new, { get;, } public, set; }, get; set;, public class, public string, e) {, { return, { public, } private, private void, { get, { var, &lt;TextBlock Text="{Binding, public ActionResult, get {, + ":", { if]
+
+		[297, 0:2:24, #c = 0, #o = 1415], serialization (197) 1415 [= new, } public, } }, set; }, { get;, get; set;, public class, public string, { public, public String, e) {, Id {, { if, public void, public int, { return, { }, } var, } private, private void]
+
+		[280, 0:2:23, #c = 0, #o = 1365], reflection (168) 1365 [= new, } public, } }, { get;, set; }, get; set;, { public, public string, { var, { return, public class, public int, { if, } private, { //, { }, type =, // returns, private void, e) {]
+
+		[267, 0:2:22, #c = 0, #o = 997], properties (103) 997 [} }, = new, set; }, get; set;, } public, { get;, { public, public class, public string, { return, set {, { get, { if, } set, e) {, = value;, get {, public static, public int, End If]
+
+		[249, 0:2:21, #c = 0, #o = 842], parameters (110) 842 [= new, } }, } public, get; set;, { get;, set; }, public string, { public, try {, != null), public class, { if, } private, e) {, { return, private void, = true;, public void, should be, } catch]
+
+		[234, 0:2:20, #c = 0, #o = 1921], nhibernate (133) 1921 [public virtual, } public, set; }, { get;, } }, get; set;, public class, = new, { public, public string, virtual int, virtual string, /&gt; &lt;property, Id {, int Id, { if, Name {, } private, set;} public, e) {]
+
+		[222, 0:2:19, #c = 0, #o = 1025], model-view-controller (167) 1025 [= new, } public, } }, { get;, { public, get; set;, set; }, public class, new {, { return, public void, { if, private void, public string, public function, != null), e) {, = value;, public int, = true;]
+
+		[201, 0:2:18, #c = 0, #o = 4665], linq (656) 4665 [set; }, { get;, } public, get; set;, public string, new {, = new, } }, select new, =&gt; new, = from, { public, = (from, public class, query =, Name =, { var, foreach (var, public int, null ?]
+
+		[195, 0:2:17, #c = 0, #o = 1002], lambda (167) 1002 [= new, } }, { get;, } public, set; }, public class, get; set;, { public, } private, e) {, public string, { return, public int, private void, { this.id, } catch, public ActionResult, { var, }; }, { if]
+
+		[169, 0:2:16, #c = 0, #o = 1312], interface (121) 1312 [} }, } public, { get;, = new, get; set;, set; }, public interface, { public, public void, public class, public int, { return, { }, e) {, } private, public static, public string, { void, private void, string Name]
+
+		[108, 0:2:15, #c = 0, #o = 9812], entity-framework (556) 9812 [get; set;, set; }, { get;, } public, public virtual, public string, } }, public int, public class, { public, = new, string Name, Name {, Id {, int Id, { [Key], } [Required], public bool, partial class, NOT NULL,]
+
+		[100, 0:2:14, #c = 0, #o = 947], dynamic (160) 947 [= new, } }, { get;, get; set;, } public, set; }, public string, = 0;, e) {, { public, { var, } private, { return, public void, = false;, = true;, public class, public override, { get, protected void]
+
+		[89, 0:2:13, #c = 0, #o = 1315], dependency-injection (116) 1315 [} }, } public, = new, { get;, public class, { private, set; }, { public, get; set;, public string, private void, { return, { if, { }, public void, } class, public interface, { string, } catch, { var]
+
+		[86, 0:2:12, #c = 0, #o = 976], datetime (265) 976 [= new, } }, } public, set; }, get; set;, { get;, { public, public class, &gt;&gt;&gt; import, date =, e) {, dt =, } catch, { return, public string, { var, != null), null) {, EventArgs e), } //]
+
+		[83, 0:2:11, #c = 0, #o = 993], datatable (127) 993 [= new, } }, set; }, } public, get; set;, { get;, }, {, e) {, { public, public class, public string, sender, EventArgs, public int, private void, dt =, null, null,, { if, new DataTable();, EventArgs e), else {]
+
+		[82, 0:2:10, #c = 0, #o = 1565], datagridview (144) 1565 [= new, } }, private void, e) {, { get;, } private, } public, set; }, sender, EventArgs, EventArgs e), get; set;, public string, { public, else {, = 0;, { if, new DataTable();, { return, public class, try {]
+
+		[78, 0:2:9, #c = 0, #o = 1053], data-binding (145) 1053 [} public, { get;, = new, } }, set; }, get; set;, public class, { public, private void, public string, { get, get {, { var, = value;, { return, e) {, } private, { if, EventArgs e), } set]
+
+		[65, 0:2:8, #c = 0, #o = 991], combobox (102) 991 [= new, } }, } public, get; set;, { get;, set; }, public string, e) {, { public, private void, } private, { return, sender, EventArgs, EventArgs e), public class, set {, null) {, = true;, { //, { if]
+
+		[49, 0:2:7, #c = 0, #o = 1474], c#-4.0 (163) 1474 [= new, } }, } public, set; }, public class, get; set;, { get;, public string, { public, e) {, { if, { //, private void, { var, } catch, = true;, { }, sender, EventArgs, = false;, { return]
+
+		[38, 0:2:6, #c = 0, #o = 1509], azure (185) 1509 [= new, 0 :, } }, { get;, } public, set; }, get; set;, public string, public class, { public, stack trace, }, {, e) {, [ {, to load, = await, of type, } else, { var, public static]
+
+		[32, 0:2:5, #c = 0, #o = 2411], asp.net-web-api (224) 2411 [= new, } }, } public, get; set;, set; }, { get;, public string, { return, public class, { public, new {, { var, = await, return new, public override, response =, { if, " +, null) {, try {]
+
+		[31, 0:2:4, #c = 0, #o = 1133], asp.net-mvc-5 (105) 1133 [= new, } }, get; set;, set; }, } public, { public, { get;, public class, public string, &lt;/div&gt; &lt;/div&gt;, new {, @class =, null) {, { if, { var, { return, partial class, } private, public static, e) {]
+
+		[28, 0:2:3, #c = 3, #o = 14517], asp.net-mvc (1231) 14517 [get; set;, { get;, set; }, } public, new {, public string, public ActionResult, } }, public class, { public, @class =, { @class, &lt;/div&gt; &lt;div, public int, = new, { var, { return, &lt;/td&gt; &lt;td&gt;, &lt;/div&gt; &lt;/div&gt;, id =]
+
+			[274, 0:2:3:2, #c = 0, #o = 1459], razor (229) 1459 [get; set;, new {, set; }, } public, { get;, and the, public string, &lt;/td&gt; &lt;td&gt;, public ActionResult, } }, &lt;/div&gt; &lt;div, @class =, { @class, { return, public class, &lt;/td&gt; &lt;/tr&gt;, { id, item in, @foreach (var, id =]
+
+			[30, 0:2:3:1, #c = 0, #o = 2060], asp.net-mvc-4 (314) 2060 [{ get;, set; }, } public, get; set;, public ActionResult, new {, } }, public string, public class, { public, { return, &lt;/div&gt; &lt;div, public int, Id =, View(); }, }, new, { var, = new, { Id, Name =]
+
+			[29, 0:2:3:0, #c = 0, #o = 1886], asp.net-mvc-3 (282) 1886 [get; set;, set; }, } public, { get;, public string, public ActionResult, } }, new {, public class, &lt;/div&gt; &lt;div, public int, { return, &lt;summary&gt; ///, } //, &lt;/td&gt; &lt;td&gt;, &lt;td&gt; &lt;div, { public, { @class, Name {, action =]
+
+		[27, 0:2:2, #c = 0, #o = 1164], asp.net-core (101) 1164 [= new, } }, } public, get; set;, set; }, { get;, public class, =&gt; {, public string, { public, override void, private void, { return, } },, { var, null) {, could not, not be, public async, != null)]
+
+		[26, 0:2:1, #c = 2, #o = 9890], asp.net (2087) 9890 [End Sub, As String, End If, As New, = New, protected void, Private Sub, String =, e As, e) {, As Integer, EventArgs e), sender, EventArgs, As Object,, If End, = 0, = new, Sub Private, sender As, } protected]
+
+			[358, 0:2:1:1, #c = 0, #o = 8693], vb.net (839) 8693 [End Sub, End If, As String, As New, Private Sub, = New, e As, String =, As Integer, Sub Private, As Object,, If End, ByVal e, = 0, = True, Object, e, End Try, " &amp;, sender As, ex As]
+
+			[147, 0:2:1:0, #c = 0, #o = 2242], gridview (222) 2242 [protected void, e) {, runat="server" Text='&lt;%#, &lt;/ItemTemplate&gt; &lt;/asp:TemplateField&gt;, EventArgs e), = true;, &lt;br /&gt;, /&gt; &lt;asp:BoundField, End Sub, } protected, { if, } }, /&gt; &lt;br, else {, sender, EventArgs, As New, As String, End If, = false;, = new]
+
+		[1, 0:2:0, #c = 0, #o = 7080], .net (1525) 7080 [= new, } }, } public, public class, { public, public static, { return, { //, { get, { var, try {, { get;, get; set;, = true;, { if,    , set; }, get {, using (var, static void]
+
+	[47, 0:1, #c = 5, #o = 26617], c (2158) 26617 [= 0;, { int, 0; }, return 0;, } }, #include &lt;stdio.h&gt;, } void, } int, &lt;stdio.h&gt; #include, main() {, } else, int main(), i &lt;, 0; i, #include &lt;stdlib.h&gt;, i++) {, of the, typedef struct, = NULL;, } return]
+
+		[323, 0:1:4, #c = 0, #o = 1329], struct (204) 1329 [= 0;, { int, typedef struct, } void, return 0;, } int, struct {, #include &lt;stdlib.h&gt;, { struct, } }, of the, main() {, #include &lt;stdio.h&gt;, i =, 0; }, &lt;stdio.h&gt; #include, i++) {, int main(), NULL) {, = 1;]
+
+		[260, 0:1:3, #c = 0, #o = 2275], pointers (376) 2275 [= 0;, * *, 0; }, { int, return 0;, main() {, } int, int main(), } void, } }, i =, } return, i &lt;, } else, #include &lt;stdio.h&gt;, ) {, &lt;stdio.h&gt; #include, == NULL), = NULL;, int i]
+
+		[202, 0:1:2, #c = 2, #o = 4152], linux (758) 4152 [No such, file or, if [, | grep, not exist, root root, not found, such file, ]; then, or directory, then echo, 1 root, | awk, if not, | sed, member function, 0 0, error: cannot, = 0;, command not]
+
+			[40, 0:1:2:1, #c = 2, #o = 1819], bash (541) 1819 [if [, then echo, | grep, ]; then, | awk, | sed, No such, . ., for i, { //, 1 1, i in, else echo, file or, * *, 0 0, in the, 0.00 0.00, or directory, not found]
+
+				[301, 0:1:2:1:1, #c = 1, #o = 1120], shell (304) 1120 [if [, { //, 0) {, then echo, | grep, . ., for i, in the, else echo, | sed, No such, i in, of the, | awk, * *, the same, static void, == 0), such file, 1 1]
+
+					[352, 0:1:2:1:1:0, #c = 0, #o = 705], unix (179) 705 [{ //, 0) {, for i, then echo, in the, } else, if [, of the, No such, . ., | grep, == 0), to your, static void, else echo, 0 ), * *, This is, file or, Copyright (c)]
+
+				[37, 0:1:2:1:0, #c = 0, #o = 711], awk (117) 711 [0.00 0.00, | grep, if [, | awk, { //, in the, file or, 1 1, ]; then, 0 0, not found, for i, } {, . ., or directory, | sed, line =, to be, * *, No such]
+
+			[346, 0:1:2:0, #c = 0, #o = 971], ubuntu (211) 971 [No such, checking for, failed to, Error creating, not found, or directory, file or, * *, to connect, such file, | grep, if not, Unable to, root root, Could not, yes checking, is not, = 0, this is, connect to]
+
+		[200, 0:1:1, #c = 0, #o = 1452], linked-list (109) 1452 [= 0;, } }, = NULL;, 0; }, } else, struct node, NULL) {, #include &lt;stdio.h&gt;, head =, { int, } void, } int, return 0;, temp =, i &lt;, typedef struct, &lt;stdio.h&gt; #include, } return, != NULL), i =]
+
+		[33, 0:1:0, #c = 0, #o = 1320], assembly (138) 1320 [of the, = 0;, to the, return 0;, } }, 0; }, end of, { int, in the, 0000 0000, the stack, int main(), is the, is a, } return, main() {, i =, } void, } else, to be]
+
+	[8, 0:0, #c = 21, #o = 143173], android (7230) 143173 [public void, @Override public, = new, } }, } @Override, } public, { @Override, { //, public class, @Override protected, } });, savedInstanceState) {, protected void, android:layout_width="wrap_content" android:layout_height="wrap_content", void onCreate(Bundle, onCreate(Bundle savedInstanceState), " +, } catch, { super.onCreate(savedInstanceState);, e) {]
+
+		[124, 0:0:20, #c = 1, #o = 2507], firebase (290) 2507 [public void, @Override public, } }, { @Override, } });, = new, : {, }); }, } @Override, } public, unable to, @Override protected, { //, public String, void onClick(View, { }, not find, Could not, private void, savedInstanceState) {]
+
+			[125, 0:0:20:0, #c = 0, #o = 1118], firebase-database (136) 1118 [@Override public, } }, public void, { @Override, } });, }); }, = new, : {, } @Override, } public, public String, @Override protected, { //, unable to, void onClick(View, { name:, final String, key =, " +, } };]
+
+		[375, 0:0:19, #c = 0, #o = 1381], webview (119) 1381 [@Override public, public void, = new, } @Override, } }, { @Override, void onCreate(Bundle, savedInstanceState) {, { //, } });, public boolean, url) {, @Override protected, return true;, onCreate(Bundle savedInstanceState), protected void, true; }, null) {, { super.onCreate(savedInstanceState);, public class]
+
+		[363, 0:0:18, #c = 0, #o = 1000], view (114) 1000 [@Override public, = new, public void, } }, } @Override, { @Override, } public, android:layout_width="wrap_content" android:layout_height="wrap_content", final int, { return, public class, { super.onCreate(savedInstanceState);, v) {, } });, // TODO, public boolean, /** *, savedInstanceState) {, protected void, { //]
+
+		[316, 0:0:17, #c = 1, #o = 6979], sqlite (405) 6979 [static final, " +, final String, + ", = new, } public, null, null,, public void, private static, public static, @Override public, } @Override, db =, SQLiteDatabase db, } }, { //, * FROM, INTEGER PRIMARY, public class, // TODO]
+
+			[317, 0:0:17:0, #c = 0, #o = 872], sqlite3 (109) 872 [= new, static final, " +, + ", public void, final String, private static, public static, } public, @Override public, db =, null, null,, } @Override, INTEGER PRIMARY, } }, public class, as the, cursor =, = (TextView), * FROM]
+
+		[298, 0:0:16, #c = 0, #o = 1438], service (107) 1438 [@Override public, public void, = new, } @Override, } }, public class, { @Override, void onCreate(Bundle, { //, @Override protected, } public, { private, public int, } /**, { return, intent) {, try {, } catch, savedInstanceState) {, &lt;?xml version="1.0"]
+
+		[204, 0:0:15, #c = 0, #o = 8578], listview (409) 8578 [= new, @Override public, public void, } public, = (TextView), } @Override, } }, { return, } else, } });, public class, public View, { @Override, convertView, ViewGroup, = (ListView), position, View, ViewGroup parent), null) {, parent) {, getView(int position,]
+
+		[199, 0:0:14, #c = 0, #o = 1115], layout (157) 1115 [= new, @Override public, public void, =&gt; array(, android:layout_width="wrap_content" android:layout_height="wrap_content", } @Override, } }, } public, ), ),, @Override protected, { @Override, e) {, " +, android:layout_width="match_parent" android:layout_height="wrap_content", android:layout_width="match_parent" android:layout_height="match_parent", { //, savedInstanceState) {, true; }, else {, onCreate(Bundle savedInstanceState)]
+
+		[144, 0:0:13, #c = 0, #o = 2538], gradle (210) 2538 [} }, apply plugin:, Source) at, dependencies {, } dependencies, { compile, repositories {, | |, public void, android {, { compileSdkVersion, release {, = new, defaultConfig {, @Override public, = true, Caused by:, { applicationId, buildTypes {, proguardFiles getDefaultProguardFile('proguard-android.txt'),]
+
+		[70, 0:0:12, #c = 0, #o = 1882], cordova (293) 1882 [@Override public, = new, } function, public void, ' +, } }, { //, " +, value="true" /&gt;, /&gt; &lt;!--, /&gt; &lt;uses-permission, = null;, } @Override, { @Override, &lt;script type="text/javascript", }); }, to the, &lt;/body&gt; &lt;/html&gt;, savedInstanceState) {, } });]
+
+		[64, 0:0:11, #c = 0, #o = 899], colors (108) 899 [@Override public, public void, = new, { @Override, } }, } @Override, static final, r =, onCreate(Bundle savedInstanceState), void onCreate(Bundle, final String, @Override protected, savedInstanceState) {, private static, } else, protected void, } public, DialogInterface.OnClickListener() {, public class, return true;]
+
+		[46, 0:0:10, #c = 0, #o = 1625], button (213) 1625 [public void, = new, @Override public, = (Button), void onClick(View, } });, /&gt; &lt;Button, } @Override, } }, v) {, void onCreate(Bundle, android:layout_width="wrap_content" android:layout_height="wrap_content", { @Override, } public, onClick(View v), } else, } catch, button =, { //, null) {]
+
+		[44, 0:0:9, #c = 0, #o = 2038], bitmap (121) 2038 [= new, public void, @Override public, = null;, } @Override, } catch, } public, e) {, } }, @Override protected, } else, { @Override, private static, 0, 0,, { e.printStackTrace();, the image, e.printStackTrace(); }, { //, try {, savedInstanceState) {]
+
+		[35, 0:0:8, #c = 0, #o = 1233], audio (149) 1233 [= new, 1 =, public void, } }, @Override public, } @Override, savedInstanceState) {, e) {, } public, } catch, } });, ); }, protected void, { //, private static, { e.printStackTrace();, static final, " +, { type:, = null;]
+
+		[16, 0:0:7, #c = 0, #o = 3082], android-studio (258) 3082 [} }, | |, @Override public, E/AndroidRuntime: at, apply plugin:, public void, dependencies {, = new, } dependencies, find referenced, } @Override, # #, can't find, { compile, { @Override, android {, protected void, { release, referenced class, repositories {]
+
+		[15, 0:0:6, #c = 0, #o = 4140], android-recyclerview (123) 4140 [@Override public, public void, = new, } @Override, } public, } }, public class, { @Override, position) {, { return, public int, } });, { private, android:layout_width="match_parent" android:layout_height="wrap_content", = (TextView), int position), parent, false);, @Override protected, new ArrayList&lt;&gt;();, return new]
+
+		[14, 0:0:5, #c = 0, #o = 3339], android-listview (142) 3339 [= new, @Override public, public void, } @Override, } }, } public, { //, null) {, { return, android:layout_width="wrap_content" android:layout_height="wrap_content", position) {, = (TextView), android:layout_width="fill_parent" android:layout_height="wrap_content", // TODO, Auto-generated method, public class, == null), public View, holder =, View getView(int]
+
+		[13, 0:0:4, #c = 0, #o = 3728], android-layout (364) 3728 [android:layout_width="wrap_content" android:layout_height="wrap_content", android:layout_width="match_parent" android:layout_height="match_parent", android:layout_width="match_parent" android:layout_height="wrap_content", version="1.0" encoding="utf-8"?&gt;, /&gt; &lt;TextView, /&gt; &lt;Button, &lt;?xml version="1.0", /&gt; &lt;/LinearLayout&gt;, = new, &lt;LinearLayout xmlns:android="http://schemas.android.com/apk/res/android", @Override public, public void, android:layout_width="fill_parent" android:layout_height="wrap_content", /&gt; &lt;/RelativeLayout&gt;, &lt;LinearLayout android:layout_width="match_parent", } }, &lt;RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android", &gt; &lt;TextView, &lt;/LinearLayout&gt; &lt;LinearLayout, android:orientation="vertical" &gt;]
+
+		[12, 0:0:3, #c = 0, #o = 4560], android-intent (238) 4560 [= new, public void, } }, intent =, @Override public, Intent intent, { @Override, protected void, } @Override, { Intent, { super.onCreate(savedInstanceState);, @Override protected, savedInstanceState) {, void onCreate(Bundle, { //, onCreate(Bundle savedInstanceState), void onClick(View, public class, Intent i, v) {]
+
+		[11, 0:0:2, #c = 0, #o = 7068], android-fragments (272) 7068 [@Override public, public void, } @Override, savedInstanceState) {, } }, = new, Bundle savedInstanceState), onCreateView(LayoutInflater inflater,, container, Bundle, public class, public View, View onCreateView(LayoutInflater, container, false);, ViewGroup container,, inflater, ViewGroup, { @Override, } public, Fragment {, void onCreate(Bundle, extends Fragment]
+
+		[10, 0:0:1, #c = 0, #o = 3697], android-asynctask (120) 3697 [= new, @Override protected, e) {, protected void, } }, } catch, { //, } @Override, e.printStackTrace(); }, TODO Auto-generated, try {, public void, @Override public, // TODO, null; }, } else, return null;, params) {, W/System.err﹕ at, = null;]
+
+		[9, 0:0:0, #c = 0, #o = 3058], android-activity (170) 3058 [public void, @Override public, = new, } }, void onCreate(Bundle, @Override protected, savedInstanceState) {, onCreate(Bundle savedInstanceState), } @Override, protected void, public class, } public, extends Activity, } });, { @Override, = null;, { public, Toast.LENGTH_SHORT).show(); }, (id ==, = (TextView)]
+
+>>> # observations = 1852799
+>>> # nodes = 391
+>>> level 0. n: 1. o: 238253
+>>> level 1. n: 13. o: 723913
+>>> level 2. n: 286. o: 744670
+>>> level 3. n: 72. o: 121936
+>>> level 4. n: 14. o: 20311
+>>> level 5. n: 5. o: 3716

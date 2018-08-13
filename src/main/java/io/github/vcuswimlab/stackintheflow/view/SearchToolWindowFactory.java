@@ -1,12 +1,14 @@
 package io.github.vcuswimlab.stackintheflow.view;
 
+import io.github.vcuswimlab.stackintheflow.controller.component.stat.tags.UserTagStatComponent;
+
 import com.intellij.ide.browsers.BrowserLauncher;
 import com.intellij.ide.browsers.WebBrowserManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.wm.ToolWindow;
 import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentFactory;
-import io.github.vcuswimlab.stackintheflow.controller.component.stat.tags.UserTagStatComponent;
+import com.intellij.openapi.actionSystem.CommonDataKeys;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
@@ -28,6 +30,7 @@ public class SearchToolWindowFactory {
         SearchToolWindowGUI windowGUI = null;
         JPanel jPanel;
         if(isJavaFXAvailable()) {
+			project.getComponent(UserTagStatComponent.class).createInitialTagPredictions(project.getProjectFilePath());
             windowGUI = new SearchToolWindowGUI.SearchToolWindowGUIBuilder()
                     .setContent(content)
                     .setProject(project)
