@@ -58,28 +58,13 @@ public class L2HPredictor {
         return initPredictions;
     }
 
-	private static class TagProbability implements Comparable<TagProbability> {
-		public String tagName;
-		public double probability;
-
-		public TagProbability(double probability, String tagName) {
-			this.probability = probability;
-			this.tagName = tagName;
-		}
-
-		@Override
-		public int compareTo(TagProbability other) {
-			return Double.compare(other.probability, probability);
-		}
-	}
-
 	private Map<String, Integer> nameToIdMap;
 	private CustomL2H testSampler;
 	private LabelTextDataset data;
 
 	public L2HPredictor() throws IOException {
 		nameToIdMap = new HashMap<>();
-		BufferedReader br = new BufferedReader(new FileReader(formatFolder+formatFile+".wvoc"));
+		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(formatFolder+formatFile+".wvoc")));
 		int maxId = -1;
 		try {
 			String line;
@@ -110,7 +95,7 @@ public class L2HPredictor {
 
 	public void computeL2HPredictions(String fileToPredict, String outputFileName, String tempFileName) throws Exception {
 		BufferedReader br;
-		br = new BufferedReader(new FileReader(fileToPredict));
+		br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(fileToPredict)));
 		Map<Integer, Integer> wordOccurrenceMap = new HashMap<>();
 		try {
 			String line;
@@ -152,16 +137,17 @@ public class L2HPredictor {
         }
 	}
 
-	public void computeMostLikelyTags(String predictionsFileName, List<String> tagNamesOut, List<Double> tagProbabilitiesOut, int topN) throws Exception {
-		BufferedReader br = new BufferedReader(new FileReader(predictionsFileName));
-		TagProbability[] tagProbabilities; 
+	public List<TagPrediction> computeMostLikelyTags(String predictionsFileName, int topN) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(predictionsFileName)));
+		
+		TagPrediction[] tagProbabilities; 
 		try {
 			br.readLine();
 			String line = br.readLine();
 			String[] parts = line.split("\\s+");
-			tagProbabilities = new TagProbability[parts.length-1];
+			tagProbabilities = new TagPrediction[parts.length-1];
 			for(int i = 0; i < parts.length-1; i++) {
-				tagProbabilities[i] = new TagProbability(Double.parseDouble(parts[i]),data.getLabelVocab().get(i));
+				tagProbabilities[i] = new TagPrediction(data.getLabelVocab().get(i),Double.parseDouble(parts[i]));
 			}
 		} finally {
 			br.close();
@@ -171,12 +157,11 @@ public class L2HPredictor {
 			topN = tagProbabilities.length;
 		}
 
-		tagNamesOut.clear();
-		tagProbabilitiesOut.clear();
+		List<TagPrediction> result = new ArrayList<>();
 		Arrays.sort(tagProbabilities);
 		for(int i = 0; i < topN; i++) {
-			tagNamesOut.add(tagProbabilities[i].tagName);
-			tagProbabilitiesOut.add(tagProbabilities[i].probability);
+			result.add(tagProbabilities[i]);
 		}
+		return result;
 	}
 }

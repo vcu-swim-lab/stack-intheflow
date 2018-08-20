@@ -30,7 +30,7 @@ public class SearchToolWindowFactory {
         SearchToolWindowGUI windowGUI = null;
         JPanel jPanel;
         if(isJavaFXAvailable()) {
-			project.getComponent(UserTagStatComponent.class).createInitialTagPredictions(project.getProjectFilePath());
+			project.getComponent(UserTagStatComponent.class).getSearchModel().createInitialTagPredictions(project.getProjectFilePath());
             windowGUI = new SearchToolWindowGUI.SearchToolWindowGUIBuilder()
                     .setContent(content)
                     .setProject(project)
