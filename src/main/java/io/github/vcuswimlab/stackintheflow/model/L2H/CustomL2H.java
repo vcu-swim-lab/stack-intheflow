@@ -1683,7 +1683,7 @@ public class CustomL2H extends AbstractSampler {
      * @param initPredictions
      * @param topK
      */
-    public void sampleNewDocuments(String stateFile,
+    public String sampleNewDocuments(String stateFile,
             int[][] newWords,
             String outputResultFile,
             double[][] initPredictions,
@@ -1762,7 +1762,7 @@ public class CustomL2H extends AbstractSampler {
         }
 
         // output result during test time
-        if (verbose) {
+        if (verbose &&  outputResultFile != null) {
             logln("--- Outputing result to " + outputResultFile);
         }
         for (int dd = 0; dd < D; dd++) {
@@ -1770,8 +1770,26 @@ public class CustomL2H extends AbstractSampler {
                 predictedScores[dd][ll] /= count;
             }
         }
-        PredictionUtils.outputSingleModelClassifications(new File(outputResultFile),
-                predictedScores);
+		if(outputResultFile != null) {
+			PredictionUtils.outputSingleModelClassifications(new File(outputResultFile),
+					predictedScores);
+			return null;
+		} else {
+			return outputSingleModelClassificationsToString(predictedScores);
+		}
+    }
+
+	private static String outputSingleModelClassificationsToString(double[][] predictions) {
+		StringBuilder builder = new StringBuilder();
+		builder.append(predictions.length + "\n");
+		for (int dd = 0; dd < predictions.length; dd++) {
+			builder.append(Integer.toString(dd));
+			for (int jj = 0; jj < predictions[dd].length; jj++) {
+				builder.append("\t" + predictions[dd][jj]);
+			}
+			builder.append("\n");
+		}
+		return builder.toString();
     }
 
     /**
@@ -1995,194 +2013,7 @@ public class CustomL2H extends AbstractSampler {
 
     public static String getHelpString() {
         return "java -cp dist/segan.jar " + CustomL2H.class.getName() + " -help";
-    }
-
-    public static void main(String[] args) {
-        try {
-            // create the command line parser
-            parser = new BasicParser();
-
-            // create the Options
-            options = new Options();
-
-            // directories
-            addOption("dataset", "Dataset");
-            addOption("data-folder", "Processed data folder");
-            addOption("format-folder", "Folder holding formatted data");
-            addOption("format-file", "Formatted file name");
-            addOption("output", "Output folder");
-
-            // sampling configurations
-            addSamplingOptions();
-
-            // model parameters
-            addOption("K", "Number of topics");
-            addOption("numTopwords", "Number of top words per topic");
-            addOption("min-label-freq", "Minimum label frequency");
-
-            // model hyperparameters
-            addOption("alpha", "Hyperparameter of the symmetric Dirichlet prior "
-                    + "for topic distributions");
-            addOption("beta", "Hyperparameter of the symmetric Dirichlet prior "
-                    + "for word distributions");
-            addOption("a0", "a0");
-            addOption("b0", "b0");
-            addOption("path", "Path assumption");
-            addOption("tree-init", "Tree initialization type");
-
-            options.addOption("train", false, "Training");
-            options.addOption("tree", false, "Whether the tree is updated or not");
-            options.addOption("paramOpt", false, "Whether hyperparameter "
-                    + "optimization using slice sampling is performed");
-            options.addOption("v", false, "verbose");
-            options.addOption("d", false, "debug");
-            options.addOption("help", false, "Help");
-
-            cmd = parser.parse(options, args);
-            if (cmd.hasOption("help")) {
-                CLIUtils.printHelp(getHelpString(), options);
-                return;
-            }
-
-            runModel();
-        } catch (Exception e) {
-            e.printStackTrace();
-            CLIUtils.printHelp(getHelpString(), options);
-            System.exit(1);
-        }
-    }
-
-    private static void runModel() throws Exception {
-        String datasetName = cmd.getOptionValue("dataset");
-        String formatFolder = cmd.getOptionValue("format-folder");
-        String outputFolder = cmd.getOptionValue("output");
-        String formatFile = CLIUtils.getStringArgument(cmd, "format-file", datasetName);
-        int numTopWords = CLIUtils.getIntegerArgument(cmd, "numTopwords", 20);
-        int minLabelFreq = CLIUtils.getIntegerArgument(cmd, "min-label-freq", 100);
-
-        int burnIn = CLIUtils.getIntegerArgument(cmd, "burnIn", 250);
-        int maxIters = CLIUtils.getIntegerArgument(cmd, "maxIter", 2);
-        int sampleLag = CLIUtils.getIntegerArgument(cmd, "sampleLag", 25);
-        int repInterval = CLIUtils.getIntegerArgument(cmd, "report", 1);
-
-        double alpha = CLIUtils.getDoubleArgument(cmd, "alpha", 10);
-        double beta = CLIUtils.getDoubleArgument(cmd, "beta", 1000);
-        double a0 = CLIUtils.getDoubleArgument(cmd, "a0", 90);
-        double b0 = CLIUtils.getDoubleArgument(cmd, "b0", 10);
-        boolean treeUpdate = cmd.hasOption("tree");
-        boolean sampleExact = cmd.hasOption("exact");
-
-        PathAssumption pathAssumption;
-        String path = CLIUtils.getStringArgument(cmd, "path", "max");
-        switch (path) {
-            case "min":
-                pathAssumption = PathAssumption.MINIMAL;
-                break;
-            case "max":
-                pathAssumption = PathAssumption.MAXIMAL;
-                break;
-            case "antoniak":
-                pathAssumption = PathAssumption.ANTONIAK;
-                break;
-            default:
-                throw new RuntimeException(path + " path assumption is not"
-                        + " supported. Use min or max.");
-        }
-
-        boolean verbose = cmd.hasOption("v");
-        boolean debug = cmd.hasOption("d");
-
-        if (verbose) {
-            //
-            System.out.println("--- folder\t" + outputFolder);
-            //System.out.println("--- label vocab:\t" + L); // knew it after loading data
-            // System.out.println("--- word vocab:\t" + V);
-            System.out.println("--- alpha:\t" + MiscUtils.formatDouble(alpha));
-            System.out.println("--- beta:\t" + MiscUtils.formatDouble(beta));
-            System.out.println("--- a0:\t" + MiscUtils.formatDouble(a0));
-            System.out.println("--- b0:\t" + MiscUtils.formatDouble(b0));
-            System.out.println("--- burn-in:\t" + burnIn);
-            System.out.println("--- max iter:\t" + maxIters);
-            System.out.println("--- sample lag:\t" + sampleLag);
-            //System.out.println("--- paramopt:\t" + paramOptimized);
-            //System.out.println("--- initialize:\t" + initState);
-            System.out.println("--- path assumption:\t" + pathAssumption);
-            //System.out.println("--- tree builder:\t" + treeBuilder.getName());
-            //System.out.println("--- updating tree?\t" + treeUpdated);
-            System.out.println("--- exact sampling?\t" + sampleExact);
-            //
-            System.out.println("\nLoading formatted data ...");
-        }
-        LabelTextDataset data = new LabelTextDataset(datasetName);
-        data.setFormatFilename(formatFile);
-        data.loadFormattedData(formatFolder);
-        data.filterLabelsByFrequency(minLabelFreq);
-        data.prepareTopicCoherence(numTopWords);
-
-        int V = data.getWordVocab().size();
-        int K = data.getLabelVocab().size();
-
-        boolean paramOpt = cmd.hasOption("paramOpt");
-        InitialState initState = InitialState.PRESET;
-
-        String treeInit = CLIUtils.getStringArgument(cmd, "tree-init", "mst");
-        AbstractTaxonomyBuilder treeBuilder;
-        switch (treeInit) {
-            case "mst":
-                treeBuilder = new MSTBuilder(data.getLabels(), data.getLabelVocab());
-                break;
-            case "beta":
-                double treeAlpha = CLIUtils.getDoubleArgument(cmd, "tree-alpha", 100);
-                double treeA = CLIUtils.getDoubleArgument(cmd, "tree-a", 0.1);
-                double treeB = CLIUtils.getDoubleArgument(cmd, "tree-b", 0.1);
-                treeBuilder = new BetaTreeBuilder(data.getLabels(), data.getLabelVocab(),
-                        treeAlpha, treeA, treeB);
-                break;
-            default:
-                throw new RuntimeException(treeInit + " not supported");
-        }
-
-        File builderFolder = new File(outputFolder, treeBuilder.getName());
-        IOUtils.createFolder(builderFolder);
-        File treeFile = new File(builderFolder, "tree.txt");
-        File labelVocFile = new File(builderFolder, "labels.voc");
-        if (treeFile.exists()) {
-            treeBuilder.inputTree(treeFile);
-            treeBuilder.inputLabelVocab(labelVocFile);
-        } else {
-            treeBuilder.buildTree();
-            treeBuilder.outputTree(treeFile);
-            treeBuilder.outputLabelVocab(labelVocFile);
-        }
-        treeBuilder.outputTreeTemp(new File(treeFile + "-temp"));
-
-        CustomL2H sampler = new CustomL2H();
-        sampler.setReport(true);
-        sampler.setVerbose(verbose);
-        sampler.setDebug(debug);
-        sampler.setWordVocab(data.getWordVocab());
-        sampler.setLabelVocab(data.getLabelVocab());
-
-        sampler.configure(outputFolder,
-                data.getWordVocab().size(),
-                alpha, beta,
-                a0, b0,
-                treeBuilder,
-                treeUpdate,
-                sampleExact,
-                initState,
-                pathAssumption,
-                paramOpt,
-                burnIn, maxIters, sampleLag, repInterval);
-
-        File samplerFolder = new File(sampler.getSamplerFolderPath());
-        IOUtils.createFolder(samplerFolder);
-
-        sampler.train(null, data.getWords(), data.getLabels());
-        sampler.initialize();
-        sampler.iterate();
-        sampler.outputGlobalTree(new File(samplerFolder, TopWordFile), numTopWords);
-    }
+    } 
 }
 
 class L2HTestRunner implements Runnable {

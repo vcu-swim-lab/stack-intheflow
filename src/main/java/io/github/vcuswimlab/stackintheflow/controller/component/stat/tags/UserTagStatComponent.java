@@ -3,14 +3,11 @@ package io.github.vcuswimlab.stackintheflow.controller.component.stat.tags;
 import com.intellij.openapi.components.ProjectComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.project.Project;
-import com.intellij.openapi.editor.Editor;
 import io.github.vcuswimlab.stackintheflow.controller.component.PersistProfileComponent;
 import io.github.vcuswimlab.stackintheflow.model.personalsearch.PersonalSearchModel;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * Created by chase on 6/13/17.

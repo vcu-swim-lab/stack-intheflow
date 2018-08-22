@@ -2,8 +2,8 @@ package io.github.vcuswimlab.stackintheflow.model.L2H;
 
 import java.io.*;
 import java.util.*;
+import java.nio.file.Paths;
 import core.AbstractSampler;
-import data.TextDataset;
 import data.LabelTextDataset;
 import sampling.likelihood.DirMult;
 import sampling.likelihood.CascadeDirMult.PathAssumption;
@@ -13,10 +13,10 @@ import util.IOUtils;
 public class L2HPredictor {
 	// L2H Parameters
 	private static final String datasetName = "SOBigrams6";
-	private static final String formatFolder = "/SOBigrams6/";
+	private static final String formatFolder = "SOBigrams6";
 	private static final String formatFile = "SOBigrams6";
-	private static final String outputFolder = "/SOBigrams6_out";
-	private static final String stateFile = outputFolder + "/PRESET_L2H_K-391_B-250_M-500_L-25_opt-false_MAXIMAL-10-1000-90-10-mst-false-falsereport/iter-500.zip";
+	private static final String outputFolder = "SOBigrams6_out";
+	private static final String stateFile = Paths.get(outputFolder, "PRESET_L2H_K-391_B-250_M-500_L-25_opt-false_MAXIMAL-10-1000-90-10-mst-false-false", "report", "iter-500.zip").toString();
 	private static final int numTopWords = 20;
 	private static final int minLabelFreq = 100;
 	private static final int burnIn = 250;
@@ -34,15 +34,51 @@ public class L2HPredictor {
 	  return ret;
 	}
 
-	private static class TextDataLoader extends TextDataset {		
-		public TextDataLoader(String dataset, String fileName) throws FileNotFoundException, IOException, Exception {
-			super(dataset);
-			File testFile = new File(fileName);
-			inputTextData(testFile);
+	private static class TextDataLoader {		
+		private int[][] words;
+		public TextDataLoader(InputStream stream) throws Exception {
+			words = inputFormattedTextData(stream);
 		}
 		
 		public int[][] getWords() {
 			return words;
+		}
+
+		protected int[][] inputFormattedTextData(InputStream stream) throws Exception {
+			BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
+
+			ArrayList<int[]> wordList = new ArrayList<int[]>();
+			String line;
+			String[] sline;
+			while ((line = reader.readLine()) != null) {
+				sline = line.split(" ");
+
+				int numTypes = Integer.parseInt(sline[0]);
+				int[] types = new int[numTypes];
+				int[] counts = new int[numTypes];
+
+				int numTokens = 0;
+				for (int ii = 0; ii < numTypes; ++ii) {
+					String[] entry = sline[ii + 1].split(":");
+					int count = Integer.parseInt(entry[1]);
+					int id = Integer.parseInt(entry[0]);
+					numTokens += count;
+					types[ii] = id;
+					counts[ii] = count;
+				}
+
+				int[] gibbsString = new int[numTokens];
+				int index = 0;
+				for (int ii = 0; ii < numTypes; ++ii) {
+					for (int jj = 0; jj < counts[ii]; ++jj) {
+						gibbsString[index++] = types[ii];
+					}
+				}
+				wordList.add(gibbsString);
+			}
+			reader.close();
+			int[][] wds = wordList.toArray(new int[wordList.size()][]);
+			return wds;
 		}
 	}
 
@@ -64,7 +100,7 @@ public class L2HPredictor {
 
 	public L2HPredictor() throws IOException {
 		nameToIdMap = new HashMap<>();
-		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(formatFolder+formatFile+".wvoc")));
+		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(Paths.get(formatFolder, formatFile+".wvoc").toString())));
 		int maxId = -1;
 		try {
 			String line;
@@ -93,7 +129,7 @@ public class L2HPredictor {
         testSampler.setTestConfigurations(burnIn, modelIterations, sampleLag);
 	}
 
-	public void computeL2HPredictions(String fileToPredict, String outputFileName, String tempFileName) throws Exception {
+	public String computeL2HPredictions(String fileToPredict) throws Exception {
 		BufferedReader br;
 		br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(fileToPredict)));
 		Map<Integer, Integer> wordOccurrenceMap = new HashMap<>();
@@ -117,28 +153,25 @@ public class L2HPredictor {
 			br.close();
 		}
 
-		BufferedWriter bw = new BufferedWriter(new FileWriter(tempFileName));
-		try {
-			bw.write(wordOccurrenceMap.size() + " ");
-			for(Map.Entry<Integer,Integer> e : wordOccurrenceMap.entrySet()) {
-				bw.write(e.getKey() + ":" + e.getValue() + " ");
-			}
-		} finally {
-			bw.close();
+		StringBuilder builder = new StringBuilder();
+		builder.append(wordOccurrenceMap.size() + " ");
+		for(Map.Entry<Integer,Integer> e : wordOccurrenceMap.entrySet()) {
+			builder.append(e.getKey() + ":" + e.getValue() + " ");
 		}
-		int[][] newWords = new TextDataLoader("dummyDataset",tempFileName).getWords();
+
+		int[][] newWords = new TextDataLoader(new ByteArrayInputStream(builder.toString().getBytes())).getWords();
 		double[][] initPredictions = computeInitPredictions(newWords, data.getLabelVocab().size());
 
 		try {
-            testSampler.sampleNewDocuments(stateFile, newWords, outputFileName, initPredictions, 20);
+            return testSampler.sampleNewDocuments(stateFile, newWords, null, initPredictions, 20);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
         }
 	}
 
-	public List<TagPrediction> computeMostLikelyTags(String predictionsFileName, int topN) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(this.getClass().getClassLoader().getResourceAsStream(predictionsFileName)));
+	public List<TagPrediction> computeMostLikelyTags(InputStream stream, int topN) throws Exception {
+		BufferedReader br = new BufferedReader(new InputStreamReader(stream));
 		
 		TagPrediction[] tagProbabilities; 
 		try {
@@ -163,5 +196,14 @@ public class L2HPredictor {
 			result.add(tagProbabilities[i]);
 		}
 		return result;
+	}
+
+	public static void main(String[] args) throws Exception {
+		L2HPredictor predictor = new L2HPredictor();
+		String rawPredictions = predictor.computeL2HPredictions(args[0]);
+		List<TagPrediction> predictions = predictor.computeMostLikelyTags(new ByteArrayInputStream(rawPredictions.getBytes()), 10);
+		for(TagPrediction p : predictions) {
+			System.out.println(p.getName() + ": " + p.getProbability());
+		}
 	}
 }

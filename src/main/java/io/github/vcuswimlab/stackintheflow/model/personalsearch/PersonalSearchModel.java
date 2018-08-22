@@ -8,7 +8,7 @@ import io.github.vcuswimlab.stackintheflow.model.L2H.TagPrediction;
 
 import java.util.*;
 import java.util.stream.Collectors;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * Created by chase on 6/13/17.
@@ -34,10 +34,10 @@ public class PersonalSearchModel {
 			return false;
 		}
 		try {
-			l2hPredictor.computeL2HPredictions(filePath, "./temp_predictions_file.txt", "./temp_text_data_file.txt");
+			String rawPredictions = l2hPredictor.computeL2HPredictions(filePath);
 			int maxTags = 5;
 			int countAmount = 5;
-			List<TagPrediction> tagPredictions = l2hPredictor.computeMostLikelyTags("./temp_predictions_file.txt", maxTags);
+			List<TagPrediction> tagPredictions = l2hPredictor.computeMostLikelyTags(new ByteArrayInputStream(rawPredictions.getBytes()), maxTags);
 			List<String> tagToIncrement = new ArrayList<>();
 			for(int i = 0; i < maxTags; i++) {
 				int tagAmt = (int)(tagPredictions.get(i).getProbability()*countAmount + 0.5);
