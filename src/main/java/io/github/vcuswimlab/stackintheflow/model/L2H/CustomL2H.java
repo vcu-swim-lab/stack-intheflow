@@ -52,14 +52,15 @@ public class CustomL2H extends AbstractSampler {
     public static final int B_0 = 3;
     // inputs
     protected int[][] words; // [D] x [N_d]
-    protected int[][] labels; // [D] x [T_d] 
-    protected int V;    // vocab size
-    protected int L;    // number of unique labels
+    protected int[][] labels; // [D] x [T_d]
+    protected int V; // vocab size
+    protected int L; // number of unique labels
+
     public int getL() {
         return L;
     }
 
-    protected int D;    // number of documents
+    protected int D; // number of documents
     // graph
     private SparseVector[] inWeights; // the weights of in-edges for each nodes
     // tree
@@ -97,38 +98,17 @@ public class CustomL2H extends AbstractSampler {
     }
 
     public void configure(CustomL2H sampler) {
-        this.configure(sampler.folder,
-                sampler.V,
-                sampler.hyperparams.get(ALPHA),
-                sampler.hyperparams.get(BETA),
-                sampler.hyperparams.get(A_0),
-                sampler.hyperparams.get(B_0),
-                sampler.treeBuilder,
-                sampler.treeUpdated,
-                sampler.sampleExact,
-                sampler.initState,
-                sampler.pathAssumption,
-                sampler.paramOptimized,
-                sampler.BURN_IN,
-                sampler.MAX_ITER,
-                sampler.LAG,
-                sampler.REP_INTERVAL);
+        this.configure(sampler.folder, sampler.V, sampler.hyperparams.get(ALPHA), sampler.hyperparams.get(BETA),
+                sampler.hyperparams.get(A_0), sampler.hyperparams.get(B_0), sampler.treeBuilder, sampler.treeUpdated,
+                sampler.sampleExact, sampler.initState, sampler.pathAssumption, sampler.paramOptimized, sampler.BURN_IN,
+                sampler.MAX_ITER, sampler.LAG, sampler.REP_INTERVAL);
         this.setWordVocab(sampler.wordVocab);
         this.setLabelVocab(sampler.labelVocab);
     }
 
-    public void configure(String folder,
-            int V,
-            double alpha,
-            double beta,
-            double a0, double b0,
-            AbstractTaxonomyBuilder treeBuilder,
-            boolean treeUp,
-            boolean sampleExact,
-            InitialState initState,
-            PathAssumption pathAssumption,
-            boolean paramOpt,
-            int burnin, int maxiter, int samplelag, int repInterval) {
+    public void configure(String folder, int V, double alpha, double beta, double a0, double b0,
+            AbstractTaxonomyBuilder treeBuilder, boolean treeUp, boolean sampleExact, InitialState initState,
+            PathAssumption pathAssumption, boolean paramOpt, int burnin, int maxiter, int samplelag, int repInterval) {
         if (verbose) {
             logln("Configuring ...");
         }
@@ -138,9 +118,10 @@ public class CustomL2H extends AbstractSampler {
         this.treeBuilder = treeBuilder;
         this.labelVocab = treeBuilder.getLabelVocab();
 
-		// TODO: This is wrong. This should just be labelVocab.size(), but cheating to avoid an off-by-one error on this run
-        this.L = labelVocab.size()+1;
-		System.out.println("============ L Size: " + L + " =================");
+        // TODO: This is wrong. This should just be labelVocab.size(), but cheating to
+        // avoid an off-by-one error on this run
+        this.L = labelVocab.size() + 1;
+        System.out.println("============ L Size: " + L + " =================");
         this.V = V;
 
         this.hyperparams = new ArrayList<Double>();
@@ -192,13 +173,8 @@ public class CustomL2H extends AbstractSampler {
 
     protected void setName() {
         StringBuilder str = new StringBuilder();
-        str.append(this.prefix)
-                .append("_").append(basename)
-                .append("_K-").append(L)
-                .append("_B-").append(BURN_IN)
-                .append("_M-").append(MAX_ITER)
-                .append("_L-").append(LAG)
-                .append("_opt-").append(this.paramOptimized)
+        str.append(this.prefix).append("_").append(basename).append("_K-").append(L).append("_B-").append(BURN_IN)
+                .append("_M-").append(MAX_ITER).append("_L-").append(LAG).append("_opt-").append(this.paramOptimized)
                 .append("_").append(this.pathAssumption);
         for (double hp : this.hyperparams) {
             str.append("-").append(MiscUtils.formatDouble(hp));
@@ -208,81 +184,9 @@ public class CustomL2H extends AbstractSampler {
         str.append("-").append(sampleExact);
         this.name = str.toString();
     }
-    
+
     public Node[] getNodes() {
-    	return nodes;
-    }
-
-    /**
-     * Set training data.
-     *
-     * @param docIndices Indices of selected documents
-     * @param words Document words
-     * @param labels Document labels
-     */
-    public void train(ArrayList<Integer> docIndices, int[][] words, int[][] labels) {
-        if (docIndices == null) {
-            docIndices = new ArrayList<>();
-            for (int dd = 0; dd < words.length; dd++) {
-                docIndices.add(dd);
-            }
-        }
-
-        this.D = docIndices.size();
-        this.words = new int[D][];
-        this.labels = new int[D][];
-        for (int ii = 0; ii < D; ii++) {
-            int dd = docIndices.get(ii);
-            this.words[ii] = words[dd];
-            this.labels[ii] = labels[dd];
-        }
-        this.labelDocIndices = new HashMap<Integer, Set<Integer>>();
-        for (int d = 0; d < D; d++) {
-            for (int ll : labels[d]) {
-                Set<Integer> docs = this.labelDocIndices.get(ll);
-                if (docs == null) {
-                    docs = new HashSet<Integer>();
-                }
-                docs.add(d);
-                this.labelDocIndices.put(ll, docs);
-            }
-        }
-
-        int emptyDocCount = 0;
-        this.numTokens = 0;
-        this.labelFreqs = new int[L];
-        for (int d = 0; d < D; d++) {
-            if (labels[d].length == 0) {
-                emptyDocCount++;
-                continue;
-            }
-            this.numTokens += words[d].length;
-            for (int ii = 0; ii < labels[d].length; ii++) {
-                labelFreqs[labels[d][ii]]++;
-            }
-        }
-
-        if (verbose) {
-            logln("--- # documents:\t" + D);
-            logln("--- # empty documents:\t" + emptyDocCount);
-            logln("--- # tokens:\t" + numTokens);
-        }
-    }
-
-    public void test(int[][] newWords) {
-        this.words = newWords;
-        this.labels = null;
-        this.D = this.words.length;
-
-        this.numTokens = 0;
-        for (int d = 0; d < D; d++) {
-            this.numTokens += words[d].length;
-        }
-
-        if (verbose) {
-            logln("--- # documents:\t" + D);
-            logln("--- # tokens:\t" + numTokens);
-        }
+        return nodes;
     }
 
     protected String getLabelString(int labelIdx) {
@@ -316,8 +220,7 @@ public class CustomL2H extends AbstractSampler {
         }
 
         this.nodes = new Node[L];
-        this.root = new Node(treeBuilder.getTreeRoot().getContent(), 0, 0,
-                new SparseCount(), null);
+        this.root = new Node(treeBuilder.getTreeRoot().getContent(), 0, 0, new SparseCount(), null);
         Stack<TreeNode<TreeNode, Integer>> stack = new Stack<TreeNode<TreeNode, Integer>>();
         stack.add(treeBuilder.getTreeRoot());
         while (!stack.isEmpty()) {
@@ -337,11 +240,7 @@ public class CustomL2H extends AbstractSampler {
             }
 
             // global node
-            Node gNode = new Node(labelIdx,
-                    node.getIndex(),
-                    node.getLevel(),
-                    new SparseCount(),
-                    gParent);
+            Node gNode = new Node(labelIdx, node.getIndex(), node.getLevel(), new SparseCount(), gParent);
             nodes[labelIdx] = gNode;
             if (gParent != null) {
                 gParent.addChild(gNode.getIndex(), gNode);
@@ -406,8 +305,7 @@ public class CustomL2H extends AbstractSampler {
         for (int d = 0; d < D; d++) {
             this.z[d] = new int[words[d].length];
             this.x[d] = new int[words[d].length];
-            this.docSwitches[d] = new DirMult(new double[]{hyperparams.get(A_0),
-                hyperparams.get(B_0)});
+            this.docSwitches[d] = new DirMult(new double[] { hyperparams.get(A_0), hyperparams.get(B_0) });
             this.docLabelCounts[d] = new SparseCount();
             this.docMaskes[d] = new HashSet<Integer>();
             if (labels != null) { // if labels are given during training time
@@ -421,11 +319,11 @@ public class CustomL2H extends AbstractSampler {
             logln("--- --- Initializing assignments. " + initState + " ...");
         }
         switch (initState) {
-            case PRESET:
-                initializePresetAssignments();
-                break;
-            default:
-                throw new RuntimeException("Initialization not supported");
+        case PRESET:
+            initializePresetAssignments();
+            break;
+        default:
+            throw new RuntimeException("Initialization not supported");
         }
     }
 
@@ -446,9 +344,8 @@ public class CustomL2H extends AbstractSampler {
         llda.setDebug(debug);
         llda.setVerbose(verbose);
         llda.setLog(false);
-        llda.configure(folder,
-                V, L, lda_alpha, lda_beta, InitialState.RANDOM, false,
-                lda_burnin, lda_maxiter, lda_samplelag, lda_repInterval);
+        llda.configure(folder, V, L, lda_alpha, lda_beta, InitialState.RANDOM, false, lda_burnin, lda_maxiter,
+                lda_samplelag, lda_repInterval);
         llda.train(null, words, labels);
         try {
             File lldaZFile = new File(llda.getSamplerFolderPath(), basename + ".zip");
@@ -461,8 +358,7 @@ public class CustomL2H extends AbstractSampler {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Exception while initializing topics "
-                    + "with Labeled LDA");
+            throw new RuntimeException("Exception while initializing topics " + "with Labeled LDA");
         }
         setLog(true);
 
@@ -530,21 +426,18 @@ public class CustomL2H extends AbstractSampler {
 
             if (verbose && iter % REP_INTERVAL == 0) {
                 double loglikelihood = this.getLogLikelihood();
-                String str = "Iter " + iter + "/" + MAX_ITER
-                        + "\t llh = " + MiscUtils.formatDouble(loglikelihood)
-                        + "\t # tokens changed: " + numTokensChanged
-                        + " (" + MiscUtils.formatDouble((double) numTokensChanged / numTokens) + ")"
-                        + "\t # accepts: " + numAccepts
-                        + " (" + MiscUtils.formatDouble((double) numAccepts / L) + ")"
-                        + "\n" + getCurrentState();
+                String str = "Iter " + iter + "/" + MAX_ITER + "\t llh = " + MiscUtils.formatDouble(loglikelihood)
+                        + "\t # tokens changed: " + numTokensChanged + " ("
+                        + MiscUtils.formatDouble((double) numTokensChanged / numTokens) + ")" + "\t # accepts: "
+                        + numAccepts + " (" + MiscUtils.formatDouble((double) numAccepts / L) + ")" + "\n"
+                        + getCurrentState();
                 if (iter < BURN_IN) {
                     logln("--- Burning in. " + str);
                 } else {
                     logln("--- Sampling. " + str);
                 }
-                logln("--- Elapsed time: sXZs: " + sampleXZTime
-                        + "\tsTopic: " + sampleTopicTime
-                        + "\tuTree: " + updateTreeTime);
+                logln("--- Elapsed time: sXZs: " + sampleXZTime + "\tsTopic: " + sampleTopicTime + "\tuTree: "
+                        + updateTreeTime);
                 System.out.println();
             }
 
@@ -578,8 +471,7 @@ public class CustomL2H extends AbstractSampler {
      * (1) proposing a new parent node for each node in the tree using the edge
      * weights of the background graph,
      *
-     * (2) accepting or rejecting the proposed new parent using
-     * Metropolis-Hastings.
+     * (2) accepting or rejecting the proposed new parent using Metropolis-Hastings.
      */
     private long updateTree() {
         long sTime = System.currentTimeMillis();
@@ -635,8 +527,7 @@ public class CustomL2H extends AbstractSampler {
                         proposedSwitchCount[OUTSIDE]++;
                     }
                 }
-                newXLogprob += SamplerUtils.computeLogLhood(proposedSwitchCount,
-                        words[d].length, switchPrior);
+                newXLogprob += SamplerUtils.computeLogLhood(proposedSwitchCount, words[d].length, switchPrior);
             }
 
             double curLogprob = curPhiLogprob + curXLogprob + curZLogprob;
@@ -655,9 +546,7 @@ public class CustomL2H extends AbstractSampler {
 
                 // update level of nodes in the subtree
                 for (int n : subtreeNodes) {
-                    nodes[n].setLevel(nodes[n].getLevel()
-                            - currentParent.getLevel()
-                            + proposeParent.getLevel());
+                    nodes[n].setLevel(nodes[n].getLevel() - currentParent.getLevel() + proposeParent.getLevel());
                 }
 
                 // remove current switch assignments
@@ -696,12 +585,12 @@ public class CustomL2H extends AbstractSampler {
     }
 
     /**
-     * Compute the log probability of the topic assignments of a document given
-     * a candidate set.
+     * Compute the log probability of the topic assignments of a document given a
+     * candidate set.
      *
      * @param docLabelCount Store the number of times tokens in this document
-     * assigned to each topic
-     * @param docMask The candidate set
+     *                      assigned to each topic
+     * @param docMask       The candidate set
      */
     private double computeDocLabelLogprob(SparseCount docLabelCount, Set<Integer> docMask) {
         double priorVal = hyperparams.get(ALPHA);
@@ -737,8 +626,8 @@ public class CustomL2H extends AbstractSampler {
     }
 
     /**
-     * Return the set of documents whose label set contains any label in the
-     * subtree rooted at a given node.
+     * Return the set of documents whose label set contains any label in the subtree
+     * rooted at a given node.
      *
      * @param node The root of the subtree
      */
@@ -761,18 +650,15 @@ public class CustomL2H extends AbstractSampler {
     }
 
     /**
-     * Return the set of mask node if the subtree root node become a child of
-     * the a proposed parent node.
+     * Return the set of mask node if the subtree root node become a child of the a
+     * proposed parent node.
      *
-     * @param d Document index
-     * @param subtreeRoot The ID of the root of the subtree
-     * @param subtree Set of nodes in the subtree
+     * @param d              Document index
+     * @param subtreeRoot    The ID of the root of the subtree
+     * @param subtree        Set of nodes in the subtree
      * @param proposedParent The proposed parent node
      */
-    private Set<Integer> getProposedMask(int d,
-            int subtreeRoot,
-            Set<Integer> subtree,
-            Node proposedParent) {
+    private Set<Integer> getProposedMask(int d, int subtreeRoot, Set<Integer> subtree, Node proposedParent) {
         Set<Integer> ppMask = new HashSet<Integer>();
         boolean insideSubtree = false;
         for (int label : labels[d]) {
@@ -788,7 +674,7 @@ public class CustomL2H extends AbstractSampler {
                 ppMask.add(subtreeRoot);
                 insideSubtree = true;
             } // if this label is outside the subtree, all all nodes from the label
-            // node to the root as usual
+              // node to the root as usual
             else {
                 while (n != null) {
                     ppMask.add(n.id);
@@ -850,9 +736,8 @@ public class CustomL2H extends AbstractSampler {
      * @param removeFromData
      * @param addToData
      */
-    private long sampleXZsExact(
-            boolean removeFromModel, boolean addToModel,
-            boolean removeFromData, boolean addToData) {
+    private long sampleXZsExact(boolean removeFromModel, boolean addToModel, boolean removeFromData,
+            boolean addToData) {
         numTokensChanged = 0;
         long sTime = System.currentTimeMillis();
         for (int d = 0; d < D; d++) {
@@ -873,9 +758,8 @@ public class CustomL2H extends AbstractSampler {
      * @param removeFromData
      * @param addToData
      */
-    private void sampleXZExact(int d, int n,
-            boolean removeFromModel, boolean addToModel,
-            boolean removeFromData, boolean addToData) {
+    private void sampleXZExact(int d, int n, boolean removeFromModel, boolean addToModel, boolean removeFromData,
+            boolean addToData) {
         if (removeFromModel) {
             nodes[z[d][n]].getContent().decrement(words[d][n]);
             nodes[z[d][n]].removeToken(d, n);
@@ -927,17 +811,15 @@ public class CustomL2H extends AbstractSampler {
     }
 
     /**
-     * Sample x and z. This is done by first sampling x, and given the value of
-     * x, sample z. This is an approximation of sampleXZsExact.
+     * Sample x and z. This is done by first sampling x, and given the value of x,
+     * sample z. This is an approximation of sampleXZsExact.
      *
      * @param removeFromModel
      * @param addToModel
      * @param removeFromData
      * @param addToData
      */
-    private long sampleXZsMH(
-            boolean removeFromModel, boolean addToModel,
-            boolean removeFromData, boolean addToData) {
+    private long sampleXZsMH(boolean removeFromModel, boolean addToModel, boolean removeFromData, boolean addToData) {
         numTokensChanged = 0;
         long sTime = System.currentTimeMillis();
         for (int d = 0; d < D; d++) {
@@ -949,8 +831,8 @@ public class CustomL2H extends AbstractSampler {
     }
 
     /**
-     * Sample x and z. This is done by first sampling x, and given the value of
-     * x, sample z. This is an approximation of sampleXZsExact.
+     * Sample x and z. This is done by first sampling x, and given the value of x,
+     * sample z. This is an approximation of sampleXZsExact.
      *
      * @param d
      * @param n
@@ -959,9 +841,8 @@ public class CustomL2H extends AbstractSampler {
      * @param removeFromData
      * @param addToData
      */
-    private void sampleXZMH(int d, int n,
-            boolean removeFromModel, boolean addToModel,
-            boolean removeFromData, boolean addToData) {
+    private void sampleXZMH(int d, int n, boolean removeFromModel, boolean addToModel, boolean removeFromData,
+            boolean addToData) {
         if (removeFromModel) {
             nodes[z[d][n]].getContent().decrement(words[d][n]);
             nodes[z[d][n]].removeToken(d, n);
@@ -1011,14 +892,14 @@ public class CustomL2H extends AbstractSampler {
     /**
      * Sample a node for a token given the binary indicator x.
      *
-     * @param d Document index
-     * @param n Token index
+     * @param d  Document index
+     * @param n  Token index
      * @param pX Binary indicator specifying whether the given token should be
-     * assigned to a node in the candidate set or not.
+     *           assigned to a node in the candidate set or not.
      */
     private int proposeZ(int d, int n, int pX) {
-//        ArrayList<Integer> indices = new ArrayList<Integer>();
-//        ArrayList<Double> logprobs = new ArrayList<Double>();
+        // ArrayList<Integer> indices = new ArrayList<Integer>();
+        // ArrayList<Double> logprobs = new ArrayList<Double>();
         Double[] logProbsArray = new Double[L];
         Integer[] indexArray = new Integer[L];
         int idx = 0;
@@ -1030,7 +911,7 @@ public class CustomL2H extends AbstractSampler {
                 // logprobs.add(zLlh + wLlh);
                 // indices.add(ll);
                 logProbsArray[idx] = zLlh + wLlh;
-                indexArray[idx ++] = ll;
+                indexArray[idx++] = ll;
             }
         } else {
             for (int ll = 0; ll < L; ll++) {
@@ -1043,7 +924,7 @@ public class CustomL2H extends AbstractSampler {
                 // logprobs.add(zLlh + wLlh);
                 // indices.add(ll);
                 logProbsArray[idx] = zLlh + wLlh;
-                indexArray[idx ++] = ll;
+                indexArray[idx++] = ll;
             }
         }
         ArrayList<Double> logprobs = new ArrayList<Double>(Arrays.asList(Arrays.copyOfRange(logProbsArray, 0, idx)));
@@ -1054,8 +935,8 @@ public class CustomL2H extends AbstractSampler {
 
     /**
      * Sample topics (distributions over words) in the tree. This is done by (1)
-     * performing a bottom-up smoothing to compute the pseudo-counts from
-     * children for each node, and (2) top-down sampling to get the topics.
+     * performing a bottom-up smoothing to compute the pseudo-counts from children
+     * for each node, and (2) top-down sampling to get the topics.
      */
     private long sampleTopics() {
         if (verbose && iter % REP_INTERVAL == 0) {
@@ -1095,8 +976,7 @@ public class CustomL2H extends AbstractSampler {
             } else if (this.pathAssumption == PathAssumption.MAXIMAL) {
                 node.getPseudoCountsFromChildrenMax();
             } else {
-                throw new RuntimeException("Path assumption " + this.pathAssumption
-                        + " is not supported.");
+                throw new RuntimeException("Path assumption " + this.pathAssumption + " is not supported.");
             }
         }
 
@@ -1155,8 +1035,7 @@ public class CustomL2H extends AbstractSampler {
                     insideCounts[ii++] = docLabelCounts[dd].getCount(ll);
                     insideCountSum += docLabelCounts[dd].getCount(ll);
                 }
-                double insideLlh = SamplerUtils.computeLogLhood(insideCounts,
-                        insideCountSum, hyperparams.get(ALPHA));
+                double insideLlh = SamplerUtils.computeLogLhood(insideCounts, insideCountSum, hyperparams.get(ALPHA));
                 docLabelLlh += insideLlh;
             }
 
@@ -1171,8 +1050,7 @@ public class CustomL2H extends AbstractSampler {
                 outsideCounts[ii++] = docLabelCounts[dd].getCount(ll);
                 outsideCountSum += docLabelCounts[dd].getCount(ll);
             }
-            double outsideLlh = SamplerUtils.computeLogLhood(outsideCounts,
-                    outsideCountSum, hyperparams.get(ALPHA));
+            double outsideLlh = SamplerUtils.computeLogLhood(outsideCounts, outsideCountSum, hyperparams.get(ALPHA));
             docLabelLlh += outsideLlh;
         }
 
@@ -1185,10 +1063,8 @@ public class CustomL2H extends AbstractSampler {
             treeLp += Math.log(inWeights[ll].get(node.getParent().id));
         }
 
-        logln(">>> >>> word: " + MiscUtils.formatDouble(wordLlh)
-                + ". switch: " + MiscUtils.formatDouble(docSwitchesLlh)
-                + ". label: " + MiscUtils.formatDouble(docLabelLlh)
-                + ". tree: " + MiscUtils.formatDouble(treeLp));
+        logln(">>> >>> word: " + MiscUtils.formatDouble(wordLlh) + ". switch: " + MiscUtils.formatDouble(docSwitchesLlh)
+                + ". label: " + MiscUtils.formatDouble(docLabelLlh) + ". tree: " + MiscUtils.formatDouble(treeLp));
         return wordLlh + docSwitchesLlh + docLabelLlh + treeLp;
     }
 
@@ -1221,8 +1097,7 @@ public class CustomL2H extends AbstractSampler {
         }
 
         if (numNodes != L) {
-            throw new RuntimeException(msg + ". Number of connected nodes: "
-                    + numNodes + ". L = " + L);
+            throw new RuntimeException(msg + ". Number of connected nodes: " + numNodes + ". L = " + L);
         }
 
         for (int d = 0; d < D; d++) {
@@ -1251,9 +1126,8 @@ public class CustomL2H extends AbstractSampler {
                     for (int ii : docMaskes[d]) {
                         System.out.println("actu " + ii + "\t" + nodes[ii].toString());
                     }
-                    throw new RuntimeException(msg + ". Mask sizes mismatch. "
-                            + tempDocMask.size() + " vs. " + docMaskes[d].size()
-                            + " in document " + d);
+                    throw new RuntimeException(msg + ". Mask sizes mismatch. " + tempDocMask.size() + " vs. "
+                            + docMaskes[d].size() + " in document " + d);
                 }
             }
         }
@@ -1267,9 +1141,9 @@ public class CustomL2H extends AbstractSampler {
     /**
      * Output current state.
      *
-     * @param filepath Output file
+     * @param filepath    Output file
      * @param outputModel Whether to output the model
-     * @param outputData Whether to output the assignments
+     * @param outputData  Whether to output the assignments
      */
     public void outputState(File filepath, boolean outputModel, boolean outputData) {
         this.outputState(filepath.getAbsolutePath(), outputModel, outputData);
@@ -1278,9 +1152,9 @@ public class CustomL2H extends AbstractSampler {
     /**
      * Output current state.
      *
-     * @param filepath Output file
+     * @param filepath    Output file
      * @param outputModel Whether to output the model
-     * @param outputData Whether to output the assignments
+     * @param outputData  Whether to output the assignments
      */
     public void outputState(String filepath, boolean outputModel, boolean outputData) {
         if (verbose) {
@@ -1295,9 +1169,7 @@ public class CustomL2H extends AbstractSampler {
                 StringBuilder mStr = new StringBuilder();
                 for (int k = 0; k < nodes.length; k++) {
                     Node node = nodes[k];
-                    mStr.append(k)
-                            .append("\t").append(node.getIndex())
-                            .append("\t").append(node.getLevel())
+                    mStr.append(k).append("\t").append(node.getIndex()).append("\t").append(node.getLevel())
                             .append("\n");
                     for (int v = 0; v < node.topic.length; v++) {
                         mStr.append(node.topic[v]).append("\t");
@@ -1315,8 +1187,7 @@ public class CustomL2H extends AbstractSampler {
                 }
 
                 for (int k = 0; k < nodes.length; k++) {
-                    mStr.append(k).append("\t")
-                            .append(SparseVector.output(inWeights[k])).append("\n");
+                    mStr.append(k).append("\t").append(SparseVector.output(inWeights[k])).append("\n");
                 }
                 modelStr = mStr.toString();
             }
@@ -1345,8 +1216,7 @@ public class CustomL2H extends AbstractSampler {
             this.outputZipFile(filepath, modelStr, assignStr);
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Exception while outputing state to "
-                    + filepath);
+            throw new RuntimeException("Exception while outputing state to " + filepath);
         }
     }
 
@@ -1358,9 +1228,9 @@ public class CustomL2H extends AbstractSampler {
     /**
      * Input model state.
      *
-     * @param filepath Output file
+     * @param filepath   Output file
      * @param inputModel Whether to input the model
-     * @param inputData Whether to input the assignments
+     * @param inputData  Whether to input the assignments
      */
     public void inputState(File filepath, boolean inputModel, boolean inputData) {
         this.inputState(filepath.getAbsolutePath(), inputModel, inputData);
@@ -1369,9 +1239,9 @@ public class CustomL2H extends AbstractSampler {
     /**
      * Input model state.
      *
-     * @param filepath Output file
+     * @param filepath   Output file
      * @param inputModel Whether to input the model
-     * @param inputData Whether to input the assignments
+     * @param inputData  Whether to input the assignments
      */
     public void inputState(String filepath, boolean inputModel, boolean inputData) {
         if (verbose) {
@@ -1406,11 +1276,11 @@ public class CustomL2H extends AbstractSampler {
             this.nodes = new Node[L];
             String filename = IOUtils.removeExtension(IOUtils.getFilename(zipFilepath));
             BufferedReader reader = IOUtils.getBufferedReader(zipFilepath, filename + ModelFileExt);
-			int lineNum = 0;
+            int lineNum = 0;
             for (int k = 0; k < L; k++) {
                 // node ids
                 String[] sline = reader.readLine().split("\t");
-				lineNum++;
+                lineNum++;
                 int id = Integer.parseInt(sline[0]);
                 if (id != k) {
                     throw new RuntimeException("Mismatch");
@@ -1421,7 +1291,7 @@ public class CustomL2H extends AbstractSampler {
 
                 // node topic
                 sline = reader.readLine().split("\t");
-				lineNum++;
+                lineNum++;
                 double[] topic = new double[V];
                 if (sline.length != V) {
                     throw new RuntimeException("Mismatch: " + sline.length + " vs. " + V);
@@ -1435,9 +1305,10 @@ public class CustomL2H extends AbstractSampler {
             // tree structure
             for (int k = 0; k < L; k++) {
                 String[] sline = reader.readLine().split("\t");
-				lineNum++;
+                lineNum++;
                 if (Integer.parseInt(sline[0]) != k) {
-                    throw new RuntimeException("Mismatch: " + Integer.parseInt(sline[0]) + ", " + k + ", " + L + ", " + V + ", " + lineNum);
+                    throw new RuntimeException("Mismatch: " + Integer.parseInt(sline[0]) + ", " + k + ", " + L + ", "
+                            + V + ", " + lineNum);
                 }
                 int parentId = Integer.parseInt(sline[1]);
                 if (parentId == -1) {
@@ -1453,8 +1324,7 @@ public class CustomL2H extends AbstractSampler {
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Exception while inputing model from "
-                    + zipFilepath);
+            throw new RuntimeException("Exception while inputing model from " + zipFilepath);
         }
 
         if (verbose) {
@@ -1502,14 +1372,13 @@ public class CustomL2H extends AbstractSampler {
             reader.close();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Exception while inputing assignments from "
-                    + zipFilepath);
+            throw new RuntimeException("Exception while inputing assignments from " + zipFilepath);
         }
     }
 
     /**
-     * Print out the structure (number of observations at each level) of the
-     * global tree.
+     * Print out the structure (number of observations at each level) of the global
+     * tree.
      *
      * @return
      */
@@ -1519,7 +1388,7 @@ public class CustomL2H extends AbstractSampler {
         stack.add(root);
 
         SparseCount nodeCountPerLevel = new SparseCount(); // nodes
-        SparseCount obsCountPerLevel = new SparseCount();  // observation
+        SparseCount obsCountPerLevel = new SparseCount(); // observation
 
         while (!stack.isEmpty()) {
             Node node = stack.pop();
@@ -1527,8 +1396,7 @@ public class CustomL2H extends AbstractSampler {
             nodeCountPerLevel.increment(node.getLevel());
             // observation
             if (node.getContent() != null) {
-                obsCountPerLevel.changeCount(node.getLevel(),
-                        node.getContent().getCountSum());
+                obsCountPerLevel.changeCount(node.getLevel(), node.getContent().getCountSum());
             }
             for (Node child : node.getChildren()) {
                 stack.add(child);
@@ -1536,13 +1404,10 @@ public class CustomL2H extends AbstractSampler {
         }
 
         for (int level : nodeCountPerLevel.getSortedIndices()) {
-            double tokenRatio = (double) obsCountPerLevel.getCount(level)
-                    / nodeCountPerLevel.getCount(level);
-            str.append(">>> level ").append(level)
-                    .append(". n: ").append(nodeCountPerLevel.getCount(level))
-                    .append(". o: ").append(obsCountPerLevel.getCount(level))
-                    .append(" (").append(MiscUtils.formatDouble(tokenRatio))
-                    .append(")").append("\n");
+            double tokenRatio = (double) obsCountPerLevel.getCount(level) / nodeCountPerLevel.getCount(level);
+            str.append(">>> level ").append(level).append(". n: ").append(nodeCountPerLevel.getCount(level))
+                    .append(". o: ").append(obsCountPerLevel.getCount(level)).append(" (")
+                    .append(MiscUtils.formatDouble(tokenRatio)).append(")").append("\n");
         }
         str.append(">>> >>> # nodes: ").append(nodeCountPerLevel.getCountSum()).append("\n");
         str.append(">>> >>> # obs  : ").append(obsCountPerLevel.getCountSum()).append("\n");
@@ -1563,7 +1428,7 @@ public class CustomL2H extends AbstractSampler {
         int totalObs = 0;
         int numNodes = 0;
         SparseCount nodeCountPerLevel = new SparseCount(); // nodes
-        SparseCount obsCountPerLevel = new SparseCount();  // observations
+        SparseCount obsCountPerLevel = new SparseCount(); // observations
 
         while (!stack.isEmpty()) {
             Node node = stack.pop();
@@ -1573,8 +1438,7 @@ public class CustomL2H extends AbstractSampler {
 
             // observation
             if (node.getContent() != null) {
-                obsCountPerLevel.changeCount(node.getLevel(),
-                        node.getContent().getCountSum());
+                obsCountPerLevel.changeCount(node.getLevel(), node.getContent().getCountSum());
                 totalObs += node.getContent().getCountSum();
             }
 
@@ -1587,24 +1451,18 @@ public class CustomL2H extends AbstractSampler {
                 topWords = getTopWords(node.topic, numTopWords);
             }
 
-            str.append(node.toString()).append(", ")
-                    .append(getLabelString(node.id))
-                    .append(" ").append(node.getContent() == null ? "" : node.getContent().getCountSum())
-                    .append(" ").append(topWords == null ? "" : Arrays.toString(topWords))
-                    .append("\n\n");
+            str.append(node.toString()).append(", ").append(getLabelString(node.id)).append(" ")
+                    .append(node.getContent() == null ? "" : node.getContent().getCountSum()).append(" ")
+                    .append(topWords == null ? "" : Arrays.toString(topWords)).append("\n\n");
 
             for (Node child : node.getChildren()) {
                 stack.add(child);
             }
         }
-        str.append(">>> # observations = ").append(totalObs)
-                .append("\n>>> # nodes = ").append(numNodes)
-                .append("\n");
+        str.append(">>> # observations = ").append(totalObs).append("\n>>> # nodes = ").append(numNodes).append("\n");
         for (int level : nodeCountPerLevel.getSortedIndices()) {
-            str.append(">>> level ").append(level)
-                    .append(". n: ").append(nodeCountPerLevel.getCount(level))
-                    .append(". o: ").append(obsCountPerLevel.getCount(level))
-                    .append("\n");
+            str.append(">>> level ").append(level).append(". n: ").append(nodeCountPerLevel.getCount(level))
+                    .append(". o: ").append(obsCountPerLevel.getCount(level)).append("\n");
         }
         return str.toString();
     }
@@ -1629,65 +1487,17 @@ public class CustomL2H extends AbstractSampler {
         }
     }
 
-    // ******************* Start prediction ************************************
-    /**
-     * Sample test documents in parallel.
-     *
-     * @param newWords Test document
-     * @param iterPredFolder Folder to store predictions using different models
-     * @param sampler The configured sampler
-     * @param initPredictions Initial predictions from TF-IDF
-     * @param topK The number of nearest neighbors to be initially included in
-     * the candidate set
-     */
-    public static void parallelTest(int[][] newWords, File iterPredFolder, CustomL2H sampler,
-            double[][] initPredictions, int topK) {
-        File reportFolder = new File(sampler.getSamplerFolderPath(), ReportFolder);
-        if (!reportFolder.exists()) {
-            throw new RuntimeException("Report folder not found. " + reportFolder);
-        }
-        String[] filenames = reportFolder.list();
-        try {
-            IOUtils.createFolder(iterPredFolder);
-            ArrayList<Thread> threads = new ArrayList<Thread>();
-            for (String filename : filenames) {
-                if (!filename.contains("zip")) {
-                    continue;
-                }
-
-                // folder contains multiple samples during test using a learned model
-                File stateFile = new File(reportFolder, filename);
-                File partialResultFile = new File(iterPredFolder,
-                        IOUtils.removeExtension(filename) + ".txt");
-
-                L2HTestRunner runner = new L2HTestRunner(sampler,
-                        newWords, stateFile.getAbsolutePath(),
-                        partialResultFile.getAbsolutePath(),
-                        initPredictions, topK);
-                Thread thread = new Thread(runner);
-                threads.add(thread);
-            }
-            runThreads(threads); // run MAX_NUM_PARALLEL_THREADS threads at a time
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Exception while sampling during parallel test.");
-        }
-    }
-
     /**
      * Perform sampling for test documents to predict labels.
      *
-     * @param stateFile File containing learned model
-     * @param newWords Test document
+     * @param stateFile        File containing learned model
+     * @param newWords         Test document
      * @param outputResultFile
      * @param initPredictions
      * @param topK
      */
-    public String sampleNewDocuments(String stateFile,
-            int[][] newWords,
-            String outputResultFile,
-            double[][] initPredictions,
-            int topK) {
+    public String sampleNewDocuments(String stateFile, int[][] newWords, String outputResultFile,
+            double[][] initPredictions, int topK) {
         if (verbose) {
             System.out.println();
             logln("Perform prediction using model from " + stateFile);
@@ -1714,13 +1524,14 @@ public class CustomL2H extends AbstractSampler {
         for (int d = 0; d < D; d++) {
             this.z[d] = new int[words[d].length];
             this.x[d] = new int[words[d].length];
-            this.docSwitches[d] = new DirMult(
-                    new double[]{hyperparams.get(A_0), hyperparams.get(B_0)});
+            this.docSwitches[d] = new DirMult(new double[] { hyperparams.get(A_0), hyperparams.get(B_0) });
             this.docLabelCounts[d] = new SparseCount();
             this.docMaskes[d] = new HashSet<Integer>();
 
-            // Hui Chen: Set<Integer> cands = getCandidates(initPredictions[d], topK); -> 2 statements
-            // int actualK = topK <= initPredictions[d].length ? topK : initPredictions[d].length;
+            // Hui Chen: Set<Integer> cands = getCandidates(initPredictions[d], topK); -> 2
+            // statements
+            // int actualK = topK <= initPredictions[d].length ? topK :
+            // initPredictions[d].length;
             // Set<Integer> cands = getCandidates(initPredictions[d], actualK);
             Set<Integer> cands = getCandidates(initPredictions[d], topK);
             for (int label : cands) {
@@ -1740,9 +1551,8 @@ public class CustomL2H extends AbstractSampler {
         int count = 0;
         for (iter = 0; iter < testMaxIter; iter++) {
             if (iter % testSampleLag == 0) {
-                logln("--- --- iter " + iter + "/" + testMaxIter
-                        + " @ thread " + Thread.currentThread().getId()
-                        + "\t" + getSamplerFolderPath());
+                logln("--- --- iter " + iter + "/" + testMaxIter + " @ thread " + Thread.currentThread().getId() + "\t"
+                        + getSamplerFolderPath());
             }
             if (iter == 0) {
                 sampleXZsMH(!REMOVE, !ADD, !REMOVE, ADD);
@@ -1753,8 +1563,7 @@ public class CustomL2H extends AbstractSampler {
             if (iter >= this.testBurnIn && iter % this.testSampleLag == 0) {
                 for (int dd = 0; dd < D; dd++) {
                     for (int ll = 0; ll < L - 1; ll++) {
-                        predictedScores[dd][ll]
-                                += (double) docLabelCounts[dd].getCount(ll) / words[dd].length;
+                        predictedScores[dd][ll] += (double) docLabelCounts[dd].getCount(ll) / words[dd].length;
                     }
                 }
                 count++;
@@ -1762,7 +1571,7 @@ public class CustomL2H extends AbstractSampler {
         }
 
         // output result during test time
-        if (verbose &&  outputResultFile != null) {
+        if (verbose && outputResultFile != null) {
             logln("--- Outputing result to " + outputResultFile);
         }
         for (int dd = 0; dd < D; dd++) {
@@ -1770,26 +1579,25 @@ public class CustomL2H extends AbstractSampler {
                 predictedScores[dd][ll] /= count;
             }
         }
-		if(outputResultFile != null) {
-			PredictionUtils.outputSingleModelClassifications(new File(outputResultFile),
-					predictedScores);
-			return null;
-		} else {
-			return outputSingleModelClassificationsToString(predictedScores);
-		}
+        if (outputResultFile != null) {
+            PredictionUtils.outputSingleModelClassifications(new File(outputResultFile), predictedScores);
+            return null;
+        } else {
+            return outputSingleModelClassificationsToString(predictedScores);
+        }
     }
 
-	private static String outputSingleModelClassificationsToString(double[][] predictions) {
-		StringBuilder builder = new StringBuilder();
-		builder.append(predictions.length + "\n");
-		for (int dd = 0; dd < predictions.length; dd++) {
-			builder.append(Integer.toString(dd));
-			for (int jj = 0; jj < predictions[dd].length; jj++) {
-				builder.append("\t" + predictions[dd][jj]);
-			}
-			builder.append("\n");
-		}
-		return builder.toString();
+    private static String outputSingleModelClassificationsToString(double[][] predictions) {
+        StringBuilder builder = new StringBuilder();
+        builder.append(predictions.length + "\n");
+        for (int dd = 0; dd < predictions.length; dd++) {
+            builder.append(Integer.toString(dd));
+            for (int jj = 0; jj < predictions[dd].length; jj++) {
+                builder.append("\t" + predictions[dd][jj]);
+            }
+            builder.append("\n");
+        }
+        return builder.toString();
     }
 
     /**
@@ -1813,17 +1621,15 @@ public class CustomL2H extends AbstractSampler {
         SparseCount pseudoCounts;
         HashMap<Integer, ArrayList<Integer>> assignedTokens;
 
-        Node(int id, int index, int level,
-                SparseCount content,
-                Node parent) {
+        Node(int id, int index, int level, SparseCount content, Node parent) {
             super(index, level, content, parent);
             this.id = id;
             this.pseudoCounts = new SparseCount();
             this.assignedTokens = new HashMap<Integer, ArrayList<Integer>>();
         }
-        
+
         public int getId() {
-        	return id;
+            return id;
         }
 
         public Set<Integer> getSubtree() {
@@ -1894,16 +1700,14 @@ public class CustomL2H extends AbstractSampler {
             } else if (pathAssumption == PathAssumption.MAXIMAL) {
                 this.getPseudoCountsFromChildrenMax();
             } else {
-                throw new RuntimeException("Path assumption " + pathAssumption
-                        + " is not supported.");
+                throw new RuntimeException("Path assumption " + pathAssumption + " is not supported.");
             }
         }
 
         /**
-         * Propagate the observations from all children nodes to this node using
-         * minimal path assumption, which means for each observation type v, a
-         * child node will propagate a value of 1 if it contains v, and 0
-         * otherwise.
+         * Propagate the observations from all children nodes to this node using minimal
+         * path assumption, which means for each observation type v, a child node will
+         * propagate a value of 1 if it contains v, and 0 otherwise.
          */
         public void getPseudoCountsFromChildrenMin() {
             this.pseudoCounts = new SparseCount();
@@ -1916,9 +1720,9 @@ public class CustomL2H extends AbstractSampler {
         }
 
         /**
-         * Propagate the observations from all children nodes to this node using
-         * maximal path assumption, which means that each child node will
-         * propagate its full observation vector.
+         * Propagate the observations from all children nodes to this node using maximal
+         * path assumption, which means that each child node will propagate its full
+         * observation vector.
          */
         public void getPseudoCountsFromChildrenMax() {
             this.pseudoCounts = new SparseCount();
@@ -1931,11 +1735,11 @@ public class CustomL2H extends AbstractSampler {
         }
 
         /**
-         * Sample topic. This applies since the topic of a node is modeled as a
-         * drawn from a Dirichlet distribution with the mean vector is the topic
-         * of the node's parent and scaling factor gamma.
+         * Sample topic. This applies since the topic of a node is modeled as a drawn
+         * from a Dirichlet distribution with the mean vector is the topic of the node's
+         * parent and scaling factor gamma.
          *
-         * @param beta Topic smoothing parameter
+         * @param beta  Topic smoothing parameter
          * @param gamma Dirichlet-Multinomial chain parameter
          */
         public void sampleTopic() {
@@ -1993,70 +1797,21 @@ public class CustomL2H extends AbstractSampler {
             }
 
             if (numTokens != this.getContent().getCountSum()) {
-                throw new RuntimeException(msg + ". Mismatch: " + numTokens
-                        + " vs. " + this.getContent().getCountSum());
+                throw new RuntimeException(
+                        msg + ". Mismatch: " + numTokens + " vs. " + this.getContent().getCountSum());
             }
         }
 
         @Override
         public String toString() {
             StringBuilder str = new StringBuilder();
-            str.append("[")
-                    .append(id).append(", ")
-                    .append(getPathString())
-                    .append(", #c = ").append(getChildren().size())
-                    .append(", #o = ").append(getContent().getCountSum())
-                    .append("]");
+            str.append("[").append(id).append(", ").append(getPathString()).append(", #c = ")
+                    .append(getChildren().size()).append(", #o = ").append(getContent().getCountSum()).append("]");
             return str.toString();
         }
     }
 
     public static String getHelpString() {
         return "java -cp dist/segan.jar " + CustomL2H.class.getName() + " -help";
-    } 
-}
-
-class L2HTestRunner implements Runnable {
-
-    CustomL2H sampler;
-    int[][] newWords;
-    String stateFile;
-    String outputFile;
-    double[][] initPredidctions;
-    int topK;
-
-    public L2HTestRunner(CustomL2H sampler,
-            int[][] newWords,
-            String stateFile,
-            String outputFile,
-            double[][] initPreds,
-            int topK) {
-        this.sampler = sampler;
-        this.newWords = newWords;
-        this.stateFile = stateFile;
-        this.outputFile = outputFile;
-        this.initPredidctions = initPreds;
-        this.topK = topK;
-    }
-
-    @Override
-    public void run() {
-        CustomL2H testSampler = new CustomL2H();
-        testSampler.setVerbose(true);
-        testSampler.setDebug(false);
-        testSampler.setLog(false);
-        testSampler.setReport(false);
-        testSampler.configure(sampler);
-        testSampler.setTestConfigurations(sampler.getBurnIn(),
-                sampler.getMaxIters(), sampler.getSampleLag());
-
-        try {
-            testSampler.sampleNewDocuments(stateFile, newWords, outputFile,
-                    initPredidctions, topK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException();
-        }
     }
 }
-
