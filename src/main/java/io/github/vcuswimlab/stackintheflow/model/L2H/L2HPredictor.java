@@ -6,9 +6,10 @@ import java.nio.file.Paths;
 import core.AbstractSampler;
 import data.LabelTextDataset;
 import sampling.likelihood.DirMult;
+import sampler.labeled.hierarchy.CustomL2H;
 import sampling.likelihood.CascadeDirMult.PathAssumption;
 import taxonomy.MSTBuilder;
-import util.IOUtils;
+import io.github.vcuswimlab.stackintheflow.model.L2H.util.IOUtils;
 
 public class L2HPredictor {
 	// L2H Parameters
