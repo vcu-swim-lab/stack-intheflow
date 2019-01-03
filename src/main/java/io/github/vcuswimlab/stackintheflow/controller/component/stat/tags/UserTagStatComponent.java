@@ -18,6 +18,7 @@ public class UserTagStatComponent implements ProjectComponent {
 
     private TagStatComponent tagStatComponent;
     private PersonalSearchModel searchModel;
+	
     private Map<String, Integer> userStatMap;
 
     public UserTagStatComponent(TagStatComponent tagStatComponent, Project project) {
@@ -25,6 +26,7 @@ public class UserTagStatComponent implements ProjectComponent {
         this.userStatMap = ServiceManager.getService(project, PersistProfileComponent.class).getUserStatMap();
     }
 
+	
     @Override
     public void projectOpened() {
         searchModel = new PersonalSearchModel(tagStatComponent, userStatMap);

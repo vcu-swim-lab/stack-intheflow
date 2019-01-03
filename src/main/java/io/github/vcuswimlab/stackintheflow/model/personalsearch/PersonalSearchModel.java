@@ -3,22 +3,56 @@ package io.github.vcuswimlab.stackintheflow.model.personalsearch;
 import io.github.vcuswimlab.stackintheflow.controller.component.stat.Stat;
 import io.github.vcuswimlab.stackintheflow.controller.component.stat.tags.TagStatComponent;
 import io.github.vcuswimlab.stackintheflow.model.Question;
+import io.github.vcuswimlab.stackintheflow.model.L2H.L2HPredictor;
+import io.github.vcuswimlab.stackintheflow.model.L2H.TagPrediction;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.io.*;
 
 /**
  * Created by chase on 6/13/17.
  */
 public class PersonalSearchModel {
-
     private Map<String, Integer> userStatMap;
     private TagStatComponent tagStatComponent;
+	private L2HPredictor l2hPredictor;
 
     public PersonalSearchModel(TagStatComponent tagStatComponent, Map<String, Integer> userStateMap) {
         this.tagStatComponent = tagStatComponent;
         this.userStatMap = userStateMap;
+		try {
+			l2hPredictor = new L2HPredictor();
+		} catch(IOException e) {
+			// L2H could not be loaded, so don't add initial predictions
+			l2hPredictor = null;
+		}
     }
+
+	public boolean createInitialTagPredictions(String filePath) {
+		if(l2hPredictor == null) {
+			return false;
+		}
+		try {
+			String rawPredictions = l2hPredictor.computeL2HPredictions(filePath);
+			int maxTags = 5;
+			int countAmount = 5;
+			List<TagPrediction> tagPredictions = l2hPredictor.computeMostLikelyTags(new ByteArrayInputStream(rawPredictions.getBytes()), maxTags);
+			List<String> tagToIncrement = new ArrayList<>();
+			for(int i = 0; i < maxTags; i++) {
+				int tagAmt = (int)(tagPredictions.get(i).getProbability()*countAmount + 0.5);
+				if(tagAmt != 0) {
+					tagToIncrement.clear();
+					tagToIncrement.add(tagPredictions.get(i).getName());
+					increaseTags(tagToIncrement, tagAmt);
+				}
+			}
+		} catch(Exception e) {
+			return false;
+		}
+
+		return true;
+	}
 
     public void increaseTags(Collection<String> tags) {
         increaseTags(tags, 1);
