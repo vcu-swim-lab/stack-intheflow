@@ -21,7 +21,6 @@ build/
 # Package Files #
 *.jar
 !gradle-wrapper.jar
-!libs/segan.jar
 *.war
 *.ear
 !plugin.xml
