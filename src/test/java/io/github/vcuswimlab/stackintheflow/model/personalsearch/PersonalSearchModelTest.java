@@ -55,7 +55,11 @@ public class PersonalSearchModelTest {
         questions.add(new Question(Collections.emptyList(), "test2", "test2", "test2", "test2"));
         questions.add(new Question(Arrays.asList("", "test"), "test1", "test2", "test3", "test3"));
 
-        this.searchModel.rankQuestionList(questions);
+
+        List<Question> ranked = this.searchModel.rankQuestionList(questions);
+        assertEquals("test", ranked.get(0).getTitle());
+        assertEquals("test2", ranked.get(1).getTitle());
+        assertEquals("test3", ranked.get(2).getTitle());
     }
 
     @Test
@@ -67,6 +71,9 @@ public class PersonalSearchModelTest {
         questions.add(new Question(Arrays.asList("", "test"), "test1", "test2", "test3", "test3"));
         this.searchModel.increaseTags(Collections.singletonList("test"));
 
-        this.searchModel.rankQuestionList(questions);
+        List<Question> ranked = this.searchModel.rankQuestionList(questions);
+        assertEquals("test", ranked.get(0).getTitle());
+        assertEquals("test3", ranked.get(1).getTitle());
+        assertEquals("test2", ranked.get(2).getTitle());
     }
 }

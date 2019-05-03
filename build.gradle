@@ -1,8 +1,8 @@
 plugins {
     id 'java'
     id "org.jetbrains.intellij" version "0.2.13"
+    id 'info.solidsoft.pitest' version '1.3.0'
 }
-
 group 'io.github.vcuswimlab'
 version '0.2.2'
 
@@ -47,4 +47,8 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.8.2'
     compile group: 'org.jasypt', name: 'jasypt', version: '1.9.2'
     testCompile group: 'org.mockito', name: 'mockito-core', version: '2.8.8'
+
+}
+pitest{
+    threads = 4
 }
