@@ -80,6 +80,10 @@ public class PersonalSearchModel {
         }
     }
 
+    public Map<String, Integer> getUserStatMap() {
+        return userStatMap;
+    }
+
     private class QuestionRank {
 
         final int INITIAL_RANK;
