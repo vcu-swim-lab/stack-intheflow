@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id "org.jetbrains.intellij" version "0.2.13"
     id 'info.solidsoft.pitest' version '1.3.0'
+    id 'jacoco'
 }
 group 'io.github.vcuswimlab'
 version '0.2.2'
