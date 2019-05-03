@@ -27,14 +27,14 @@ public class PersonalSearchModelTest {
 
     @Test
     public void increaseTags() {
-        this.searchModel.increaseTags(new ArrayList(Arrays.asList("test")));
+        this.searchModel.increaseTags(Collections.singletonList("test"));
         assertTrue(this.searchModel.getUserStatMap().containsKey("test"));
         assertEquals(this.searchModel.getUserStatMap().size(), 1);
     }
 
     @Test
     public void increaseTagsUsermapNewKey() {
-        this.searchModel.increaseTags(new ArrayList(Arrays.asList("test")), 42);
+        this.searchModel.increaseTags(Collections.singletonList("test"), 42);
         assertTrue(this.searchModel.getUserStatMap().containsKey("test"));
         assertEquals(this.searchModel.getUserStatMap().get("test"), Optional.of(42).get());
     }
@@ -50,7 +50,7 @@ public class PersonalSearchModelTest {
     @Test
     public void rankQuestionList() {
         List<Question> questions = new ArrayList<>();
-//        questions.add(new Question());
+//        questions.add(new Question(null, null, null, null, null));
         questions.add(new Question(Arrays.asList("test", "test1", "test3"), "test", "test", "test", "test"));
         questions.add(new Question(Collections.emptyList(), "test2", "test2", "test2", "test2"));
         questions.add(new Question(Arrays.asList("", "test"), "test1", "test2", "test3", "test3"));
