@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class StringMatchUtilsTest {
 
@@ -29,5 +30,8 @@ public class StringMatchUtilsTest {
                 "    public static final Pattern TERM_PATTERN = Pattern.compile(\"\\\\b([A-Z]\\\\w+)\\\\b\");\n";
         Set<String> imports = StringMatchUtils.extractImports(testString);
         assertEquals(3, imports.size());
+        assertTrue(imports.contains("java.util.regex.Matcher"));
+        assertTrue(imports.contains("java.util.regex.Pattern"));
+        assertTrue(imports.contains("java.util.Set"));
     }
 }
