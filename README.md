@@ -1,6 +1,6 @@
 # StackInTheFlow <img src="https://github.com/vcu-swim-lab/stack-intheflow/blob/master/src/main/resources/icons/main.png" width="65" height="60">
 
-An IntelliJ plugin to query Stack Overflow.
+An IntelliJ plugin to query StackOverflow.
 
 ### Search Stack Overflow Without Leaving the IDE
 StackInTheFlow integrates seamlessly with Intellij to allow you to find the solutions to the development problems you face without ever leaving the *flow* of your development environment.
