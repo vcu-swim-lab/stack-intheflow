@@ -16,7 +16,7 @@ public class TfIdf {
         Matcher matcher = pattern.matcher(document);
 
         while(matcher.find()) {
-            String term = matcher.group(1);
+            String term = matcher.group(0);
             termFrequencies.put(term, termFrequencies.getOrDefault(term, 0) + 1);
         }
 

@@ -46,11 +46,11 @@ public class PersonalSearchModel {
     }
 
     private void generateWeightedRank(List<QuestionRank> initialList) {
-        Collections.sort(initialList, (a, b) -> Double.compare(calculateRawScore(b.question), calculateRawScore(a.question)));
+        initialList.sort((a, b) -> Double.compare(calculateRawScore(b.question), calculateRawScore(a.question)));
     }
 
     private void generateFinalRank(List<QuestionRank> weightedList) {
-        Collections.sort(weightedList, Comparator.comparingDouble(QuestionRank::getAverageRank));
+        weightedList.sort(Comparator.comparingDouble(QuestionRank::getAverageRank));
     }
 
     private double calculateRawScore(Question question) {
@@ -64,12 +64,10 @@ public class PersonalSearchModel {
 
                 // If this is a tag the user has clicked on
                 if (userStatMap.containsKey(tag)) {
-
                     Optional<Stat> statOptional = tagStatComponent.getTagStat(tag);
 
                     // This tag is in the dump
                     if (statOptional.isPresent()) {
-
                         double clickFrequency = userStatMap.containsKey(tag) ? 1 + Math.log10(userStatMap.get(tag)) : 0;
                         score += statOptional.get().getIdf() * clickFrequency;
                     }
@@ -78,6 +76,10 @@ public class PersonalSearchModel {
 
             return score / tags.size();
         }
+    }
+
+    public Map<String, Integer> getUserStatMap() {
+        return userStatMap;
     }
 
     private class QuestionRank {
@@ -94,5 +96,6 @@ public class PersonalSearchModel {
         public double getAverageRank() {
             return (INITIAL_RANK + weightedRank) / 2;
         }
+
     }
 }
